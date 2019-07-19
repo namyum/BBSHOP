@@ -2,6 +2,22 @@
 
 <%@ include file="../include/community_header.jsp" %>
 
+<style>
+	body{
+		font-size:17px;
+		font-weight:bold;
+	}
+	
+	th, td{
+		color:black;
+		text-align:center;
+	}
+	
+	a{
+		color:#777777;
+	}
+</style>
+
 	<!-- ================================게시판========================== -->
 	<section id="tabs" class="project-tab">
 		<div class="container" style="margin-left:300px;">
@@ -63,7 +79,7 @@
 							</a>
 						</div>
 					</nav>
-					<div><div style="text-align: right; padding:30px 0;">
+					<div><div style="text-align: right; padding:30px 0;width:1200px;">
 						<input type="button" onclick="location.href='/community_form'" value="글쓰기"/>
 						</div>
 					</div>
@@ -82,35 +98,35 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>5</td>
+										<td>10</td>
 										<td style="text-align:left;"><a href="/community_info">엘지 넘잘해요</a></td>
 										<td>엔젤지수</td>
 										<td>2019/07/10</td>
 										<td>5</td>
 									</tr>
 									<tr>
-										<td>4</td>
+										<td>9</td>
 										<td style="text-align:left;"><a href="/community_info">윌슨 잘생겼어요</a></td>
 										<td>윌슨여친</td>
 										<td>2019/06/10</td>
 										<td>35</td>
 									</tr>
 									<tr>
-										<td>3</td>
+										<td>8</td>
 										<td style="text-align:left;"><a href="/community_info">정우영 잘생겼어요</a></td>
 										<td>우영짱짱</td>
 										<td>2019/07/02</td>
 										<td>59</td>
 									</tr>
 									<tr>
-										<td>2</td>
+										<td>7</td>
 										<td style="text-align:left;"><a href="/community_info">유강남 귀여워요</a></td>
 										<td>강남강남</td>
 										<td>2019/04/18</td>
 										<td>27</td>
 									</tr>
 									<tr>
-										<td>1</td>
+										<td>6</td>
 										<td style="text-align:left;"><a href="/community_info">이천웅 잘생겼어요</a></td>
 										<td>처눙처눙</td>
 										<td>2019/01/10</td>
@@ -213,4 +229,4 @@
 		</div>
 	</section>
 	
-	<%@ include file="../include/shopping_footer.jsp" %>
+	<%@ include file="../include/community_footer.jsp" %>
