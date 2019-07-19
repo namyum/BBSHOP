@@ -153,11 +153,12 @@
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
-					<tr>
-						<c:forEach var="savingsVO" items="${savings_list }">
+					<c:forEach var="savingsVO" items="${savings_list }">
+						<tr>
 							<td>
 								<h5>
-									<c:out value="${savingsVO.or_date }" default="null" />
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${savingsVO.or_date }" />
 								</h5>
 							</td>
 							<td>
@@ -170,85 +171,13 @@
 									<c:out value="${savingsVO.or_savings }" default="null" />
 								</h5>
 							</td>
-						</c:forEach>
-
-						<td>
-							<h5>
-								<c:out value="${savings_sum }" default="null" />
-							</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 1,500</h5>
-						</td>
-						<td>
-							<h5>￦ 2,500</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 500</h5>
-						</td>
-						<td>
-							<h5>￦ 2,000</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 500</h5>
-						</td>
-						<td>
-							<h5>￦ 1,500</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 500</h5>
-						</td>
-						<td>
-							<h5>￦ 1,000</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 500</h5>
-						</td>
-						<td>
-							<h5>￦ 500</h5>
-						</td>
-					</tr>
-
+							<td>
+								<h5>
+									<c:out value="${savingsVO.or_savings_Total }" default="null" />
+								</h5>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="text-center">

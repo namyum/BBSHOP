@@ -8,7 +8,8 @@ public class SavingsVO {
 	String or_items;
 	int or_savings;
 	int or_num;
-	
+	int or_savings_Total;
+
 	public Date getOr_date() {
 		return or_date;
 	}
@@ -32,6 +33,12 @@ public class SavingsVO {
 	}
 	public void setOr_num(int or_num) {
 		this.or_num = or_num;
+	}
+	public int getOr_savings_Total() {
+		return or_savings_Total;
+	}
+	public void setOr_savings_Total(int or_savings_Total) {
+		this.or_savings_Total = or_savings_Total;
 	}
 	
 }

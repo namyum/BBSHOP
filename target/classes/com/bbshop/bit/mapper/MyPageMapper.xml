@@ -13,13 +13,13 @@
 	</resultMap>
 
 	<select id="getSavingsList" parameterType="int" resultMap="savingsVO">
-		select * 
-		from 
-			(select sav.sa_date, so.items, sav.savings, sav.order_num
+		SELECT * 
+		FROM 
+			(SELECT sav.sa_date, so.items, sav.savings, sav.order_num
 				FROM shop_order so, savings sav
 				WHERE so.order_num = sav.order_num )
-		where order_num = ( select order_num from shop_order 
-								where user_key = #{user_key} )
+		WHERE order_num IN ( SELECT order_num FROM shop_order 
+								WHERE user_key = #{user_key} )
 	</select>
 
 </mapper>
