@@ -7,7 +7,6 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageService {
 
-	// List<SavingsVO> getSavingsList(long user_key);
-	List<SavingsVO> getSavingsList(PagingVO pagingVO);
+	List<SavingsVO> getSavingsList(PagingVO pagingVO, long key);
 
 }

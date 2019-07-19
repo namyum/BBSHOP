@@ -20,7 +20,7 @@
 					FROM shop_order so, savings sav
 					WHERE so.order_num = sav.order_num AND so.order_num <= #{pageNum} * #{amount} )
 			WHERE order_num IN ( SELECT order_num FROM shop_order WHERE user_key = 1 )
-				AND order_num > (#{pageNum} - 1) * #{amount}
+				AND order_num > (#{pageNum}-1) * #{amount}
 			ORDER BY order_num desc
 		]]>
 	</select>

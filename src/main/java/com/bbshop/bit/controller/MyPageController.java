@@ -2,6 +2,8 @@ package com.bbshop.bit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +22,12 @@ public class MyPageController {
 	
 	// 적립금 조회
 	@RequestMapping("/savings.mp")
-	public String getSavings(Model model, String user_key) {
-				
-		// List<SavingsVO> savings_list = myPageService.getSavingsList(1);
-		
-		// 수정 필요 : 변수로 pagingVO만 넣은 상태. user_key와 같이 2개 이상의 변수로 설정을 해줘야 함.
-		List<SavingsVO> savings_list = myPageService.getSavingsList(new PagingVO());
-		
-
+	public String getSavings(Model model, HttpSession session) {
+						
 		int sum = 0;
+		long key = (long)session.getAttribute("user_key");
+		
+		List<SavingsVO> savings_list = myPageService.getSavingsList(new PagingVO(), key);
 		
 		for (int i = 0; i < savings_list.size(); i++) {
 							
