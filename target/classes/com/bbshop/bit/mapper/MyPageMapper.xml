@@ -5,24 +5,24 @@
 
 <mapper namespace="com.bbshop.bit.mapper.MyPageMapper">
 
-	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO" >
+	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO">
 		<result property="or_date" column="sa_date" />
 		<result property="or_items" column="items" />
-		<result property="or_savings" column="savings" javaType="java.lang.Long"/>
+		<result property="or_savings" column="savings" javaType="java.lang.Long" />
 		<result property="or_num" column="order_num" />
 	</resultMap>
 
 	<select id="getSavingsList" parameterType="java.lang.Long" resultMap="savingsVO">
-		
-		SELECT * 
-		FROM 
-			(SELECT sav.sa_date, so.items, sav.savings, sav.order_num
-				FROM shop_order so, savings sav
-				WHERE so.order_num = sav.order_num )
-		WHERE order_num IN ( SELECT order_num FROM shop_order 
-								WHERE user_key = #{user_key} )
-		ORDER BY order_num desc
-		
+		<![CDATA[	
+			SELECT * 
+			FROM 
+				(SELECT sav.sa_date, so.items, sav.savings, sav.order_num
+					FROM shop_order so, savings sav
+					WHERE so.order_num = sav.order_num AND so.order_num <= #{pageNum} * #{amount} )
+			WHERE order_num IN ( SELECT order_num FROM shop_order WHERE user_key = #{user_key} )
+				AND order_num > (#{pageNum} - 1) * #{amount}
+			ORDER BY order_num desc
+		]]>
 	</select>
 
 </mapper>
