@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
@@ -18,7 +21,6 @@
 .col-md-4:first-child::before {
 	content: '';
 }
-
 </style>
 <div class="container">
 	<div class="section-top-border" style="display: flex;">
@@ -28,7 +30,8 @@
 				style="color: white;">
 				<p></p>
 				<h4>강민구</h4>
-				<p>mangoJuiceDeli</p><br><br>
+				<p>mangoJuiceDeli</p>
+				<br> <br>
 				<div class="br"></div>
 			</aside>
 			<div class="col-md-4" style="color: white;">
@@ -56,13 +59,14 @@
 			</div>
 		</div>
 		<!-- grade -->
-		<div class="plan col-sm-3 col-md-3" style="float: left; height: 150px;">
+		<div class="plan col-sm-3 col-md-3"
+			style="float: left; height: 150px;">
 			<div class="plan-name-gold">
 				<p>
 					<i class="fas fa-medal"></i>
 				</p>
 				<span>회원 등급</span>
-				<h1 style="margin-top: 10px; color: #abae46;" >Gold</h1>
+				<h1 style="margin-top: 10px; color: #abae46;">Gold</h1>
 			</div>
 			<div style="padding: 30px; background: #b7d2b1; height: 150px;">
 				<p>
@@ -79,20 +83,21 @@
 			<div style="padding: 50px 40px 50px 40px;">
 				<div class="blog_info text-center">
 					<ul class="blog_meta list" style="clear: both">
-						<li><a href="#"><span>mangoJuiceDeli</span> <i class="lnr lnr-user"></i>
-						</a></li>
-						<li><a href="#"><span>2019년 7월 6일 가입</span> <i class="lnr lnr-calendar-full"></i>
-						</a></li>
-						<li><a href="#"><span>누적 구매액</span> <i class="lnr lnr-eye"></i>
-						</a></li>
-						<li><a href="#"><span>다음 등급까지 남은 구매액</span> <i class="lnr lnr-bubble"></i>
-						</a></li>
+						<li><a href="#"><span>mangoJuiceDeli</span> <i
+								class="lnr lnr-user"></i> </a></li>
+						<li><a href="#"><span>2019년 7월 6일 가입</span> <i
+								class="lnr lnr-calendar-full"></i> </a></li>
+						<li><a href="#"><span>누적 구매액</span> <i
+								class="lnr lnr-eye"></i> </a></li>
+						<li><a href="#"><span>다음 등급까지 남은 구매액</span> <i
+								class="lnr lnr-bubble"></i> </a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="section-top-border" style="background: #e4e4e4; padding-bottom : 20px;">
+	<div class="section-top-border"
+		style="background: #e4e4e4; padding-bottom: 20px;">
 		<div class="areaBox">
 			<div class="myOrderBox">
 				<div class="myOrderCon">
@@ -101,18 +106,20 @@
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">0</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>주문 완료</span></a>
+								class="genric-btn default circle" style="clear: both;"><span>주문
+									완료</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">0</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>결제 완료</span></a>
+								class="genric-btn default circle" style="clear: both;"><span>결제
+									완료</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">0</span><br> <a href="#"
 								class="genric-btn default circle" style="clear: both;"><span>배송
-								준비중</span></a>
+									준비중</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
@@ -122,7 +129,8 @@
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">0</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>배송 완료</span></a>
+								class="genric-btn default circle" style="clear: both;"><span>배송
+									완료</span></a>
 						</div>
 					</div>
 				</div>
@@ -135,25 +143,39 @@
 			<table class="table table-hover">
 				<thead>
 					<tr style="background: #b5dab6; padding: 20px;">
-						<th scope="col" style="text-align: center; padding: 20px; width: 15%">주문날짜</th>
+						<th scope="col"
+							style="text-align: center; padding: 20px; width: 15%">주문날짜</th>
 						<th scope="col" style="text-align: center; padding: 20px;">주문내역</th>
-						<th scope="col" style="text-align: center; padding: 20px; width: 15%">적립금</th>
-						<th scope="col" style="text-align: center; padding: 20px; width: 15%">총 적립금</th>
+						<th scope="col"
+							style="text-align: center; padding: 20px; width: 15%">적립금</th>
+						<th scope="col"
+							style="text-align: center; padding: 20px; width: 15%">총 적립금</th>
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
 					<tr>
+						<c:forEach var="savingsVO" items="${savings_list }">
+							<td>
+								<h5>
+									<c:out value="${savingsVO.or_date }" default="null" />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value="${savingsVO.or_items }" default="null" />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value="${savingsVO.or_savings }" default="null" />
+								</h5>
+							</td>
+						</c:forEach>
+
 						<td>
-							<h5>2019-06-07</h5>
-						</td>
-						<td>
-							<h5>야구공</h5>
-						</td>
-						<td>
-							<h5>+ ￦ 1,000</h5>
-						</td>
-						<td>
-							<h5>￦ 3,500</h5>
+							<h5>
+								<c:out value="${savings_sum }" default="null" />
+							</h5>
 						</td>
 					</tr>
 					<tr>
@@ -226,6 +248,7 @@
 							<h5>￦ 500</h5>
 						</td>
 					</tr>
+
 				</tbody>
 			</table>
 			<div class="text-center">
