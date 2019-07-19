@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class SavingsVO {
 
-	Date or_date;
-	String or_items;
-	int or_savings;
-	int or_num;
-	int or_savings_Total;
+	private Date or_date;
+	private String or_items;
+	private long or_savings;
+	private int or_num;
+	private int or_savings_Total;
 
 	public Date getOr_date() {
 		return or_date;
@@ -22,10 +22,10 @@ public class SavingsVO {
 	public void setOr_items(String or_items) {
 		this.or_items = or_items;
 	}
-	public int getOr_savings() {
+	public long getOr_savings() {
 		return or_savings;
 	}
-	public void setOr_savings(int or_savings) {
+	public void setOr_savings(long or_savings) {
 		this.or_savings = or_savings;
 	}
 	public int getOr_num() {

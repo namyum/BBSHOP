@@ -6,5 +6,5 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageMapper {
 
-	List<SavingsVO> getSavingsList(int user_key);
+	List<SavingsVO> getSavingsList(long user_key);
 }

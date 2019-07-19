@@ -17,6 +17,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
+	// 적립금 조회
 	@RequestMapping("/savings.mp")
 	public String getSavings(Model model, String user_key) {
 				

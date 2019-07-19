@@ -17,7 +17,7 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<SavingsVO> getSavingsList(int user_key) {
+	public List<SavingsVO> getSavingsList(long user_key) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		

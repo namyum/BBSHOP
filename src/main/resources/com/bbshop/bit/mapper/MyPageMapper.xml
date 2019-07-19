@@ -8,11 +8,11 @@
 	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO" >
 		<result property="or_date" column="sa_date" />
 		<result property="or_items" column="items" />
-		<result property="or_savings" column="savings" />
+		<result property="or_savings" column="savings" javaType="java.lang.Long"/>
 		<result property="or_num" column="order_num" />
 	</resultMap>
 
-	<select id="getSavingsList" parameterType="int" resultMap="savingsVO">
+	<select id="getSavingsList" parameterType="java.lang.Long" resultMap="savingsVO">
 		
 		SELECT * 
 		FROM 

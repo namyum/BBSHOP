@@ -6,6 +6,6 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageService {
 
-	List<SavingsVO> getSavingsList(int user_key);
+	List<SavingsVO> getSavingsList(long user_key);
 
 }
