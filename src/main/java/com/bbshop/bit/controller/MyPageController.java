@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
 
@@ -21,7 +22,12 @@ public class MyPageController {
 	@RequestMapping("/savings.mp")
 	public String getSavings(Model model, String user_key) {
 				
-		List<SavingsVO> savings_list = myPageService.getSavingsList(1);
+		// List<SavingsVO> savings_list = myPageService.getSavingsList(1);
+		
+		// 수정 필요 : 변수로 pagingVO만 넣은 상태. user_key와 같이 2개 이상의 변수로 설정을 해줘야 함.
+		List<SavingsVO> savings_list = myPageService.getSavingsList(new PagingVO());
+		
+
 		int sum = 0;
 		
 		for (int i = 0; i < savings_list.size(); i++) {

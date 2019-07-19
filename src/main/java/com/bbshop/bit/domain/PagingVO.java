@@ -6,7 +6,7 @@ public class PagingVO {
 	private long amount;
 	
 	public PagingVO() {
-		this(1, 10);
+		this(1, 5);
 	}
 
 	public PagingVO(long pageNum, long amount) {
