@@ -17,19 +17,13 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
 	
 	@Override
 	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("pagingVO", pagingVO);
-		map.put("key", key);
 				
-		return myPageMapper.getSavingsList(map);
+		return myPageMapper.getSavingsList(pagingVO, key);
 	}
 
 }

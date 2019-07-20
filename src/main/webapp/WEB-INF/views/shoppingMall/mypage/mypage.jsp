@@ -170,7 +170,7 @@
 							</td>
 							<td>
 								<h5>
-									<c:out value="${savingsVO.or_savings_Total }" default="null" />
+									<c:out value="${savingsVO.or_savings_total }" default="null" />
 								</h5>
 							</td>
 						</tr>
