@@ -16,11 +16,11 @@
 		<![CDATA[	
 			SELECT * 
 			FROM 
-				(SELECT sav.sa_date, so.items, sav.savings, sav.order_num
+				( SELECT sav.sa_date, so.items, sav.savings, sav.order_num
 					FROM shop_order so, savings sav
-					WHERE so.order_num = sav.order_num AND so.order_num <= #{pageNum} * #{amount} )
-			WHERE order_num IN ( SELECT order_num FROM shop_order WHERE user_key = #{key } )
-				AND order_num > (#{pageNum}-1) * #{amount}
+					WHERE so.order_num = sav.order_num AND so.order_num <= #{pagingVO.pageNum} * #{pagingVO.amount} )
+			WHERE order_num IN ( SELECT order_num FROM shop_order WHERE user_key = #{key} )
+				  AND order_num > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
 			ORDER BY order_num desc
 		]]>
 	</select>
