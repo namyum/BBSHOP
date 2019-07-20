@@ -44,7 +44,7 @@
 						<i class="fas fa-won-sign"></i>
 					</p>
 					<span>보유 적립금</span>
-					<h4>￦ 5,000</h4>
+					<h4>￦ ${savings_list["0"].or_savings_total }</h4>
 				</div>
 				<div class="col-md-4" style="color: white;">
 					<p>
@@ -165,12 +165,12 @@
 							</td>
 							<td>
 								<h5>
-									<c:out value="${savingsVO.or_savings }" default="null" />
+									￦ <c:out value="${savingsVO.or_savings }" default="null" />
 								</h5>
 							</td>
 							<td>
 								<h5>
-									<c:out value="${savingsVO.or_savings_total }" default="null" />
+									￦ <c:out value="${savingsVO.or_savings_total }" default="null" />
 								</h5>
 							</td>
 						</tr>
