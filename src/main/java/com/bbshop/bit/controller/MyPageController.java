@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
@@ -53,6 +54,10 @@ public class MyPageController {
 	@RequestMapping("/order_status.mp")
 	public String getOrderStatus(Model model, HttpSession session, PagingVO pagingVO) {
 				
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
+		
+		model.addAttribute("orders_list", orders_list);
+		
 		return "shoppingMall/mypage/order_status";
 	}
 	

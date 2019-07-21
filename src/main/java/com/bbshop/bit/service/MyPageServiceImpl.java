@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.mapper.MyPageMapper;
@@ -30,6 +31,14 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
 		return myPageMapper.getTotalCount(pagingVO);
+	}
+
+	@Override
+	public List<OrderVO> getOrdersList(PagingVO pagingVO, long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		return myPageMapper.getOrdersList(pagingVO, key);
 	}
 
 }
