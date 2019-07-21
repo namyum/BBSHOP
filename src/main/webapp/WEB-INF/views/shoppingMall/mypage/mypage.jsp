@@ -165,12 +165,14 @@
 							</td>
 							<td>
 								<h5>
-									￦ <c:out value="${savingsVO.or_savings }" default="null" />
+									￦
+									<c:out value="${savingsVO.or_savings }" default="null" />
 								</h5>
 							</td>
 							<td>
 								<h5>
-									￦ <c:out value="${savingsVO.or_savings_total }" default="null" />
+									￦
+									<c:out value="${savingsVO.or_savings_total }" default="null" />
 								</h5>
 							</td>
 						</tr>
@@ -179,11 +181,27 @@
 			</table>
 			<div class="text-center">
 				<ul class="pagination">
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item">
+							<a href="${pageMaker.startPage -1}" class="page-link">
+								<i class="fa fa-chevron-left" aria-hidden="true"></i>
+							</a>
+						</li>
+					</c:if>
+
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+							<a href="${num}" class="page-link">${num}</a>
+						</li>
+					</c:forEach>
+
+					<c:if test="${pageMaker.next}">
+						<li class="page-item">
+							<a href="${pageMaker.endPage + 1}" class="page-link">
+								<i class="fa fa-chevron-right" aria-hidden="true"></i>
+							</a>
+						</li>
+					</c:if>
 				</ul>
 			</div>
 		</div>

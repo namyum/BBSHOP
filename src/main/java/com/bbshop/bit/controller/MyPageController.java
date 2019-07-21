@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
@@ -22,12 +23,12 @@ public class MyPageController {
 	
 	// 적립금 조회
 	@RequestMapping("/savings.mp")
-	public String getSavings(Model model, HttpSession session) {
+	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						
 		int sum = 0;
 		// long key = (long)session.getAttribute("user_key"); session 객체에서 id 식별자인 key 받음
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(new PagingVO(), 1); // key 대신 임시로 1을 넣었다.
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key 대신 임시로 1을 넣었다.
 		
 		for (int i = 0; i < savings_list.size(); i++) {
 							
@@ -37,6 +38,7 @@ public class MyPageController {
 			savings_list.get(index).setOr_savings_total(sum);
 		}
 		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, 5));
 		model.addAttribute("savings_list", savings_list);
 		
 		return "shoppingMall/mypage/mypage";
