@@ -25,11 +25,11 @@ public class MyPageController {
 	@RequestMapping("/savings.mp")
 	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						
-		int sum = 0;
+		long sum = 0;
 		long total = 0;
-		// long key = (long)session.getAttribute("user_key"); session 객체에서 id 식별자인 key 받음
+		// long key = (long)session.getAttribute("user_key"); session 객체에서 id 식별자인 key 받음.
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key 대신 임시로 1을 넣었다.
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
 		for (int i = 0; i < savings_list.size(); i++) {
 							
@@ -37,9 +37,11 @@ public class MyPageController {
 			sum += savings_list.get(i).getOr_savings();
 			
 			savings_list.get(index).setOr_savings_total(sum);
+			
+			System.out.println("적립금 총 합 " + index + "번째 : " + savings_list.get(index).getOr_savings_total());
 		}
 		
-		total = myPageService.getTotal(pagingVO); // 전체 적립금 내역 개수 구하기
+		total = myPageService.getTotal(pagingVO); // 전체 적립금 내역 개수 구하기.
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("savings_list", savings_list);
