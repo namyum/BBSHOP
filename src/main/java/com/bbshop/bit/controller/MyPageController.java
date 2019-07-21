@@ -26,6 +26,7 @@ public class MyPageController {
 	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						
 		int sum = 0;
+		long total = 0;
 		// long key = (long)session.getAttribute("user_key"); session 객체에서 id 식별자인 key 받음
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key 대신 임시로 1을 넣었다.
@@ -38,7 +39,9 @@ public class MyPageController {
 			savings_list.get(index).setOr_savings_total(sum);
 		}
 		
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, 20));
+		total = myPageService.getTotal(pagingVO); // 전체 적립금 내역 개수 구하기
+		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("savings_list", savings_list);
 		
 		return "shoppingMall/mypage/mypage";

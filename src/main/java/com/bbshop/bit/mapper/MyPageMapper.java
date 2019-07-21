@@ -9,5 +9,7 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageMapper {
 
-	List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
+	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
+	
+	public long getTotalCount(PagingVO pagingVO);
 }

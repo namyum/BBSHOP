@@ -24,5 +24,9 @@
 			ORDER BY order_num desc
 		]]>
 	</select>
+	
+	<select id="getTotalCount" resultType="java.lang.Long">
+		select count(*) from savings
+	</select>
 
 </mapper>

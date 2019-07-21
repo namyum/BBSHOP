@@ -1,8 +1,6 @@
 package com.bbshop.bit.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +18,18 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key) {
+				
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getSavingsList(pagingVO, key);
+	}
+
+	@Override
+	public long getTotal(PagingVO pagingVO) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
-				
-		return myPageMapper.getSavingsList(pagingVO, key);
+		
+		return myPageMapper.getTotalCount(pagingVO);
 	}
 
 }

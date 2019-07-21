@@ -6,10 +6,10 @@ public class PageDTO {
 	private int endPage;
 	private boolean prev, next;
 	
-	private int total;
+	private long total;
 	private PagingVO pagingVO;
 	
-	public PageDTO(PagingVO pagingVO, int total) {
+	public PageDTO(PagingVO pagingVO, long total) {
 		
 		this.pagingVO = pagingVO;
 		this.total = total;
@@ -42,7 +42,7 @@ public class PageDTO {
 		return next;
 	}
 
-	public int getTotal() {
+	public long getTotal() {
 		return total;
 	}
 

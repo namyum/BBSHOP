@@ -7,6 +7,10 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageService {
 
-	List<SavingsVO> getSavingsList(PagingVO pagingVO, long key);
+	// 적립금 내역 가지고 오기
+	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key);
+	
+	// 적립금 내역 전체 개수 구하기
+	public long getTotal(PagingVO pagingVO);
 
 }
