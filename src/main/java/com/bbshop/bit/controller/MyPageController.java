@@ -38,7 +38,7 @@ public class MyPageController {
 			savings_list.get(index).setOr_savings_total(sum);
 		}
 		
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, 5));
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, 20));
 		model.addAttribute("savings_list", savings_list);
 		
 		return "shoppingMall/mypage/mypage";

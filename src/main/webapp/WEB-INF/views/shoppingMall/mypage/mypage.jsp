@@ -208,6 +208,7 @@
 					</c:if>
 				</ul>
 			</div>
+			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 			<form id="actionForm" action="savings.mp">
 				<input type="hidden" name="pageNum"
 					value="${pageMaker.pagingVO.pageNum }"> <input
