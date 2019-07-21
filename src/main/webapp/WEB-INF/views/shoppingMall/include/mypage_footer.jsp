@@ -142,6 +142,7 @@
 	}
 	
 	window.onclick = function(event) {
+		
 		if (event.target == search_Modal) {
 			search_Modal.style.display = "none";
 		} else if (event.target == searchBig_Modal) {

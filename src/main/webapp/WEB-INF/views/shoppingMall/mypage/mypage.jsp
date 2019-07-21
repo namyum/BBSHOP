@@ -181,31 +181,57 @@
 			</table>
 			<div class="text-center">
 				<ul class="pagination">
+
+					<!-- 이전 버튼 -->
 					<c:if test="${pageMaker.prev}">
-						<li class="page-item">
-							<a href="${pageMaker.startPage -1}" class="page-link">
-								<i class="fa fa-chevron-left" aria-hidden="true"></i>
-							</a>
-						</li>
+						<li class="page-item"><a href="${pageMaker.startPage -1}"
+							class="page-link"> <i class="fa fa-chevron-left"
+								aria-hidden="true"></i>
+						</a></li>
 					</c:if>
 
-					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+					<!-- 페이지 목록 버튼 -->
+					<c:forEach var="num" begin="${pageMaker.startPage}"
+						end="${pageMaker.endPage}">
+						<li
+							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
 
+					<!-- 다음 버튼 -->
 					<c:if test="${pageMaker.next}">
-						<li class="page-item">
-							<a href="${pageMaker.endPage + 1}" class="page-link">
-								<i class="fa fa-chevron-right" aria-hidden="true"></i>
-							</a>
-						</li>
+						<li class="page-item"><a href="${pageMaker.endPage + 1}"
+							class="page-link"> <i class="fa fa-chevron-right"
+								aria-hidden="true"></i>
+						</a></li>
 					</c:if>
 				</ul>
 			</div>
+			<form id="actionForm" action="savings.mp">
+				<input type="hidden" name="pageNum"
+					value="${pageMaker.pagingVO.pageNum }"> <input
+					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+			</form>
 		</div>
 	</div>
 </div>
 
+<script>
+	// 마이페이지 적립금 테이블 페이징 버튼 처리
+	$(document).ready(function() {
+
+		var actionForm = $("#actionForm");
+
+		$(".page-item a").on("click", function(e) {
+
+			e.preventDefault();
+
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			
+			actionForm.submit();
+		});
+	});
+</script>
+-->
 <%@ include file="../include/mypage_footer.jsp"%>
