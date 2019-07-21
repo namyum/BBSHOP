@@ -135,7 +135,8 @@
 		</div>
 	</div>
 	<div class="section-top-border">
-		<h3 style="padding: 15px">내 적립금 현황</h3>
+		<h3 style="padding: 15px 0px 0px 15px;">내 적립금 현황</h3>
+		<h5 align="right">내 적립금 : ${pageMaker.total }건</h5>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
@@ -229,7 +230,7 @@
 			e.preventDefault();
 
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			
+
 			actionForm.submit();
 		});
 	});

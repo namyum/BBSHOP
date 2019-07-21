@@ -21,7 +21,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
-	// 적립금 조회
+	// 마이페이지 -> 적립금 조회
 	@RequestMapping("/savings.mp")
 	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						
@@ -47,5 +47,26 @@ public class MyPageController {
 		model.addAttribute("savings_list", savings_list);
 		
 		return "shoppingMall/mypage/mypage";
+	}
+	
+	// 주문/배송
+	@RequestMapping("/order_status.mp")
+	public String getOrderStatus(Model model, HttpSession session, PagingVO pagingVO) {
+				
+		return "shoppingMall/mypage/order_status";
+	}
+	
+	// 내가 남긴 글
+	@RequestMapping("/mypost.mp")
+	public String getMyPost() {
+		
+		return "shoppingMall/mypage/mypost";
+	}
+	
+	// 회원 정보 수정
+	@RequestMapping("/modify_info.mp")
+	public String getModifyInfo() {
+		
+		return "shoppingMall/mypage/modify_info";
 	}
 }
