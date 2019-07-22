@@ -58,6 +58,11 @@ public class MyPageController {
 		
 		model.addAttribute("orders_list", orders_list);
 		
+		for (int i = 0; i < orders_list.size(); i++) {
+			
+			orders_list.get(i).toString();
+		}
+		
 		return "shoppingMall/mypage/order_status";
 	}
 	

@@ -76,143 +76,32 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>
-						<h5>6</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#myModal">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				</tr>
-				<tr>
-					<td>
-						<h5>5</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#myModal">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				<tr>
-					<td>
-						<h5>4</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#myModal">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				</tr>
-				<tr>
-					<td>
-						<h5>3</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				</tr>
-				<tr>
-					<td>
-						<h5>2</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#myModal">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				</tr>
-				<tr>
-					<td>
-						<h5>1</h5>
-					</td>
-					<td>
-						<h5>2019-07-09</h5>
-					</td>
-					<td><h5>
-							<a href="#modal_order_detail" data-toggle="modal"
-								style="color: #222222;">야구공</a>
-						</h5></td>
-					<td>
-						<h5>￦ 10,000</h5>
-					</td>
-					<td><button type="button" class="genric-btn default radius"
-							data-toggle="modal" data-target="#myModal">
-							<span>조회</span>
-						</button></td>
-					<td><button type="button" class="genric-btn danger radius"
-							onclick="alert('구매가 취소되었습니다.');">
-							<span>취소</span>
-						</button></td>
-				</tr>
+				<c:forEach var="orderVO" items="${orders_list }">
+					<tr>
+						<td>
+							<h5>
+								<c:out value="${orderVO.order_num }" default="null" />
+							</h5>
+						</td>
+						<td>
+							<h5><fmt:formatDate pattern="yyyy-MM-dd" value="${orderVO.or_date }" /></h5></td>
+						<td><h5>
+								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal" data-target="#modal_order_detail" 
+								style="color: #222222;"><c:out value='${orderVO.items }' /></a>
+							</h5></td>
+						<td>
+							<h5>￦ <c:out value="${orderVO.pymntamnt }" default="null" /></h5>
+						</td>
+						<td><button type="button" class="genric-btn default radius"
+								data-toggle="modal" data-target="#myModal">
+								<span>조회</span>
+							</button></td>
+						<td><button type="button" class="genric-btn danger radius"
+								onclick="alert('구매가 취소되었습니다.');">
+								<span>취소</span>
+							</button></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<div class="text-center">
