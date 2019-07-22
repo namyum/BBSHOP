@@ -52,16 +52,11 @@ public class MyPageController {
 	
 	// 주문/배송
 	@RequestMapping("/order_status.mp")
-	public String getOrderStatus(Model model, HttpSession session, PagingVO pagingVO) {
+	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
 		long total = 0;
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
-		
-		for (int i = 0; i < orders_list.size(); i++) {
-			
-			orders_list.get(i).toString();
-		}
 		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
