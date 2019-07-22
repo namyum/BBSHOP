@@ -5,7 +5,6 @@ public class PageDTO {
 	private int startPage;
 	private int endPage;
 	private boolean prev, next;
-	
 	private long total;
 	private PagingVO pagingVO;
 	

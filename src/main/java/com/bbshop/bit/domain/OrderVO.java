@@ -118,6 +118,4 @@ public class OrderVO {
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
 				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + "]";
 	}
-
-	
 }

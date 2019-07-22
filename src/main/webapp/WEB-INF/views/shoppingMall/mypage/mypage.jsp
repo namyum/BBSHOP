@@ -234,5 +234,5 @@
 		});
 	});
 </script>
--->
+
 <%@ include file="../include/mypage_footer.jsp"%>

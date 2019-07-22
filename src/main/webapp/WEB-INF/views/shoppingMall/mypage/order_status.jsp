@@ -84,13 +84,20 @@
 							</h5>
 						</td>
 						<td>
-							<h5><fmt:formatDate pattern="yyyy-MM-dd" value="${orderVO.or_date }" /></h5></td>
+							<h5>
+								<fmt:formatDate pattern="yyyy-MM-dd" value="${orderVO.or_date }" />
+							</h5>
+						</td>
 						<td><h5>
-								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal" data-target="#modal_order_detail" 
-								style="color: #222222;"><c:out value='${orderVO.items }' /></a>
+								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal"
+									data-target="#modal_order_detail" style="color: #222222;"><c:out
+										value='${orderVO.items }' /></a>
 							</h5></td>
 						<td>
-							<h5>￦ <c:out value="${orderVO.pymntamnt }" default="null" /></h5>
+							<h5>
+								￦
+								<c:out value="${orderVO.pymntamnt }" default="null" />
+							</h5>
 						</td>
 						<td><button type="button" class="genric-btn default radius"
 								data-toggle="modal" data-target="#myModal">
@@ -106,33 +113,56 @@
 		</table>
 		<div class="text-center">
 			<ul class="pagination">
-					<!-- 이전 버튼 -->
-					<c:if test="${pageMaker.prev}">
-						<li class="page-item"><a href="${pageMaker.startPage -1}"
-							class="page-link"> <i class="fa fa-chevron-left"
-								aria-hidden="true"></i>
-						</a></li>
-					</c:if>
+				<!-- 이전 버튼 -->
+				<c:if test="${pageMaker.prev}">
+					<li class="page-item"><a href="${pageMaker.startPage -1}"
+						class="page-link"> <i class="fa fa-chevron-left"
+							aria-hidden="true"></i>
+					</a></li>
+				</c:if>
 
-					<!-- 페이지 목록 버튼 -->
-					<c:forEach var="num" begin="${pageMaker.startPage}"
-						end="${pageMaker.endPage}">
-						<li
-							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
-							<a href="${num}" class="page-link">${num}</a>
-						</li>
-					</c:forEach>
+				<!-- 페이지 목록 버튼 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}"
+					end="${pageMaker.endPage}">
+					<li
+						class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+						<a href="${num}" class="page-link">${num}</a>
+					</li>
+				</c:forEach>
 
-					<!-- 다음 버튼 -->
-					<c:if test="${pageMaker.next}">
-						<li class="page-item"><a href="${pageMaker.endPage + 1}"
-							class="page-link"> <i class="fa fa-chevron-right"
-								aria-hidden="true"></i>
-						</a></li>
-					</c:if>
+				<!-- 다음 버튼 -->
+				<c:if test="${pageMaker.next}">
+					<li class="page-item"><a href="${pageMaker.endPage + 1}"
+						class="page-link"> <i class="fa fa-chevron-right"
+							aria-hidden="true"></i>
+					</a></li>
+				</c:if>
 			</ul>
 		</div>
+		<!-- 페이징 버튼 처리를 위한 히든 폼 -->
+		<form id="actionForm" action="order_status.mp">
+			<input type="hidden" name="pageNum"
+				value="${pageMaker.pagingVO.pageNum }"> <input type="hidden"
+				name="amount" value="${pageMaker.pagingVO.amount }">
+		</form>
 	</div>
 </div>
+
+<script>
+	// 마이페이지 적립금 테이블 페이징 버튼 처리
+	$(document).ready(function() {
+
+		var actionForm = $("#actionForm");
+
+		$(".page-item a").on("click", function(e) {
+
+			e.preventDefault();
+
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+			actionForm.submit();
+		});
+	});
+</script>
 
 <%@ include file="../include/mypage_footer.jsp"%>
