@@ -35,8 +35,8 @@
 	</select>
 
 	<select id="getTotalCount" resultType="java.lang.Long">
-		select count(*) from
-		savings
+		SELECT count(*) 
+		FROM ${table}
 	</select>
 
 	<select id="getOrdersList" resultMap="orderVO">

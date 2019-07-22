@@ -12,7 +12,7 @@ public interface MyPageMapper {
 
 	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 	
-	public long getTotalCount(PagingVO pagingVO);
+	public long getTotalCount(@Param("pagingVO") PagingVO pagingVO, @Param("table") String table);
 
 	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 }

@@ -42,8 +42,8 @@ public class MyPageController {
 			System.out.println("적립금 총 합 " + index + "번째 : " + savings_list.get(index).getOr_savings_total());
 		}
 		
-		total = myPageService.getTotal(pagingVO); // 전체 적립금 내역 개수 구하기.
-		
+		total = myPageService.getTotal(pagingVO, "savings"); // 적립금 테이블 개수 구하기.
+				
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("savings_list", savings_list);
 		
@@ -54,14 +54,19 @@ public class MyPageController {
 	@RequestMapping("/order_status.mp")
 	public String getOrderStatus(Model model, HttpSession session, PagingVO pagingVO) {
 				
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
+		long total = 0;
 		
-		model.addAttribute("orders_list", orders_list);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
 		for (int i = 0; i < orders_list.size(); i++) {
 			
 			orders_list.get(i).toString();
 		}
+		
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		model.addAttribute("orders_list", orders_list);
 		
 		return "shoppingMall/mypage/order_status";
 	}

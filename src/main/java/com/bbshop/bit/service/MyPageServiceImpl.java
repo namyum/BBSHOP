@@ -26,11 +26,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public long getTotal(PagingVO pagingVO) {
+	public long getTotal(PagingVO pagingVO, String table) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getTotalCount(pagingVO);
+		return myPageMapper.getTotalCount(pagingVO, table);
 	}
 
 	@Override

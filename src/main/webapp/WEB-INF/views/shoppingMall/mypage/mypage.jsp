@@ -182,7 +182,6 @@
 			</table>
 			<div class="text-center">
 				<ul class="pagination">
-
 					<!-- 이전 버튼 -->
 					<c:if test="${pageMaker.prev}">
 						<li class="page-item"><a href="${pageMaker.startPage -1}"

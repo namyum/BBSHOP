@@ -63,7 +63,7 @@
 	<div class="order_details_table" style="margin-top: 10px">
 		<h3 class="mb-30 title_color">주문 / 배송</h3>
 		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
-		<h5 align="right">내 주문 : 10건</h5>
+		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
 		<table class="table table-hover">
 			<thead>
 				<tr style="background: #b5dab6;">
@@ -106,9 +106,30 @@
 		</table>
 		<div class="text-center">
 			<ul class="pagination">
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
+					<!-- 이전 버튼 -->
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item"><a href="${pageMaker.startPage -1}"
+							class="page-link"> <i class="fa fa-chevron-left"
+								aria-hidden="true"></i>
+						</a></li>
+					</c:if>
+
+					<!-- 페이지 목록 버튼 -->
+					<c:forEach var="num" begin="${pageMaker.startPage}"
+						end="${pageMaker.endPage}">
+						<li
+							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+							<a href="${num}" class="page-link">${num}</a>
+						</li>
+					</c:forEach>
+
+					<!-- 다음 버튼 -->
+					<c:if test="${pageMaker.next}">
+						<li class="page-item"><a href="${pageMaker.endPage + 1}"
+							class="page-link"> <i class="fa fa-chevron-right"
+								aria-hidden="true"></i>
+						</a></li>
+					</c:if>
 			</ul>
 		</div>
 	</div>
