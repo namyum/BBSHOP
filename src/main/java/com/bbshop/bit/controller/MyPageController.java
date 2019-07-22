@@ -17,21 +17,9 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
-	@RequestMapping("/savings.mp")
-	public String getSavings(Model model, String user_key) {
+	@RequestMapping("/mypost.mp")
+	public String getMyPost(Model model) {
 		
-		int savings_sum = 0;
-		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(1);
-		
-		for (int i = 0; i < savings_list.size(); i++) {
-									
-			savings_sum += savings_list.get(i).getOr_savings();
-		}
-		
-		model.addAttribute("savings_list", savings_list);
-		model.addAttribute("savings_sum", savings_sum);
-		
-		return "shoppingMall/mypage/mypage";
+		return "shoppingMall/mypage/mypost";
 	}
 }

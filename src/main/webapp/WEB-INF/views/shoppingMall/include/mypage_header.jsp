@@ -850,7 +850,7 @@ body {
 				<ul class="myPageTop">
 					<li><a href="/mypage" class="menu">마이페이지</a></li>
 					<li><a href="/order_status" class="menu">주문/배송</a></li>
-					<li><a href="/mypost" class="menu">내가 남긴 글</a></li>
+					<li><a href="/mypost.mp" class="menu">내가 남긴 글</a></li>
 					<li><a href="/modify_info" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>

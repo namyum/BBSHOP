@@ -21,9 +21,6 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		/* HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("user_key", new Integer(user_key)); */
-				
 		return myPageMapper.getSavingsList(user_key);
 	}
 
