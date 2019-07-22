@@ -2,10 +2,11 @@ package com.bbshop.bit.service;
 
 import java.util.List;
 
-import com.bbshop.bit.domain.SavingsVO;
+import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewVO;
 
 public interface MyPageService {
 
-	List<SavingsVO> getSavingsList(int user_key);
+	public List<ReviewVO> getReviewList(PagingVO pagingVO);
 
 }
