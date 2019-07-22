@@ -7,6 +7,6 @@ import com.bbshop.bit.domain.ReviewVO;
 
 public interface MyPageService {
 
-	public List<ReviewVO> getReviewList(PagingVO pagingVO);
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category);
 
 }

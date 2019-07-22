@@ -25,6 +25,7 @@ public class MyPageController {
 		
 		model.addAttribute("review_list", review_list);
 		
+		
 		return "shoppingMall/mypage/mypost";
 	}
 }

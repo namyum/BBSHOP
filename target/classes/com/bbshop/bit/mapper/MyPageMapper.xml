@@ -5,14 +5,14 @@
 
 <mapper namespace="com.bbshop.bit.mapper.MyPageMapper">
 
-	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO" >
-		<result property="or_date" column="sa_date" />
-		<result property="or_items" column="items" />
-		<result property="or_savings" column="savings" />
-		<result property="or_num" column="order_num" />
+	<resultMap id="reviewVO" type="com.bbshop.bit.domain.reviewVO" >
+		<result property="rv_num" column="rv_num" />
+		<result property="title" column="title" />
+		<result property="re_date" column="re_date" />
+		<result property="re_hit" column="re_hit" />
 	</resultMap>
 
-	<select id="getSavingsList" parameterType="int" resultMap="savingsVO">
+	<select id="getReviewList" resultMap="reviewVO">
 		select * 
 		from 
 			(select sav.sa_date, so.items, sav.savings, sav.order_num
