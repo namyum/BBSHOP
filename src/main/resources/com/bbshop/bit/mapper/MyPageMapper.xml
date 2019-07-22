@@ -5,11 +5,20 @@
 
 <mapper namespace="com.bbshop.bit.mapper.MyPageMapper">
 
-	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO">
+	<resultMap id="savingsVO"
+		type="com.bbshop.bit.domain.SavingsVO">
 		<result property="or_date" column="sa_date" />
 		<result property="or_items" column="items" />
-		<result property="or_savings" column="savings" javaType="java.lang.Long" />
+		<result property="or_savings" column="savings"
+			javaType="java.lang.Long" />
 		<result property="or_num" column="order_num" />
+	</resultMap>
+
+	<resultMap type="com.bbshop.bit.domain.OrderVO" id="orderVO">
+		<result property="order_num" column="order_num" />
+		<result property="or_date" column="or_date" />
+		<result property="items" column="items" />
+		<result property="pymntamnt" column="pymntamnt" />
 	</resultMap>
 
 	<select id="getSavingsList" resultMap="savingsVO">
@@ -24,9 +33,19 @@
 			ORDER BY order_num desc
 		]]>
 	</select>
-	
+
 	<select id="getTotalCount" resultType="java.lang.Long">
-		select count(*) from savings
+		select count(*) from
+		savings
+	</select>
+
+	<select id="getOrdersList" resultMap="orderVO">
+		<![CDATA[	
+			SELECT order_num, or_date, items, pymntamnt FROM shop_order
+			WHERE name = (SELECT name FROM sh_user WHERE user_key = #{key} )
+			AND order_num <= #{pagingVO.pageNum} * #{pagingVO.amount}
+			AND order_num > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
+		]]>
 	</select>
 
 </mapper>
