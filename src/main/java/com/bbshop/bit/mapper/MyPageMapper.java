@@ -9,5 +9,5 @@ import com.bbshop.bit.domain.ReviewVO;
 
 public interface MyPageMapper {
 
-	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("category") String category);
+	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("category") String category, @Param("key") long key);
 }

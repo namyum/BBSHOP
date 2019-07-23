@@ -21,10 +21,9 @@ public class MyPageController {
 	@RequestMapping("/mypost.mp")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO);
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, "review", 1);
 		
 		model.addAttribute("review_list", review_list);
-		
 		
 		return "shoppingMall/mypage/mypost";
 	}

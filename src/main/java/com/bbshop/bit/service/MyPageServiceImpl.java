@@ -17,11 +17,11 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category) {
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getReviewList(pagingVO, "review");
+		return myPageMapper.getReviewList(pagingVO, "review", key);
 	}
 
 }
