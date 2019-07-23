@@ -21,6 +21,10 @@ body {
 	padding: 0px 30px 0px 30px;
 	background: white;
 }
+
+a{
+	color:#777777;
+}
 </style>
 </head>
 <body>
@@ -33,8 +37,7 @@ body {
 					<h2 style="color: white;">고객센터</h2>
 					<div class="page_link">
 						<a href="/shopping_main" style="color: white;">Home</a> <a
-							href="/one_to_one_list" style="color: white;">Service
-							Center</a>
+							href="/one_to_one_list" style="color: white;">1대1 문의</a>
 					</div>
 				</div>
 			</div>
@@ -69,7 +72,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -86,7 +89,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -103,7 +106,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -120,7 +123,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -137,7 +140,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -154,7 +157,7 @@ body {
 								<h5>1:1 문의</h5>
 							</td>
 							<td>
-								<h5>테스트입니다</h5>
+								<a href="/one_to_one_list_info">테스트입니다</a>
 							</td>
 							<td>
 								<h5>2019-07-10</h5>
@@ -208,10 +211,10 @@ body {
 	<div class="modal fade" id="writing_modal" tabindex="-1" role="dialog"
 		aria-labelledby="writing_modal_label" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+			<div class="modal-content" style="width:30%;margin:8% auto;">
 				<div class="modal-header">
 					<h2 class="text-black" style="font-weight: bold">글쓰기</h2>
-					<span class="close">&times;</span>
+					<span class="close" data-dismiss="modal">&times;</span>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -227,12 +230,12 @@ body {
 										<label for="category" class="text-black">카테고리 <span
 											class="text-danger">*</span></label>
 										<div class="left_dorp">
-											<select class="sorting">
-												<option value="0">분류를 선택하세요</option>
-												<option value="1">주문/배송</option>
-												<option value="2">상품 관련</option>
-												<option value="3">결제 관련</option>
-												<option value="4">기타</option>
+											<select class="sorting" name="one_to_one_category">
+												<option value="header">말머리를 선택하세요</option>
+												<option value="order_or_delivery">주문/배송</option>
+												<option value="about_product">상품관련</option>
+												<option value="about_payment">결제관련</option>
+												<option value="other">기타</option>
 											</select>
 										</div>
 									</div>
