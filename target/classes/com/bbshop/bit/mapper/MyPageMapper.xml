@@ -5,8 +5,8 @@
 
 <mapper namespace="com.bbshop.bit.mapper.MyPageMapper">
 
-	<resultMap id="savingsVO"
-		type="com.bbshop.bit.domain.SavingsVO">
+	<!-- 적립금 resultMap -->
+	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO">
 		<result property="or_date" column="sa_date" />
 		<result property="or_items" column="items" />
 		<result property="or_savings" column="savings"
@@ -14,11 +14,20 @@
 		<result property="or_num" column="order_num" />
 	</resultMap>
 
+	<!-- 주문 resultMap -->
 	<resultMap type="com.bbshop.bit.domain.OrderVO" id="orderVO">
 		<result property="order_num" column="order_num" />
 		<result property="or_date" column="or_date" />
 		<result property="items" column="items" />
 		<result property="pymntamnt" column="pymntamnt" />
+	</resultMap>
+	
+	<!-- 후기 resultMap -->
+	<resultMap id="reviewVO" type="com.bbshop.bit.domain.ReviewVO" >
+		<result property="rv_num" column="rv_num" />
+		<result property="title" column="title" />
+		<result property="re_date" column="re_date" />
+		<result property="re_hit" column="re_hit" />
 	</resultMap>
 
 	<select id="getSavingsList" resultMap="savingsVO">
@@ -49,6 +58,11 @@
        			  ORDER BY order_num desc )
      		WHERE order_num <= #{pagingVO.pageNum} * #{pagingVO.amount}
 		]]>
+	</select>	
+		
+	<select id="getReviewList" resultMap="reviewVO">
+		select rv_num, title, re_date, re_hit
+		from ${category} where user_key = #{key }
 	</select>
 
 </mapper>

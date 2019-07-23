@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageService {
@@ -16,4 +17,6 @@ public interface MyPageService {
 	
 	// 동적으로 테이블 안의 데이터 개수 구하기
 	public long getTotal(PagingVO pagingVO, String table);
+
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category, long key);
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.mapper.MyPageMapper;
 
 @Service("myPageService")
@@ -39,6 +39,14 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
 		return myPageMapper.getOrdersList(pagingVO, key);
+	}
+
+	@Override
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category, long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		return myPageMapper.getReviewList(pagingVO, "review", key);
 	}
 
 }

@@ -3,16 +3,15 @@ package com.bbshop.bit.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.MyPageService;
 
 @Controller
@@ -72,7 +71,11 @@ public class MyPageController {
 	
 	// 내가 남긴 글
 	@RequestMapping("/mypost.mp")
-	public String getMyPost() {
+	public String getMyPost(Model model, PagingVO pagingVO) {
+		
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, "review", 1);
+		
+		model.addAttribute("review_list", review_list);
 		
 		return "shoppingMall/mypage/mypost";
 	}
@@ -83,4 +86,7 @@ public class MyPageController {
 		
 		return "shoppingMall/mypage/modify_info";
 	}
+	
+
+
 }
