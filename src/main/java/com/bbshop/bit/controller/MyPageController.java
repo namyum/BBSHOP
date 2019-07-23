@@ -38,8 +38,6 @@ public class MyPageController {
 			sum += savings_list.get(i).getOr_savings();
 			
 			savings_list.get(index).setOr_savings_total(sum);
-			
-			System.out.println("적립금 총 합 " + index + "번째 : " + savings_list.get(index).getOr_savings_total());
 		}
 		
 		total = myPageService.getTotal(pagingVO, "savings"); // 적립금 테이블 개수 구하기.
@@ -58,6 +56,12 @@ public class MyPageController {
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
+		
+//		for (int i = 0; i < orders_list.size(); i++) {
+//			
+//			System.out.println(i + "번째 주문 객체 : " + orders_list.get(i).toString());
+//		}
+//		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));

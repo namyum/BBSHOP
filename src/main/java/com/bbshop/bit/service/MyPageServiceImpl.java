@@ -19,7 +19,7 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key) {
-				
+						
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		return myPageMapper.getSavingsList(pagingVO, key);
