@@ -84,13 +84,6 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost";
 	}
 	
-	// 회원 정보 수정
-	@RequestMapping("/modify_info.mp")
-	public String getModifyInfo() {
-		
-		return "shoppingMall/mypage/modify_info";
-	}
-	
 	// 마이페이지 - 내가 남긴 글 - 상품 후기
 	@RequestMapping("/mypost_review.mp")
 	public String mypost_review(Model model, PagingVO pagingVO) {
@@ -115,13 +108,22 @@ public class MyPageController {
 	// 마이페이지 - 내가 남긴 글 - 상품 문의
 	@RequestMapping("/mypost_qna.mp")
 	public String mypost_qna() {
+		
 		return "shoppingMall/mypage/mypost_qna";
 	}
 
 	// 마이페이지 - 내가 남긴 글 - 1대1 문의
 	@RequestMapping("/mypost_one_to_one.mp")
 	public String mypost_one_to_one() {
+		
 		return "shoppingMall/mypage/mypost_one_to_one";
+	}
+	
+	// 회원 정보 수정
+	@RequestMapping("/modify_info.mp")
+	public String getModifyInfo() {
+		
+		return "shoppingMall/mypage/modify_info";
 	}
 	
 }

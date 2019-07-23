@@ -3,25 +3,26 @@
 
 <%@ include file="../include/mypage_header.jsp"%>
 <style>
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 20px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	padding: 20px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
 }
 
 .order_details_table {
 	padding: 0px 30px 0px 30px;
 	background: white;
 }
-
 </style>
 <div class="container">
 	<div class="order_details_table" style="margin-top: 10px">
 		<h3 class="mb-30 title_color">상품 후기</h3>
 		<h5 align="left">내가 작성한 상품 후기입니다.</h5>
 		<div class="single-element-widget">
-			<div class="default-select" id="default-select" style="margin-top: 30px;">
+			<div class="default-select" id="default-select"
+				style="margin-top: 30px;">
 				<select onchange="if(this.value) location.href=(this.value);">
 					<option value="/mypost.mp">전체</option>
 					<option value="/mypost_review.mp" selected>상품 후기</option>
@@ -44,47 +45,89 @@
 				</thead>
 				<tbody>
 					<c:forEach var="reviewVO" items="${review_list }">
-					<tr>
-						<td>
-							<h5>
-								<c:out value="${reviewVO.rv_num }" default="null" />
-							</h5>
-						</td>
-						<td>
-							<h5>
-								상품 후기
-							</h5>
-						</td>
-						<td>
-							<h5>
-								<a href="#" data-toggle="modal"><c:out value='${reviewVO.title }' /></a>
-							</h5>
-						</td>
-						<td>
-							<h5>
-								<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewVO.re_date }" />
-							</h5>
-						</td>
-						<td>
-							<h5>
-								<c:out value="${reviewVO.re_hit }" default="null" />
-							</h5>
-						</td>
-					</tr>
-				</c:forEach>
+						<tr>
+							<td>
+								<h5>
+									<c:out value="${reviewVO.rv_num }" default="null" />
+								</h5>
+							</td>
+							<td>
+								<h5>상품 후기</h5>
+							</td>
+							<td>
+								<h5>
+									<a href="#" data-toggle="modal"><c:out
+											value='${reviewVO.title }' /></a>
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${reviewVO.re_date }" />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value="${reviewVO.re_hit }" default="null" />
+								</h5>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="text-center">
 				<ul class="pagination">
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
+					<!-- 이전 버튼 -->
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item"><a href="${pageMaker.startPage -1}"
+							class="page-link"> <i class="fa fa-chevron-left"
+								aria-hidden="true"></i>
+						</a></li>
+					</c:if>
+
+					<!-- 페이지 목록 버튼 -->
+					<c:forEach var="num" begin="${pageMaker.startPage}"
+						end="${pageMaker.endPage}">
+						<li
+							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+							<a href="${num}" class="page-link">${num}</a>
+						</li>
+					</c:forEach>
+
+					<!-- 다음 버튼 -->
+					<c:if test="${pageMaker.next}">
+						<li class="page-item"><a href="${pageMaker.endPage + 1}"
+							class="page-link"> <i class="fa fa-chevron-right"
+								aria-hidden="true"></i>
+						</a></li>
+					</c:if>
 				</ul>
 			</div>
+			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
+			<form id="actionForm" action="mypost_review.mp">
+				<input type="hidden" name="pageNum"
+					value="${pageMaker.pagingVO.pageNum }"> <input
+					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+			</form>
 		</div>
 	</div>
 </div>
+
+<script>
+	// 페이징 버튼 처리
+	$(document).ready(function() {
+
+		var actionForm = $("#actionForm");
+
+		$(".page-item a").on("click", function(e) {
+
+			e.preventDefault();
+
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+			actionForm.submit();
+		});
+	});
+</script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

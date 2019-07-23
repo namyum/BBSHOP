@@ -149,7 +149,7 @@
 </div>
 
 <script>
-	// 마이페이지 적립금 테이블 페이징 버튼 처리
+	// 페이징 버튼 처리
 	$(document).ready(function() {
 
 		var actionForm = $("#actionForm");
