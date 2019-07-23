@@ -56,8 +56,7 @@
 							</td>
 							<td>
 								<h5>
-									<a href="#" data-toggle="modal"><c:out
-											value='${reviewVO.title }' /></a>
+									<c:out value='${reviewVO.title }' />
 								</h5>
 							</td>
 							<td>

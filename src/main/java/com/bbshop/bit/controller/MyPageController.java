@@ -55,10 +55,10 @@ public class MyPageController {
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
-//		for (int i = 0; i < orders_list.size(); i++) {
-//			
-//			System.out.println(i + "번째 주문 객체 : " + orders_list.get(i).toString());
-//		}
+		for (int i = 0; i < orders_list.size(); i++) {
+			
+			System.out.println(i + "번째 주문 객체 : " + orders_list.get(i).toString());
+		}
 		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
@@ -124,6 +124,27 @@ public class MyPageController {
 	public String getModifyInfo() {
 		
 		return "shoppingMall/mypage/modify_info";
+	}
+	
+	// 마이페이지 - 회원 정보 수정 - 배송지 수정
+	@RequestMapping("/modify_addr")
+	public String modify_addr() {
+		
+		return "shoppingMall/mypage/modify_addr";
+	}
+
+	// 마이페이지 - 회원 정보 수정 - 배송지 등록
+	@RequestMapping("/write_addr")
+	public String write_addr() {
+		
+		return "shoppingMall/mypage/write_addr";
+	}
+
+	// 마이페이지 - 회원 정보 수정 - 회원탈퇴
+	@RequestMapping("/withdraw")
+	public String withdraw() {
+		
+		return "shoppingMall/mypage/withdraw";
 	}
 	
 }

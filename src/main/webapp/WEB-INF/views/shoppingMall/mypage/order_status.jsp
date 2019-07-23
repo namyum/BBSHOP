@@ -70,7 +70,8 @@
 					<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
 					<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
 					<th scope="col" style="font-weight: bold;">주문목록</th>
-					<th scope="col" style="width: 15%; font-weight: bold;">결제금액</th>
+					<th scope="col" style="width: 10%; font-weight: bold;">결제금액</th>
+					<th scope="col" style="width: 10%; font-weight: bold;">주문상태</th>
 					<th scope="col" style="width: 15%; font-weight: bold;">배송현황</th>
 					<th scope="col" style="width: 15%; font-weight: bold;">주문취소</th>
 				</tr>
@@ -78,7 +79,7 @@
 			<tbody>
 				<c:forEach var="orderVO" items="${orders_list }">
 					<tr>
-						<td>
+						<td style="text-align: center;">
 							<h5>
 								<c:out value="${orderVO.order_num }" default="null" />
 							</h5>
@@ -99,14 +100,49 @@
 								<c:out value="${orderVO.pymntamnt }" default="null" />
 							</h5>
 						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal">
-								<span>조회</span>
-							</button></td>
-						<td><button type="button" class="genric-btn danger radius"
-								onclick="alert('구매가 취소되었습니다.');">
-								<span>취소</span>
-							</button></td>
+						<td>
+							<h5>
+								<c:choose>
+									<c:when test="${orderVO.stts == 0 }">
+			       						결제완료
+			    					</c:when>
+									<c:when test="${orderVO.stts == 1 }">
+			       						배송준비중
+			   						</c:when>
+									<c:when test="${orderVO.stts == 2 }">
+										배송중
+								    </c:when>
+									<c:when test="${orderVO.stts == 3 }">
+										배송완료
+								    </c:when>
+									<c:when test="${orderVO.stts == 4 }">
+										주문취소
+								    </c:when>
+								</c:choose>
+							</h5>
+						</td>
+						<td>
+							<button type="button" id="see_order"
+								class="genric-btn default radius" data-toggle="modal"
+								data-target="#myModal">
+								<span>주문 조회</span>
+							</button>
+						</td>
+						<td><c:choose>
+								<c:when test="${orderVO.stts == 0}">
+									<button type="button" id="cancel_order"
+										class="genric-btn danger radius"
+										onClick="fn_cancel_order('${orderVO.order_num}')">
+										<span>주문 취소</span>
+									</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" id="cancel_order"
+										class="genric-btn danger radius" disabled>
+										<span>주문 취소</span>
+									</button>
+								</c:otherwise>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -149,20 +185,52 @@
 </div>
 
 <script>
-	// 페이징 버튼 처리
+
+	function fn_cancel_order(order_id){
+		
+		var answer = confirm("주문을 취소하시겠습니까?");
+		
+		if (answer == true) {
+			
+			var formObj = document.createElement("form");
+			var i_order_id = document.createElement("input"); 
+		    
+		    i_order_id.name = "order_id";
+		    i_order_id.value = order_id;
+			
+		    formObj.appendChild(i_order_id);
+		    document.body.appendChild(formObj);
+		    
+		    formObj.method="post";
+		    formObj.action="${contextPath}/order_status.mp";
+		    formObj.submit();	
+		}
+	}
+
 	$(document).ready(function() {
 
-		var actionForm = $("#actionForm");
+				var order_num = '<c:out value="${orderVO.order_num }" default="테스트용 글러브 1족" />';
+				
+				var actionForm = $("#actionForm");
 
-		$(".page-item a").on("click", function(e) {
+						// 페이징 버튼 처리
+						$(".page-item a").on("click", function(e) {
 
-			e.preventDefault();
+							e.preventDefault();
 
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+							actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-			actionForm.submit();
-		});
-	});
+							actionForm.submit();
+						});
+
+						// 주문 목록 모달 처리
+						$('#modal_order_detail').on('show.bs.modal', function(event) {
+
+							$('#mdl_or_num').val(order_num);
+							$('#or_date').val("2019-07-10");
+							$('#c_order_notes').val("빨리 보내주세요.")
+						});
+					});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

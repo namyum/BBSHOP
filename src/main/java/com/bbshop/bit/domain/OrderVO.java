@@ -114,7 +114,7 @@ public class OrderVO {
 	@Override
 	public String toString() {
 		return "OrderVO [order_num=" + order_num + ", or_addr=" + or_addr + ", pymntmthd=" + pymntmthd + ", pymntamnt="
-				+ pymntamnt + ", phone=" + phone + ", phone2=" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
+				+ pymntamnt + ", phone=" + phone + ", phone2=6" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
 				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + "]";
 	}

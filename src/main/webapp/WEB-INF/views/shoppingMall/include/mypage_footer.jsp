@@ -126,7 +126,7 @@
 		miniCart.style.width = "0";
 		location.href="/cart";
 	}
-	//상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
+	// 상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
 	info_cart_btn.onclick = function() {
 		curtain.style.display = "block";
 		miniCart.style.width = "350px";
@@ -136,6 +136,7 @@
 		curtain.style.display = "block";
 		miniCart.style.width = "350px";
 	}
+	
 	function closeCart() {
 		curtain.style.display = "none";
 		miniCart.style.width = "0";
@@ -152,6 +153,10 @@
 			miniCart.style.width = "0";
 		}
 	}
+	
+
+
+	
 </script>
 <!-- ================end 모달 js====================== -->
 
@@ -179,7 +184,7 @@
 <script src="https://kit.fontawesome.com/2eb351aff8.js"></script>
 
 <!-- Modal -->
-
+<!-- 마이페이지의 주문/배송의 주문 목록을 누르면 나옴 -->
 <div class="modal modal-center fade" id="modal_order_detail"
 	tabindex="-1" role="dialog" aria-labelledby="modal_order_detail_label"
 	aria-hidden="true">
@@ -201,7 +206,7 @@
 								<div class="col-md-6">
 									<label for="c_fname" class="text-black">주문일자 <span
 										class="text-danger">*</span></label> <input type="text"
-										class="form-control" id="c_fname" name="c_fname">
+										class="form-control" id="or_date" name="or_date" value="">
 								</div>
 								<div class="col-md-6">
 									<label for="c_lname" class="text-black">주문자 <span
@@ -213,8 +218,7 @@
 							<div class="form-group row">
 								<div class="col-md-12">
 									<label for="c_companyname" class="text-black">주문 번호 </label> <input
-										type="text" class="form-control" id="c_companyname"
-										name="c_companyname">
+										type="text" class="form-control" id="mdl_or_num" name="mdl_or_num">
 								</div>
 							</div>
 
@@ -284,19 +288,9 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td>야구공</td>
+												<td>테스트용 글러브</td>
 												<td>1</td>
-												<td>￦10,000</td>
-											</tr>
-											<tr>
-												<td>배트</td>
-												<td>1</td>
-												<td>￦10,000</td>
-											</tr>
-											<tr>
-												<td>배트</td>
-												<td>1</td>
-												<td>￦10,000</td>
+												<td>￦30,000</td>
 											</tr>
 											<tr>
 												<td class="text-black font-weight-bold"><strong>주문
