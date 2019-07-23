@@ -23,12 +23,12 @@
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select" style="margin-top: 30px;">
 				<select onchange="if(this.value) location.href=(this.value);">
-					<option value="/mypost">전체</option>
-					<option value="/mypost_review" selected>상품 후기</option>
-					<option value="/mypost_qna">상품 QnA</option>
-					<option value="/mypost_one_to_one">1:1 문의</option>
+					<option value="/mypost.mp">전체</option>
+					<option value="/mypost_review.mp" selected>상품 후기</option>
+					<option value="/mypost_qna.mp">상품 QnA</option>
+					<option value="/mypost_one_to_one.mp">1:1 문의</option>
 				</select>
-				<h5 align="right">총 게시글 : 10</h5>
+				<h5 align="right">총 게시글 : ${pageMaker.total }개</h5>
 			</div>
 		</div>
 		<div class="table-responsive">
@@ -43,108 +43,35 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="reviewVO" items="${review_list }">
 					<tr>
 						<td>
-							<h5>6</h5>
+							<h5>
+								<c:out value="${reviewVO.rv_num }" default="null" />
+							</h5>
 						</td>
 						<td>
-							<h5>상품 후기</h5>
+							<h5>
+								상품 후기
+							</h5>
 						</td>
 						<td>
-							<h5>테스트입니다</h5>
+							<h5>
+								<a href="#" data-toggle="modal"><c:out value='${reviewVO.title }' /></a>
+							</h5>
 						</td>
 						<td>
-							<h5>2019-07-10</h5>
+							<h5>
+								<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewVO.re_date }" />
+							</h5>
 						</td>
 						<td>
-							<h5>100</h5>
+							<h5>
+								<c:out value="${reviewVO.re_hit }" default="null" />
+							</h5>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<h5>5</h5>
-						</td>
-						<td>
-							<h5>상품 후기</h5>
-						</td>
-						<td>
-							<h5>테스트입니다</h5>
-						</td>
-						<td>
-							<h5>2019-07-10</h5>
-						</td>
-						<td>
-							<h5>100</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>4</h5>
-						</td>
-						<td>
-							<h5>상품 후기</h5>
-						</td>
-						<td>
-							<h5>테스트입니다</h5>
-						</td>
-						<td>
-							<h5>2019-07-10</h5>
-						</td>
-						<td>
-							<h5>100</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>3</h5>
-						</td>
-						<td>
-							<h5>상품 후기</h5>
-						</td>
-						<td>
-							<h5>테스트입니다</h5>
-						</td>
-						<td>
-							<h5>2019-07-10</h5>
-						</td>
-						<td>
-							<h5>100</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2</h5>
-						</td>
-						<td>
-							<h5>상품 후기</h5>
-						</td>
-						<td>
-							<h5>테스트입니다</h5>
-						</td>
-						<td>
-							<h5>2019-07-10</h5>
-						</td>
-						<td>
-							<h5>100</h5>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td>
-							<h5>상품 후기</h5>
-						</td>
-						<td>
-							<h5>테스트입니다</h5>
-						</td>
-						<td>
-							<h5>2019-07-10</h5>
-						</td>
-						<td>
-							<h5>100</h5>
-						</td>
-					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 			<div class="text-center">

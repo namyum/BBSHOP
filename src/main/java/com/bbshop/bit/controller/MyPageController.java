@@ -55,12 +55,11 @@ public class MyPageController {
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
-		
 //		for (int i = 0; i < orders_list.size(); i++) {
 //			
 //			System.out.println(i + "번째 주문 객체 : " + orders_list.get(i).toString());
 //		}
-//		
+		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -73,10 +72,15 @@ public class MyPageController {
 	@RequestMapping("/mypost.mp")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, "review", 1);
+		long total = 0;
+		
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, 1);
+		
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		model.addAttribute("review_list", review_list);
-		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+
 		return "shoppingMall/mypage/mypost";
 	}
 	
@@ -87,6 +91,37 @@ public class MyPageController {
 		return "shoppingMall/mypage/modify_info";
 	}
 	
+	// 마이페이지 - 내가 남긴 글 - 상품 후기
+	@RequestMapping("/mypost_review.mp")
+	public String mypost_review(Model model, PagingVO pagingVO) {
+		
+		long total = 0;
+	
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, 1); // 후기 테이블을 파라미터로 준다.
+		
+		for (int i = 0; i < review_list.size(); i++) {
+			
+			System.out.println(review_list.get(i).toString());
+		}
+		
+		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
+		
+		model.addAttribute("review_list", review_list);
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		
+		return "shoppingMall/mypage/mypost_review";
+	}
 
+	// 마이페이지 - 내가 남긴 글 - 상품 문의
+	@RequestMapping("/mypost_qna.mp")
+	public String mypost_qna() {
+		return "shoppingMall/mypage/mypost_qna";
+	}
 
+	// 마이페이지 - 내가 남긴 글 - 1대1 문의
+	@RequestMapping("/mypost_one_to_one.mp")
+	public String mypost_one_to_one() {
+		return "shoppingMall/mypage/mypost_one_to_one";
+	}
+	
 }

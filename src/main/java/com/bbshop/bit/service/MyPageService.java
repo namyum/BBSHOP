@@ -18,5 +18,6 @@ public interface MyPageService {
 	// 동적으로 테이블 안의 데이터 개수 구하기
 	public long getTotal(PagingVO pagingVO, String table);
 
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, String category, long key);
+	// 리뷰 내역 가지고 오기
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
 }
