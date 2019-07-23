@@ -73,8 +73,8 @@
 		]]>
 	</select>
 
-	<delete id="deleteOrder">
-		delete shop_order where order_num = #{order_num}
-	</delete>
+	<update id="cancelOrder">
+		UPDATE shop_order SET stts = 4 WHERE order_num = #{order_num}
+	</update>
 	
 </mapper>

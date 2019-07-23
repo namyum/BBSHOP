@@ -20,4 +20,7 @@ public interface MyPageService {
 
 	// 리뷰 내역 가지고 오기
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
+
+	// 주문 취소하기
+	public void cancelOrder(long order_num);
 }

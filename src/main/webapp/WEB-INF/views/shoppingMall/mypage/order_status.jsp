@@ -186,23 +186,24 @@
 
 <script>
 
-	function fn_cancel_order(order_id){
+	function fn_cancel_order(order_num){
 		
 		var answer = confirm("주문을 취소하시겠습니까?");
 		
 		if (answer == true) {
 			
 			var formObj = document.createElement("form");
-			var i_order_id = document.createElement("input"); 
+			var i_order_num = document.createElement("input"); 
 		    
-		    i_order_id.name = "order_id";
-		    i_order_id.value = order_id;
+		    i_order_num.name = "order_num";
+		    i_order_num.value = order_num;
 			
-		    formObj.appendChild(i_order_id);
+		    formObj.appendChild(i_order_num);
 		    document.body.appendChild(formObj);
 		    
-		    formObj.method="post";
-		    formObj.action="${contextPath}/order_status.mp";
+		    formObj.method = "post";
+		    formObj.action = "/order_cancel.mp";
+		    
 		    formObj.submit();	
 		}
 	}

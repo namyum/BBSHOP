@@ -43,9 +43,18 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key) {
+		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
 		return myPageMapper.getReviewList(pagingVO, key);
+	}
+
+	@Override
+	public void cancelOrder(long order_num) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		myPageMapper.cancelOrder(order_num);
 	}
 
 }

@@ -3,15 +3,18 @@ package com.bbshop.bit.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
-import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
 
 @Controller
@@ -66,6 +69,14 @@ public class MyPageController {
 		model.addAttribute("orders_list", orders_list);
 		
 		return "shoppingMall/mypage/order_status";
+	}
+	
+	@RequestMapping("/order_cancel.mp")
+	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
+		
+		myPageService.cancelOrder(order_num);
+		
+		return "redirect:/order_status.mp";
 	}
 	
 	// 내가 남긴 글
