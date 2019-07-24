@@ -206,27 +206,27 @@
 								<div class="col-md-6">
 									<label for="c_fname" class="text-black">주문일자 <span
 										class="text-danger">*</span></label> <input type="text"
-										class="form-control" id="or_date" name="or_date" value="">
+										class="form-control" id="or_date" name="or_date" 
+											value="<fmt:formatDate pattern="yyyy-MM-dd" value="${orderVO.or_date }"/>">
 								</div>
 								<div class="col-md-6">
 									<label for="c_lname" class="text-black">주문자 <span
 										class="text-danger">*</span></label> <input type="text"
-										class="form-control" id="c_lname" name="c_lname">
+										class="form-control" id="orderer" name="orderer">
 								</div>
 							</div>
 
 							<div class="form-group row">
 								<div class="col-md-12">
 									<label for="c_companyname" class="text-black">주문 번호 </label> <input
-										type="text" class="form-control" id="mdl_or_num" name="mdl_or_num">
+										type="text" class="form-control" id="mdl_or_num" name="mdl_or_num"
+										value="${orderVO.order_num }">
 								</div>
 							</div>
-
-
-
+							
 							<div class="form-group">
 								<label for="c_order_notes" class="text-black">주문 메모</label>
-								<textarea name="c_order_notes" id="c_order_notes" cols="30"
+								<textarea name="order_notes" id="order_notes" cols="30"
 									rows="5" class="form-control" placeholder=""></textarea>
 							</div>
 
@@ -234,8 +234,8 @@
 								<div class="col-md-6">
 									<label for="c_state_country" class="text-black">수취인 <span
 										class="text-danger">*</span>
-									</label> <input type="text" class="form-control" id="c_state_country"
-										name="c_state_country">
+									</label> <input type="text" class="form-control" id="receiver"
+										name="receiver">
 								</div>
 								<div class="col-md-6">
 									<label for="c_postal_zip" class="text-black">우편번호 <span

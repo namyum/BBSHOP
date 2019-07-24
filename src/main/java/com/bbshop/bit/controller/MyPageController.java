@@ -74,7 +74,9 @@ public class MyPageController {
 	@RequestMapping("/order_cancel.mp")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 		
-		myPageService.cancelOrder(order_num);
+		System.out.println("Controller에서의 order_num : " + order_num);
+		
+		int result = myPageService.cancelOrder(order_num);
 		
 		return "redirect:/order_status.mp";
 	}

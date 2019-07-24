@@ -50,11 +50,13 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void cancelOrder(long order_num) {
+	public int cancelOrder(long order_num) {
+		
+		System.out.println("Service에서의 order_num : " + order_num);
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		myPageMapper.cancelOrder(order_num);
+		return myPageMapper.cancelOrder(order_num);
 	}
 
 }

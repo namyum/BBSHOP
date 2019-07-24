@@ -20,6 +20,7 @@
 		<result property="or_date" column="or_date" />
 		<result property="items" column="items" />
 		<result property="pymntamnt" column="pymntamnt" />
+		<result property="stts" column="stts" />
 	</resultMap>
 	
 	<!-- 후기 resultMap -->
@@ -49,9 +50,9 @@
 
 	<select id="getOrdersList" resultMap="orderVO">
 		<![CDATA[	
-     		SELECT rownum rn, order_num, or_date, items, pymntamnt
+     		SELECT rownum rn, order_num, or_date, items, pymntamnt, stts
      		FROM
-     			( SELECT order_num, or_date, items, pymntamnt 
+     			( SELECT order_num, or_date, items, pymntamnt, stts
        			  FROM shop_order 
        			  WHERE name = (SELECT name FROM sh_user WHERE user_key = #{key} )
             	  		AND cancel = 0

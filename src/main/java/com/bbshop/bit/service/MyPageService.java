@@ -22,5 +22,5 @@ public interface MyPageService {
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
 
 	// 주문 취소하기
-	public void cancelOrder(long order_num);
+	public int cancelOrder(long order_num);
 }

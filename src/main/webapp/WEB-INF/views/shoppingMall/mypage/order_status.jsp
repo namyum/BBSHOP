@@ -57,6 +57,11 @@
 	text-align: left;
 	vertical-align: middle;
 }
+
+.slash {
+	background: url('//cdn.zetawiki.com/png/slash.png');
+	background-size: 100% 100%;
+}
 </style>
 
 <div class="container">
@@ -78,7 +83,14 @@
 			</thead>
 			<tbody>
 				<c:forEach var="orderVO" items="${orders_list }">
-					<tr>
+					<c:choose> 
+						<c:when test="${orderVO.stts == 4}">
+							<tr class="slash">
+						</c:when>
+						<c:otherwise>
+							<tr>
+						</c:otherwise>
+					</c:choose>
 						<td style="text-align: center;">
 							<h5>
 								<c:out value="${orderVO.order_num }" default="null" />
@@ -116,19 +128,19 @@
 										배송완료
 								    </c:when>
 									<c:when test="${orderVO.stts == 4 }">
-										주문취소
+										<span style="color: red;">주문취소</span>
 								    </c:when>
 								</c:choose>
 							</h5>
 						</td>
 						<td>
 							<button type="button" id="see_order"
-								class="genric-btn default radius" data-toggle="modal"
-								data-target="#myModal">
+								class="genric-btn default radius">
 								<span>주문 조회</span>
 							</button>
 						</td>
-						<td><c:choose>
+						<td>
+							<c:choose>
 								<c:when test="${orderVO.stts == 0}">
 									<button type="button" id="cancel_order"
 										class="genric-btn danger radius"
@@ -142,7 +154,8 @@
 										<span>주문 취소</span>
 									</button>
 								</c:otherwise>
-							</c:choose></td>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -186,11 +199,14 @@
 
 <script>
 
+
 	function fn_cancel_order(order_num){
 		
 		var answer = confirm("주문을 취소하시겠습니까?");
 		
 		if (answer == true) {
+			
+			alert("주문이 취소되었습니다.");
 			
 			var formObj = document.createElement("form");
 			var i_order_num = document.createElement("input"); 
@@ -204,34 +220,44 @@
 		    formObj.method = "post";
 		    formObj.action = "/order_cancel.mp";
 		    
-		    formObj.submit();	
+		    formObj.submit();
 		}
 	}
 
 	$(document).ready(function() {
+		
+		var order_list = new Array();
+		
+		<c:foreach items="${orders_list}" var="orderVO" varStatus="status">
+			var test = '<c:out value="${status.index}" />'
+		</c:foreach>
+		
+		<!-- var order_num = '<c:out value="${orders_list[0].order_num}"/>'; -->
+		
+		alert(test);
+		
+		var actionForm = $("#actionForm");
 
-				var order_num = '<c:out value="${orderVO.order_num }" default="테스트용 글러브 1족" />';
-				
-				var actionForm = $("#actionForm");
+		// 페이징 버튼 처리
+		$(".page-item a").on("click", function(e) {
 
-						// 페이징 버튼 처리
-						$(".page-item a").on("click", function(e) {
+			e.preventDefault();
 
-							e.preventDefault();
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-							actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
 
-							actionForm.submit();
-						});
-
-						// 주문 목록 모달 처리
-						$('#modal_order_detail').on('show.bs.modal', function(event) {
-
-							$('#mdl_or_num').val(order_num);
-							$('#or_date').val("2019-07-10");
-							$('#c_order_notes').val("빨리 보내주세요.")
-						});
-					});
+		// 주문 목록 모달 처리
+		$('#modal_order_detail').on('show.bs.modal', function(event) {
+			
+			alert(order_num);
+			
+			$('#mdl_or_num').val(order_num);
+			$('#or_date').val("2019-07-10");
+			$('#order_notes').val("빨리 보내주세요.")
+		});
+	});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

@@ -18,5 +18,5 @@ public interface MyPageMapper {
 
 	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
-	public void cancelOrder(long order_num);
+	public int cancelOrder(long order_num);
 }
