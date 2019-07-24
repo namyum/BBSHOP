@@ -9,7 +9,6 @@ public class GoodsVO {
 	private String name;		// 상품명
 	private Long stock;			// 재고 수 (의정 - default:100)
 	private Long price;			// 가격
-//	private String detail;		// 상세 설명
 	private String brand;		// 브랜드 (10개)
 	private String main_img;	// 메인 사진(goodsList)
 	private String dtl_img1;	// 상세 사진1(goodsInfo - 대표)
