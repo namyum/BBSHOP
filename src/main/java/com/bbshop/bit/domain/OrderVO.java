@@ -18,7 +18,8 @@ public class OrderVO {
 	private Date ship_date;
 	private long user_key;
 	private String name;
-	private String items;
+	private String items; // 추가: 주문내역
+	private String receiver; // 추가: 수취인
 	
 	public long getOrder_num() {
 		return order_num;
@@ -110,12 +111,20 @@ public class OrderVO {
 	public void setItems(String items) {
 		this.items = items;
 	}
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
 	
 	@Override
 	public String toString() {
 		return "OrderVO [order_num=" + order_num + ", or_addr=" + or_addr + ", pymntmthd=" + pymntmthd + ", pymntamnt="
-				+ pymntamnt + ", phone=" + phone + ", phone2=6" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
+				+ pymntamnt + ", phone=" + phone + ", phone2=" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
-				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + "]";
+				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + ", receiver=" + receiver + "]";
 	}
+	
+	
 }

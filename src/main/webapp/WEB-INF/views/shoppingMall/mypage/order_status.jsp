@@ -57,11 +57,6 @@
 	text-align: left;
 	vertical-align: middle;
 }
-
-.slash {
-	background: url('//cdn.zetawiki.com/png/slash.png');
-	background-size: 100% 100%;
-}
 </style>
 
 <div class="container">
@@ -83,14 +78,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
-					<c:choose> 
-						<c:when test="${orderVO.stts == 4}">
-							<tr class="slash">
-						</c:when>
-						<c:otherwise>
-							<tr>
-						</c:otherwise>
-					</c:choose>
+					<tr>
 						<td style="text-align: center;">
 							<h5>
 								<c:out value="${orderVO.order_num }" default="null" />
@@ -98,11 +86,12 @@
 						</td>
 						<td>
 							<h5>
-								<fmt:formatDate pattern="yyyy-MM-dd" value="${orderVO.or_date }" />
+								<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${orderVO.or_date }" />
 							</h5>
 						</td>
 						<td><h5>
-								<a href="<c:out value='${orderVO.items }'/>" style="color: #222222;" 
+								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal" 
+									data-target="#modal_order_detail" style="color: #222222;" 
 									onclick="showModal('${status.index}');">
 									<c:out value='${orderVO.items }' /></a>
 							</h5>
@@ -137,7 +126,7 @@
 						<td>
 							<button type="button" id="see_order"
 								class="genric-btn default radius">
-								<span>주문 조회</span>
+								<span>배송 조회</span>
 							</button>
 						</td>
 						<td>
@@ -151,7 +140,7 @@
 								</c:when>
 								<c:otherwise>
 									<button type="button" id="cancel_order"
-										class="genric-btn danger radius" disabled>
+										class="genric-btn danger radius" style="visibility: hidden;">
 										<span>주문 취소</span>
 									</button>
 								</c:otherwise>
@@ -200,6 +189,13 @@
 
 <script>
 
+	var order_num = '';
+	var order_item = '';
+	var order_date = '';
+	var order_name = '';
+	var order_msg = '';
+	var receiver = '';
+
 	function fn_cancel_order(order_num) {
 		
 		var answer = confirm("주문을 취소하시겠습니까?");
@@ -228,28 +224,30 @@
 		
 		var list = new Array();
 		
-		<c:forEach items="${orders_list}" var="orderVO">
-			list.push(${orderVO.order_num});
+		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
+			if ('${status.index}' == order_idx) {
+				
+				list.push('${orderVO.order_num}');
+				list.push('${orderVO.items}');
+				list.push('<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${orderVO.or_date }" />');
+				list.push('${orderVO.name}')
+				list.push('${orderVO.or_msg}')
+				list.push('${orderVO.receiver}');
+			}	
 		</c:forEach>
 		
-		alert(list[order_idx]);
-		
-		$('#modal_order_detail').modal('show');
-		
+		order_num = list[0];
+		order_item = list[1];
+		order_date = list[2];
+		order_name = list[3];
+		order_msg = list[4];
+		receiver = list[5];
 	}
 
 	$(document).ready(function() {
-		
-		var order_list = new Array();
-		
-		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
-			
-			var order_num_0 = '${orders_list[0].order_num}';
-		
-		</c:forEach>;
-		
-		var actionForm = $("#actionForm");
 
+		var actionForm = $("#actionForm");
+		
 		// 페이징 버튼 처리
 		$(".page-item a").on("click", function(e) {
 
@@ -263,9 +261,12 @@
 		// 주문 목록 모달 처리
 		$('#modal_order_detail').on('show.bs.modal', function(event) {
 			
-			$('#mdl_or_num').val(list[order_idx]);
-			$('#or_date').val("2019-07-10");
-			$('#order_notes').val("빨리 보내주세요.")
+			$('#mdl_or_num').val(order_num);
+			$('#or_date').val(order_date);
+			$('#goods').html(order_item);
+			$('#orderer').val(order_name);
+			$('#order_notes').html(order_msg);
+			$('#receiver').val(receiver);
 		});
 		
 	});
