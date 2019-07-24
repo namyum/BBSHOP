@@ -82,7 +82,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="orderVO" items="${orders_list }">
+				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
 					<c:choose> 
 						<c:when test="${orderVO.stts == 4}">
 							<tr class="slash">
@@ -102,10 +102,11 @@
 							</h5>
 						</td>
 						<td><h5>
-								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal"
-									data-target="#modal_order_detail" style="color: #222222;"><c:out
-										value='${orderVO.items }' /></a>
-							</h5></td>
+								<a href="<c:out value='${orderVO.items }'/>" style="color: #222222;" 
+									onclick="showModal('${status.index}');">
+									<c:out value='${orderVO.items }' /></a>
+							</h5>
+						</td>
 						<td>
 							<h5>
 								￦
@@ -199,8 +200,7 @@
 
 <script>
 
-
-	function fn_cancel_order(order_num){
+	function fn_cancel_order(order_num) {
 		
 		var answer = confirm("주문을 취소하시겠습니까?");
 		
@@ -223,18 +223,30 @@
 		    formObj.submit();
 		}
 	}
+	
+	function showModal(order_idx) {
+		
+		var list = new Array();
+		
+		<c:forEach items="${orders_list}" var="orderVO">
+			list.push(${orderVO.order_num});
+		</c:forEach>
+		
+		alert(list[order_idx]);
+		
+		$('#modal_order_detail').modal('show');
+		
+	}
 
 	$(document).ready(function() {
 		
 		var order_list = new Array();
 		
-		<c:foreach items="${orders_list}" var="orderVO" varStatus="status">
-			var test = '<c:out value="${status.index}" />'
-		</c:foreach>
+		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
+			
+			var order_num_0 = '${orders_list[0].order_num}';
 		
-		<!-- var order_num = '<c:out value="${orders_list[0].order_num}"/>'; -->
-		
-		alert(test);
+		</c:forEach>;
 		
 		var actionForm = $("#actionForm");
 
@@ -251,12 +263,11 @@
 		// 주문 목록 모달 처리
 		$('#modal_order_detail').on('show.bs.modal', function(event) {
 			
-			alert(order_num);
-			
-			$('#mdl_or_num').val(order_num);
+			$('#mdl_or_num').val(list[order_idx]);
 			$('#or_date').val("2019-07-10");
 			$('#order_notes').val("빨리 보내주세요.")
 		});
+		
 	});
 </script>
 
