@@ -2,6 +2,9 @@ package com.bbshop.bit.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class CommunityVO {
 	
 	private Long board_num;	// 글 번호
@@ -10,9 +13,9 @@ public class CommunityVO {
 	private String board_content;	// 글 내용
 	private String uploadFile;	// 첨부파일
 //	private String writer;	// 회원_회원식별자.닉네임으로 불러오면 될듯!
-	private Long hit; // 글 조회수
-	private Date regdate;	// 글 작성일
-	private Date moddate;	// 글 수정일
+	private Long hit; // 글 조회수, default 0
+	private Date regdate;	// 글 작성일, default sysdate
+	private Date moddate;	// 글 수정일, default sysdate
 	private Long previousPost;	// 이전글
 	private Long nextPost;	// 다음글
 	private Long reply_num;	// 댓글 개수
