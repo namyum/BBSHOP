@@ -1,4 +1,4 @@
-package com.bbshop.bit.service1;
+package com.bbshop.bit.service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

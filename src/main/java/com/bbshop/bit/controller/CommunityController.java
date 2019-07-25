@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bbshop.bit.domain.CommunityVO;
-import com.bbshop.bit.service1.CommunityService;
+import com.bbshop.bit.service.CommunityService;
 
 @Controller
 public class CommunityController {
