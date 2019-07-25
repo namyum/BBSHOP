@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
@@ -123,13 +124,15 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost_one_to_one";
 	}
 	
-	// 4. 회원 정보 수정
+	// 4. 회원 정보 수정 (조회)
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
 		MemberVO member = myPageService.getUserInfo(1);
+		List<AddrVO> addr_list = myPageService.getAddrList(1);
 				
 		model.addAttribute("memberInfo", member);
+		model.addAttribute("addr_list", addr_list);
 		
 		return "shoppingMall/mypage/modify_info";
 	}

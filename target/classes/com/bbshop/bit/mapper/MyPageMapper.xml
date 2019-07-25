@@ -14,15 +14,6 @@
 		<result property="or_num" column="order_num" />
 	</resultMap>
 
-	<!-- 주문 resultMap -->
-	<!-- <resultMap type="com.bbshop.bit.domain.OrderVO" id="orderVO">
-		<result property="order_num" column="order_num" />
-		<result property="or_date" column="or_date" />
-		<result property="items" column="items" />
-		<result property="pymntamnt" column="pymntamnt" />
-		<result property="stts" column="stts" />
-	</resultMap>  -->
-	
 	<!-- 후기 resultMap -->
 	<resultMap id="reviewVO" type="com.bbshop.bit.domain.ReviewVO" >
 		<result property="rv_num" column="rv_num" />
@@ -30,6 +21,23 @@
 		<result property="re_date" column="re_date" />
 		<result property="re_hit" column="re_hit" />
 	</resultMap>
+	
+	<!-- <resultMap id="userInfo" type="java.util.HashMap">
+		<result property="USER_KEY" column="USER_KEY" />
+		<result property="MEMBER_ID" column="MEMBER_ID" />
+		<result property="NICKNAME" column="NICKNAME" />			
+		<result property="MEMBER_PW" column="MEMBER_PW" />
+		<result property="NAME" column="NAME" />
+		<result property="BIRTH" column="BIRTH" />
+		<result property="PHONE" column="PHONE" />
+		<result property="GRADE" column="GRADE" />
+		<result property="SAVINGS" column="SAVINGS" />
+		<result property="CAUTION" column="CAUTION" />
+		<result property="REGDATE" column="REGDATE" />
+		<result property="MODDATE" column="MODDATE" />
+		<result property="FLAG" column="FLAG" />
+		<result property="ADDR" column="ADDR" />
+	</resultMap>  -->
 
 	<select id="getSavingsList" resultMap="savingsVO">
 		<![CDATA[	
@@ -45,7 +53,8 @@
 	</select>
 
 	<select id="getTotalCount" resultType="java.lang.Long">
-		SELECT count(*) FROM ${table}
+		SELECT count(*) 
+		FROM ${table}
 	</select>
 
 	<select id="getOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
@@ -75,11 +84,15 @@
 	</select>
 
 	<update id="cancelOrder">
-		UPDATE shop_order SET stts = 4 WHERE order_num = #{order_num}
+		UPDATE shop_order 
+		SET stts = 4 
+		WHERE order_num = #{order_num}
 	</update>
 	
 	<select id="getUserInfo" resultType="com.bbshop.bit.domain.MemberVO">
-		SELECT * FROM sh_user WHERE user_key = #{key}
+		SELECT *
+		FROM sh_user
+		WHERE user_key = #{key}
 	</select>
 	
 	<update id="updateUserInfo">
@@ -91,5 +104,11 @@
 			nickname = #{NICKNAME}
 		WHERE user_key = #{USER_KEY}
 	</update>
+	
+	<select id="getAddrList" resultType="com.bbshop.bit.domain.AddrVO">
+		SELECT *
+		FROM address
+		WHERE user_key = #{key}
+	</select>
 	
 </mapper>

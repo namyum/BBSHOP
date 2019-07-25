@@ -2,6 +2,7 @@ package com.bbshop.bit.service;
 
 import java.util.List;
 
+import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
@@ -30,4 +31,7 @@ public interface MyPageService {
 
 	// 회원 정보 수정 - 회원 정보 수정하기
 	public void updateUserInfo(MemberVO memberVO);
+
+	// 회원 정보 수정 - 배송지 불러오기
+	public List<AddrVO> getAddrList(long key);
 }

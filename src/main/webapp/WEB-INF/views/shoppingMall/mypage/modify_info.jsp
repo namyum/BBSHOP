@@ -20,8 +20,9 @@ h3, h4, h6 {
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">회원 정보 수정</h3>
-						<form class="row contact_form" action="/modify_userInfo.do" method="post"
-							novalidate="novalidate" id="modify_info" name="modify_info_name">
+						<form class="row contact_form" action="/modify_userInfo.do"
+							method="post" novalidate="novalidate" id="modify_info"
+							name="modify_info_name">
 							<div class="col-md-7 form-group p_star">
 								<label for="name">이름</label> <input type="text"
 									class="form-control" id="NAME" name="NAME"
@@ -40,7 +41,8 @@ h3, h4, h6 {
 							<div class="col-md-7 form-group p_star">
 								<label for="birth">생년월일</label> <input type="text"
 									class="form-control" id="BIRTH" name="BIRTH"
-									value="<c:out value="${memberInfo.BIRTH }" default="null" />" readonly>
+									value="<c:out value="${memberInfo.BIRTH }" default="null" />"
+									readonly>
 							</div>
 							<div class="col-md-6 form-group p_star">
 								<label for="phone">휴대폰</label> <input type="text"
@@ -54,14 +56,16 @@ h3, h4, h6 {
 							</div>
 							<div class="col-md-5 form-group p_star">
 								<a href="#" class="genric-btn default radius"
-									style="height: 35px; position: absolute; left: 0px; bottom: 0px;"><span id="dup_chk">중복확인</span></a>
+									style="height: 35px; position: absolute; left: 0px; bottom: 0px;"><span
+									id="dup_chk">중복확인</span></a>
 							</div>
 						</form>
 
 						<a href="#" class="genric-btn default radius"
 							onclick="modify_userInfo('modify_info')"><span>수정하기</span> </a> <a
-							id="withdraw" href="/withdraw.do" class="genric-btn default radius"
-							style="float: right;"><span>회원 탈퇴</span> </a>
+							id="withdraw" href="/withdraw.do"
+							class="genric-btn default radius" style="float: right;"><span>회원
+								탈퇴</span> </a>
 					</div>
 				</div>
 			</div>
@@ -94,9 +98,9 @@ h3, h4, h6 {
 										<p>010-6565-3449</p>
 									</div>
 								</div>
-								<a href="/modify_addr?num=1" class="genric-btn default radius"
-									style="margin-top: 30px"><span>배송지1 변경</span> </a> <a href="#"
-									onclick="alert('배송지 정보가 삭제되었습니다.');"
+								<a href="/modify_addr.do?num=1"
+									class="genric-btn default radius" style="margin-top: 30px"><span>배송지1
+										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지1
 										삭제</span> </a>
 							</div>
@@ -121,9 +125,9 @@ h3, h4, h6 {
 										<p>010-6565-3449</p>
 									</div>
 								</div>
-								<a href="/modify_addr?num=2" class="genric-btn default radius"
-									style="margin-top: 30px"><span>배송지2 변경</span> </a> <a href="#"
-									onclick="alert('배송지 정보가 삭제되었습니다.');"
+								<a href="/modify_addr.do?num=2"
+									class="genric-btn default radius" style="margin-top: 30px"><span>배송지2
+										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지2
 										삭제</span> </a>
 							</div>
@@ -148,9 +152,9 @@ h3, h4, h6 {
 										<p>010-6565-3449</p>
 									</div>
 								</div>
-								<a href="/modify_addr?num=3" class="genric-btn default radius"
-									style="margin-top: 30px"><span>배송지3 변경</span> </a> <a href="#"
-									onclick="alert('배송지 정보가 삭제되었습니다.');"
+								<a href="/modify_addr.do?num=3"
+									class="genric-btn default radius" style="margin-top: 30px"><span>배송지3
+										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지3
 										삭제</span> </a>
 							</div>
@@ -262,13 +266,12 @@ h3, h4, h6 {
 </div>
 
 <script>
-
 	function modify_userInfo(form) {
-		
+
 		alert('회원 정보가 수정되었습니다.');
-		
-		$('#'+form).submit();
-		
+
+		$('#' + form).submit();
+
 	};
 </script>
 

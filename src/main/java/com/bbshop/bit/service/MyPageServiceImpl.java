@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
@@ -73,6 +74,14 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		myPageMapper.updateUserInfo(memberVO);
+	}
+
+	@Override
+	public List<AddrVO> getAddrList(long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getAddrList(key);
 	}
 
 }

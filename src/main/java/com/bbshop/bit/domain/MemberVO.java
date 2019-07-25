@@ -5,14 +5,9 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Component
-@ToString
-@Setter
-@Getter
+@Data
 public class MemberVO {
 
 	private long USER_KEY;
