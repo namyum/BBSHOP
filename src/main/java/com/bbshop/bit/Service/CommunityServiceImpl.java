@@ -27,6 +27,7 @@ public class CommunityServiceImpl implements CommunityService{
 	public String getNickname(int user_key) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
 		return communityMapper.getNickname(user_key);
 	}
 	
