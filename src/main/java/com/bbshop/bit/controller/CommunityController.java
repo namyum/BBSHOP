@@ -1,11 +1,10 @@
 package com.bbshop.bit.controller;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bbshop.bit.domain.CommunityVO;
@@ -26,7 +25,10 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글쓰기
 	@RequestMapping("/community_form.do")
-	public String community_form() {
+	public String community_form(Model model) {
+		
+		model.addAttribute("nickname",communityService.getNickname(1));
+		
 		return "shoppingMall/community/community_form";
 	}
 	
@@ -58,18 +60,8 @@ public class CommunityController {
 		} else {
 			System.out.println("글 등록에 실패하였습니다.");
 		}
-		
-		
 		return "shoppingMall/community/community_list";
 		
-	}
-	
-	@RequestMapping("/send.do") 
-	public String send(HttpServletRequest request) throws UnsupportedEncodingException{ 
-		request.setCharacterEncoding("utf-8"); 
-		System.out.println( (String) request.getParameter("board_content")); 
-		
-		return "shoppingMall/community/community_list";
 	}
 
 }
