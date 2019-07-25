@@ -24,10 +24,10 @@
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
 				<select onchange="if(this.value) location.href=(this.value);">
-					<option value="/mypost.mp">전체</option>
-					<option value="/mypost_review.mp" selected>상품 후기</option>
-					<option value="/mypost_qna.mp">상품 QnA</option>
-					<option value="/mypost_one_to_one.mp">1:1 문의</option>
+					<option value="/mypost.do">전체</option>
+					<option value="/mypost_review.do" selected>상품 후기</option>
+					<option value="/mypost_qna.do">상품 QnA</option>
+					<option value="/mypost_one_to_one.do">1:1 문의</option>
 				</select>
 				<h5 align="right">총 게시글 : ${pageMaker.total }개</h5>
 			</div>
@@ -103,7 +103,7 @@
 				</ul>
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
-			<form id="actionForm" action="mypost_review.mp">
+			<form id="actionForm" action="mypost_review.do">
 				<input type="hidden" name="pageNum"
 					value="${pageMaker.pagingVO.pageNum }"> <input
 					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">

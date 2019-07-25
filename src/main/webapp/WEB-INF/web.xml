@@ -21,7 +21,7 @@
   
   <servlet-mapping>
     <servlet-name>appServlet</servlet-name>
-    <url-pattern>*.mp</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
   <filter>

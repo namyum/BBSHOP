@@ -179,7 +179,7 @@
 			</ul>
 		</div>
 		<!-- 페이징 버튼 처리를 위한 히든 폼 -->
-		<form id="actionForm" action="order_status.mp">
+		<form id="actionForm" action="order_status.do">
 			<input type="hidden" name="pageNum"
 				value="${pageMaker.pagingVO.pageNum }"> <input type="hidden"
 				name="amount" value="${pageMaker.pagingVO.amount }">
@@ -214,7 +214,7 @@
 		    document.body.appendChild(formObj);
 		    
 		    formObj.method = "post";
-		    formObj.action = "/order_cancel.mp";
+		    formObj.action = "/order_cancel.do";
 		    
 		    formObj.submit();
 		}

@@ -23,10 +23,10 @@
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select" style="margin-top: 30px;">
 				<select onchange="if(this.value) location.href=(this.value);">
-					<option value="/mypost.mp">전체</option>
-					<option value="/mypost_review.mp">상품 후기</option>
-					<option value="/mypost_qna.mp">상품 QnA</option>
-					<option value="/mypost_one_to_one.mp">1:1 문의</option>
+					<option value="/mypost.do">전체</option>
+					<option value="/mypost_review.do">상품 후기</option>
+					<option value="/mypost_qna.do">상품 QnA</option>
+					<option value="/mypost_one_to_one.do">1:1 문의</option>
 				</select>
 				<h5 align="right">총 게시글 : 10</h5>
 			</div>

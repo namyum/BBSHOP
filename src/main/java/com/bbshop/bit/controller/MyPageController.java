@@ -18,14 +18,13 @@ import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
 
 @Controller
-@RequestMapping("*.mp")
 public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
 	
 	// 마이페이지 -> 적립금 조회
-	@RequestMapping("/savings.mp")
+	@RequestMapping("/savings.do")
 	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						
 		long sum = 0;
@@ -51,7 +50,7 @@ public class MyPageController {
 	}
 	
 	// 주문/배송
-	@RequestMapping("/order_status.mp")
+	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
 		long total = 0;
@@ -71,18 +70,18 @@ public class MyPageController {
 		return "shoppingMall/mypage/order_status";
 	}
 	
-	@RequestMapping("/order_cancel.mp")
+	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 		
 		System.out.println("Controller에서의 order_num : " + order_num);
 		
 		int result = myPageService.cancelOrder(order_num);
 		
-		return "redirect:/order_status.mp";
+		return "redirect:/order_status.do";
 	}
 	
 	// 내가 남긴 글
-	@RequestMapping("/mypost.mp")
+	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
@@ -98,7 +97,7 @@ public class MyPageController {
 	}
 	
 	// 마이페이지 - 내가 남긴 글 - 상품 후기
-	@RequestMapping("/mypost_review.mp")
+	@RequestMapping("/mypost_review.do")
 	public String mypost_review(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
@@ -119,21 +118,21 @@ public class MyPageController {
 	}
 
 	// 마이페이지 - 내가 남긴 글 - 상품 문의
-	@RequestMapping("/mypost_qna.mp")
+	@RequestMapping("/mypost_qna.do")
 	public String mypost_qna() {
 		
 		return "shoppingMall/mypage/mypost_qna";
 	}
 
 	// 마이페이지 - 내가 남긴 글 - 1대1 문의
-	@RequestMapping("/mypost_one_to_one.mp")
+	@RequestMapping("/mypost_one_to_one.do")
 	public String mypost_one_to_one() {
 		
 		return "shoppingMall/mypage/mypost_one_to_one";
 	}
 	
 	// 회원 정보 수정
-	@RequestMapping("/modify_info.mp")
+	@RequestMapping("/modify_info.do")
 	public String getModifyInfo() {
 		
 		return "shoppingMall/mypage/modify_info";

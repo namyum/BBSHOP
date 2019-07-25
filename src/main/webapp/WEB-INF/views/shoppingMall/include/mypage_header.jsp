@@ -848,10 +848,10 @@ body {
 		<div class="container-fluid">
 			<div class="section-top-border">
 				<ul class="myPageTop">
-					<li><a href="/savings.mp" class="menu">마이페이지</a></li>
-					<li><a href="/order_status.mp" class="menu">주문/배송</a></li>
-					<li><a href="/mypost.mp" class="menu">내가 남긴 글</a></li>
-					<li><a href="/modify_info.mp" class="menu">회원 정보 수정</a></li>
+					<li><a href="/savings.do" class="menu">마이페이지</a></li>
+					<li><a href="/order_status.do" class="menu">주문/배송</a></li>
+					<li><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
+					<li><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>
