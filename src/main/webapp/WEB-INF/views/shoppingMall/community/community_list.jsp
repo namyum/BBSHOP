@@ -80,7 +80,7 @@
 						</div>
 					</nav>
 					<div><div style="text-align: right; padding:30px 0;width:auto;">
-						<input type="button" onclick="location.href='/community_form'" value="글쓰기"/>
+						<input type="button" onclick="location.href='/community_form.do'" value="글쓰기"/>
 						</div>
 					</div>
 					<div class="tab-content" id="nav-tabContent" style="width:auto;">
@@ -99,70 +99,70 @@
 								<tbody>
 									<tr>
 										<td>10</td>
-										<td style="text-align:left;"><a href="/community_detail">엘지 넘잘해요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">엘지 넘잘해요</a></td>
 										<td>엔젤지수</td>
 										<td>2019/07/10</td>
 										<td>5</td>
 									</tr>
 									<tr>
 										<td>9</td>
-										<td style="text-align:left;"><a href="/community_detail">윌슨 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">윌슨 잘생겼어요</a></td>
 										<td>윌슨여친</td>
 										<td>2019/06/10</td>
 										<td>35</td>
 									</tr>
 									<tr>
 										<td>8</td>
-										<td style="text-align:left;"><a href="/community_detail">정우영 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">정우영 잘생겼어요</a></td>
 										<td>우영짱짱</td>
 										<td>2019/07/02</td>
 										<td>59</td>
 									</tr>
 									<tr>
 										<td>7</td>
-										<td style="text-align:left;"><a href="/community_detail">유강남 귀여워요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">유강남 귀여워요</a></td>
 										<td>강남강남</td>
 										<td>2019/04/18</td>
 										<td>27</td>
 									</tr>
 									<tr>
 										<td>6</td>
-										<td style="text-align:left;"><a href="/community_detail">이천웅 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">이천웅 잘생겼어요</a></td>
 										<td>처눙처눙</td>
 										<td>2019/01/10</td>
 										<td>32</td>
 									</tr>
 									<tr>
 										<td>5</td>
-										<td style="text-align:left;"><a href="/community_detail">엘지 넘잘해요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">엘지 넘잘해요</a></td>
 										<td>엔젤지수</td>
 										<td>2019/07/10</td>
 										<td>5</td>
 									</tr>
 									<tr>
 										<td>4</td>
-										<td style="text-align:left;"><a href="/community_detail">윌슨 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">윌슨 잘생겼어요</a></td>
 										<td>윌슨여친</td>
 										<td>2019/06/10</td>
 										<td>35</td>
 									</tr>
 									<tr>
 										<td>3</td>
-										<td style="text-align:left;"><a href="/community_detail">정우영 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">정우영 잘생겼어요</a></td>
 										<td>우영짱짱</td>
 										<td>2019/07/02</td>
 										<td>59</td>
 									</tr>
 									<tr>
 										<td>2</td>
-										<td style="text-align:left;"><a href="/community_detail">유강남 귀여워요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">유강남 귀여워요</a></td>
 										<td>강남강남</td>
 										<td>2019/04/18</td>
 										<td>27</td>
 									</tr>
 									<tr>
 										<td>1</td>
-										<td style="text-align:left;"><a href="/community_detail">이천웅 잘생겼어요</a></td>
+										<td style="text-align:left;"><a href="/community_detail.do">이천웅 잘생겼어요</a></td>
 										<td>처눙처눙</td>
 										<td>2019/01/10</td>
 										<td>32</td>

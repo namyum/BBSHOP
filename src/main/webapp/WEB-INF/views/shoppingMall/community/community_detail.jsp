@@ -280,9 +280,9 @@ body {
 					<!-- 수정, 삭제, 목록보기 버튼 -->
 					<div style="width: 100%;">
 						<div class="button-group-area mt-40">
-							<a href="/community_list" id="go_list"
+							<a href="/community_list.do" id="go_list"
 								class="genric-btn primary radius" style="margin-left: 500px;">목록보기</a>
-							<a href="/community_modify" id="modify_post"
+							<a href="/community_modify.do" id="modify_post"
 								class="genric-btn primary radius">수정</a> <a id="delete_post"
 								class="genric-btn primary radius" style="float: right;">삭제</a>
 						</div>
@@ -360,7 +360,7 @@ body {
 				<span class="close">&times;</span>
 			</div>
 			<!-- body -->
-			<form id="reportForm" name="report" role="form" action="/community_detail">
+			<form id="reportForm" name="report" role="form" action="/community_detail.do">
 				<div class="modal-body">
 					<table>
 						<tr class="report_content">

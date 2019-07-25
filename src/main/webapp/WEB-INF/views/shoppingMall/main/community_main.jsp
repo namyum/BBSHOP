@@ -43,7 +43,7 @@
 					<td></td>
 					<td><div
 							class="col-lg-2.5 col-md-5.5 visit mb-2.5" data-aos="fade-up">
-							<a href="/community_list"><img
+							<a href="/community_list.do"><img
 								src="resources/community/img/kbo_main.png" alt="Image placeholder"
 								class="img-fluid rounded" style="width:200px;height:200px;margin-bottom:0px;margin-left:45px;"> </a>
 						</div></td>
@@ -63,7 +63,7 @@
 					<tr>
 						<td><div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/lgtwins_main.png" alt="Image placeholder"
 									class="img-fluid rounded"> </a>
 							</div></td>
@@ -71,7 +71,7 @@
 						<!-- 롯데 자이언츠 게시판으로 이동 -->
 						<td><div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="100">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/lottegiants_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div></td>
@@ -80,7 +80,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="200">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/hanwhaeagles_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
@@ -90,7 +90,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="300">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/kiatigers_main.png" alt="Image placeholder"
 									class="img-fluid rounded"> </a>
 							</div>
@@ -100,7 +100,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/doosanbears_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
@@ -111,7 +111,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="100">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/ncdinos_main.png" alt="Image placeholder"
 									class="img-fluid rounded"> </a>
 							</div>
@@ -121,7 +121,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="200">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/samsunglions_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
@@ -131,7 +131,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="300">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/kiwoomheroes_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
@@ -141,7 +141,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="300">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/skwyverns_main.png" alt="Image placeholder"
 									class="img-fluid rounded"> </a>
 							</div>
@@ -151,7 +151,7 @@
 						<td>
 							<div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 								data-aos="fade-up" data-aos-delay="300">
-								<a href="/community_list"><img
+								<a href="/community_list.do"><img
 									src="resources/community/img/ktwiz_main.png" alt="Image placeholder"
 									class="img-fluid rounded"> </a>
 							</div>
