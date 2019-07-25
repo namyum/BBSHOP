@@ -127,6 +127,8 @@ public class MyPageController {
 		
 		MemberVO member = myPageService.getUserInfo(1);
 		
+		System.out.println(member);
+		
 		model.addAttribute("memberInfo", member);
 		
 		return "shoppingMall/mypage/modify_info";

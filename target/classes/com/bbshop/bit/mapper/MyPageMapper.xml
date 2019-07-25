@@ -78,4 +78,8 @@
 		UPDATE shop_order SET stts = 4 WHERE order_num = #{order_num}
 	</update>
 	
+	<select id="getUserInfo" resultType="com.bbshop.bit.domain.MemberVO">
+		SELECT * FROM sh_user WHERE user_key = #{key}
+	</select>
+	
 </mapper>

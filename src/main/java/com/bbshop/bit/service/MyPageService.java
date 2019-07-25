@@ -26,5 +26,5 @@ public interface MyPageService {
 	public void cancelOrder(long order_num);
 
 	// 회원 정보 수정 - 회원 정보 불러오기
-	public MemberVO getUserInfo(int key);
+	public MemberVO getUserInfo(long key);
 }

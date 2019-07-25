@@ -22,5 +22,5 @@ public interface MyPageMapper {
 
 	public void cancelOrder(long order_num);
 
-	public MemberVO getUserInfo(int key);
+	public MemberVO getUserInfo(long key);
 }

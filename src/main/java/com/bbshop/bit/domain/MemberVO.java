@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class MemberVO {
 
-	private int USER_KEY;
+	private long USER_KEY;
     private String MEMBER_ID;
     private String NICKNAME;
     private String MEMBER_PW;
     private String NAME;
     private int BIRTH;
-    private int PHONE;
+    private String PHONE;
     private String GRADE;
-    private int SAVINGS;
+    private long SAVINGS;
     private int CAUTION;
     private Date REGDATE;
     private Date MODDATE;

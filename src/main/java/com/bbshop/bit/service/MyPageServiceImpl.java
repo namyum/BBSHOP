@@ -60,7 +60,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public MemberVO getUserInfo(int key) {
+	public MemberVO getUserInfo(long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
