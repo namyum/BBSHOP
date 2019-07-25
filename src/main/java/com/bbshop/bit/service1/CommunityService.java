@@ -1,4 +1,4 @@
-package com.bbshop.bit.service;
+package com.bbshop.bit.service1;
 
 import com.bbshop.bit.domain.CommunityVO;
 
