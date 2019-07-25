@@ -143,10 +143,6 @@ body {
 													</p>
 												</td>
 												<td>
-													<p class="ip" style="margin-right: 10px;">IP:
-														123.456.789</p>
-												</td>
-												<td>
 													<p class="hit" style="margin-right: 10px;">
 														<i class="lnr lnr-eye"></i>123
 													</p>
