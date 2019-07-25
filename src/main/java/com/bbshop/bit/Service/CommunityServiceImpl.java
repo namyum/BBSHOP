@@ -1,4 +1,4 @@
-package com.bbshop.bit.Service;
+package com.bbshop.bit.service;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,20 @@ public class CommunityServiceImpl implements CommunityService{
 	private SqlSession sqlSession;
 	
 	@Override
-	public void insertPost(CommunityVO community) {
+	public int insertPost(CommunityVO community) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
-		communityMapper.insertPost(community);
+		int res = communityMapper.insertPost(community);
+		
+		return res;
 
+	}
+	
+	@Override
+	public String getNickname(int user_key) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.getNickname(user_key);
 	}
 	
 }
