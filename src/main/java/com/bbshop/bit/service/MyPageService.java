@@ -2,6 +2,7 @@ package com.bbshop.bit.service;
 
 import java.util.List;
 
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -22,5 +23,8 @@ public interface MyPageService {
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
 
 	// 주문 취소하기
-	public int cancelOrder(long order_num);
+	public void cancelOrder(long order_num);
+
+	// 회원 정보 수정 - 회원 정보 불러오기
+	public MemberVO getUserInfo(int key);
 }

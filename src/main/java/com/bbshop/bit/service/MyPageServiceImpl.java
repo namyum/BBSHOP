@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
@@ -50,11 +52,19 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int cancelOrder(long order_num) {
+	public void cancelOrder(long order_num) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.cancelOrder(order_num);
+		myPageMapper.cancelOrder(order_num);
+	}
+
+	@Override
+	public MemberVO getUserInfo(int key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		return myPageMapper.getUserInfo(key);
 	}
 
 }

@@ -14,7 +14,6 @@
 		<result property="or_num" column="order_num" />
 	</resultMap>
 
-
 	<!-- 주문 resultMap -->
 	<!-- <resultMap type="com.bbshop.bit.domain.OrderVO" id="orderVO">
 		<result property="order_num" column="order_num" />

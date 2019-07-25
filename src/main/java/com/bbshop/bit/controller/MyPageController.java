@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
@@ -49,7 +50,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypage";
 	}
 	
-	// 주문/배송
+	// 2. 주문/배송
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
@@ -65,15 +66,16 @@ public class MyPageController {
 		return "shoppingMall/mypage/order_status";
 	}
 	
+	// 2. 주문/배송 - 주문 취소
 	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 				
-		int result = myPageService.cancelOrder(order_num);
+		myPageService.cancelOrder(order_num);
 		
 		return "redirect:/order_status.do";
 	}
 	
-	// 내가 남긴 글
+	// 3. 내가 남긴 글
 	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
@@ -89,7 +91,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost";
 	}
 	
-	// 마이페이지 - 내가 남긴 글 - 상품 후기
+	// 3. 내가 남긴 글 - 상품 후기
 	@RequestMapping("/mypost_review.do")
 	public String mypost_review(Model model, PagingVO pagingVO) {
 		
@@ -105,23 +107,27 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost_review";
 	}
 
-	// 마이페이지 - 내가 남긴 글 - 상품 문의
+	// 3. 내가 남긴 글 - 상품 문의
 	@RequestMapping("/mypost_qna.do")
 	public String mypost_qna() {
 		
 		return "shoppingMall/mypage/mypost_qna";
 	}
 
-	// 마이페이지 - 내가 남긴 글 - 1대1 문의
+	// 3. 내가 남긴 글 - 1대1 문의
 	@RequestMapping("/mypost_one_to_one.do")
 	public String mypost_one_to_one() {
 		
 		return "shoppingMall/mypage/mypost_one_to_one";
 	}
 	
-	// 회원 정보 수정
+	// 4. 회원 정보 수정
 	@RequestMapping("/modify_info.do")
-	public String getModifyInfo() {
+	public String getModifyInfo(Model model) {
+		
+		MemberVO member = myPageService.getUserInfo(1);
+		
+		model.addAttribute("memberInfo", member);
 		
 		return "shoppingMall/mypage/modify_info";
 	}

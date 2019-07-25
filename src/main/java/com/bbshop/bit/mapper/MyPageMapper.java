@@ -3,6 +3,8 @@ package com.bbshop.bit.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -18,5 +20,7 @@ public interface MyPageMapper {
 
 	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
-	public int cancelOrder(long order_num);
+	public void cancelOrder(long order_num);
+
+	public MemberVO getUserInfo(int key);
 }
