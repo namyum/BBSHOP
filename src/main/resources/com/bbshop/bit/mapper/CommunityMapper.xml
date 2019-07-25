@@ -14,4 +14,8 @@
 		 #{title}, #{board_content}, #{uploadFile})
 		 
 	</insert>
+	
+	<select id="getNickname" parameterType="int" resultType="String">
+			select nickname from member where user_key = #{user_key}
+	</select>
 </mapper>
