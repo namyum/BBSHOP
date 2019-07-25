@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ include file="../include/shopping_header.jsp" %>
+
 
 
 <style> /*여긴 list의 style*/
@@ -39,11 +42,11 @@
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					<h2>글러브</h2>
+					<h2>${categoryString }</h2>	<!-- 카테고리(String) 출력 -->
 					<div class="page_link">
 						<a href="/shopping_main">쇼핑몰</a>
-						<!-- 카테고리 값 넣어주세요 -->
-						<a href="/goods_list">카테고리</a>
+						<!-- url에 카테고리값 전달, view에 카테고리(String) 출력 -->
+						<a href="/goods_list?category=${categoryInt }">${categoryString }</a>
 					</div>
 				</div>
 			</div>
@@ -57,15 +60,17 @@
 			<div class="row flex-row-reverse">
 				<div class="col-lg-12">
 					<div class="product_top_bar">
+						<!-- 정렬 -->
 						<div class="left_dorp">
-							<!-- top00 : 정렬 -->
-							<select class="sorting">
-								<option id="new" value="new">신상품</option>
-								<option id="best" value="best">인기상품</option>
-								<option id="low-price" value="low-price">낮은가격</option>
-								<option id="high-price" value="high-price">높은가격</option>
+							<select class="sorting" onchange="goGoodsList(this.value)">
+								<option id="new" 	value="new">신상품</option>
+								<option id="best" 	value="best">인기상품</option>
+								<option id="lowPrice" 	value="lowPrice">낮은가격</option>
+								<option id="highPrice" value="highPrice">높은가격</option>
 							</select>
 						</div>
+						<!-- end 정렬 -->
+						<!-- price bar -->
 						<div class="right_dorp ml-auto">
 								<h4>Price</h4>
 							<div class="widgets_inner p_filter_widgets">
@@ -78,97 +83,27 @@
 								</div>
 							</div>
 						</div>
+						<!-- end price bar -->
 					</div>
 					
 					<div class="latest_product_inner row">
+					
+						<!-- 상품 출력 -->
+						<c:forEach items="${goodsList }" var="goods">
 						<div class="col-lg-3 col-md-3 col-sm-6">
 							<div class="f_p_item">
 								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-6.jpg" alt=""></a>
+									<a href="/goods_info"><img class="img-fluid" src="<c:out value='${goods.main_img }' />" alt=""></a>
 								</div>
 								<a href="#">
-									<h4>글러브1</h4>
+									<h4><c:out value="${goods.name }" /></h4>
 								</a>
-								<h5>100,000원</h5>
+								<h5><c:out value="${goods.price }" />원</h5>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-7.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>글러브2</h4>
-								</a>
-								<h5>200,000원</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-8.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>배트1</h4>
-								</a>
-								<h5>150,000원</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-9.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>배트2</h4>
-								</a>
-								<h5>15,000원</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-10.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>야구화1</h4>
-								</a>
-								<h5>70,000원</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-6.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>Long Sleeve TShirt</h4>
-								</a>
-								<h5>$150.00</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-7.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>Long Sleeve TShirt</h4>
-								</a>
-								<h5>$150.00</h5>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6">
-							<div class="f_p_item">
-								<div class="f_p_img">
-									<a href="/goods_info"><img class="img-fluid" src="resources/shoppingMall/img/product/feature-product/f-p-8.jpg" alt=""></a>
-								</div>
-								<a href="#">
-									<h4>Long Sleeve TShirt</h4>
-								</a>
-								<h5>$150.00</h5>
-							</div>
-						</div>
+						</c:forEach>
+						<!-- end 상품 출력 -->
+
 					</div>
 				</div>
 			</div>
@@ -219,6 +154,15 @@
 			page_item[1].classList.add("active");
 		})
 	});
+	</script>
+	
+	<script>
+	function goGoodsList(sorting) {
+		var url = "/goods_list?category=${categoryInt}&&sorting=" + sorting;
+		
+		location.replace(url);
+	}
+	
 	</script>
 
 <%@ include file="../include/shopping_footer.jsp" %>
