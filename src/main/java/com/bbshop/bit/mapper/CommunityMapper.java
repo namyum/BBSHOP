@@ -1,7 +1,6 @@
 package com.bbshop.bit.mapper;
 
 import com.bbshop.bit.domain.CommunityVO;
-import com.bbshop.bit.domain.MemberVO;
 
 public interface CommunityMapper {
 	
