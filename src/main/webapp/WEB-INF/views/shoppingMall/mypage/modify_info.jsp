@@ -7,12 +7,14 @@
 .sorting {
 	margin-right: 50px;
 }
+
 h3, h4, h6 {
 	font-weight: bold;
 }
 </style>
 <div class="container">
-	<section class="checkout_area section_gap" style="padding-top:0px;"> <!-- 의정 style수정 -->
+	<section class="checkout_area section_gap" style="padding-top: 0px;">
+		<!-- 의정 style수정 -->
 		<div class="container">
 			<div class="billing_details">
 				<div class="row">
@@ -21,40 +23,48 @@ h3, h4, h6 {
 						<form class="row contact_form" action="#" method="post"
 							novalidate="novalidate">
 							<div class="col-md-7 form-group p_star">
-								<input type="text" class="form-control" id="name" name="name"
-									placeholder="이름">
+								<label for="name">이름</label> <input type="text"
+									class="form-control" id="name" name="name"
+									value="<c:out value="${memberInfo.NAME }" default="null" />">
 							</div>
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="first" name="name"
-									placeholder="비밀번호">
+								<label for="pw">비밀번호</label> <input type="text"
+									class="form-control" id="pw" name="pw"
+									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="last" name="name"
-									placeholder="비밀번호 확인">
+								<label for="pw_chk">비밀번호 확인</label> <input type="text"
+									class="form-control" id="pw_chk" name="pw_chk"
+									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
 							<div class="col-md-7 form-group p_star">
-								<input type="text" class="form-control" id="add2" name="add2"
-									placeholder="생년월일">
+								<label for="birth">생년월일</label> <input type="text"
+									class="form-control" id="birth" name="birth"
+									value="<c:out value="${memberInfo.BIRTH }" default="null" />">
 							</div>
 							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="number"
-									name="number" placeholder="핸드폰">
+								<label for="phone">휴대폰</label> <input type="text"
+									class="form-control" id="phone" name="phone"
+									value="<c:out value="${memberInfo.PHONE }" default="null" />">
 							</div>
-							<a href="#" class="genric-btn default radius"
-								style="height: 35px;"><span>인증하기</span> </a>
-
-							<div class="col-md-6 form-group p_star">
-								<input type="text" class="form-control" id="city" name="city"
-									placeholder="닉네임">
+							<div class="col-md-7 form-group p_star">
+								<label for="nickname">닉네임</label> <input type="text"
+									class="form-control" id="nickname" name="nickname"
+									value="<c:out value="${memberInfo.NICKNAME }" default="null" />">
 							</div>
-							<a href="#" class="genric-btn default radius"
-								style="height: 35px;"><span>중복확인</span> </a>
+							<div class="col-md-5 form-group p_star">
+								<p></p>
+								<p></p>
+								<p></p>
 
+								<a href="#" class="genric-btn default radius"
+									style="height: 35px; position: absolute; left: 0px; bottom: 0px;"><span id="dup_chk">중복확인</span></a>
+							</div>
 						</form>
 
 						<a href="/modify_info" class="genric-btn default radius"
-							onclick="alert('회원 정보가 수정되었습니다.');"><span>수정하기</span> </a> <a id="withdraw"
-							href="/withdraw" class="genric-btn default radius"
+							onclick="alert('회원 정보가 수정되었습니다.');"><span>수정하기</span> </a> <a
+							id="withdraw" href="/withdraw" class="genric-btn default radius"
 							style="float: right;"><span>회원 탈퇴</span> </a>
 					</div>
 				</div>
@@ -64,7 +74,8 @@ h3, h4, h6 {
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">배송지 목록</h3>
 						<a href="/write_addr" class="genric-btn default radius"
-							style="float: right; margin-top: 0px;">새 배송지 추가 </a>
+							style="float: right; margin-top: 0px;"><span>새 배송지 추가</span>
+						</a>
 						<div class="row">
 							<div class="col-lg-4">
 								<div class="contact_info">
@@ -91,7 +102,7 @@ h3, h4, h6 {
 									style="margin-top: 30px"><span>배송지1 변경</span> </a> <a href="#"
 									onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지1
-									삭제</span> </a>
+										삭제</span> </a>
 							</div>
 							<div class="col-lg-4">
 								<div class="contact_info">
@@ -115,10 +126,10 @@ h3, h4, h6 {
 									</div>
 								</div>
 								<a href="/modify_addr?num=2" class="genric-btn default radius"
-									style="margin-top: 30px">배송지2 변경 </a> <a href="#"
+									style="margin-top: 30px"><span>배송지2 변경</span> </a> <a href="#"
 									onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지2
-									삭제</span> </a>
+										삭제</span> </a>
 							</div>
 							<div class="col-lg-4">
 								<div class="contact_info">
@@ -142,10 +153,10 @@ h3, h4, h6 {
 									</div>
 								</div>
 								<a href="/modify_addr?num=3" class="genric-btn default radius"
-									style="margin-top: 30px">배송지3 변경 </a> <a href="#"
+									style="margin-top: 30px"><span>배송지3 변경</span> </a> <a href="#"
 									onclick="alert('배송지 정보가 삭제되었습니다.');"
 									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지3
-									삭제</span> </a>
+										삭제</span> </a>
 							</div>
 						</div>
 					</div>

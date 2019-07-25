@@ -24,7 +24,7 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
-	// 마이페이지 -> 적립금 조회
+	// 1. 회원 정보 조회 -> 적립금 불러오기
 	@RequestMapping("/savings.do")
 	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
 						

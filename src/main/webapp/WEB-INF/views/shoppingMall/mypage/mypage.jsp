@@ -181,30 +181,13 @@
 			</table>
 			<div class="text-center">
 				<ul class="pagination">
-					<!-- 이전 버튼 -->
-					<c:if test="${pageMaker.prev}">
-						<li class="page-item"><a href="${pageMaker.startPage -1}"
-							class="page-link"> <i class="fa fa-chevron-left"
-								aria-hidden="true"></i>
-						</a></li>
-					</c:if>
-
 					<!-- 페이지 목록 버튼 -->
 					<c:forEach var="num" begin="${pageMaker.startPage}"
 						end="${pageMaker.endPage}">
-						<li
-							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
-
-					<!-- 다음 버튼 -->
-					<c:if test="${pageMaker.next}">
-						<li class="page-item"><a href="${pageMaker.endPage + 1}"
-							class="page-link"> <i class="fa fa-chevron-right"
-								aria-hidden="true"></i>
-						</a></li>
-					</c:if>
 				</ul>
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
