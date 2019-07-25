@@ -27,4 +27,7 @@ public interface MyPageService {
 
 	// 회원 정보 수정 - 회원 정보 불러오기
 	public MemberVO getUserInfo(long key);
+
+	// 회원 정보 수정 - 회원 정보 수정하기
+	public void updateUserInfo(MemberVO memberVO);
 }

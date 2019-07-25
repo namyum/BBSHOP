@@ -82,4 +82,14 @@
 		SELECT * FROM sh_user WHERE user_key = #{key}
 	</select>
 	
+	<update id="updateUserInfo">
+		UPDATE sh_user 
+		SET 
+			name = #{NAME}, 
+			member_pw = #{MEMBER_PW}, 
+			phone = #{PHONE},
+			nickname = #{NICKNAME}
+		WHERE user_key = #{USER_KEY}
+	</update>
+	
 </mapper>

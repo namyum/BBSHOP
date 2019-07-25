@@ -23,4 +23,6 @@ public interface MyPageMapper {
 	public void cancelOrder(long order_num);
 
 	public MemberVO getUserInfo(long key);
+
+	public void updateUserInfo(MemberVO memberVO);
 }

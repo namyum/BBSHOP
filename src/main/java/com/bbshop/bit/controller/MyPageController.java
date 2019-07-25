@@ -126,29 +126,38 @@ public class MyPageController {
 	public String getModifyInfo(Model model) {
 		
 		MemberVO member = myPageService.getUserInfo(1);
-		
-		System.out.println(member);
-		
+				
 		model.addAttribute("memberInfo", member);
 		
 		return "shoppingMall/mypage/modify_info";
 	}
 	
-	// 마이페이지 - 회원 정보 수정 - 배송지 수정
+	// 4. 회원 정보 수정 - 회원 정보 수정
+	@RequestMapping("/modify_userInfo.do")
+	public String modify_userInfo(MemberVO memberVO) {
+				
+		memberVO.setUSER_KEY(1); // user_key는 계속 데리고 다니는 데이터가 아니라, 세션으로부터 받아야 하므로 테스트상 임의로 넣음.
+		
+		myPageService.updateUserInfo(memberVO);
+		
+		return "forward:/modify_info.do";
+	}
+	
+	// 4. 회원 정보 수정 - 배송지 수정
 	@RequestMapping("/modify_addr.do")
 	public String modify_addr() {
 		
 		return "shoppingMall/mypage/modify_addr";
 	}
 
-	// 마이페이지 - 회원 정보 수정 - 배송지 등록
+	// 4. 회원 정보 수정 - 배송지 등록
 	@RequestMapping("/write_addr.do")
 	public String write_addr() {
 		
 		return "shoppingMall/mypage/write_addr";
 	}
 
-	// 마이페이지 - 회원 정보 수정 - 회원탈퇴
+	// 4. 회원 정보 수정 - 회원 탈퇴
 	@RequestMapping("/withdraw.do")
 	public String withdraw() {
 		

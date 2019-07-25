@@ -20,50 +20,46 @@ h3, h4, h6 {
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">회원 정보 수정</h3>
-						<form class="row contact_form" action="#" method="post"
-							novalidate="novalidate">
+						<form class="row contact_form" action="/modify_userInfo.do" method="post"
+							novalidate="novalidate" id="modify_info" name="modify_info_name">
 							<div class="col-md-7 form-group p_star">
 								<label for="name">이름</label> <input type="text"
-									class="form-control" id="name" name="name"
+									class="form-control" id="NAME" name="NAME"
 									value="<c:out value="${memberInfo.NAME }" default="null" />">
 							</div>
 							<div class="col-md-6 form-group p_star">
 								<label for="pw">비밀번호</label> <input type="text"
-									class="form-control" id="pw" name="pw"
+									class="form-control" id="MEMBER_PW" name="MEMBER_PW"
 									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
 							<div class="col-md-6 form-group p_star">
 								<label for="pw_chk">비밀번호 확인</label> <input type="text"
-									class="form-control" id="pw_chk" name="pw_chk"
+									class="form-control" id="PW_CHK" name="PW_CHK"
 									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
 							<div class="col-md-7 form-group p_star">
 								<label for="birth">생년월일</label> <input type="text"
-									class="form-control" id="birth" name="birth"
-									value="<c:out value="${memberInfo.BIRTH }" default="null" />">
+									class="form-control" id="BIRTH" name="BIRTH"
+									value="<c:out value="${memberInfo.BIRTH }" default="null" />" readonly>
 							</div>
 							<div class="col-md-6 form-group p_star">
 								<label for="phone">휴대폰</label> <input type="text"
-									class="form-control" id="phone" name="phone"
+									class="form-control" id="PHONE" name="PHONE"
 									value="<c:out value="${memberInfo.PHONE }" default="null" />">
 							</div>
 							<div class="col-md-7 form-group p_star">
 								<label for="nickname">닉네임</label> <input type="text"
-									class="form-control" id="nickname" name="nickname"
+									class="form-control" id="NICKNAME" name="NICKNAME"
 									value="<c:out value="${memberInfo.NICKNAME }" default="null" />">
 							</div>
 							<div class="col-md-5 form-group p_star">
-								<p></p>
-								<p></p>
-								<p></p>
-
 								<a href="#" class="genric-btn default radius"
 									style="height: 35px; position: absolute; left: 0px; bottom: 0px;"><span id="dup_chk">중복확인</span></a>
 							</div>
 						</form>
 
-						<a href="/modify_info" class="genric-btn default radius"
-							onclick="alert('회원 정보가 수정되었습니다.');"><span>수정하기</span> </a> <a
+						<a href="#" class="genric-btn default radius"
+							onclick="modify_userInfo('modify_info')"><span>수정하기</span> </a> <a
 							id="withdraw" href="/withdraw.do" class="genric-btn default radius"
 							style="float: right;"><span>회원 탈퇴</span> </a>
 					</div>
@@ -264,5 +260,16 @@ h3, h4, h6 {
 		</div>
 	</section>
 </div>
+
+<script>
+
+	function modify_userInfo(form) {
+		
+		alert('회원 정보가 수정되었습니다.');
+		
+		$('#'+form).submit();
+		
+	};
+</script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

@@ -67,4 +67,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getUserInfo(key);
 	}
 
+	@Override
+	public void updateUserInfo(MemberVO memberVO) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		myPageMapper.updateUserInfo(memberVO);
+	}
+
 }
