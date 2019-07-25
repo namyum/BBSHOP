@@ -7,23 +7,24 @@ import lombok.Data;
 @Data
 public class CommunityVO {
 	
-	private Long board_num;	// ±Û ¹øÈ£
-	private String team_name; // ±¸´Ü¸í(¸»¸Ó¸®¿¡ µé¾î°¥ ºÎºÐ)
-	private String title;	// ±Û Á¦¸ñ
-	private String board_content;	// ±Û ³»¿ë
-	private String uploadFile;	// Ã·ºÎÆÄÀÏ
-//	private String writer;	// È¸¿ø_È¸¿ø½Äº°ÀÚ.´Ð³×ÀÓÀ¸·Î ºÒ·¯¿À¸é µÉµí!
-	private Long hit; // ±Û Á¶È¸¼ö, default 0
-	private Date regdate;	// ±Û ÀÛ¼ºÀÏ, default sysdate
-	private Date moddate;	// ±Û ¼öÁ¤ÀÏ, default sysdate
-	private Long previousPost;	// ÀÌÀü±Û
-	private Long nextPost;	// ´ÙÀ½±Û
-	private Long reply_num;	// ´ñ±Û °³¼ö
-	private String uri;	// ±Û uri(½Å°íÇÒ ¶§ ³Ñ°ÜÁÖ±â À§ÇÔ)
-	private Long report_num;	// ½Å°í È½¼ö
-	private String ip;	// ip ÁÖ¼Ò
-	private Long user_key;	// È¸¿ø ½Äº°ÀÚ
-	private Long seq;	// ±Û ¹­À½¹øÈ£
-	private Long lev;	// ´ä±Û °èÃþ
-	private Long dep;	// ´ä±Û ¼ø¼­
+	private Long board_num;	// ï¿½ï¿½ ï¿½ï¿½È£
+	private String team_name; // ï¿½ï¿½ï¿½Ü¸ï¿½(ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½Îºï¿½)
+	private String title;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String board_content;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String uploadFile;	// Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	private String writer;	// È¸ï¿½ï¿½_È¸ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½.ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Éµï¿½!
+	private Long hit; // ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½, default 0
+	private Date regdate;	// ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½, default sysdate
+	private Date moddate;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, default sysdate
+	private Long previousPost;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Long nextPost;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Long reply_num;	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String uri;	// ï¿½ï¿½ uri(ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½)
+	private Long report_num;	// ï¿½Å°ï¿½ È½ï¿½ï¿½
+	private String ip;	// ip ï¿½Ö¼ï¿½
+	private Long user_key;	// È¸ï¿½ï¿½ ï¿½Äºï¿½ï¿½ï¿½
+	private Long seq;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private Long lev;	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private Long dep;	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int seq_board;
 }
