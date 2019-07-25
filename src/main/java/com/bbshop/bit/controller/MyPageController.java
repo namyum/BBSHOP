@@ -135,21 +135,21 @@ public class MyPageController {
 	}
 	
 	// 마이페이지 - 회원 정보 수정 - 배송지 수정
-	@RequestMapping("/modify_addr")
+	@RequestMapping("/modify_addr.do")
 	public String modify_addr() {
 		
 		return "shoppingMall/mypage/modify_addr";
 	}
 
 	// 마이페이지 - 회원 정보 수정 - 배송지 등록
-	@RequestMapping("/write_addr")
+	@RequestMapping("/write_addr.do")
 	public String write_addr() {
 		
 		return "shoppingMall/mypage/write_addr";
 	}
 
 	// 마이페이지 - 회원 정보 수정 - 회원탈퇴
-	@RequestMapping("/withdraw")
+	@RequestMapping("/withdraw.do")
 	public String withdraw() {
 		
 		return "shoppingMall/mypage/withdraw";

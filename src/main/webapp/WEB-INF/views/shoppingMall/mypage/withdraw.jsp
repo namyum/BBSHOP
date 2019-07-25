@@ -14,7 +14,7 @@
 				<div class="mt-10">
 					<textarea class="single-textarea" placeholder="남기시고 싶은 말씀을 적어주세요."
 						onfocus="this.placeholder = ''"
-						onblur="this.placeholder = 'Message'" required></textarea>
+						onblur="this.placeholder = 'Message'" style="margin-bottom: 30px; height: 200px;" required></textarea>
 				</div>
 				<div class="text-center">
 				<a href="/" class="genric-btn default radius" onclick="alert('탈퇴가 완료되었습니다.');" style="margin-right: 30px;"><span>탈퇴하기</span>

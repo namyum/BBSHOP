@@ -64,7 +64,7 @@ h3, h4, h6 {
 
 						<a href="/modify_info" class="genric-btn default radius"
 							onclick="alert('회원 정보가 수정되었습니다.');"><span>수정하기</span> </a> <a
-							id="withdraw" href="/withdraw" class="genric-btn default radius"
+							id="withdraw" href="/withdraw.do" class="genric-btn default radius"
 							style="float: right;"><span>회원 탈퇴</span> </a>
 					</div>
 				</div>
