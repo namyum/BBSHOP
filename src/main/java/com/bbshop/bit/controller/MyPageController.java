@@ -57,11 +57,6 @@ public class MyPageController {
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
-		for (int i = 0; i < orders_list.size(); i++) {
-			
-			System.out.println(i + "번째 주문 객체 : " + orders_list.get(i).toString());
-		}
-		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -72,9 +67,7 @@ public class MyPageController {
 	
 	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
-		
-		System.out.println("Controller에서의 order_num : " + order_num);
-		
+				
 		int result = myPageService.cancelOrder(order_num);
 		
 		return "redirect:/order_status.do";
@@ -103,11 +96,6 @@ public class MyPageController {
 		long total = 0;
 	
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, 1); // 후기 테이블을 파라미터로 준다.
-		
-		for (int i = 0; i < review_list.size(); i++) {
-			
-			System.out.println(review_list.get(i).toString());
-		}
 		
 		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
 		
