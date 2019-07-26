@@ -95,8 +95,8 @@ h3, h4, h6 {
 										</div>
 										<div class="info_item">
 											<i class="lnr lnr-phone-handset"></i>
-											<h6>핸드폰</h6>
-											<p>010-6565-3449</p>
+											<h6>연락처</h6>
+											<p>${AddrVO.contact }</p>
 										</div>
 									</div>
 									<a href="/modify_addr.do?num=1"

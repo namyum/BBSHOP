@@ -9,4 +9,5 @@ public class AddrVO {
 	private long zc_key;
 	private String name;
 	private String addr;
+	private String contact;
 }
