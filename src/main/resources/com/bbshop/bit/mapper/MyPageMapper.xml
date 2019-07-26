@@ -107,4 +107,12 @@
 			AND zc_key = #{zc_key}
 	</update>
 	
+	<!-- 회원 삭제 -->
+	<update id="deleteUserInfo">
+		UPDATE sh_user
+		SET
+			flag = 1
+		WHERE user_key = #{key}
+	</update>
+	
 </mapper>

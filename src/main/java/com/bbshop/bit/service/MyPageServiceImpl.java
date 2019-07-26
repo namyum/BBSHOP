@@ -92,4 +92,12 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.updateAddrInfo(addrVO);
 	}
 
+	@Override
+	public void deleteUserInfo(long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		myPageMapper.deleteUserInfo(key);
+	}
+
 }

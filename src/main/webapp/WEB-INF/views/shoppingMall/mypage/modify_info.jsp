@@ -61,8 +61,8 @@ h3, h4, h6 {
 						</form>
 
 						<a href="#" class="genric-btn default radius"
-							onclick="modify_userInfo('modify_info')"><span>수정하기</span> </a> <a
-							id="withdraw" href="/withdraw.do"
+							onclick="modify_userInfo('modify_info')"><span>수정하기</span></a>
+						<a id="withdraw" href="/withdraw.do"
 							class="genric-btn default radius" style="float: right;"><span>회원
 								탈퇴</span> </a>
 					</div>
@@ -72,7 +72,7 @@ h3, h4, h6 {
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">배송지 목록</h3>
-						<a href="/write_addr" class="genric-btn default radius"
+						<a href="/write_addr.do" class="genric-btn default radius"
 							style="float: right; margin-top: 0px;"><span>새 배송지 추가</span>
 						</a>
 						<div class="row">

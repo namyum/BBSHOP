@@ -37,4 +37,7 @@ public interface MyPageService {
 
 	// 회원 정보 수정 - 배송지 수정
 	public void updateAddrInfo(AddrVO addrVO);
+
+	// 회원 정보 삭제
+	public void deleteUserInfo(long key);
 }

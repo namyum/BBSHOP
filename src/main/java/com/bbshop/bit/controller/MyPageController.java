@@ -25,9 +25,12 @@ public class MyPageController {
 	@Autowired
 	private MyPageService myPageService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	// 1. 회원 정보 조회 -> 적립금 불러오기
 	@RequestMapping("/savings.do")
-	public String getSavings(Model model, HttpSession session, PagingVO pagingVO) {
+	public String getSavings(Model model, PagingVO pagingVO) {
 						
 		long sum = 0;
 		long total = 0;
@@ -166,7 +169,7 @@ public class MyPageController {
 	@RequestMapping("/modify_userAddr.do")
 	public String modify_userAddr(AddrVO addrVO) {
 		
-		System.out.println(addrVO.toString());
+//		System.out.println(addrVO.toString());
 		
 		addrVO.setUser_key(1);
 		
@@ -187,6 +190,14 @@ public class MyPageController {
 	public String withdraw() {
 		
 		return "shoppingMall/mypage/withdraw";
+	}
+	
+	@RequestMapping("/secede.do")
+	public String secede() {
+		
+		myPageService.deleteUserInfo(1);
+		
+		return "shoppingMall/main/shopping_main";
 	}
 	
 }
