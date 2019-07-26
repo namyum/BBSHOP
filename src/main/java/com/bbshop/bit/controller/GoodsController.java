@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.GoodsService;
 
@@ -29,16 +30,25 @@ public class GoodsController {
 		model.addAttribute("categoryString", service.category(category));
 		
 		// 4°¡Áö sorting : new, best, lowPrice, highPrice
-		if(sorting == "new")
+		if(sorting.equals("new"))
 			model.addAttribute("goodsList", service.getGoodsList_New(pagingVO, category));
 		else if(sorting.equals("best"))
 			model.addAttribute("goodsList", service.getGoodsList_Best(pagingVO, category));
 		else if(sorting.equals("lowPrice"))
+			
+			
 			model.addAttribute("goodsList", service.getGoodsList_LowPrice(pagingVO, category));
 		else if(sorting.equals("highPrice"))
 			model.addAttribute("goodsList", service.getGoodsList_HighPrice(pagingVO, category));
 		
-		return "shoppingMall/goods/goods_list";
+		
+		int total = service.getTotalCount(pagingVO, category);
+		
+		log.info("total : " + total);
+		
+		model.addAttribute("pageMeker", new PageDTO(pagingVO, total));
+		
+		return "shoppingMall/goods/goods_list"; 
 	}
 
 }
