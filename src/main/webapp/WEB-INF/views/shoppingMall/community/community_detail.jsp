@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/community_header.jsp"%>
 
 <style>
@@ -123,7 +124,7 @@ body {
 										<table>
 											<tr>
 												<td>
-													<h2>[엘지] 가을야구 가자!!!!!</h2>
+													<h2><c:out value="${post.TITLE}" /></h2>
 												</td>
 											</tr>
 										</table>
@@ -133,23 +134,24 @@ body {
 										<table>
 											<tr>
 												<td><p class="bno" style="margin-right: 10px;">글
-														번호: 5</p></td>
+														번호: <c:out value="${post.BOARD_NUM}" /></p></td>
 												<td><p class="title" style="margin-right: 10px;">
-														<i class="lnr lnr-user"></i> 엘지사랑해요
+														<i class="lnr lnr-user"></i> <c:out value="${post.WRITER}" />
 													</p></td>
 												<td>
 													<p class="regdate" style="margin-right: 10px;">
-														<i class="lnr lnr-calendar-full"></i> 2019/07/11
+														<i class="lnr lnr-calendar-full"></i> <fmt:formatDate pattern="yyyy-MM-dd"
+														value="${post.REGDATE}" />
 													</p>
 												</td>
 												<td>
 													<p class="hit" style="margin-right: 10px;">
-														<i class="lnr lnr-eye"></i>123
+														<i class="lnr lnr-eye"></i><c:out value="${post.HIT}" />
 													</p>
 												</td>
 												<td>
 													<p class="reply_num">
-														<i class="lnr lnr-bubble"></i>3
+														<i class="lnr lnr-bubble"></i><c:out value="${post.REPLY_NUM}" />
 													</p>
 												</td>
 											</tr>
@@ -160,17 +162,8 @@ body {
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details"
-							style="min-width: 100%;">
-							<p>차명석 단장은 조셉의 웨이버 공시에 대해 "외국인 선수는 실력 여부를 떠나 일단 경기에 나서야 하는데
-								(가래톳과 허리 통증으로) 제대로 뛰질 못했으니까…"라고 답답해했다. 조셉은 좋은 성적(타율 0.274 9홈런
-								36타점)을 올린 것도 아니었고, 무엇보다 개막 후부터 지난 9일까지 KBO 리그에서 뛰고 있는 6명(SK 로맥,
-								두산 페르난데스, 키움 샌즈, KT 로하스, 삼성 러프, 한화 호잉) 외국인 타자 평균타석(372타석)의 약
-								58%밖에 소화하지 못했다.</p>
-							<p>이 과정에서 세리자와 유지 1군 배터리 코치가 결정적인 역할을 했다. 페게로는 2016년부터
-								2018년까지 일본 프로야구 라쿠텐 소속으로 259경기에 출장해 타율 0.265, 53홈런, 145타점을 기록했다.
-								일본 출신인 세리자와 코치는 이런저런 경로와 직접 눈으로 확인한 부분을 구단에 설명했다. 구단은 "일본 야구를
-								경험한 점을 감안했다"고 했고, 차명석 단장 역시 "아무리 좋은 선수를 데려와도 적응을 못하면 문제다. 아시아
-								야구를 경험이 점을 고려했다"고 설명했다.</p>
+							style="min-width: 100%;margin-bottom:20px;">
+							<c:out value="${post.BOARD_CONTENT}" />
 
 						</div>
 					</div>
@@ -179,7 +172,10 @@ body {
 						<table style="width: 100%; margin-top: 15px;">
 							<tr>
 								<td><p>
-										첨부파일: <a href="C:\Users\Jisoo\Desktop\커뮤니티_로고\wooyoung.jpg">다운로드</a>
+										<c:if test="${post.UPLOADFILE ne null}">
+										첨부파일: 
+										<a href='<c:out value="${post.UPLOADFILE}" />'>다운로드</a>
+										</c:if>
 									</p></td>
 								<td style="float: right;"><a href="#"
 									class="genric-btn primary small" id="reportBtn1"
@@ -192,12 +188,12 @@ body {
 						<div class="comment-list">
 							<div class="single-comment justify-content-between d-flex"
 								style="border-bottom: 1.5px solid #eee;">
-								<div class="user justify-content-between d-flex">
-									<div class="desc">
+								<div class="user justify-content-between d-flex" style="min-width:100%;">
+									<div class="desc" style="min-width:100%;">
 										<h5>글쓴이</h5>
 										<p class="date">2019/07/11</p>
 										<input type="text" name="reply_content"
-											style="width: 1100px; height: 100px;" />
+											style="width: 100%; height: 100px;" />
 										<div class="reply-btn">
 											<a class="genric-btn primary small" id="reply_submit"
 												style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px;">등록</a>
@@ -253,7 +249,6 @@ body {
 							</div>
 						</div>
 					</div>
-
 					<!-- 이전글 다음글 버튼 -->
 					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
 						<div class="row">
