@@ -4,7 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbshop.bit.mapper.GoodsMapper">
 
-<!-- 상품 목록 출력 - 신상품 순 (default) -->
+<!-- 페이징 X -->
+<!-- 상품 목록 출력 - 신상품 순 (default) 
 <select id="getGoodsList_New" resultType="com.bbshop.bit.domain.GoodsVO">
 	select * 
 	from goods 
@@ -12,7 +13,7 @@
 	order by regdate desc
 </select>
 
-<!-- 상품 목록 출력 - 정렬 - 인기상품 -->
+ 상품 목록 출력 - 정렬 - 인기상품 
 <select id="getGoodsList_Best" resultType="com.bbshop.bit.domain.GoodsVO">
 	select * 
 	from goods 
@@ -20,7 +21,7 @@
 	order by best desc
 </select>
 
-<!-- 상품 목록 출력 - 정렬 - 낮은 가격 -->
+ 상품 목록 출력 - 정렬 - 낮은 가격 
 <select id="getGoodsList_LowPrice" resultType="com.bbshop.bit.domain.GoodsVO">
 	select * 
 	from goods 
@@ -28,12 +29,81 @@
 	order by price asc
 </select>
 
-<!-- 상품 목록 출력 - 정렬 - 높은 가격 -->
+ 상품 목록 출력 - 정렬 - 높은 가격 
 <select id="getGoodsList_HighPrice" resultType="com.bbshop.bit.domain.GoodsVO">
 	select * 
 	from goods 
 	where category = #{category}
 	order by price desc
+</select>
+-->
+
+
+
+
+
+<!-- 페이징 O -->
+<!-- 상품 목록 출력 - new -> paging -->
+<select id="getGoodsList_New" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+<![CDATA[
+	select *
+	from (
+		select /*+INDEX_DESC(goods pk_board) */
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and category = #{category, jdbcType=INTEGER}
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>
+</select>
+
+<!-- 상품 목록 출력 - best -> paging -->
+<select id="getGoodsList_Best" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+<![CDATA[
+	select *
+	from (
+		select /*+INDEX_DESC(goods idx_goods_best) */
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and category = #{category, jdbcType=INTEGER}
+			and best >= 0
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>
+</select>
+
+<!-- 상품 목록 출력 - lowPrice -> paging -->
+<select id="getGoodsList_LowPrice" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+<![CDATA[
+	select *
+	from (
+		select /*+INDEX_ASC(goods idx_goods_price) */
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and category = #{category, jdbcType=INTEGER}
+			and price > 0
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>
+</select>
+
+<!-- 상품 목록 출력 - highPrice -> paging -->
+<select id="getGoodsList_HighPrice" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+<![CDATA[
+	select *
+	from (
+		select /*+INDEX_DESC(goods idx_goods_price) */
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and category = #{category, jdbcType=INTEGER}
+			and price > 0
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>
 </select>
 
 
