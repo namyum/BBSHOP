@@ -1,7 +1,5 @@
 package com.bbshop.bit.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +38,9 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글 상세
 	@RequestMapping("/community_detail.do")
-	public String community_detail() {
+	public String community_detail(Model model) {
+		
+		model.addAttribute("post", communityService.getPost((long) 74));
 		return "shoppingMall/community/community_detail";
 	}
 
