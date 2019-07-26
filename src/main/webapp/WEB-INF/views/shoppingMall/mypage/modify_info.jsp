@@ -99,7 +99,7 @@ h3, h4, h6 {
 											<p>${AddrVO.contact }</p>
 										</div>
 									</div>
-									<a href="/modify_addr.do?num=1"
+									<a href="/modify_addr.do?num=${status.count }"
 										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
 											변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
 										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }

@@ -150,7 +150,14 @@ public class MyPageController {
 	
 	// 4. 회원 정보 수정 - 배송지 수정
 	@RequestMapping("/modify_addr.do")
-	public String modify_addr() {
+	public String modify_addr(@RequestParam("num") int index, Model model) {
+		
+		List<AddrVO> addr_list = myPageService.getAddrList(1);
+		
+		AddrVO addrVO = addr_list.get(index-1);
+
+		model.addAttribute("addrVO", addrVO);
+		model.addAttribute("num", index);
 		
 		return "shoppingMall/mypage/modify_addr";
 	}

@@ -21,23 +21,6 @@
 		<result property="re_date" column="re_date" />
 		<result property="re_hit" column="re_hit" />
 	</resultMap>
-	
-	<!-- <resultMap id="userInfo" type="java.util.HashMap">
-		<result property="USER_KEY" column="USER_KEY" />
-		<result property="MEMBER_ID" column="MEMBER_ID" />
-		<result property="NICKNAME" column="NICKNAME" />			
-		<result property="MEMBER_PW" column="MEMBER_PW" />
-		<result property="NAME" column="NAME" />
-		<result property="BIRTH" column="BIRTH" />
-		<result property="PHONE" column="PHONE" />
-		<result property="GRADE" column="GRADE" />
-		<result property="SAVINGS" column="SAVINGS" />
-		<result property="CAUTION" column="CAUTION" />
-		<result property="REGDATE" column="REGDATE" />
-		<result property="MODDATE" column="MODDATE" />
-		<result property="FLAG" column="FLAG" />
-		<result property="ADDR" column="ADDR" />
-	</resultMap>  -->
 
 	<select id="getSavingsList" resultMap="savingsVO">
 		<![CDATA[	
@@ -83,6 +66,7 @@
 		]]>
 	</select>
 
+	<!-- 주문 취소 -->
 	<update id="cancelOrder">
 		UPDATE shop_order 
 		SET stts = 4 
