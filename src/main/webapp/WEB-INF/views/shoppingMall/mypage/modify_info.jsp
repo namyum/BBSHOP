@@ -77,87 +77,35 @@ h3, h4, h6 {
 							style="float: right; margin-top: 0px;"><span>새 배송지 추가</span>
 						</a>
 						<div class="row">
-							<div class="col-lg-4">
-								<div class="contact_info">
-									<h4>배송지 1</h4>
-									<br>
-									<div class="info_item">
-										<i class="fas fa-male"></i>
-										<h6>이름</h6>
-										<p>강민구</p>
+							<c:forEach items="${addr_list }" var="AddrVO" varStatus="status">
+								<div class="col-lg-4">
+									<div class="contact_info">
+										<h4>배송지 ${status.count }</h4>
+										<br>
+										<div class="info_item">
+											<i class="fas fa-male"></i>
+											<h6>이름</h6>
+											<p>${AddrVO.name }</p>
+										</div>
+										<div class="info_item">
+											<i class="lnr lnr-home"></i>
+											<h6>주소</h6>
+											<p>서울시 강남구 삼성동</p>
+											<p>${AddrVO.addr }</p>
+										</div>
+										<div class="info_item">
+											<i class="lnr lnr-phone-handset"></i>
+											<h6>핸드폰</h6>
+											<p>010-6565-3449</p>
+										</div>
 									</div>
-									<div class="info_item">
-										<i class="lnr lnr-home"></i>
-										<h6>주소</h6>
-										<p>서울시 강남구 삼성동</p>
-										<p>57-8 삼성 래미안 802호</p>
-									</div>
-									<div class="info_item">
-										<i class="lnr lnr-phone-handset"></i>
-										<h6>핸드폰</h6>
-										<p>010-6565-3449</p>
-									</div>
+									<a href="/modify_addr.do?num=1"
+										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
+											변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
+										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }
+											삭제</span> </a>
 								</div>
-								<a href="/modify_addr.do?num=1"
-									class="genric-btn default radius" style="margin-top: 30px"><span>배송지1
-										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
-									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지1
-										삭제</span> </a>
-							</div>
-							<div class="col-lg-4">
-								<div class="contact_info">
-									<h4>배송지 2</h4>
-									<br>
-									<div class="info_item">
-										<i class="fas fa-male"></i>
-										<h6>이름</h6>
-										<p>강민구</p>
-									</div>
-									<div class="info_item">
-										<i class="lnr lnr-home"></i>
-										<h6>주소</h6>
-										<p>서울시 강남구 삼성동</p>
-										<p>57-8 삼성 래미안 802호</p>
-									</div>
-									<div class="info_item">
-										<i class="lnr lnr-phone-handset"></i>
-										<h6>핸드폰</h6>
-										<p>010-6565-3449</p>
-									</div>
-								</div>
-								<a href="/modify_addr.do?num=2"
-									class="genric-btn default radius" style="margin-top: 30px"><span>배송지2
-										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
-									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지2
-										삭제</span> </a>
-							</div>
-							<div class="col-lg-4">
-								<div class="contact_info">
-									<h4>배송지 3</h4>
-									<br>
-									<div class="info_item">
-										<i class="fas fa-male"></i>
-										<h6>이름</h6>
-										<p>강민구</p>
-									</div>
-									<div class="info_item">
-										<i class="lnr lnr-home"></i>
-										<h6>주소</h6>
-										<p>서울시 강남구 삼성동</p>
-										<p>57-8 삼성 래미안 802호</p>
-									</div>
-									<div class="info_item">
-										<i class="lnr lnr-phone-handset"></i>
-										<h6>핸드폰</h6>
-										<p>010-6565-3449</p>
-									</div>
-								</div>
-								<a href="/modify_addr.do?num=3"
-									class="genric-btn default radius" style="margin-top: 30px"><span>배송지3
-										변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
-									class="genric-btn danger radius" style="margin-top: 30px"><span>배송지3
-										삭제</span> </a>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
