@@ -17,18 +17,22 @@ h3 {
 				<form class="row contact_form" action="/modify_userAddr.do" method="post"
 					novalidate="novalidate" id="addr_info">
 					<div class="col-md-6 form-group p_star">
+						<label for="name">이름</label>
 						<input type="text" class="form-control" id="name" name="name"
 							placeholder="이름" value="<c:out value="${addrVO.name }"/>">
 					</div>
 					<div class="col-md-7 form-group p_star">
+						<label for="contact">연락처</label>
 						<input type="text" class="form-control" id="contact" name="contact"
 							placeholder="연락처" value="<c:out value="${addrVO.contact }"/>">
 					</div>
 					<div class="col-md-8 form-group p_star">
+						<label for="add1">기본 주소</label>
 						<input type="text" class="form-control" id="add1" name="add1"
 							placeholder="기본 주소" value="서울시 강남구 삼성동">
 					</div>
 					<div class="col-md-8 form-group p_star">
+						<label for="addr">상세 주소</label>
 						<input type="text" class="form-control" id="addr" name="addr"
 							placeholder="상세 주소" value="<c:out value="${addrVO.addr }"/>">
 					</div>

@@ -100,7 +100,7 @@ h3, h4, h6 {
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
 										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
-											변경</span> </a> <a href="#" onclick="alert('배송지 정보가 삭제되었습니다.');"
+											변경</span> </a> <a href="#" onclick="deleteAddr();"
 										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }
 											삭제</span> </a>
 								</div>
@@ -220,6 +220,18 @@ h3, h4, h6 {
 		$('#' + form).submit();
 
 	};
+	
+	function deleteAddr() {
+		
+		var answer = confirm('배송지를 삭제하시겠습니까?');
+		
+		if (answer == true) {
+			
+			alert('배송지가 삭제되었습니다.');
+
+			
+		}
+	}
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>
