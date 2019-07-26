@@ -37,4 +37,10 @@ public interface GoodsMapper {
 	// 상품 목록 출력 - highPrice -> paging
 	public List<GoodsVO> getGoodsList_HighPrice(HashMap<String, Object> map);
 	
+	
+	
+	
+	/* 카테고리별 전체 goods 데이터 개수 */
+	public int getTotalCount(HashMap<String, Object> map);
+	
 }

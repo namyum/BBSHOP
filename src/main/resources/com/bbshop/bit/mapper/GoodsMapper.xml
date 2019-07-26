@@ -107,4 +107,10 @@
 </select>
 
 
+<!-- 카테고리별 전체 goods 데이터 개수 */ -->
+<select id="getTotalCount" parameterType="hashmap" resultType="int">
+	select count(*) from goods where category = #{category, jdbcType=INTEGER}
+</select>
+
+
 </mapper>

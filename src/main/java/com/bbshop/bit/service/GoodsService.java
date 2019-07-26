@@ -25,5 +25,6 @@ public interface GoodsService {
 	public List<GoodsVO> getGoodsList_HighPrice(PagingVO pagingVO, int category);
 
 
-
+	/* 카테고리별 전체 goods 데이터 개수 */
+	public int getTotalCount(PagingVO pagingVO, int category);
 }

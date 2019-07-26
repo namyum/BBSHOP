@@ -103,4 +103,20 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getGoodsList_HighPrice(map);
 	}
 
+	
+	
+	/* 카테고리별 전체 goods 데이터 개수 */
+	@Override
+	public int getTotalCount(PagingVO pagingVO, int category) {
+		log.info("get Total Count - " + category);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pagingVO", pagingVO);
+		map.put("category", category);
+		
+		return mapper.getTotalCount(map);
+	}
+
+	
+	
 }
