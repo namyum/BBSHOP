@@ -104,6 +104,7 @@
 			addr = #{addr},
 			contact = #{contact}
 		WHERE user_key = #{user_key}
+			AND zc_key = #{zc_key}
 	</update>
 	
 </mapper>

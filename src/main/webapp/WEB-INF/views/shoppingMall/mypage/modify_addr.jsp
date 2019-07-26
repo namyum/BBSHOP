@@ -32,7 +32,9 @@ h3 {
 						<input type="text" class="form-control" id="addr" name="addr"
 							placeholder="상세 주소" value="<c:out value="${addrVO.addr }"/>">
 					</div>
-					<div class="col-md-4 form-group p_star"></div>
+					<div class="col-md-4 form-group p_star">
+						<input type="hidden" name="zc_key" value="${num }">
+					</div>
 
 					<a href="#" class="genric-btn default radius" style="margin-left: 20px;" 
 					onclick="modify_userAddr('addr_info');"><span>등록하기</span> </a>
