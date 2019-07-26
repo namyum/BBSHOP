@@ -11,11 +11,23 @@
 		</selectKey>
 
 		INSERT INTO community(board_num, writer, user_key, team_name, title, board_content, uploadFile) 
-		VALUES (SEQ_BOARD.nextval, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE})
+		VALUES 
+		(SEQ_BOARD.nextval, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE})
 		 
 	</insert>
 	
 	<select id="getNickname" parameterType="int" resultType="String">
-		select nickname from sh_user where user_key = #{USER_KEY}
+		SELECT nickname 
+		FROM sh_user 
+		WHERE user_key = #{USER_KEY}
 	</select>
+	
+	<select id="getPost" parameterType="Long" resultType="com.bbshop.bit.domain.CommunityVO">
+		SELECT team_name, title, board_num, writer, regdate, hit, reply_num, board_content, uploadFile 
+		FROM community 
+		WHERE board_num = #{BOARD_NUM}
+	</select>
+	
+	
+	
 </mapper>
