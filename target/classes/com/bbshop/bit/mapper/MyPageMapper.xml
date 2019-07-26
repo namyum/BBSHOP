@@ -73,7 +73,7 @@
 		WHERE order_num = #{order_num}
 	</update>
 	
-	<!-- 회원 정보 관련 쿼리-->
+<!-- 회원 정보 관련 쿼리-->
 	<select id="getUserInfo" resultType="com.bbshop.bit.domain.MemberVO">
 		SELECT *
 		FROM sh_user
@@ -90,7 +90,20 @@
 		WHERE user_key = #{USER_KEY}
 	</update>
 	
-	<!-- 배송지 정보 관련 쿼리 -->
+	<!-- 회원 삭제 : 플래그를 1로 수정해서 휴면 계정 처리한다. -->
+	<update id="deleteUserInfo">
+		UPDATE sh_user
+		SET
+			flag = 1
+		WHERE user_key = #{key}
+	</update>
+	
+<!-- 배송지 정보 관련 쿼리 -->
+	<insert id="insertAddrInfo">
+		INSERT into address 
+		VALUES (#{user_key}, #{zc_key}, #{name}, #{addr}, #{contact})
+	</insert>
+
 	<select id="getAddrList" resultType="com.bbshop.bit.domain.AddrVO">
 		SELECT *
 		FROM address
@@ -113,13 +126,5 @@
 		WHERE user_key = #{user_key}
 			AND zc_key = #{zc_key}
 	</delete>
-	
-	<!-- 회원 삭제 -->
-	<update id="deleteUserInfo">
-		UPDATE sh_user
-		SET
-			flag = 1
-		WHERE user_key = #{key}
-	</update>
-	
+
 </mapper>

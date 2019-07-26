@@ -31,6 +31,9 @@ public interface MyPageService {
 
 	// 회원 정보 수정 - 회원 정보 수정하기
 	public void updateUserInfo(MemberVO memberVO);
+	
+	// 회원 정보 삭제
+	public void deleteUserInfo(long key);
 
 	// 회원 정보 수정 - 배송지 불러오기
 	public List<AddrVO> getAddrList(long key);
@@ -38,6 +41,6 @@ public interface MyPageService {
 	// 회원 정보 수정 - 배송지 수정
 	public void updateAddrInfo(AddrVO addrVO);
 
-	// 회원 정보 삭제
-	public void deleteUserInfo(long key);
+	// 배송지 등록
+	public void insertAddrInfo(AddrVO addrVO);
 }

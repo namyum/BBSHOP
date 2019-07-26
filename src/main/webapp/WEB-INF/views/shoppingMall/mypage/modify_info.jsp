@@ -73,7 +73,7 @@ h3, h4, h6 {
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">배송지 목록</h3>
 						<a href="/write_addr.do" class="genric-btn default radius"
-							style="float: right; margin-top: 0px;"><span>새 배송지 추가</span>
+							style="float: right; margin-top: 0px;"><span>새 배송지 등록</span>
 						</a>
 						<div class="row">
 							<c:forEach items="${addr_list }" var="AddrVO" varStatus="status">
@@ -100,7 +100,7 @@ h3, h4, h6 {
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
 										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
-											변경</span> </a> <a href="#" onclick="deleteAddr();"
+											수정</span> </a> <a href="#" onclick="deleteAddr();"
 										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }
 											삭제</span> </a>
 								</div>

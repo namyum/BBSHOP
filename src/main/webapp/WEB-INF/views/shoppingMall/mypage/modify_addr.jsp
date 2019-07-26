@@ -41,7 +41,7 @@ h3 {
 					</div>
 
 					<a href="#" class="genric-btn default radius" style="margin-left: 20px;" 
-					onclick="modify_userAddr('addr_info');"><span>등록하기</span> </a>
+					onclick="modify_userAddr('addr_info');"><span>배송지 수정</span> </a>
 				</form>
 			</div>
 			<div class="col-lg-4"></div>

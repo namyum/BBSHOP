@@ -100,4 +100,12 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.deleteUserInfo(key);
 	}
 
+	@Override
+	public void insertAddrInfo(AddrVO addrVO) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		myPageMapper.insertAddrInfo(addrVO);
+	}
+
 }

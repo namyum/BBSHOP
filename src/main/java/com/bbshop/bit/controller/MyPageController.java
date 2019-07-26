@@ -29,7 +29,7 @@ public class MyPageController {
 	private HttpSession session;
 	
 	// 1. 회원 정보 조회 -> 적립금 불러오기
-	@RequestMapping("/savings.do")
+	@RequestMapping("/bgg")
 	public String getSavings(Model model, PagingVO pagingVO) {
 						
 		long sum = 0;
@@ -131,6 +131,8 @@ public class MyPageController {
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
+		System.out.println("넘어오나 modify_info");
+		
 		MemberVO member = myPageService.getUserInfo(1);
 		List<AddrVO> addr_list = myPageService.getAddrList(1);
 				
@@ -169,8 +171,6 @@ public class MyPageController {
 	@RequestMapping("/modify_userAddr.do")
 	public String modify_userAddr(AddrVO addrVO) {
 		
-//		System.out.println(addrVO.toString());
-		
 		addrVO.setUser_key(1);
 		
 		myPageService.updateAddrInfo(addrVO);
@@ -183,6 +183,22 @@ public class MyPageController {
 	public String write_addr() {
 		
 		return "shoppingMall/mypage/write_addr";
+	}
+	
+	// 4. 회원 정보 수정 - 배송지 등록하기
+	@RequestMapping("/write_userAddr.do")
+	public String write_userAddr(AddrVO addrVO) {
+		
+		System.out.println("넘어오나 write_userAddr");
+		
+		addrVO.setUser_key(1);
+		addrVO.setZc_key(1); // 기본 주소는 우편번호 테이블이 완성되면 불러올 것이므로 임시로 1을 저장.
+
+		System.out.println("userAddr 컨트롤러에서의 addrVO : " + addrVO.toString());
+		
+		myPageService.insertAddrInfo(addrVO);
+		
+		return "forward:/modify_info.do";
 	}
 
 	// 4. 회원 정보 수정 - 회원 탈퇴

@@ -32,4 +32,6 @@ public interface MyPageMapper {
 	public void updateAddrInfo(AddrVO addrVO);
 
 	public void deleteUserInfo(long key);
+
+	public void insertAddrInfo(AddrVO addrVO);
 }
