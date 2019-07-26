@@ -84,4 +84,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getAddrList(key);
 	}
 
+	@Override
+	public void updateAddrInfo(AddrVO addrVO) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		myPageMapper.updateAddrInfo(addrVO);
+	}
+
 }

@@ -21,8 +21,7 @@ h3, h4, h6 {
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">회원 정보 수정</h3>
 						<form class="row contact_form" action="/modify_userInfo.do"
-							method="post" novalidate="novalidate" id="modify_info"
-							name="modify_info_name">
+							method="post" novalidate="novalidate" id="modify_info">
 							<div class="col-md-7 form-group p_star">
 								<label for="name">이름</label> <input type="text"
 									class="form-control" id="NAME" name="NAME"

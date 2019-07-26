@@ -73,6 +73,7 @@
 		WHERE order_num = #{order_num}
 	</update>
 	
+	<!-- 회원 정보 -->
 	<select id="getUserInfo" resultType="com.bbshop.bit.domain.MemberVO">
 		SELECT *
 		FROM sh_user
@@ -89,10 +90,20 @@
 		WHERE user_key = #{USER_KEY}
 	</update>
 	
+	<!-- 배송지 정보 -->
 	<select id="getAddrList" resultType="com.bbshop.bit.domain.AddrVO">
 		SELECT *
 		FROM address
 		WHERE user_key = #{key}
 	</select>
+	
+	<update id="updateAddrInfo">
+		UPDATE address
+		SET
+			name = #{name},
+			addr = #{addr},
+			contact = #{contact}
+		WHERE user_key = #{user_key}
+	</update>
 	
 </mapper>

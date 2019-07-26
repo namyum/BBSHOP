@@ -161,6 +161,19 @@ public class MyPageController {
 		
 		return "shoppingMall/mypage/modify_addr";
 	}
+	
+	// 4. 회원 정보 수정 - 배송지 수정하기
+	@RequestMapping("/modify_userAddr.do")
+	public String modify_userAddr(AddrVO addrVO) {
+		
+		System.out.println(addrVO.toString());
+		
+		addrVO.setUser_key(1);
+		
+		myPageService.updateAddrInfo(addrVO);
+		
+		return "forward:/modify_info.do";
+	}
 
 	// 4. 회원 정보 수정 - 배송지 등록
 	@RequestMapping("/write_addr.do")

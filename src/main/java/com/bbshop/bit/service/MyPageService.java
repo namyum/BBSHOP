@@ -34,4 +34,7 @@ public interface MyPageService {
 
 	// 회원 정보 수정 - 배송지 불러오기
 	public List<AddrVO> getAddrList(long key);
+
+	// 회원 정보 수정 - 배송지 수정
+	public void updateAddrInfo(AddrVO addrVO);
 }

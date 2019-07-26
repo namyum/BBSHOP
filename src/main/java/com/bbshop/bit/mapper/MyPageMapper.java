@@ -28,4 +28,6 @@ public interface MyPageMapper {
 	public void updateUserInfo(MemberVO memberVO);
 
 	public List<AddrVO> getAddrList(long key);
+
+	public void updateAddrInfo(AddrVO addrVO);
 }
