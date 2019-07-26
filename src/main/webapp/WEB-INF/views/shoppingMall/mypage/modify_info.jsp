@@ -61,8 +61,8 @@ h3, h4, h6 {
 						</form>
 
 						<a href="#" class="genric-btn default radius"
-							onclick="modify_userInfo('modify_info')"><span>수정하기</span></a>
-						<a id="withdraw" href="/withdraw.do"
+							onclick="modify_userInfo('modify_info')"><span>수정하기</span></a> <a
+							id="withdraw" href="/withdraw.do"
 							class="genric-btn default radius" style="float: right;"><span>회원
 								탈퇴</span> </a>
 					</div>
@@ -72,7 +72,8 @@ h3, h4, h6 {
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">배송지 목록</h3>
-						<a href="/write_addr.do" class="genric-btn default radius"
+						<a href="/write_addr.do?num=${addr_list.size() }"
+							class="genric-btn default radius"
 							style="float: right; margin-top: 0px;"><span>새 배송지 등록</span>
 						</a>
 						<div class="row">
@@ -100,13 +101,15 @@ h3, h4, h6 {
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
 										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
-											수정</span> </a> <a href="#" onclick="deleteAddr();"
+											수정</span> </a> <a href="#" onclick="deleteAddr('${AddrVO.num }');"
 										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }
 											삭제</span> </a>
 								</div>
 							</c:forEach>
+
 						</div>
 					</div>
+
 				</div>
 			</div>
 			<div class="billing_details">
@@ -220,16 +223,16 @@ h3, h4, h6 {
 		$('#' + form).submit();
 
 	};
-	
-	function deleteAddr() {
-		
+
+	function deleteAddr(num) {
+
 		var answer = confirm('배송지를 삭제하시겠습니까?');
-		
+
 		if (answer == true) {
-			
+
 			alert('배송지가 삭제되었습니다.');
 
-			
+			location.href = "/delete_userAddr.do?num=" + num;
 		}
 	}
 </script>

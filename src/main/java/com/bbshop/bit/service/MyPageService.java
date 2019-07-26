@@ -41,6 +41,12 @@ public interface MyPageService {
 	// 회원 정보 수정 - 배송지 수정
 	public void updateAddrInfo(AddrVO addrVO);
 
-	// 배송지 등록
+	// 배송지 등록하기
 	public void insertAddrInfo(AddrVO addrVO);
+
+	// 배송지 삭제하기
+	public void deleteAddrInfo(int num);
+	
+	// 배송지 삭제하기
+	
 }

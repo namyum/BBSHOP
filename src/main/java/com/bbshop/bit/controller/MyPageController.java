@@ -180,7 +180,9 @@ public class MyPageController {
 
 	// 4. 회원 정보 수정 - 배송지 등록
 	@RequestMapping("/write_addr.do")
-	public String write_addr() {
+	public String write_addr(@RequestParam("num") int num, Model model) {
+		
+		model.addAttribute("num", num);
 		
 		return "shoppingMall/mypage/write_addr";
 	}
@@ -189,14 +191,21 @@ public class MyPageController {
 	@RequestMapping("/write_userAddr.do")
 	public String write_userAddr(AddrVO addrVO) {
 		
-		System.out.println("넘어오나 write_userAddr");
-		
 		addrVO.setUser_key(1);
 		addrVO.setZc_key(1); // 기본 주소는 우편번호 테이블이 완성되면 불러올 것이므로 임시로 1을 저장.
 
 		System.out.println("userAddr 컨트롤러에서의 addrVO : " + addrVO.toString());
 		
 		myPageService.insertAddrInfo(addrVO);
+		
+		return "forward:/modify_info.do";
+	}
+	
+	// 4. 회원 정보 수정 - 배송지 삭제하기
+	@RequestMapping("/delete_userAddr.do")
+	public String delete_userAddr(@RequestParam("num") int num) {
+		
+		myPageService.deleteAddrInfo(num);
 		
 		return "forward:/modify_info.do";
 	}

@@ -108,4 +108,12 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.insertAddrInfo(addrVO);
 	}
 
+	@Override
+	public void deleteAddrInfo(int num) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		myPageMapper.deleteAddrInfo(num);
+	}
+
 }

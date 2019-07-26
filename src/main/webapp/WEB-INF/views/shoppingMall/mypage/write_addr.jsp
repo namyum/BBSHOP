@@ -35,8 +35,9 @@ h3 {
 						<input type="text" class="form-control" id="addr" name="addr"
 							placeholder="상세 주소">
 					</div>
-					<div class="col-md-4 form-group p_star"></div>
-
+					<div class="col-md-4 form-group p_star">
+						<input type="hidden" name="num" value="${num }">
+					</div>
 					<a href="#" class="genric-btn default radius" onclick="insertAddrInfo('write_addr');" style="margin-left: 20px;">
 						<span style="font-weight: bold;">배송지 등록</span>
 					</a>
