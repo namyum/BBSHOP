@@ -34,17 +34,17 @@
 						<div class="form-select" id="default-select">
 							<select name="TEAM_NAME">
 								<option value="header">말머리를 선택하세요</option>
-								<option value="kbo">KBO</option>
-								<option value="lg">LG</option>
-								<option value="lotte">롯데</option>
-								<option value="hanwha">한화</option>
-								<option value="doosan">두산</option>
-								<option value="kia">기아</option>
-								<option value="samsung">삼성</option>
-								<option value="kiwoom">키움</option>
-								<option value="nc">NC</option>
-								<option value="sk">SK</option>
-								<option value="kt">KT</option>
+								<option value="KBO">KBO</option>
+								<option value="LG">LG</option>
+								<option value="롯데">롯데</option>
+								<option value="한화">한화</option>
+								<option value="두산">두산</option>
+								<option value="기아">기아</option>
+								<option value="삼성">삼성</option>
+								<option value="키움">키움</option>
+								<option value="NC">NC</option>
+								<option value="SK">SK</option>
+								<option value="KT">KT</option>
 							</select>
 						</div>
 					</div>
