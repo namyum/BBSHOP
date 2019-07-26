@@ -31,4 +31,12 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityMapper.getNickname(user_key);
 	}
 	
+	@Override
+	public CommunityVO getPost(Long board_num) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
+		return communityMapper.getPost(board_num);
+	}
+	
 }
