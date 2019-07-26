@@ -124,7 +124,7 @@ body {
 										<table>
 											<tr>
 												<td>
-													<h2><c:out value="${post.TITLE}" /></h2>
+													<h2><b>[<c:out value="${post.TEAM_NAME}"/>]</b><c:out value="${post.TITLE}" /></h2>
 												</td>
 											</tr>
 										</table>
