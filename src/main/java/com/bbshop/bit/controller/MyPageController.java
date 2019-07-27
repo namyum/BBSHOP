@@ -195,11 +195,11 @@ public class MyPageController {
 	// 4. 회원 정보 수정 - 배송지 등록하기
 	@RequestMapping("/write_userAddr.do")
 	public String write_userAddr(AddrVO addrVO) {
-		
+				
 		addrVO.setUser_key(1);
 		addrVO.setZc_key(1); // 기본 주소는 우편번호 테이블이 완성되면 불러올 것이므로 임시로 1을 저장.
-
-		System.out.println("userAddr 컨트롤러에서의 addrVO : " + addrVO.toString());
+		
+		System.out.println("write_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
 		
 		myPageService.insertAddrInfo(addrVO);
 		

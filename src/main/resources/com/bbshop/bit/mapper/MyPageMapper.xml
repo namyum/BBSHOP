@@ -101,7 +101,7 @@
 <!-- 배송지 정보 관련 쿼리 -->
 	<insert id="insertAddrInfo">
 		INSERT into address 
-		VALUES (#{user_key}, #{zc_key}, #{num}, #{name}, #{addr}, #{contact})
+		VALUES (#{user_key}, #{zc_key}, #{name}, #{addr}, #{contact}, #{num})
 	</insert>
 
 	<select id="getAddrList" resultType="com.bbshop.bit.domain.AddrVO">
