@@ -110,11 +110,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void deleteAddrInfo(int num) {
+	public void deleteAddrInfo(long key, int num) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
-		myPageMapper.deleteAddrInfo(num);
+		myPageMapper.deleteAddrInfo(key, num);
 	}
 
 	@Override

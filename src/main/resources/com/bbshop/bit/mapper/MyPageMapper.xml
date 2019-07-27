@@ -124,7 +124,7 @@
 	<delete id="deleteAddrInfo">
 		DELETE 
 		FROM address
-		WHERE user_key = #{user_key} AND num = #{num}
+		WHERE user_key = #{key} AND num = #{num}
 	</delete>
 	
 <!-- 회원 추가 정보 -->

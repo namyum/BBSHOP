@@ -80,7 +80,7 @@ h3, h4, h6 {
 							<c:forEach items="${addr_list }" var="AddrVO" varStatus="status">
 								<div class="col-lg-4">
 									<div class="contact_info">
-										<h4>배송지 ${status.count }</h4>
+										<h4>${AddrVO.num }번 배송지</h4>
 										<br>
 										<div class="info_item">
 											<i class="fas fa-male"></i>
@@ -100,9 +100,9 @@ h3, h4, h6 {
 										</div>
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
-										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${status.count }
+										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
 											수정</span> </a> <a href="#" onclick="deleteAddr('${AddrVO.num }');"
-										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${status.count }
+										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
 											삭제</span> </a>
 								</div>
 							</c:forEach>

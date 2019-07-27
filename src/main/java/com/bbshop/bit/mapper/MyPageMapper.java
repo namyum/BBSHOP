@@ -36,7 +36,7 @@ public interface MyPageMapper {
 
 	public void insertAddrInfo(AddrVO addrVO);
 
-	public void deleteAddrInfo(int num);
+	public void deleteAddrInfo(@Param("key") long key, @Param("num") int num);
 
 	public MoreDetailsVO getDetail(long key);
 

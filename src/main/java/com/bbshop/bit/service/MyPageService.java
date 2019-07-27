@@ -50,7 +50,7 @@ public interface MyPageService {
 	public void insertAddrInfo(AddrVO addrVO);
 
 	// 배송지 삭제
-	public void deleteAddrInfo(int num);
+	public void deleteAddrInfo(long key, int num);
 	
 
 	// 회원 추가 정보 들고오기

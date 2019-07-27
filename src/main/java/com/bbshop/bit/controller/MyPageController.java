@@ -132,7 +132,7 @@ public class MyPageController {
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
-		System.out.println("info 왔다");
+		System.out.println("/modify_info.do 컨트롤러 진입");
 		
 		MemberVO member = myPageService.getUserInfo(1);
 		List<AddrVO> addr_list = myPageService.getAddrList(1);
@@ -210,7 +210,7 @@ public class MyPageController {
 	@RequestMapping("/delete_userAddr.do")
 	public String delete_userAddr(@RequestParam("num") int num) {
 		
-		myPageService.deleteAddrInfo(num);
+		myPageService.deleteAddrInfo(1, num);
 		
 		return "forward:/modify_info.do";
 	}
