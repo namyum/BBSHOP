@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
@@ -29,7 +30,7 @@ public class MyPageController {
 	private HttpSession session;
 	
 	// 1. 회원 정보 조회 -> 적립금 불러오기
-	@RequestMapping("/bgg")
+	@RequestMapping("/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
 						
 		long sum = 0;
@@ -131,13 +132,17 @@ public class MyPageController {
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
-		System.out.println("넘어오나 modify_info");
+		System.out.println("info 왔다");
 		
 		MemberVO member = myPageService.getUserInfo(1);
 		List<AddrVO> addr_list = myPageService.getAddrList(1);
+		MoreDetailsVO member_detail = myPageService.getDetail(1);
+				
+		System.out.println(member_detail.toString());
 				
 		model.addAttribute("memberInfo", member);
 		model.addAttribute("addr_list", addr_list);
+		model.addAttribute("member_detail", member_detail);
 		
 		return "shoppingMall/mypage/modify_info";
 	}
@@ -210,19 +215,35 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 
-	// 4. 회원 정보 수정 - 회원 탈퇴
+	// 회원 탈퇴 이동
 	@RequestMapping("/withdraw.do")
 	public String withdraw() {
 		
 		return "shoppingMall/mypage/withdraw";
 	}
 	
+	// 회원 탈퇴하기
 	@RequestMapping("/secede.do")
 	public String secede() {
 		
 		myPageService.deleteUserInfo(1);
 		
 		return "shoppingMall/main/shopping_main";
+	}
+	
+	// 추가 사항 수정하기
+	@RequestMapping("/modify_detail.do")
+	public String modify_detail(MoreDetailsVO moreDetailsVO) {
+		
+		moreDetailsVO.setUSER_KEY(1);
+		
+		System.out.println("컨트롤러에서의 VO : " + moreDetailsVO.toString());
+		
+		myPageService.updateDetailInfo(moreDetailsVO, 1);
+		
+		System.out.println("매퍼 통과");
+		
+		return "forward:/modify_info.do";
 	}
 	
 }

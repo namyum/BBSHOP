@@ -98,8 +98,7 @@
 						</td>
 						<td>
 							<h5>
-								￦
-								<c:out value="${orderVO.pymntamnt }" default="null" />
+								￦ <c:out value="${orderVO.pymntamnt }" default="null" />
 							</h5>
 						</td>
 						<td>
@@ -198,7 +197,7 @@
 		    
 		    formObj.method = "post";
 		    formObj.action = "/order_cancel.do";
-		    
+		    		    
 		    formObj.submit();
 		}
 	}
@@ -216,7 +215,7 @@
 				list.push('${orderVO.name}')
 				list.push('${orderVO.or_msg}')
 				list.push('${orderVO.receiver}');
-			}	
+			}
 		</c:forEach>
 		
 		order_num = list[0];

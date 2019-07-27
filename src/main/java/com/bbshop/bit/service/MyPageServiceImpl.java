@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
@@ -114,6 +115,24 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		myPageMapper.deleteAddrInfo(num);
+	}
+
+	@Override
+	public MoreDetailsVO getDetail(long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getDetail(key);
+	}
+
+	@Override
+	public void updateDetailInfo(MoreDetailsVO moreDetailsVO, long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		System.out.println("service에서 VO : " + moreDetailsVO.toString());
+		
+		myPageMapper.updateDetailInfo(moreDetailsVO, 1);
 	}
 
 }

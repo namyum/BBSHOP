@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -36,4 +37,8 @@ public interface MyPageMapper {
 	public void insertAddrInfo(AddrVO addrVO);
 
 	public void deleteAddrInfo(int num);
+
+	public MoreDetailsVO getDetail(long key);
+
+	public void updateDetailInfo(MoreDetailsVO moreDetailsVO, long key);
 }
