@@ -17,9 +17,9 @@ h3 {
 				<form class="row contact_form" action="/modify_userAddr.do" method="post"
 					novalidate="novalidate" id="addr_info">
 					<div class="col-md-6 form-group p_star">
-						<label for="name">이름</label>
+						<label for="name">배송지명</label>
 						<input type="text" class="form-control" id="name" name="name"
-							placeholder="이름" value="<c:out value="${addrVO.name }"/>">
+							placeholder="배송지명" value="<c:out value="${addrVO.name }"/>">
 					</div>
 					<div class="col-md-7 form-group p_star">
 						<label for="contact">연락처</label>

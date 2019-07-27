@@ -47,8 +47,8 @@ h3 {
 						</div>
 					</div>
 					<div class="col-md-6 form-group p_star">
-						<label for="name">이름</label> <input type="text"
-							class="form-control" id="name" name="name" placeholder="이름">
+						<label for="name">배송지명</label> <input type="text"
+							class="form-control" id="name" name="name" placeholder="배송지명">
 					</div>
 					<div class="col-md-7 form-group p_star">
 						<label for="contact">연락처</label> <input type="text"

@@ -137,12 +137,12 @@
 	<update id="updateDetailInfo">
 		UPDATE u_moredetail
 		SET
-			team = #{TEAM},
-			position = #{POSITION},
-			hand = #{HAND},
-			brand1 = #{BRAND1},
-			brand2 = #{BRAND2},
-			brand3 = #{BRAND3}
+			team = #{moreDetailsVO.TEAM},
+			position = #{moreDetailsVO.POSITION},
+			hand = #{moreDetailsVO.HAND},
+			brand1 = #{moreDetailsVO.BRAND1},
+			brand2 = #{moreDetailsVO.BRAND2},
+			brand3 = #{moreDetailsVO.BRAND3}
 		WHERE
 			user_key = #{key}
 	</update>

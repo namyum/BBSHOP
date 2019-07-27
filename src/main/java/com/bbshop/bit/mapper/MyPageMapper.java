@@ -40,5 +40,5 @@ public interface MyPageMapper {
 
 	public MoreDetailsVO getDetail(long key);
 
-	public void updateDetailInfo(MoreDetailsVO moreDetailsVO, long key);
+	public void updateDetailInfo(@Param("moreDetailsVO") MoreDetailsVO moreDetailsVO, @Param("key") long key);
 }

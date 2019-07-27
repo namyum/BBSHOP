@@ -84,7 +84,7 @@ h3, h4, h6 {
 										<br>
 										<div class="info_item">
 											<i class="fas fa-male"></i>
-											<h6>이름</h6>
+											<h6>배송지명</h6>
 											<p>${AddrVO.name }</p>
 										</div>
 										<div class="info_item">
@@ -129,25 +129,25 @@ h3, h4, h6 {
 											<option value="LG 트윈스"
 												<c:if test="${member_detail.TEAM eq 'LG 트윈스' }">selected </c:if>>
 												LG 트윈스</option>
-											<option value="3"
+											<option value="한화 이글스"
 												<c:if test="${member_detail.TEAM eq '한화 이글스' }">selected </c:if>>
 												한화 이글스</option>
-											<option value="4"
+											<option value="두산 베어스"
 												<c:if test="${member_detail.TEAM eq '두산 베어스' }">selected </c:if>>
 												두산 베어스</option>
-											<option value="5"
+											<option value="삼성 라이온즈"
 												<c:if test="${member_detail.TEAM eq '삼성 라이온즈' }">selected </c:if>>
 												삼성 라이온즈</option>
-											<option value="6"
+											<option value="키움 히어로즈"
 												<c:if test="${member_detail.TEAM eq '키움 히어로즈' }">selected </c:if>>
 												키움 히어로즈</option>
-											<option value="7"
+											<option value="KIA 타이거즈"
 												<c:if test="${member_detail.TEAM eq 'KIA 타이거즈' }">selected </c:if>>
 												KIA 타이거즈</option>
-											<option value="8"
+											<option value="KT 위즈"
 												<c:if test="${member_detail.TEAM eq 'KT 위즈' }">selected </c:if>>
 												KT 위즈</option>
-											<option value="9"
+											<option value="NC 다이노스"
 												<c:if test="${member_detail.TEAM eq 'NC 다이노스' }">selected </c:if>>
 												NC 다이노스</option>
 									</select>
@@ -156,25 +156,25 @@ h3, h4, h6 {
 									<h4 class="title_color">포지션</h4>
 									<select class="sorting" id="position">
 										<option value="0">포지션</option>
-										<option value="1"
+										<option value="포수"
 											<c:if test="${member_detail.POSITION eq '포수' }">selected </c:if>>
 											포수</option>
-										<option value="2"
+										<option value="투수"
 											<c:if test="${member_detail.POSITION eq '투수' }">selected </c:if>>
 											투수</option>
-										<option value="3"
+										<option value="1루수"
 											<c:if test="${member_detail.POSITION eq '1루수' }">selected </c:if>>
 											1루수</option>
-										<option value="4"
+										<option value="2루수"
 											<c:if test="${member_detail.POSITION eq '2루수' }">selected </c:if>>
 											2루수</option>
-										<option value="5"
+										<option value="3루수"
 											<c:if test="${member_detail.POSITION eq '3루수' }">selected </c:if>>
 											3루수</option>
-										<option value="6"
+										<option value="유격수"
 											<c:if test="${member_detail.POSITION eq '유격수' }">selected </c:if>>
 											유격수</option>
-										<option value="7"
+										<option value="외야수"
 											<c:if test="${member_detail.POSITION eq '외야수' }">selected </c:if>>
 											외야수</option>
 									</select>
@@ -197,34 +197,34 @@ h3, h4, h6 {
 									<h4 class="title_color">브랜드 1</h4>
 									<select class="sorting" id="brand1">
 										<option value="1">브랜드 1</option>
-										<option value="2"
+										<option value="MIZUNO"
 											<c:if test="${member_detail.BRAND1 eq 'MIZUNO' }">selected </c:if>>
 											MIZUNO</option>
 										<option value="WILSON"
 											<c:if test="${member_detail.BRAND1 eq 'WILSON' }">selected </c:if>>
 											WILSON</option>
-										<option value="4"
+										<option value="NIKE"
 											<c:if test="${member_detail.BRAND1 eq 'NIKE' }">selected </c:if>>
 											NIKE</option>
-										<option value="5"
+										<option value="ADIDAS"
 											<c:if test="${member_detail.BRAND1 eq 'ADIDAS' }">selected </c:if>>
 											ADIDAS</option>
-										<option value="6"
+										<option value="ASICS"
 											<c:if test="${member_detail.BRAND1 eq 'ASICS' }">selected </c:if>>
 											ASICS</option>
-										<option value="7"
+										<option value="FILA"
 											<c:if test="${member_detail.BRAND1 eq 'FILA' }">selected </c:if>>
 											FILA</option>
-										<option value="8"
+										<option value="MORIMOTO"
 											<c:if test="${member_detail.BRAND1 eq 'MORIMOTO' }">selected </c:if>>
 											MORIMOTO</option>
-										<option value="9"
+										<option value="UNDERARMOUR"
 											<c:if test="${member_detail.BRAND1 eq 'UNDERARMOUR' }">selected </c:if>>
 											UNDERARMOUR</option>
-										<option value="10"
+										<option value="DESCENTE"
 											<c:if test="${member_detail.BRAND1 eq 'DESCENTE' }">selected </c:if>>
 											DESCENTE</option>
-										<option value="11"
+										<option value="BRETT"
 											<c:if test="${member_detail.BRAND1 eq 'BRETT' }">selected </c:if>>
 											BRETT</option>
 									</select>
@@ -233,34 +233,34 @@ h3, h4, h6 {
 									<h4 class="title_color">브랜드 2</h4>
 									<select class="sorting" id="brand2">
 										<option value="1">브랜드 2</option>
-										<option value="2"
+										<option value="MIZUNO"
 											<c:if test="${member_detail.BRAND2 eq 'MIZUNO' }">selected </c:if>>
 											MIZUNO</option>
-										<option value="3"
+										<option value="WILSON"
 											<c:if test="${member_detail.BRAND2 eq 'WILSON' }">selected </c:if>>
 											WILSON</option>
 										<option value="NIKE"
 											<c:if test="${member_detail.BRAND2 eq 'NIKE' }">selected </c:if>>
 											NIKE</option>
-										<option value="5"
+										<option value="ADIDAS"
 											<c:if test="${member_detail.BRAND2 eq 'ADIDAS' }">selected </c:if>>
 											ADIDAS</option>
-										<option value="6"
+										<option value="ASICS"
 											<c:if test="${member_detail.BRAND2 eq 'ASICS' }">selected </c:if>>
 											ASICS</option>
-										<option value="7"
+										<option value="FILA"
 											<c:if test="${member_detail.BRAND2 eq 'FILA' }">selected </c:if>>
 											FILA</option>
-										<option value="8"
+										<option value="MORIMOTO"
 											<c:if test="${member_detail.BRAND2 eq 'MORIMOTO' }">selected </c:if>>
 											MORIMOTO</option>
-										<option value="9"
+										<option value="UNDERARMOUR"
 											<c:if test="${member_detail.BRAND2 eq 'UNDERARMOUR' }">selected </c:if>>
 											UNDERARMOUR</option>
-										<option value="10"
+										<option value="DESCENTE"
 											<c:if test="${member_detail.BRAND2 eq 'DESCENTE' }">selected </c:if>>
 											DESCENTE</option>
-										<option value="11"
+										<option value="BRETT"
 											<c:if test="${member_detail.BRAND2 eq 'BRETT' }">selected </c:if>>
 											BRETT</option>
 									</select>
@@ -269,34 +269,34 @@ h3, h4, h6 {
 									<h4 class="title_color">브랜드 3</h4>
 									<select class="sorting" id="brand3">
 										<option value="1">브랜드 3</option>
-										<option value="2"
+										<option value="MIZUNO"
 											<c:if test="${member_detail.BRAND3 eq 'MIZUNO' }">selected </c:if>>
 											MIZUNO</option>
 										<option value="3"
 											<c:if test="${member_detail.BRAND3 eq 'WILSON' }">selected </c:if>>
 											WILSON</option>
-										<option value="4"
+										<option value="NIKE"
 											<c:if test="${member_detail.BRAND3 eq 'NIKE' }">selected </c:if>>
 											NIKE</option>
 										<option value="ADIDAS"
 											<c:if test="${member_detail.BRAND3 eq 'ADIDAS' }">selected </c:if>>
 											ADIDAS</option>
-										<option value="6"
+										<option value="ASICS"
 											<c:if test="${member_detail.BRAND3 eq 'ASICS' }">selected </c:if>>
 											ASICS</option>
-										<option value="7"
+										<option value="FILA"
 											<c:if test="${member_detail.BRAND3 eq 'FILA' }">selected </c:if>>
 											FILA</option>
-										<option value="8"
+										<option value="MORIMOTO"
 											<c:if test="${member_detail.BRAND3 eq 'MORIMOTO' }">selected </c:if>>
 											MORIMOTO</option>
-										<option value="9"
+										<option value="UNDERARMOUR"
 											<c:if test="${member_detail.BRAND3 eq 'UNDERARMOUR' }">selected </c:if>>
 											UNDERARMOUR</option>
-										<option value="10"
+										<option value="DESCENTE"
 											<c:if test="${member_detail.BRAND3 eq 'DESCENTE' }">selected </c:if>>
 											DESCENTE</option>
-										<option value="11"
+										<option value="BRETT"
 											<c:if test="${member_detail.BRAND3 eq 'BRETT' }">selected </c:if>>
 											BRETT</option>
 									</select>
@@ -351,8 +351,6 @@ h3, h4, h6 {
 	
 	function submit(team, position, hand, brand1, brand2, brand3) {
 		
-		alert(team);
-		
 		var formObj = document.createElement("form");
 		
 		var i_team = document.createElement("input");
@@ -380,8 +378,6 @@ h3, h4, h6 {
 		i_brand3.name = "BRAND3";
 		i_brand3.value = brand3;
 		
-		alert(i_team.value);
-		
 	    formObj.appendChild(i_team);
 	    formObj.appendChild(i_position);
 	    formObj.appendChild(i_hand);
@@ -393,8 +389,6 @@ h3, h4, h6 {
 	    
 	    formObj.method = "post";
 	    formObj.action = "/modify_detail.do";
-	    
-	    alert('됨?');
 	    
 	    formObj.submit();
 	}

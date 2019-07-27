@@ -243,7 +243,7 @@ public class MyPageController {
 		
 		System.out.println("매퍼 통과");
 		
-		return "forward:/modify_info.do";
+		return "redirect:/modify_info.do";
 	}
 	
 }
