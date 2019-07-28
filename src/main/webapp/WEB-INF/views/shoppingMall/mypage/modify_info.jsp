@@ -20,6 +20,7 @@ h3, h4, h6 {
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
 						<h3 class="mb-30 title_color">회원 정보 수정</h3>
+						<h5 style="margin-bottom: 30px;">* 회원 정보는 비밀번호가 일치해야 수정이 가능합니다.</h5>
 						<form class="row contact_form" action="/modify_userInfo.do"
 							method="post" novalidate="novalidate" id="modify_info">
 							<div class="col-md-7 form-group p_star">
@@ -27,15 +28,20 @@ h3, h4, h6 {
 									class="form-control" id="NAME" name="NAME"
 									value="<c:out value="${memberInfo.NAME }" default="null" />">
 							</div>
-							<div class="col-md-6 form-group p_star">
-								<label for="pw">비밀번호</label> <input type="text"
-									class="form-control" id="MEMBER_PW" name="MEMBER_PW"
+							<div class="col-md-5 form-group p_star"></div>						
+							<div class="col-md-5 form-group p_star">
+								<label for="pw">비밀번호</label> <input type="password" 
+								id="MEMBER_PW" name="MEMBER_PW" oninput="checkPwd()" required class="form-control pass"
+									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />" >
+							</div>
+							<div class="col-md-5 form-group p_star">
+								<label for="pw_chk">비밀번호 확인</label> <input type="password" 
+								id="PW_CHK" name="PW_CHK" oninput="checkPwd()" required class="form-control pass"
 									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
-							<div class="col-md-6 form-group p_star">
-								<label for="pw_chk">비밀번호 확인</label> <input type="text"
-									class="form-control" id="PW_CHK" name="PW_CHK"
-									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
+							<div class="col-md-2 form-group p_star"></div>
+							<div class="col-md-10 form-group p_star">
+								<span id="pwdCheck"></span>
 							</div>
 							<div class="col-md-5 form-group p_star">
 								<label for="birth">생년월일</label> <input type="text"
@@ -64,8 +70,8 @@ h3, h4, h6 {
 								<span id="nickCheck"></span>
 							</div>
 						</form>
-						<a href="#" class="genric-btn default radius"
-							onclick="modify_userInfo('modify_info')"><span>수정하기</span></a> <a
+						<a href="#" class="genric-btn disable radius"
+							onclick="modify_userInfo('modify_info')" id="modifybtn"><span>수정하기</span></a> <a
 							id="withdraw" href="/withdraw.do"
 							class="genric-btn default radius" style="float: right;"><span>회원
 								탈퇴</span> </a>
@@ -397,6 +403,48 @@ h3, h4, h6 {
 	    formObj.submit();
 	}
 	
+	//재입력 비밀번호 체크하여 가입버튼 비활성화 또는 맞지않음을 알림.
+		
+    function checkPwd() {
+		
+        var inputed = $('.pass').val();
+        var reinputed = $('#PW_CHK').val();
+        
+        if (reinputed == "" && (inputed != reinputed || inputed == reinputed)) {
+        	
+            $("#PW_CHK").css("background-color", "#FFCECE");
+            
+			var html = "<span style='color: red'>비밀번호가 일치하지 않습니다.</span>";
+			
+			$('#pwdCheck').empty();
+			$('#pwdCheck').append(html);
+			
+			$('#modifybtn').attr('class', 'genric-btn disable radius');
+            
+        } else if (inputed == reinputed) {
+        	
+            $("#PW_CHK").css("background-color", "#B0F6AC");
+            
+			var html = "<span style='color: blue'>비밀번호가 일치합니다.</span>";
+			
+			$('#pwdCheck').empty();
+			$('#pwdCheck').append(html);
+			
+			$('#modifybtn').attr('class', 'genric-btn default radius');
+            
+        } else if (inputed != reinputed) {
+        	
+            $("#PW_CHK").css("background-color", "#FFCECE");
+            
+			var html = "<span style='color: red'>비밀번호가 일치하지 않습니다.</span>";
+			
+			$('#pwdCheck').empty();
+			$('#pwdCheck').append(html);
+			
+			$('#modifybtn').attr('class', 'genric-btn disable radius');
+		}
+    }
+	
 	$(document).ready(function(e){
 
 		// 닉네임 변경 중복 확인
@@ -411,8 +459,6 @@ h3, h4, h6 {
 				success: function(data){
 					
 					if(data == 0 && $.trim($('#NICKNAME').val()) != '' ) {
-						
-						<!-- idx = true; -->
 						
 						var html = "<span style='color: blue'>사용 가능한 닉네임입니다.</span>";
 						
