@@ -200,7 +200,9 @@
 	</div>
 </div>
 
-<script>
+<script type="text/javascript" src="/resources/shoppingMall/js/board.js"></script>
+
+<script type="text/javascript">
 	// 페이징 버튼 처리
 	$(document).ready(function() {
 
