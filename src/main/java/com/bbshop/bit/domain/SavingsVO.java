@@ -8,7 +8,7 @@ public class SavingsVO {
 	private String or_items;
 	private long or_savings;
 	private long or_num;
-	private long or_savings_total; // 적립금 총합 필드 추가.
+	private long or_savings_total; // 적립금 총합 필드 추가. DB에는 존재하지 않는 컬럼.
 
 	public Date getOr_date() {
 		return or_date;

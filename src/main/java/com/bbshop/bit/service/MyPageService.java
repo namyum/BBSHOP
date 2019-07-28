@@ -58,5 +58,9 @@ public interface MyPageService {
 
 	// 회원 추가 정보 수정하기
 	public void updateDetailInfo(MoreDetailsVO moreDetailsVO, long key);
+
+
+	// 닉네임 중복 확인
+	public int nickCheck(String nickname);
 		
 }

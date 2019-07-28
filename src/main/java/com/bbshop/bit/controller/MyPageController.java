@@ -2,13 +2,16 @@ package com.bbshop.bit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
@@ -30,7 +33,7 @@ public class MyPageController {
 	private HttpSession session;
 	
 	// 1. 회원 정보 조회 -> 적립금 불러오기
-	@RequestMapping("/savings.do")
+	@RequestMapping(value = "/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
 						
 		long sum = 0;
@@ -244,6 +247,18 @@ public class MyPageController {
 		System.out.println("매퍼 통과");
 		
 		return "redirect:/modify_info.do";
+	}
+	
+	//produces는 ajax가 데이터 넘겨받을때 깨짐 방지
+	@RequestMapping(value = "/nickCheck.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String nickCheck(HttpServletRequest request) {
+		
+		String nickname = request.getParameter("NICKNAME");
+		
+		int result = myPageService.nickCheck(nickname);
+		
+		return Integer.toString(result);
 	}
 	
 }

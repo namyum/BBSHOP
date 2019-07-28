@@ -152,10 +152,11 @@
 				</thead>
 				<tbody style="text-align: center;">
 					<c:forEach var="savingsVO" items="${savings_list }">
-						<tr>
+						<tr id="test">
 							<td>
 								<h5>
-									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${savingsVO.or_date }" />
+									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+										value="${savingsVO.or_date }" />
 								</h5>
 							</td>
 							<td>
@@ -184,14 +185,17 @@
 					<!-- 페이지 목록 버튼 -->
 					<c:forEach var="num" begin="${pageMaker.startPage}"
 						end="${pageMaker.endPage}">
-						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+						<li
+							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
+			<!-- 테스트용 태그 -->
+			<div id="test"></div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
-			<form id="actionForm" action="savings.do">
+			<form id="actionForm" action="/savings.do">
 				<input type="hidden" name="pageNum"
 					value="${pageMaker.pagingVO.pageNum }"> <input
 					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
@@ -199,8 +203,6 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript" src="/resources/shoppingMall/js/board.js"></script>
 
 <script type="text/javascript">
 	// 페이징 버튼 처리
@@ -213,8 +215,21 @@
 			e.preventDefault();
 
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-
+			
 			actionForm.submit();
+			<!-- $.ajax({
+				type : 'post',
+				url : '/savings.do',
+				data : { pageNum : 2, amount : 5 },
+				dataType : "json",
+				success : function(data) {
+					alert('AJAX 요청 성공!');
+					$('#test').text(data);
+				},
+				error : function() {
+					alert('AJAX 요청 실패!');
+				}
+			}); -->
 		});
 	});
 </script>

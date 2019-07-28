@@ -135,4 +135,12 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.updateDetailInfo(moreDetailsVO, 1);
 	}
 
+	@Override
+	public int nickCheck(String nickname) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.nickCheck(nickname);
+	}
+
 }

@@ -37,29 +37,33 @@ h3, h4, h6 {
 									class="form-control" id="PW_CHK" name="PW_CHK"
 									value="<c:out value="${memberInfo.MEMBER_PW }" default="null" />">
 							</div>
-							<div class="col-md-7 form-group p_star">
+							<div class="col-md-5 form-group p_star">
 								<label for="birth">생년월일</label> <input type="text"
 									class="form-control" id="BIRTH" name="BIRTH"
 									value="<c:out value="${memberInfo.BIRTH }" default="null" />"
 									readonly>
 							</div>
-							<div class="col-md-6 form-group p_star">
+							<div class="col-md-7 form-group p_star"></div>
+							<div class="col-md-5 form-group p_star">
 								<label for="phone">휴대폰</label> <input type="text"
 									class="form-control" id="PHONE" name="PHONE"
 									value="<c:out value="${memberInfo.PHONE }" default="null" />">
 							</div>
-							<div class="col-md-7 form-group p_star">
+							<div class="col-md-7 form-group p_star"></div>
+							<div class="col-md-5 form-group p_star">
 								<label for="nickname">닉네임</label> <input type="text"
 									class="form-control" id="NICKNAME" name="NICKNAME"
 									value="<c:out value="${memberInfo.NICKNAME }" default="null" />">
 							</div>
-							<div class="col-md-5 form-group p_star">
-								<a href="#" class="genric-btn default radius"
-									style="height: 35px; position: absolute; left: 0px; bottom: 0px;"><span
-									id="dup_chk">중복확인</span></a>
+							<div class="col-md-3 form-group p_star">
+								<a id="check" class="genric-btn default radius" 
+								style="position: absolute; left: 0px; bottom: 0px;"><span>중복 확인</span></a>
+							</div>
+							<div class="col-md-4 form-group p_star"></div>
+							<div class="col-md-3 form-group p_star">
+								<span id="nickCheck"></span>
 							</div>
 						</form>
-
 						<a href="#" class="genric-btn default radius"
 							onclick="modify_userInfo('modify_info')"><span>수정하기</span></a> <a
 							id="withdraw" href="/withdraw.do"
@@ -392,6 +396,48 @@ h3, h4, h6 {
 	    
 	    formObj.submit();
 	}
+	
+	$(document).ready(function(e){
+
+		// 닉네임 변경 중복 확인
+		$('#check').click(function(){
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/nickCheck.do",
+				type: "GET",
+				data:{
+					"NICKNAME":$('#NICKNAME').val()
+				},
+				success: function(data){
+					
+					if(data == 0 && $.trim($('#NICKNAME').val()) != '' ) {
+						
+						<!-- idx = true; -->
+						
+						var html = "<span style='color: blue'>사용 가능한 닉네임입니다.</span>";
+						
+						$('#nickCheck').empty();
+						$('#nickCheck').append(html);
+						
+					} else {
+
+						var html = "<span style='color: red'>사용 불가능한 닉네임입니다.</span>";
+						
+						$('#nickCheck').empty();
+						$('#nickCheck').append(html);
+					}
+				},
+				error: function(){
+					
+					alert("ajax 에러");
+				}
+			});
+			
+
+		});
+	
+	
+	});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

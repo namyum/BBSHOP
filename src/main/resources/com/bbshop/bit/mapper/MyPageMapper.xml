@@ -146,5 +146,12 @@
 		WHERE
 			user_key = #{key}
 	</update>
+	
+<!-- 닉네임 중복 확인 -->
+	<select id="nickCheck" resultType="int">
+		SELECT count(*) 
+		FROM sh_user
+		WHERE nickname = #{nickname}
+	</select>
 
 </mapper>
