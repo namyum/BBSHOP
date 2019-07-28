@@ -152,7 +152,7 @@
 				</thead>
 				<tbody style="text-align: center;">
 					<c:forEach var="savingsVO" items="${savings_list }">
-						<tr id="test">
+						<tr>
 							<td>
 								<h5>
 									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
@@ -164,7 +164,7 @@
 									<c:out value="${savingsVO.or_items }" default="null" />
 								</h5>
 							</td>
-							<td>
+							<td id="test">
 								<h5>
 									￦
 									<c:out value="${savingsVO.or_savings }" default="null" />
@@ -192,8 +192,6 @@
 					</c:forEach>
 				</ul>
 			</div>
-			<!-- 테스트용 태그 -->
-			<div id="test"></div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 			<form id="actionForm" action="/savings.do">
 				<input type="hidden" name="pageNum"
@@ -213,23 +211,26 @@
 		$(".page-item a").on("click", function(e) {
 
 			e.preventDefault();
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			
-			actionForm.submit();
-			<!-- $.ajax({
-				type : 'post',
-				url : '/savings.do',
-				data : { pageNum : 2, amount : 5 },
+			var data = {
+					pageNum: $(this).attr("href"), 
+					amount: 5 
+			};
+			
+			$.ajax({
+				type: "POST",
+				url: "/savingListPaging.do",
+				data : JSON.stringify(data),
 				dataType : "json",
-				success : function(data) {
-					alert('AJAX 요청 성공!');
-					$('#test').text(data);
+				contentType: "application/json",
+				success : function(result) {
+					
+					console.log(result);
 				},
 				error : function() {
 					alert('AJAX 요청 실패!');
 				}
-			}); -->
+			});
 		});
 	});
 </script>

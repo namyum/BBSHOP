@@ -314,7 +314,7 @@ h3, h4, h6 {
 							</div>
 						</form>
 						<div>
-							<a href="/modify_info" class="genric-btn default radius"
+							<a href="#" class="genric-btn default radius"
 								onclick="update_detail();" style="float: left;"><span>수정하기</span>
 							</a>
 						</div>

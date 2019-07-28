@@ -41,4 +41,10 @@ public class SavingsVO {
 		this.or_savings_total = or_savings_total;
 	}
 	
+	@Override
+	public String toString() {
+		return "SavingsVO [or_date=" + or_date + ", or_items=" + or_items + ", or_savings=" + or_savings + ", or_num="
+				+ or_num + ", or_savings_total=" + or_savings_total + "]";
+	}
+	
 }

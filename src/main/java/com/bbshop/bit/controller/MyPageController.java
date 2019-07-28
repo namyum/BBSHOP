@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,6 @@ public class MyPageController {
 						
 		long sum = 0;
 		long total = 0;
-		// long key = (long)session.getAttribute("user_key"); session 객체에서 id 식별자인 key 받음.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
@@ -244,12 +244,12 @@ public class MyPageController {
 		
 		myPageService.updateDetailInfo(moreDetailsVO, 1);
 		
-		System.out.println("매퍼 통과");
+		System.out.println("mapper 통과");
 		
 		return "redirect:/modify_info.do";
 	}
 	
-	//produces는 ajax가 데이터 넘겨받을때 깨짐 방지
+	// 닉네임 중복 확인
 	@RequestMapping(value = "/nickCheck.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String nickCheck(HttpServletRequest request) {
@@ -259,6 +259,21 @@ public class MyPageController {
 		int result = myPageService.nickCheck(nickname);
 		
 		return Integer.toString(result);
+	}
+
+	// 적립금 목록 가져 오기
+	@RequestMapping(value = "/savingListPaging.do", consumes = "application/json")
+	@ResponseBody
+	public List<SavingsVO> getSavingListPaging(@RequestBody PagingVO pagingVO) {
+		
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1);
+		
+//		for (int i = 0; i < savings_list.size(); i++) {
+//			
+//			System.out.println(savings_list.get(i).toString());
+//		}
+		
+		return savings_list;
 	}
 	
 }
