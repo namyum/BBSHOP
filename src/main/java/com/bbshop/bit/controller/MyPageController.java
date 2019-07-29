@@ -66,11 +66,9 @@ public class MyPageController {
 				
 		long total = 0;
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
-		
-		System.out.println(orders_list.toString());
-		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orders_list", orders_list);
