@@ -20,7 +20,7 @@ public interface MyPageMapper {
 
 	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 
-	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
+	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 
 	public void cancelOrder(long order_num);
 

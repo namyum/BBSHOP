@@ -23,7 +23,7 @@ public interface MyPageService {
 	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key);
 	
 	// 리뷰 내역 가지고 오기
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
 
 	
 	// 주문 취소하기

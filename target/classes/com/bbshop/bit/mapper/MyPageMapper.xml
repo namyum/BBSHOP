@@ -21,6 +21,11 @@
 		<result property="re_date" column="re_date" />
 		<result property="re_hit" column="re_hit" />
 	</resultMap>
+	
+	<select id="getTotalCount" resultType="java.lang.Long">
+		SELECT count(*) 
+		FROM ${table}
+	</select>
 
 	<select id="getSavingsList" resultMap="savingsVO">
 		<![CDATA[	
@@ -33,11 +38,6 @@
     			ORDER BY order_num desc )
 			WHERE order_num <= ( #{pagingVO.pageNum} * #{pagingVO.amount} ) AND order_num > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
 		]]>
-	</select>
-
-	<select id="getTotalCount" resultType="java.lang.Long">
-		SELECT count(*) 
-		FROM ${table}
 	</select>
 
 	<select id="getOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
@@ -61,9 +61,9 @@
 				( SELECT rv_num, title, re_date, re_hit
 			  	  FROM review
 			   	  WHERE user_key = #{key}
-			  		AND rv_num > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
        		  	  ORDER BY rv_num desc )
-     		 WHERE rv_num <= #{pagingVO.pageNum} * #{pagingVO.amount}
+     		 WHERE rv_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
+     		 	AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
 		]]>
 	</select>
 

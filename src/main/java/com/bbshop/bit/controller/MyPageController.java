@@ -33,7 +33,7 @@ public class MyPageController {
 	@Autowired
 	private HttpSession session;
 	
-	// 1. 회원 정보 조회 -> 적립금 불러오기
+	// 회원 정보 조회 -> 적립금 불러오기
 	@RequestMapping(value = "/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
 						
@@ -60,7 +60,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypage";
 	}
 	
-	// 2. 주문/배송
+	// 주문/배송
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
@@ -76,7 +76,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/order_status";
 	}
 	
-	// 2. 주문/배송 - 주문 취소
+	// 주문/배송 - 주문 취소
 	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 				
@@ -85,15 +85,15 @@ public class MyPageController {
 		return "redirect:/order_status.do";
 	}
 	
-	// 3. 내가 남긴 글
+	// 내가 남긴 글 조회
 	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
 		
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, 1);
-		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1);
 		
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -101,15 +101,15 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost";
 	}
 	
-	// 3. 내가 남긴 글 - 상품 후기
+	// 내가 남긴 글 조회 -> 상품 후기
 	@RequestMapping("/mypost_review.do")
 	public String mypost_review(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
-	
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, 1); // 후기 테이블을 파라미터로 준다.
 		
 		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
+	
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
 		
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -117,21 +117,21 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost_review";
 	}
 
-	// 3. 내가 남긴 글 - 상품 문의
+	// 내가 남긴 글 -> 상품 문의
 	@RequestMapping("/mypost_qna.do")
 	public String mypost_qna() {
 		
 		return "shoppingMall/mypage/mypost_qna";
 	}
 
-	// 3. 내가 남긴 글 - 1대1 문의
+	// 내가 남긴 글 -> 1대1 문의
 	@RequestMapping("/mypost_one_to_one.do")
 	public String mypost_one_to_one() {
 		
 		return "shoppingMall/mypage/mypost_one_to_one";
 	}
 	
-	// 4. 회원 정보 수정 (조회)
+	// 회원 정보 수정 페이지
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
@@ -150,7 +150,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/modify_info";
 	}
 	
-	// 4. 회원 정보 수정 - 회원 정보 수정
+	// 회원 정보 수정
 	@RequestMapping("/modify_userInfo.do")
 	public String modify_userInfo(MemberVO memberVO) {
 				
@@ -161,7 +161,7 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 	
-	// 4. 회원 정보 수정 - 배송지 수정
+	// 배송지 수정 페이지
 	@RequestMapping("/modify_addr.do")
 	public String modify_addr(@RequestParam("num") int index, Model model) {
 		
@@ -175,7 +175,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/modify_addr";
 	}
 	
-	// 4. 회원 정보 수정 - 배송지 수정하기
+	// 배송지 수정하기
 	@RequestMapping("/modify_userAddr.do")
 	public String modify_userAddr(AddrVO addrVO) {
 		
@@ -186,7 +186,7 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 
-	// 4. 회원 정보 수정 - 배송지 등록
+	// 배송지 등록 페이지
 	@RequestMapping("/write_addr.do")
 	public String write_addr(@RequestParam("num") int num, Model model) {
 		
@@ -195,7 +195,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/write_addr";
 	}
 	
-	// 4. 회원 정보 수정 - 배송지 등록하기
+	// 배송지 등록하기
 	@RequestMapping("/write_userAddr.do")
 	public String write_userAddr(AddrVO addrVO) {
 				
@@ -209,7 +209,7 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 	
-	// 4. 회원 정보 수정 - 배송지 삭제하기
+	// 배송지 삭제하기
 	@RequestMapping("/delete_userAddr.do")
 	public String delete_userAddr(@RequestParam("num") int num) {
 		
@@ -218,14 +218,14 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 
-	// 회원 탈퇴 이동
+	// 회원 탈퇴 페이지
 	@RequestMapping("/withdraw.do")
 	public String withdraw() {
 		
 		return "shoppingMall/mypage/withdraw";
 	}
 	
-	// 회원 탈퇴하기
+	// 회원 탈퇴
 	@RequestMapping("/secede.do")
 	public String secede() {
 		
@@ -261,7 +261,7 @@ public class MyPageController {
 		return Integer.toString(result);
 	}
 
-	// 적립금 목록 가져 오기
+	// ajax로 적립금 목록 가져 오기
 	@RequestMapping(value = "/savingListPaging.do", consumes = "application/json")
 	@ResponseBody
 	public List<SavingsVO> getSavingListPaging(@RequestBody PagingVO pagingVO) {
