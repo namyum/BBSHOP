@@ -151,9 +151,9 @@
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
-					<c:forEach var="savingsVO" items="${savings_list }">
+					<c:forEach var="savingsVO" items="${savings_list }" varStatus="status">
 						<tr>
-							<td>
+							<td id="sa_date">
 								<h5>
 									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 										value="${savingsVO.or_date }" />
@@ -183,10 +183,8 @@
 			<div class="text-center">
 				<ul class="pagination">
 					<!-- 페이지 목록 버튼 -->
-					<c:forEach var="num" begin="${pageMaker.startPage}"
-						end="${pageMaker.endPage}">
-						<li
-							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
@@ -194,45 +192,80 @@
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 			<form id="actionForm" action="/savings.do">
-				<input type="hidden" name="pageNum"
-					value="${pageMaker.pagingVO.pageNum }"> <input
-					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+				<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
+				<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 			</form>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	// 페이징 버튼 처리
-	$(document).ready(function() {
 
-		var actionForm = $("#actionForm");
+	var actionForm = $("#actionForm");
+	
+	$(document).on("click", ".page-item a", function(e) {
 
-		$(".page-item a").on("click", function(e) {
-
-			e.preventDefault();
-			
-			var data = {
-					pageNum: $(this).attr("href"), 
-					amount: 5 
-			};
-			
-			$.ajax({
-				type: "POST",
-				url: "/savingListPaging.do",
-				data : JSON.stringify(data),
-				dataType : "json",
-				contentType: "application/json",
-				success : function(result) {
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		
+		var data = {
+				pageNum: $(this).attr("href"), 
+				amount: 5
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/savingListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				console.log(result);
+				
+				var str = '<tr>';
+				var btn = '<li class="page-item';
+				
+				$.each(result, function(index, value){
 					
-					console.log(result);
-				},
-				error : function() {
-					alert('AJAX 요청 실패!');
-				}
-			});
+					console.log(index);
+					
+					var parse = parseInt(index);
+
+					str += '<td><h5>' + result[index].or_date + '</h5></td><td><h5>' + result[index].or_items + '</h5></td><td><h5>'
+						+ '￦ ' + result[index].or_savings + '</h5></td><td><h5>' +  '￦ ' + result[index].or_savings_total + '</h5></td>';
+					str += '</tr>';
+					
+					if (parse != 0) {
+					
+						if (index == actionForm.find("input[name='pageNum']").val()) {
+						
+							btn += ' active"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
+
+						} else {
+						
+							btn += '"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
+						}
+					
+						btn += '<li class="page-item';
+					}
+					
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				$('.pagination').empty();
+				$('.pagination').append(btn);
+				
+			},
+			error : function() {
+				alert('AJAX 요청 실패!');
+			}
 		});
 	});
+	
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

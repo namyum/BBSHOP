@@ -108,11 +108,12 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:set var="list_length" value="${fn:length(orders_list)}"/>
 				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
 					<tr>
 						<td style="text-align: center;">
 							<h5>
-								<c:out value="${orderVO.order_num }" default="null" />
+								<c:out value="${orders_list[list_length - status.count].order_num }" default="null" />
 							</h5>
 						</td>
 						<td>

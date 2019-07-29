@@ -456,9 +456,9 @@ h3, h4, h6 {
 				data:{
 					"NICKNAME":$('#NICKNAME').val()
 				},
-				success: function(data){
+				success: function(result){
 					
-					if(data == 0 && $.trim($('#NICKNAME').val()) != '' ) {
+					if(result == 0 && $.trim($('#NICKNAME').val()) != '' ) {
 						
 						var html = "<span style='color: blue'>사용 가능한 닉네임입니다.</span>";
 						
