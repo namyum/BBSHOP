@@ -108,24 +108,24 @@
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">0</span><br> <a href="#"
+							<span class="order_now">${stts_list[0] }</span><br> <a href="#"
 								class="genric-btn default circle" style="clear: both;"><span>결제
 									완료</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">0</span><br> <a href="#"
+							<span class="order_now">${stts_list[1] }</span><br> <a href="#"
 								class="genric-btn default circle" style="clear: both;"><span>배송
 									준비중</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">0</span><br> <a href="#"
+							<span class="order_now">${stts_list[2] }</span><br> <a href="#"
 								class="genric-btn default circle" style="clear: both;"><span>배송중</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">0</span><br> <a href="#"
+							<span class="order_now">${stts_list[3] }</span><br> <a href="#"
 								class="genric-btn default circle" style="clear: both;"><span>배송
 									완료</span></a>
 						</div>
@@ -153,9 +153,9 @@
 				<tbody style="text-align: center;">
 					<c:forEach var="savingsVO" items="${savings_list }" varStatus="status">
 						<tr>
-							<td id="sa_date">
+							<td>
 								<h5>
-									<c:out value="${savingsVO.or_date }" default="null" />
+									<c:out value="${savingsVO.or_date }" default="null"/>
 								</h5>
 							</td>
 							<td>
@@ -163,16 +163,14 @@
 									<c:out value="${savingsVO.or_items }" default="null" />
 								</h5>
 							</td>
-							<td id="test">
+							<td>
 								<h5>
-									￦
-									<c:out value="${savingsVO.or_savings }" default="null" />
+									￦ <c:out value="${savingsVO.or_savings }" default="null" />
 								</h5>
 							</td>
 							<td>
 								<h5>
-									￦
-									<c:out value="${savingsVO.or_savings_total }" default="null" />
+									￦ <c:out value="${savingsVO.or_savings_total }" default="null" />
 								</h5>
 							</td>
 						</tr>
@@ -221,14 +219,10 @@
 			contentType: "application/json",
 			success : function(result) {
 				
-				console.log(result);
-				
 				var str = '<tr>';
 				var btn = '<li class="page-item';
 				
 				$.each(result, function(index, value){
-					
-					console.log(index);
 					
 					var parse = parseInt(index);
 

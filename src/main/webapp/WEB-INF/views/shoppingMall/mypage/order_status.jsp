@@ -65,8 +65,7 @@
 		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
 		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
 		
-		<!-- 검색 필터 체크박스 -->
-		<div class="col-md-2 form-group p_star">
+		<!-- <div class="col-md-2 form-group p_star">
 			<div class="switch-wrap justify-content-between">
 				<span>결제 완료</span>
 				<div class="confirm-checkbox" style="display: inline-block; border: 2px solid #a4aaa7;">
@@ -92,8 +91,8 @@
 						for="addr3" class="addr_chk"></label>
 				</div>
 			</div>
-		</div>
-		
+		</div>  -->
+			
 		<!-- 끝 -->
 		<table class="table table-hover">
 			<thead>
@@ -118,8 +117,7 @@
 						</td>
 						<td>
 							<h5>
-								<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
-									value="${orderVO.or_date }" />
+								<c:out value="${orderVO.or_date }" default="null" />
 							</h5>
 						</td>
 						<td><h5>
@@ -130,8 +128,7 @@
 							</h5></td>
 						<td>
 							<h5>
-								￦
-								<c:out value="${orderVO.pymntamnt }" default="null" />
+								￦ <c:out value="${orderVO.pymntamnt }" default="null" />
 							</h5>
 						</td>
 						<td>
@@ -156,26 +153,26 @@
 							</h5>
 						</td>
 						<td>
-							<button type="button" id="see_order"
-								class="genric-btn default radius">
+							<button type="button" id="see_order" class="genric-btn default radius">
 								<span>배송 조회</span>
 							</button>
 						</td>
-						<td><c:choose>
+						<td>
+							<c:choose>
 								<c:when test="${orderVO.stts == 0}">
-									<button type="button" id="cancel_order"
-										class="genric-btn danger radius"
+									<button type="button" id="cancel_order" class="genric-btn danger radius"
 										onClick="fn_cancel_order('${orderVO.order_num}')">
 										<span>주문 취소</span>
 									</button>
 								</c:when>
 								<c:otherwise>
-									<button type="button" id="cancel_order"
-										class="genric-btn danger radius" style="visibility: hidden;">
+									<button type="button" id="cancel_order" class="genric-btn danger radius"
+										style="visibility: hidden;">
 										<span>주문 취소</span>
 									</button>
 								</c:otherwise>
-							</c:choose></td>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -183,10 +180,8 @@
 		<div class="text-center">
 			<ul class="pagination">
 				<!-- 페이지 목록 버튼 -->
-				<c:forEach var="num" begin="${pageMaker.startPage}"
-					end="${pageMaker.endPage}">
-					<li
-						class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
 						<a href="${num}" class="page-link">${num}</a>
 					</li>
 				</c:forEach>
@@ -194,14 +189,14 @@
 		</div>
 		<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 		<form id="actionForm" action="order_status.do">
-			<input type="hidden" name="pageNum"
-				value="${pageMaker.pagingVO.pageNum }"> <input type="hidden"
-				name="amount" value="${pageMaker.pagingVO.amount }">
+			<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 		</form>
 	</div>
 </div>
 
 <script>
+
 	var order_num = '';
 	var order_item = '';
 	var order_date = '';
@@ -238,16 +233,15 @@
 		var list = new Array();
 
 		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
-		if ('${status.index}' == order_idx) {
-
-			list.push('${orderVO.order_num}');
-			list.push('${orderVO.items}');
-			list
-					.push('<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${orderVO.or_date }" />');
-			list.push('${orderVO.name}')
-			list.push('${orderVO.or_msg}')
-			list.push('${orderVO.receiver}');
-		}
+			if ('${status.index}' == order_idx) {
+	
+				list.push('${orderVO.order_num}');
+				list.push('${orderVO.items}');
+				list.push('${orderVO.or_date}');
+				list.push('${orderVO.name}')
+				list.push('${orderVO.or_msg}')
+				list.push('${orderVO.receiver}');
+			}
 		</c:forEach>
 
 		order_num = list[0];
@@ -260,18 +254,6 @@
 
 	$(document).ready(function() {
 
-		var actionForm = $("#actionForm");
-
-		// 페이징 버튼 처리
-		$(".page-item a").on("click", function(e) {
-
-			e.preventDefault();
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-
-			actionForm.submit();
-		});
-
 		// 주문 목록 모달 처리
 		$('#modal_order_detail').on('show.bs.modal', function(event) {
 
@@ -283,6 +265,92 @@
 			$('#receiver').val(receiver);
 		});
 
+	});
+	
+	// 페이징 AJAX 처리
+	var actionForm = $("#actionForm");
+	
+	$(document).on("click", ".page-item a", function(e) {
+
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		
+		var data = {
+				pageNum: $(this).attr("href"), 
+				amount: 5
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/orderListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				console.log(result);
+				
+				var str = '<tr>';
+				var btn = '';
+				
+				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
+										
+					str += '<td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '배송완료'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+					
+					// 페이징 버튼 처리
+
+					btn += '<li class="page-item';
+					
+						if (parse+1 == actionForm.find("input[name='pageNum']").val()) {
+						
+							btn += ' active"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
+
+						} else {
+						
+							btn += '"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
+						}
+					
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				$('.pagination').empty();
+				$('.pagination').append(btn);
+				
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
 	});
 </script>
 

@@ -66,6 +66,12 @@
      		 	AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
 		]]>
 	</select>
+	
+	<select id="getAllOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
+		SELECT savings, stts
+		FROM shop_order
+		WHERE user_key = #{key}
+	</select>
 
 	<!-- 주문 취소 -->
 	<update id="cancelOrder">
@@ -119,7 +125,7 @@
 			addr = #{addr},
 			contact = #{contact}
 		WHERE user_key = #{user_key}
-			AND zc_key = #{zc_key}
+			AND num = #{num}
 	</update>
 	
 	<delete id="deleteAddrInfo">

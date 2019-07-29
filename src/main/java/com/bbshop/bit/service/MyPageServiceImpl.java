@@ -143,4 +143,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.nickCheck(nickname);
 	}
 
+	@Override
+	public List<OrderVO> getAllOrdersList(long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getAllOrdersList(key);
+	}
+
 }

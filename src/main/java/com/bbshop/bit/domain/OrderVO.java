@@ -12,7 +12,7 @@ public class OrderVO {
 	private long phone2;
 	private long savings;
 	private String or_msg;
-	private Date or_date;
+	private String or_date;
 	private int stts; // 주문상태
 	private long ship_nmbr;
 	private Date ship_date;
@@ -69,10 +69,10 @@ public class OrderVO {
 	public void setOr_msg(String or_msg) {
 		this.or_msg = or_msg;
 	}
-	public Date getOr_date() {
+	public String getOr_date() {
 		return or_date;
 	}
-	public void setOr_date(Date or_date) {
+	public void setOr_date(String or_date) {
 		this.or_date = or_date;
 	}
 	public int getStts() {

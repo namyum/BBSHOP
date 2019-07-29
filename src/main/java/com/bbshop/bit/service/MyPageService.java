@@ -26,6 +26,9 @@ public interface MyPageService {
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
 
 	
+	// 주문 전체 불러 오기
+	public List<OrderVO> getAllOrdersList(long key);
+	
 	// 주문 취소하기
 	public void cancelOrder(long order_num);
 
@@ -62,5 +65,7 @@ public interface MyPageService {
 
 	// 닉네임 중복 확인
 	public int nickCheck(String nickname);
+
+
 		
 }

@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +41,39 @@ public class MyPageController {
 		long sum = 0;
 		long total = 0;
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1);
+		List<OrderVO> orders_list = myPageService.getAllOrdersList(1);
+		
+		int[] stts_list = new int[5];
+		
+		for (int i = 0; i < orders_list.size(); i++) {
+						
+			switch(orders_list.get(i).getStts()) {
+			
+				case 0 : 
+					stts_list[0]++;
+					break;
+				case 1 :
+					stts_list[1]++;
+					break;
+				case 2 : 
+					stts_list[2]++;
+					break;
+				case 3 :
+					stts_list[3]++;
+					break;
+				case 4 :
+					stts_list[4]++;
+					break;					
+			}
+		}
 		
 		for (int i = 0; i < savings_list.size(); i++) {
 							
 			int index = savings_list.size() - i - 1; // 주문번호의 역순으로 적립금 데이터가 조회되었기 때문에, 가장 마지막 적립금부터 총 적립금을 넣어준다.
 			sum += savings_list.get(i).getOr_savings();
-			
-			System.out.println(savings_list.get(i).getOr_date());
 			
 			savings_list.get(index).setOr_savings_total(sum);
 		}
@@ -56,11 +82,12 @@ public class MyPageController {
 				
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("savings_list", savings_list);
+		model.addAttribute("stts_list", stts_list);
 		
 		return "shoppingMall/mypage/mypage";
 	}
 	
-	// 주문/배송
+	// 주문/배송 목록 불러오기
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
@@ -68,7 +95,7 @@ public class MyPageController {
 		
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1); // key는 session에서 받아야 하므로 임시로 1로 테스트.
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orders_list", orders_list);
@@ -279,6 +306,20 @@ public class MyPageController {
 		}
 		
 		return savings_list;
+	}
+	
+	// ajax로 배송 목록 가져 오기
+	@RequestMapping(value = "/orderListPaging.do", consumes = "application/json")
+	@ResponseBody
+	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
+		
+		long total = 0;
+		
+		total = myPageService.getTotal(pagingVO, "shop_order");
+		
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1);
+		
+		return orders_list;
 	}
 	
 }

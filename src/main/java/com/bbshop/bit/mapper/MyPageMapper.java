@@ -43,4 +43,6 @@ public interface MyPageMapper {
 	public void updateDetailInfo(@Param("moreDetailsVO") MoreDetailsVO moreDetailsVO, @Param("key") long key);
 
 	public int nickCheck(String nickname);
+
+	public List<OrderVO> getAllOrdersList(long key);
 }
