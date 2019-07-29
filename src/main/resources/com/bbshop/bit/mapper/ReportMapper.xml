@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace="com.bbshop.bit.mapper.ReportMapper">
+
+<insert id="insertReport" parameterType="com.bbshop.bit.domain.ReportVO">
+	<selectKey keyProperty="SEQ_REPORT" resultType="int" order="BEFORE">
+			SELECT seq_report.nextval FROM DUAL
+	</selectKey>
+	INSERT INTO Report_info(report_num, re_category, board_num, writer, url) 
+	VALUES(seq_report.nextval, #{RE_CATEGORY}, #{BOARD_NUM}, #{WRITER}, #{URL})
+</insert>
+</mapper>

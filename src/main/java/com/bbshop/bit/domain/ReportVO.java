@@ -9,5 +9,8 @@ public class ReportVO {
 	private String RE_CATEGORY;
 	private Long BOARD_NUM;
 	private Long REPLY_NUM;
+	private String WRITER;
+	private String URL;
+	private int SEQ_REPORT;
 
 }
