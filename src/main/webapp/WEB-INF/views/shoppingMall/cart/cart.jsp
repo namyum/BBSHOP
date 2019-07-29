@@ -12,7 +12,45 @@ body{font-family:NanumBarunpen, sans-serif}
 	width:30%
 }*/
 </style>
-
+	<!-- 1. vo를 만들자  (완료)
+		 2. 전체 선택을 누르면 상품이 전체다 뜨게하자.
+		 3. 퀀티티의 양을 늘리면 토탈 값이 올라가자
+		 4. 토탈이 올라가면 서브토탈이 올라가자.
+		 5. 금액이 일정이상 올라가면 배송료를 무료로 주자.
+		 6. 물품의 사진을 받아오자.
+		
+		 
+	-->
+	<script>
+	$(document).ready(function(){
+		//전체 체크박스 클릭시 전체체크 혹은 전체해제 
+		$("#check_all").click(function(){
+			if($("#check_all").is(":checked")){
+				$(".check").prop("checked" , true);
+			}
+			else{
+				$(".check").prop("checked", false);
+				
+			}
+			
+			
+		});
+		
+		//하위 항목중 하나라도 체크가 풀릴시 전체 체크도 풀려야한다.
+		$(".check").click(function(){
+			if($("input[class='check']:checked").length==2){
+				$("#check_all").prop("checked",true);
+				
+			}else{
+				$("#check_all").prop("checked",false);
+			}
+		
+		
+		});
+			
+	});
+		
+	</script>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
@@ -37,7 +75,7 @@ body{font-family:NanumBarunpen, sans-serif}
 					<table class="table">
 						<thead>
 							<tr>
-								<th width="4%"><input type='checkbox' id='check_all'></th>
+								<th width="4%"><input type='checkbox' class='check' id='check_all'></th>
 								<font><th style='text-align:center' scope="col">Product</th></font>
 								<th scope="col" >Price</th>
 								<th scope="col">Quantity</th>
@@ -47,7 +85,7 @@ body{font-family:NanumBarunpen, sans-serif}
 						<tbody>
 							<tr>
 								<td>
-								<input type='checkbox' id='pd_check'>
+								<input type='checkbox' class='check' id='pd_check'>
 								</td>
 								<td>
 									<div class="media">
@@ -79,76 +117,7 @@ body{font-family:NanumBarunpen, sans-serif}
 									<h5>$720.00</h5>
 								</td>
 							</tr>
-							<tr>
-							<td>
-								<input type='checkbox' id='pd_check'>
-								</td>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="resources/shoppingMall/img/1.jpg" width=100% height=100% alt="">
-										</div>
-										<div class="media-body" style="float:left;">
-											<p>야구용품 2입니다.야구용품 2입니다.야구용품 2입니다.야구용품 2입니다.야구용품 2입니다.야구용품 2입니다.</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-								<!-- 메소드로 만들어서 위아래를 버튼을 받아서 바꿔주면될듯? vs코드에 대충만든거있는데 실행이안됨 -->
-									<div class="product_count">
-										<input type="text" name="qty" id="sst2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst2'); var sst2 = result.value; if( !isNaN( sst2 )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst2'); var sst2 = result.value; if( !isNaN( sst2 ) &amp;&amp; sst2 > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
-							<tr>
-							<td>
-								<input type='checkbox' id='pd_check'>
-								</td>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="resources/shoppingMall/img/2.png" width=100% height=100% alt="">
-										</div>
-										<div class="media-body">
-											<p>야구용품 3입니다.야구용품 3입니다.야구용품 3입니다.야구용품 3입니다.야구용품 3입니다.야구용품 3입니다.</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-									<div class="product_count">
-										<input type="text" name="qty" id="sst3" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst3'); var sst3 = result.value; if( !isNaN( sst3 )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst3'); var sst3 = result.value; if( !isNaN( sst3 ) &amp;&amp; sst3 > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
-							<tr class="bottom_button">
+														<tr class="bottom_button">
 								<td>
 									
 								</td>
