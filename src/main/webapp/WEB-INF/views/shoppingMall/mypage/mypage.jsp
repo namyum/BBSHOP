@@ -155,8 +155,7 @@
 						<tr>
 							<td id="sa_date">
 								<h5>
-									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
-										value="${savingsVO.or_date }" />
+									<c:out value="${savingsVO.or_date }" default="null" />
 								</h5>
 							</td>
 							<td>
