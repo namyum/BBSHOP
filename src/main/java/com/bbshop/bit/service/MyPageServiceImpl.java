@@ -151,4 +151,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getAllOrdersList(key);
 	}
 
+	@Override
+	public List<Long> getAllSavings(long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getAllSavings(key);
+	}
+
 }

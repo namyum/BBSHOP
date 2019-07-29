@@ -67,5 +67,9 @@ public interface MyPageService {
 	public int nickCheck(String nickname);
 
 
+	// 전체 적립금 내역 가져 오기
+	public List<Long> getAllSavings(long key);
+
+
 		
 }

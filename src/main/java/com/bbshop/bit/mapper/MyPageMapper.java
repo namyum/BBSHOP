@@ -45,4 +45,6 @@ public interface MyPageMapper {
 	public int nickCheck(String nickname);
 
 	public List<OrderVO> getAllOrdersList(long key);
+
+	public List<Long> getAllSavings(long key);
 }

@@ -1,7 +1,5 @@
 package com.bbshop.bit.domain;
 
-import java.util.Date;
-
 public class SavingsVO {
 
 	private String or_date;

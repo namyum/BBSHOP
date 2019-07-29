@@ -67,6 +67,7 @@
 		]]>
 	</select>
 	
+	<!-- 전체 주문 리스트 -->
 	<select id="getAllOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
 		SELECT savings, stts
 		FROM shop_order
@@ -159,6 +160,13 @@
 		SELECT count(*) 
 		FROM sh_user
 		WHERE nickname = #{nickname}
+	</select>
+	
+<!-- 전체 적립금 내역 가져오기 -->
+	<select id="getAllSavings" resultType="java.lang.Long">
+		SELECT savings
+		FROM savings
+		ORDER BY order_num desc
 	</select>
 
 </mapper>
