@@ -28,6 +28,52 @@
 		WHERE board_num = #{BOARD_NUM}
 	</select>
 	
+	<select id="getListWithPaging"
+		resultType="com.bbshop.bit.domain.CommunityVO">
+	<![CDATA[
+	select
 	
+		board_num, title, board_content,writer,regdate,moddate, hit
+		
+	from 
+		(
+			select rownum rn, board_num, title, board_content, writer, regdate, moddate, hit 
+			from community 
+			where ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">
+							title like '%'||#{KEYWORD}||'%'
+						</when>
+						<when test="type=='C'.toString()">
+							title like '%'||#{KEYWORD}||'%'
+						</when>
+						<when test="type=='N'.toString()">
+							title like '%'||#{KEYWORD}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+			<![CDATA[
+			 rownum <= #{PAGENUM} * #{AMOUNT})
+	where rn > (#{PAGENUM} -1) * #{AMOUNT}
+	]]>
+	</select>
+	
+	<delete id="deletePost" parameterType="Long">
+		DELETE FROM community
+		WHERE board_num = #{BOARD_NUM}
+	</delete>
+	
+	<select id="getBoardNum" resultType="Long">
+		SELECT *
+		FROM (SELECT board_num
+			  FROM community
+			  ORDER BY moddate desc)
+		WHERE ROWNUM = 1
+	</select>
 	
 </mapper>
