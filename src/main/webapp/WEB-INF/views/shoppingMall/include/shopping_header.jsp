@@ -531,7 +531,7 @@ body {
 								<ul class="nav navbar-nav center_nav pull-right">
 									<!-- 서브메뉴1 글러브 -->
 									<!-- li태그 자체에 onclick이벤트를 줘야 페이지이동 합니다.(a href는 이동이 안됨) -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=1'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">글러브</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -544,7 +544,7 @@ body {
 									</li>
 									
 									<!-- 서브메뉴2 배트 -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=2'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >배트</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -557,7 +557,7 @@ body {
 									</li>
 									
 									<!-- 서브메뉴3 유니폼 -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=3'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">유니폼</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -570,7 +570,7 @@ body {
 									</li>
 									
 									<!-- 서브메뉴4 야구화 -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=4'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">야구화</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -583,7 +583,7 @@ body {
 									</li>
 									
 									<!-- 서브메뉴5 야구공 -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=5'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">야구공</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">

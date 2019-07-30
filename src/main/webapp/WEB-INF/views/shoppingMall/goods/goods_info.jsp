@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+* {
+	font-weight : bold;
+}
 .tab-content>#home {
 	text-align: center;
 }
@@ -69,7 +74,7 @@ a#default-select.default-select {
 	width: 30%; /* Could be more or less, depending on screen size */
 }
 #qna_Modal, #review_Modal {
-	opacity: 0.9;
+	opacity: 1.0;
 }
 </style>
 
@@ -82,8 +87,8 @@ a#default-select.default-select {
 					<h2>상품 정보 페이지</h2>
 					<div class="page_link">
 						<a href="/shopping_main">쇼핑몰</a>		
-						<a href="/goods_list">카테고리</a>	<!-- 값 넣어주기-->
-						<a href="/goods_info">상품명</a>	<!-- 값 넣어주기 -->
+						<a href="/goods_list.do?">${categoryString }</a>	<!-- 값 넣어주기 -->
+						<a href="/goods_info.do?goods_num=${goods.goods_num }&&category=${categoryInt}">${goods.name }</a>	<!-- 값 넣어주기 -->
 					</div>
 				</div>
 			</div>
@@ -98,7 +103,7 @@ a#default-select.default-select {
 				<!-- 상품 이미지 부분 -->
 				<div class="col-lg-6">
 					<div class="s_product_img">
-						<img class="d-block w-100" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG" alt="">
+						<img class="d-block w-100" src=${goods.main_img } alt="">
 					</div>
 				</div>
 				
@@ -106,40 +111,43 @@ a#default-select.default-select {
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">	
 						<!-- 상품명 -->
-						<h3 id="product_name">모리모토 VVIP PL-011 오가웹</h3>
+						<h3 id="product_name">${goods.name}</h3>
 						<!-- 상품가격 -->
-						<h2>179,000원</h2>
+						<h2>${goods.price }원</h2>
 						<!-- 옵션들 -->
 						<ul class="list">
 							<li>
 								<!-- 카테고리 값 넣어주세요, 클릭 시 페이지 이동--> 
 								<!-- 카테고리 값 읽기 : document.getElementById("category").innerHTML -->
 								<a class="active" href="/goods_list">
-									<span>카테고리</span><span style="padding-left:20px; color:red;" id="category">유니폼</span>
+									<span>카테고리</span><span style="padding-left:20px; color:red;" id="category" data-category=${goods.category }>${goods.category }</span>
 								</a>
 							</li>
 							<li>&nbsp;</li>
-							<!-- select된 값 읽기  var value = $('#globe_hand option:selected').val(); -->
-							<li>	<!-- 글러브 옵션 -->
-								<a class="default-select globe" id="default-select" href="#none">
+							<!-- select된 값 읽기  var value = $('#glove_hand option:selected').val(); -->
+					<!-- 글러브 옵션 ---------------->
+							<li>	
+								<a class="default-select glove" id="default-select" href="#none">
 									<!-- 옵션1 -->
-									<label for="globe_hand"><span class="option">좌 / 우</span></label>
-									<select id="globe_hand">
+									<label for="glove_hand"><span class="option">좌 / 우</span></label>
+									<select id="glove_hand">
 										<option value="left">좌투(오른손착용)</option>
 										<option value="right">우투(왼손착용)</option>
 									</select>
 								</a>
 							</li>
 							<li>
-								<a class="default-select globe" id="default-select" href="#none">
+								<a class="default-select glove" id="default-select" href="#none">
 									<!-- 옵션2 -->
-									<label for="globe_tame"><span class="option">길들이기</span></label>
-									<select id="globe_tame">
+									<label for="glove_tame"><span class="option">길들이기</span></label>
+									<select id="glove_tame">
 										<option value="false">선택안함</option>
 										<option value="true">볼집+각잡기(+15000)</option>
 									</select>
 								</a>
 							</li>
+					<!-- ---------------------->
+					<!-- 배트 옵션 ---------------->
 							<li>	<!-- 배트 옵션 -->
 								<a class="default-select bat" id="default-select" href="#none">
 									<label for="bat_size"><span class="option">규격</span></label>
@@ -149,6 +157,8 @@ a#default-select.default-select {
 									</select>
 								</a>
 							</li>
+					<!-- ---------------------->
+					<!-- 유니폼 옵션 ---------------->
 							<li>	<!-- 유니폼 옵션 -->
 								<a class="default-select uniform" id="default-select" href="#none">
 									<label for="uniform_size"><span class="option">사이즈</span></label>
@@ -161,6 +171,8 @@ a#default-select.default-select {
 									</select>
 								</a>
 							</li>
+					<!-- ---------------------->
+					<!-- 야구화 옵션 ---------------->
 							<li>	<!-- 야구화 옵션 -->
 								<a class="default-select shoes" id="default-select" href="#none">
 									<label for="shoes_size"><span class="option">사이즈</span></label>
@@ -180,6 +192,8 @@ a#default-select.default-select {
 									</select>
 								</a>
 							</li>
+					<!-- ---------------------->
+					<!-- 야구공 옵션 ---------------->
 							<li>	<!-- 야구공 옵션 -->
 								<a class="default-select ball" id="default-select" href="#none">
 									<label for="ball_count"><span class="option">판매단위</span></label>
@@ -240,76 +254,53 @@ a#default-select.default-select {
 				<!-- #home : 상세 설명 -->
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<!-- DB, 사진3번째컬럼, 상세사진 긴~거 띄우기 -->
-				  	<img class="bbshop-info" src="resources/shoppingMall/img/product/single-product/s-product-5-info.jpg" alt="">
+				  	<img class="bbshop-info" src=${goods.main_img } alt="">
+				  	상세사진img로 바꿀 예쩡 db에 넣기 전이기떄문.
 				</div>
 				
-				<!-- #profile : 상품 정보 (객체의 속성들? 다 설정) -->
+<!-- #profile : 상품 정보 (객체의 속성들? 다 설정) ----------------------------------------------------------------------------------->
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="table-responsive">
 						<table class="table">
 							<tbody>
 								<tr>
-									<td>
-										<h5>카테고리</h5>
-									</td>
-									<td>
-										<h5>글러브</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">카테고리</h5></td>
+									<td><h5 style="font-weight : bold;"><c:out value="${categoryString }" /></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>상품번호</h5>
-									</td>
-									<td>
-										<h5>20190704</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">상품번호</h5></td>
+									<td><h5 style="font-weight : bold;"><c:out value="${goods.goods_num }" /></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>상품명</h5>
-									</td>
-									<td>
-										<h5>모리모토 VVIP PL-011 오가웹</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">상품명</h5></td>
+									<td><h5 style="font-weight : bold;"><c:out value="${goods.name }" /></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>제조사</h5>
-									</td>
-									<td>
-										<h5>모리모토</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">가격</h5></td>
+									<td><h5 style="font-weight : bold;"><c:out value="${goods.price }" />원</h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>좌/우</h5>
-									</td>
-									<td>
-										<h5>좌투(오른손착용), 우투(왼손착용)</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">브랜드</h5></td>
+									<td><h5 style="font-weight : bold;"><c:out value="${goods.brand }" /></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>포지션</h5>
-									</td>
-									<td>
-										<h5>투수, 올라운드</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">좌/우</h5></td>
+									<td><h5 style="font-weight : bold;">좌투(오른손착용), 우투(왼손착용)</h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>색상</h5>
-									</td>
-									<td>
-										<h5>black</h5>
-									</td>
+									<td><h5 style="font-weight : bold;">포지션</h5></td>
+									<td><h5 style="font-weight : bold;">투수, 올라운드</h5></td>
+								</tr>
+								<tr>
+									<td><h5 style="font-weight : bold;">색상</h5></td>
+									<td><h5 style="font-weight : bold;">black</h5></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				
-				<!-- #contact : 상품 Q&A -->
+<!-- #contact : 상품 Q&A -------------------------------------------------------------------------------------------------------->
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
 						<div class="col-lg-12">
@@ -375,6 +366,12 @@ a#default-select.default-select {
 											<input type="text" class="form-control" id="title" name="title" placeholder="Q&A 제목">
 										</div>
 									</div>
+									<!-- Q&A 작성자 readonly -->
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="text" readonly class="form-control" name="writer" id="message" value="session에서 오는 회원 닉네임">
+										</div>
+									</div>
 									<!-- Q&A 내용 -->
 									<div class="col-md-12">
 										<div class="form-group">
@@ -394,11 +391,11 @@ a#default-select.default-select {
 								</form>
 							</div>
 						</div>
-		<!-- ==================== qna 작성 모달 ==================== -->
+		<!-- ==================== end qna 작성 모달 ==================== -->
 					</div>
 				</div>
 				
-				<!-- #review : 상품 후기 -->
+<!-- #review : 상품 후기 --------------------------------------------------------------------------------------------------------->
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-12">
@@ -587,35 +584,40 @@ a#default-select.default-select {
 
 <script type="text/javascript">
 	//카테고리 별로 옵션 다르게 나오게 하기.
-	var category = document.getElementById("category").innerHTML;
+	var category = document.getElementById("category");
 	
-	var globe = document.querySelectorAll("a.globe");
+	var glove = document.querySelectorAll("a.glove");
 	var bat = document.querySelectorAll("a.bat");
 	var uniform = document.querySelectorAll("a.uniform");
 	var shoes = document.querySelectorAll("a.shoes");
 	var ball = document.querySelectorAll("a.ball");
 	
-	if(category == "글러브") {
-		for(i=0; i<globe.length; i++) {
-			globe[i].style.display = "flex";
+	if(category.innerHTML == 1) {
+		category.innerHTML = "글러브";
+		for(i=0; i<glove.length; i++) {
+			glove[i].style.display = "flex";
 		}
 	}
-	else if(category == "배트") {
+	else if(category == 2) {
+		category.innerHTML = "배트";
 		for(i=0; i<bat.length; i++) {
 			bat[i].style.display = "flex";
 		}
 	}
-	else if(category == "유니폼") {
+	else if(category == 3) {
+		category.innerHTML = "유니폼";
 		for(i=0; i<uniform.length; i++) {
 			uniform[i].style.display = "flex";
 		}
 	}
-	else if(category == "야구화") {
+	else if(category == 4) {
+		category.innerHTML = "야구화";
 		for(i=0; i<shoes.length; i++) {
 			shoes[i].style.display = "flex";
 		}
 	}
-	else if(category == "야구공") {
+	else if(category == 5) {
+		category.innerHTML = "야구공";
 		for(i=0; i<ball.length; i++) {
 			ball[i].style.display = "flex";
 		}
