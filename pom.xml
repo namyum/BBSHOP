@@ -66,7 +66,8 @@
          <version>${org.slf4j-version}</version>
          <scope>runtime</scope>
       </dependency>
-      <!-- lombok을 위한 주석처리..
+   <!-- lombok을 위한 주석처리..
+
       <dependency>
          <groupId>log4j</groupId>
          <artifactId>log4j</artifactId>
@@ -92,6 +93,7 @@
          <scope>runtime</scope>
       </dependency>
       -->
+
 
       <!-- @Inject -->
       <dependency>
@@ -184,7 +186,6 @@
 
 
       <!-- Test -->
-
       <dependency>
          <groupId>org.springframework</groupId>
          <artifactId>spring-test</artifactId>
@@ -232,7 +233,7 @@
       	<artifactId>jackson-mapper-asl</artifactId>
       	<version>1.9.13</version>
       </dependency>
-      
+    
    </dependencies>
    <build>
       <plugins>
