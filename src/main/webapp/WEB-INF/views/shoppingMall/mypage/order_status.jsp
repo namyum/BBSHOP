@@ -107,7 +107,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- <c:set var="list_length" value="${fn:length(orders_list)}"/> -->
 				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
 					<tr>
 						<td style="text-align: center;">
@@ -292,7 +291,6 @@
 				console.log(result);
 				
 				var str = '<tr>';
-				var btn = '';
 				
 				$.each(result, function(index, value){
 					
@@ -323,27 +321,10 @@
 						
 						str += '</td></tr>';
 					}
-					
-					// 페이징 버튼 처리
-
-					btn += '<li class="page-item';
-					
-						if (parse+1 == actionForm.find("input[name='pageNum']").val()) {
-						
-							btn += ' active"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
-
-						} else {
-						
-							btn += '"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
-						}
-					
 				});
 				
 				$('tbody').empty();
 				$('tbody').append(str);
-				
-				$('.pagination').empty();
-				$('.pagination').append(btn);
 				
 			},
 			error : function() {

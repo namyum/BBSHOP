@@ -22,11 +22,11 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key) {
+	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long total, long key) {
 						
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
-		return myPageMapper.getSavingsList(pagingVO, key);
+		return myPageMapper.getSavingsList(pagingVO, total, key);
 	}
 
 	@Override

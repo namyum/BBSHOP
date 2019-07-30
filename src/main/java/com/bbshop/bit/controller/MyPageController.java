@@ -40,9 +40,9 @@ public class MyPageController {
 		long sum = 0;
 		long total = 0;
 		
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1);
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, 1);
 		
 		List<Long> all_savings = myPageService.getAllSavings(1);
 		
@@ -79,6 +79,7 @@ public class MyPageController {
 			sum += all_savings.get(i);
 		}
 		
+		// 적립금 총합 설정
 		for (int i = 0; i < savings_list.size(); i++) {
 							
 			savings_list.get(i).setOr_savings_total(sum);
@@ -175,8 +176,8 @@ public class MyPageController {
 		MemberVO member = myPageService.getUserInfo(1);
 		List<AddrVO> addr_list = myPageService.getAddrList(1);
 		MoreDetailsVO member_detail = myPageService.getDetail(1);
-				
-		System.out.println(member_detail.toString());
+		
+		System.out.println(addr_list.toString());
 				
 		model.addAttribute("memberInfo", member);
 		model.addAttribute("addr_list", addr_list);
@@ -215,6 +216,8 @@ public class MyPageController {
 	public String modify_userAddr(AddrVO addrVO) {
 		
 		addrVO.setUser_key(1);
+		
+		System.out.println("modify_userAddr에서의 addrVO : " + addrVO.toString());
 		
 		myPageService.updateAddrInfo(addrVO);
 		
@@ -302,15 +305,26 @@ public class MyPageController {
 	public List<SavingsVO> getSavingListPaging(@RequestBody PagingVO pagingVO) {
 		
 		long sum = 0;
+		long total = 0;
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, 1);
+		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
 		
+		List<Long> all_savings = myPageService.getAllSavings(1);
+
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, 1);
+		
+		// 적립금 전체 총합
+		for (int i = 0; i < all_savings.size(); i++) {
+			
+			sum += all_savings.get(i);
+		}
+		
+		// 적립금 총합 설정
 		for (int i = 0; i < savings_list.size(); i++) {
+							
+			savings_list.get(i).setOr_savings_total(sum);
 			
-			int index = savings_list.size() - i - 1; // 주문번호의 역순으로 적립금 데이터가 조회되었기 때문에, 가장 마지막 적립금부터 총 적립금을 넣어준다.
-			sum += savings_list.get(i).getOr_savings();
-			
-			savings_list.get(index).setOr_savings_total(sum);
+			sum -= savings_list.get(i).getOr_savings();
 		}
 		
 		return savings_list;
@@ -322,8 +336,8 @@ public class MyPageController {
 	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
 		
 		long total = 0;
-		
-		total = myPageService.getTotal(pagingVO, "shop_order");
+
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1);
 		

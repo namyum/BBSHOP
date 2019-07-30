@@ -29,14 +29,15 @@
 
 	<select id="getSavingsList" resultMap="savingsVO">
 		<![CDATA[	
-			SELECT sa_date, items, savings, order_num
+			SELECT *
 			FROM (
     			SELECT sav.sa_date, so.items, sav.savings, sav.order_num
     			FROM shop_order so, savings sav
     			WHERE so.order_num = sav.order_num 
         			AND sav.order_num IN ( SELECT order_num FROM shop_order WHERE user_key = #{key} ) 
     			ORDER BY order_num desc )
-			WHERE order_num <= ( #{pagingVO.pageNum} * #{pagingVO.amount} ) AND order_num > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
+			WHERE order_num <= ${total} - ((#{pagingVO.pageNum} - 1) * #{pagingVO.amount})
+				AND order_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
 		]]>
 	</select>
 
@@ -125,8 +126,7 @@
 			name = #{name},
 			addr = #{addr},
 			contact = #{contact}
-		WHERE user_key = #{user_key}
-			AND num = #{num}
+		WHERE user_key = #{user_key} AND num = #{num}
 	</update>
 	
 	<delete id="deleteAddrInfo">

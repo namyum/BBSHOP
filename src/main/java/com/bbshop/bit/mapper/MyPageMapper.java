@@ -14,7 +14,7 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageMapper {
 
-	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
+	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 	
 	public long getTotalCount(@Param("pagingVO") PagingVO pagingVO, @Param("table") String table);
 

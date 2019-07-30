@@ -17,7 +17,7 @@ public interface MyPageService {
 	
 
 	// 적립금 내역 가지고 오기
-	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key);
+	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long total, long key);
 
 	// 주문 내역 가지고 오기
 	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key);
