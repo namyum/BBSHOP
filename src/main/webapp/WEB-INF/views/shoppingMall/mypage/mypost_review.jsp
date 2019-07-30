@@ -23,7 +23,7 @@
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
-				<select id="category">
+				<select id="category" onchange="getTableWithAjax(this.value);">
 					<option value="전체">전체</option>
 					<option value="상품 후기" selected>상품 후기</option>
 					<option value="상품 QnA">상품 QnA</option>
@@ -94,45 +94,93 @@
 
 <script>
 
-$(document).ready(function() {
+function getTableWithAjax(sParam) {
 	
 	var actionForm = $("#actionForm");
-
-	$('#category').change(function() {
 		
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-		var data = {
-			pageNum: $(this).attr("href"), 
-			amount: 5
-		};
+	alert(sParam);
 		
-		$.ajax({
-			type : 'POST',
-			url : '/getTableWithAjax.do',
-			data : JSON.stringify(data),
-			dataType : 'json',
-			contentType: "application/json",
-			success : function(result) {
+	var data = {
+		pageNum: $(this).attr("href"), 
+		amount: 5
+	};
 				
-				alert('AJAX 요청 성공!');
+	$.ajax({
+		type : 'POST',
+		url : '/getTableWithAjax.do',
+		data : JSON.stringify(data),
+		dataType : 'json',
+		contentType: "application/json",
+		success : function(result) {
+				
+			alert('AJAX 요청 성공!');
+			
+			console.log(result);
 								
-				$.each(result, function(index, value){
+			var str = '';
+			
+			$.each(result, function(index, value){
 					
-					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
-					+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
-				});
+				str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
+				+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+			});
 				
-				$('tbody').empty();
-				$('tbody').append(str);
-			},
-			error : function() {
+			$('tbody').empty();
+			$('tbody').append(str);
+		},
+		error : function() {
 				
-				alert('AJAX 요청 실패!');
-			}
-		});
+			alert('AJAX 요청 실패!');
+		}
 	});
-});
+}
+
+$(document).on("click", ".page-item a", function(e) {
+	
+	e.preventDefault();
+	
+	var actionForm = $("#actionForm");
+	
+	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	
+	var data = {
+		pageNum: $(this).attr("href"), 
+		amount: 5
+	};
+				
+	$.ajax({
+		type : 'POST',
+		url : '/getTableWithAjax.do',
+		data : JSON.stringify(data),
+		dataType : 'json',
+		contentType: "application/json",
+		success : function(result) {
+			
+			console.log(result);
+								
+			var str = '';
+			
+			$.each(result, function(index, value){
+					
+				str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
+				+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+			});
+				
+			$('tbody').empty();
+			$('tbody').append(str);
+			
+			// 페이징 버튼 AJAX 처리
+			$('.page-item').removeClass("active");
+			$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+		},
+		error : function() {
+				
+			alert('AJAX 요청 실패!');
+		}
+	});
+}
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

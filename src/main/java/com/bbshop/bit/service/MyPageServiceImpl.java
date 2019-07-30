@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
@@ -157,6 +158,14 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		return myPageMapper.getAllSavings(key);
+	}
+
+	@Override
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+
+		return myPageMapper.getOnetooneList(pagingVO, total, key);
 	}
 
 }

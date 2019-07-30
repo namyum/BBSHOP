@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -47,4 +48,6 @@ public interface MyPageMapper {
 	public List<OrderVO> getAllOrdersList(long key);
 
 	public List<Long> getAllSavings(long key);
+
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key);
 }

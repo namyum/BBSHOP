@@ -68,6 +68,19 @@
 		]]>
 	</select>
 	
+	<select id="getOnetooneList" resultType="com.bbshop.bit.domain.OnetooneVO">
+		<![CDATA[	
+     		SELECT *
+     		FROM
+     			( SELECT *
+       			  FROM onetoone 
+       			  WHERE user_key = #{key}
+       			  ORDER BY one_one_num desc )
+     		WHERE one_one_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+     			AND one_one_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
+		]]>
+	</select>
+	
 	<!-- 전체 주문 리스트 -->
 	<select id="getAllOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
 		SELECT savings, stts

@@ -60,39 +60,22 @@
 </style>
 
 <div class="container">
-	<div class="order_details_table" style="margin-top: 10px">
-		<h3 class="mb-30 title_color">주문 / 배송</h3>
+	<div class="order_details_table" style="margin-top: 10px;">
+		<p><h3 class="mb-30 title_color">주문 / 배송</h3></p>
 		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
 		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
-		
-		<!-- <div class="col-md-2 form-group p_star">
-			<div class="switch-wrap justify-content-between">
-				<span>결제 완료</span>
-				<div class="confirm-checkbox" style="display: inline-block; border: 2px solid #a4aaa7;">
-					<input type="checkbox" id="addr1" name="num" value="1"> <label
-						for="addr1" class="addr_chk"></label>
-				</div>
-			</div>
+		<div class="col-md-6" style="margin-bottom: 10px; padding-left: 0px;">
+			<input type="checkbox" name="num" value="1" id="all">
+				<label for="all" class="addr_chk">전체</label>
+			<input type="checkbox" name="num" value="1" id="paid">
+				<label for="paid" class="addr_chk">결제완료</label>
+			<input type="checkbox" name="num" value="1" id="paid">
+				<label for="paid" class="addr_chk">배송중</label>
+			<input type="checkbox" name="num" value="1" id="paid">
+				<label for="paid" class="addr_chk">배송완료</label>
+			<input type="checkbox" name="num" value="1" id="cancel">
+				<label for="cancel" class="addr_chk">주문취소</label>
 		</div>
-		<div class="col-md-2 form-group p_star">
-			<div class="switch-wrap justify-content-between">
-				<span>주문 취소</span>
-				<div class="confirm-checkbox" style="display: inline-block; border: 2px solid #a4aaa7;">
-					<input type="checkbox" id="addr2" name="num" value="2"> <label
-						for="addr2" class="addr_chk"></label>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-2 form-group p_star">
-			<div class="switch-wrap justify-content-between">
-				<span>배송중</span>
-				<div class="confirm-checkbox" style="display: inline-block; border: 2px solid #a4aaa7;">
-					<input type="checkbox" id="addr3" name="num" value="3"> <label
-						for="addr3" class="addr_chk"></label>
-				</div>
-			</div>
-		</div>  -->
-			
 		<!-- 끝 -->
 		<table class="table table-hover">
 			<thead>
@@ -134,7 +117,7 @@
 							<h5>
 								<c:choose>
 									<c:when test="${orderVO.stts == 0 }">
-			       						결제완료
+										결제완료
 			    					</c:when>
 									<c:when test="${orderVO.stts == 1 }">
 			       						배송준비중
@@ -143,7 +126,7 @@
 										배송중
 								    </c:when>
 									<c:when test="${orderVO.stts == 3 }">
-										배송완료
+										<span style="color: blue;">배송완료</span>
 								    </c:when>
 									<c:when test="${orderVO.stts == 4 }">
 										<span style="color: red;">주문취소</span>
@@ -306,7 +289,7 @@
 						case 0 : str += '결제완료'; break;
 						case 1 : str += '배송준비중'; break;
 						case 2 : str += '배송중'; break;
-						case 3 : str += '<span style="color: blue;">배송완료</blue>'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</span>'; break;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 					
@@ -330,6 +313,65 @@
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	});
+	
+	$(document).on("click", "#paid", function(e) {
+
+		alert('테스트');
+		
+		$.ajax({
+			type: "POST",
+			url: "/orderListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				var str = '';
+								
+				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
+										
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</blue>'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 			},
 			error : function() {
 				

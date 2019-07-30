@@ -5,6 +5,7 @@ import java.util.List;
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -12,7 +13,7 @@ import com.bbshop.bit.domain.SavingsVO;
 
 public interface MyPageService {
 	
-	// 동적으로 테이블 안의 데이터 개수 구하기
+	// 테이블 안의 데이터 개수 구하기
 	public long getTotal(PagingVO pagingVO, String table);
 	
 
@@ -24,6 +25,9 @@ public interface MyPageService {
 	
 	// 리뷰 내역 가지고 오기
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
+	
+	// 1:1 문의 내역 가지고 오기
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key);
 
 	
 	// 주문 전체 불러 오기
@@ -62,7 +66,6 @@ public interface MyPageService {
 	// 회원 추가 정보 수정하기
 	public void updateDetailInfo(MoreDetailsVO moreDetailsVO, long key);
 
-
 	// 닉네임 중복 확인
 	public int nickCheck(String nickname);
 
@@ -70,6 +73,7 @@ public interface MyPageService {
 	// 전체 적립금 내역 가져 오기
 	public List<Long> getAllSavings(long key);
 
+	
 
 		
 }
