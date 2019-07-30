@@ -208,6 +208,7 @@
 		var data = {
 				pageNum: $(this).attr("href"), 
 				amount: 5
+				
 		};
 		
 		$.ajax({
