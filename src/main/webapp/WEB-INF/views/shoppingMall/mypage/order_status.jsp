@@ -180,7 +180,7 @@
 			<ul class="pagination">
 				<!-- 페이지 목록 버튼 -->
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+					<li class="page-item ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
 						<a href="${num}" class="page-link">${num}</a>
 					</li>
 				</c:forEach>
@@ -232,6 +232,7 @@
 		var list = new Array();
 
 		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
+			
 			if ('${status.index}' == order_idx) {
 	
 				list.push('${orderVO.order_num}');
@@ -241,6 +242,7 @@
 				list.push('${orderVO.or_msg}')
 				list.push('${orderVO.receiver}');
 			}
+			
 		</c:forEach>
 
 		order_num = list[0];
@@ -306,7 +308,7 @@
 						case 0 : str += '결제완료'; break;
 						case 1 : str += '배송준비중'; break;
 						case 2 : str += '배송중'; break;
-						case 3 : str += '배송완료'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</blue>'; break;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 					
@@ -325,6 +327,10 @@
 				
 				$('tbody').empty();
 				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
 			},
 			error : function() {
