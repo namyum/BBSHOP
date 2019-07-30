@@ -217,17 +217,15 @@
 			dataType : "json",
 			contentType: "application/json",
 			success : function(result) {
-				
-				var str = '<tr>';
+								
+				var str = '';
 				
 				$.each(result, function(index, value){
 					
 					var parse = parseInt(index);
 
-					str += '<td><h5>' + result[index].or_date + '</h5></td><td><h5>' + result[index].or_items + '</h5></td><td><h5>'
-						+ '￦ ' + result[index].or_savings + '</h5></td><td><h5>' +  '￦ ' + result[index].or_savings_total + '</h5></td>';
-					str += '</tr>';
-					
+					str += '<tr><td><h5>' + result[index].or_date + '</h5></td><td><h5>' + result[index].or_items + '</h5></td><td><h5>'
+						+ '￦ ' + result[index].or_savings + '</h5></td><td><h5>' +  '￦ ' + result[index].or_savings_total + '</h5></td></tr>';					
 				});
 				
 				$('tbody').empty();

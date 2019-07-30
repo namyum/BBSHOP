@@ -290,17 +290,15 @@
 			contentType: "application/json",
 			success : function(result) {
 				
-				console.log(result);
-				
-				var str = '<tr>';
-				
+				var str = '';
+								
 				$.each(result, function(index, value){
 					
 					var parse = parseInt(index);
 					
 					console.log(parse);
 										
-					str += '<td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
 						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
 						
 					switch(result[index].stts) {

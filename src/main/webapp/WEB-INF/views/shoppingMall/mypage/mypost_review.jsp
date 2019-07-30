@@ -23,11 +23,11 @@
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
-				<select onchange="if(this.value) location.href=(this.value);">
-					<option value="/mypost.do">전체</option>
-					<option value="/mypost_review.do" selected>상품 후기</option>
-					<option value="/mypost_qna.do">상품 QnA</option>
-					<option value="/mypost_one_to_one.do">1:1 문의</option>
+				<select id="category">
+					<option value="전체">전체</option>
+					<option value="상품 후기" selected>상품 후기</option>
+					<option value="상품 QnA">상품 QnA</option>
+					<option value="1:1 문의">1:1 문의</option>
 				</select>
 				<h5 align="right">총 게시글 : ${pageMaker.total }개</h5>
 			</div>
@@ -61,8 +61,7 @@
 							</td>
 							<td>
 								<h5>
-									<fmt:formatDate pattern="yyyy-MM-dd"
-										value="${reviewVO.re_date }" />
+									<c:out value='${reviewVO.re_date }' />
 								</h5>
 							</td>
 							<td>
@@ -77,16 +76,15 @@
 			<div class="text-center">
 				<ul class="pagination">
 					<!-- 페이지 목록 버튼 -->
-					<c:forEach var="num" begin="${pageMaker.startPage}"
-						end="${pageMaker.endPage}">
-						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
-			<form id="actionForm" action="mypost_review.do">
+			<form id="actionForm">
 				<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
 				<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 			</form>
@@ -95,20 +93,46 @@
 </div>
 
 <script>
-	// 페이징 버튼 처리
-	$(document).ready(function() {
 
-		var actionForm = $("#actionForm");
+$(document).ready(function() {
+	
+	var actionForm = $("#actionForm");
 
-		$(".page-item a").on("click", function(e) {
+	$('#category').change(function() {
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-			e.preventDefault();
-
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-
-			actionForm.submit();
+		var data = {
+			pageNum: $(this).attr("href"), 
+			amount: 5
+		};
+		
+		$.ajax({
+			type : 'POST',
+			url : '/getTableWithAjax.do',
+			data : JSON.stringify(data),
+			dataType : 'json',
+			contentType: "application/json",
+			success : function(result) {
+				
+				alert('AJAX 요청 성공!');
+								
+				$.each(result, function(index, value){
+					
+					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
+					+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
 		});
 	});
+});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

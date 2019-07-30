@@ -344,4 +344,18 @@ public class MyPageController {
 		return orders_list;
 	}
 	
+	// ajax로 내가 남긴 글 가져 오기
+	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
+	@ResponseBody
+	public List<ReviewVO> getTableWithAjax(@RequestBody PagingVO pagingVO) {
+		
+		long total = 0;
+		
+		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
+	
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
+		
+		return review_list;
+	}
+	
 }

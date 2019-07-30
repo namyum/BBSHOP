@@ -10,7 +10,7 @@ public class ReviewVO {
 	private long hrscp;
 	private String re_img;
 	private long re_cnt;
-	private Date re_date;
+	private String re_date;
 	private long re_chk;
 	private long good_num;
 	private long user_key;
@@ -58,10 +58,10 @@ public class ReviewVO {
 	public void setRe_cnt(long re_cnt) {
 		this.re_cnt = re_cnt;
 	}
-	public Date getRe_date() {
+	public String getRe_date() {
 		return re_date;
 	}
-	public void setRe_date(Date re_date) {
+	public void setRe_date(String re_date) {
 		this.re_date = re_date;
 	}
 	public long getRe_chk() {

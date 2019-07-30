@@ -3,11 +3,12 @@
 
 <%@ include file="../include/mypage_header.jsp"%>
 <style>
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 20px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	padding: 20px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
 }
 
 .order_details_table {
@@ -20,12 +21,13 @@
 		<h3 class="mb-30 title_color">내가 남긴 글</h3>
 		<h5 align="left">내가 작성한 전체 게시글입니다.</h5>
 		<div class="single-element-widget">
-			<div class="default-select" id="default-select" style="margin-top: 30px;">
+			<div class="default-select" id="default-select"
+				style="margin-top: 30px;">
 				<select onchange="if(this.value) location.href=(this.value);">
-					<option value="/mypost.do">전체</option>
-					<option value="/mypost_review.do">상품 후기</option>
-					<option value="/mypost_qna.do">상품 QnA</option>
-					<option value="/mypost_one_to_one.do">1:1 문의</option>
+					<option id="all" value="/mypost.do">전체</option>
+					<option id="review" value="/mypost_review.do">상품 후기</option>
+					<option id="qna" value="/mypost_qna.do">상품 QnA</option>
+					<option id="onetoone" value="/mypost_one_to_one.do">1:1 문의</option>
 				</select>
 				<h5 align="right">총 게시글 : 10</h5>
 			</div>
@@ -158,5 +160,6 @@
 		</div>
 	</div>
 </div>
+
 
 <%@ include file="../include/mypage_footer.jsp"%>
