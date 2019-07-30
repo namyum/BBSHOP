@@ -195,7 +195,7 @@ body {
 					</div>
 
 					<div class="comments-area">
-						<div class="comment-list">
+						<div class="comment-list-write" style="padding-bottom:48px;">
 							<div class="single-comment justify-content-between d-flex"
 								style="border-bottom: 1.5px solid #eee;">
 								<div class="user justify-content-between d-flex" style="min-width:100%;">
@@ -213,7 +213,7 @@ body {
 							</div>
 						</div>
 						<h4>03 Comments</h4>
-						<div class="comment-list">
+						<div class="comment-list-show" style="padding-bottom:48px;">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="desc">
@@ -224,21 +224,6 @@ body {
 								</div>
 								<div class="reply-btn">
 									<a class="genric-btn primary small" id="reportBtn2"
-										style="float: right; padding: 0 20px;">신고하기</a>
-								</div>
-							</div>
-						</div>
-						<div class="comment-list left-padding">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="desc">
-										<h5>유강남</h5>
-										<p class="date">2019/07/11</p>
-										<p class="comment">안녕하세요 27번이에요</p>
-									</div>
-								</div>
-								<div class="reply-btn">
-									<a class="genric-btn primary small" id="reportBtn3"
 										style="float: right; padding: 0 20px;">신고하기</a>
 								</div>
 							</div>
@@ -472,71 +457,49 @@ body {
 	</script>
 	
 	<script>
-	console.log("=============");
-	console.log("JS TEST");
 	
-	var bnoValue = '<c:out value = "${post.BOARD_NUM}"/>';
-	
-	/*
-	
-		// replyService 변수는 reply.js에 있는 변수임 !! 자바랑 상관없음
-	
-	replyService.add(
-			// 데이터베이스 컬럼 값을 사용해야 함
-			{reply_content:"되나용", writer:"되어랏", board_num:bnoValue},
-			
-			// 여기서의 result는 controller의 return값인 success를 받는 것
-			
-			function(result){
-				alert("RESULT: " + result);
-			}		
-	);
-
-	/*
-	replyService.getList(
-			
-			{board_num:bnoValue, PAGENUM:1}, 	
-			
-			// 여기서의 list는 controller의 리턴값인 댓글 리스트를 받는 것
-			
-			function(list){
+	$(document).ready(function(){
 		
-				for(var i = 0, len = list.length||0; i<len; i++){
-				console.log(list[i]);
-			}
-		}
-	);
-	*/
-	
-	/*
-	replyService.remove(
-			
-			366, 
-			
-			// 여기서의 count는 controller의 return 값은 success, 혹은 서버에러를 받는 곳
-			
-			function(count){
+		var bnoValue = '<c:out value="${post.BOARD_NUM}"/>';
+		var replyDIV = $(".comment-list-show");
 		
-		if(count === "success"){
-			alert("REMOVED");
-		}
-	}, function(err){
-		alert('ERROR...');
-	});
-	*/
-	
-	/*
-	replyService.update({
-		reply_num : 289,
-		board_num : bnoValue,
-		reply_content : "수정된 댓글입니다"
-	}, function(result){
-		alert("수정 완료..");
-	})
-	*/
-	
-	replyService.get(364, function(data){
-		console.log(data);
+		showList(1);
+		
+		function showList(page){
+			
+			replyService.getList(
+			{board_num:bnoValue, PAGENUM: page|| 1}, function(list){
+				
+				var str = "";
+				
+				// 댓글이 없는 경우
+				if(list == null || list.length == 0){
+					replyDIV.html("");
+					
+					return;
+				}
+				for(var i = 0, len = list.length || 0; i < len; i++){
+					str += "<div class='single-comment justify-content-between d-flex'";
+					str += "style='padding-bottom:48px;'>"
+					str += "<div class='user justify-content-between d-flex'>";
+					str += "<div class='desc'>";
+					str += "<h5>"+list[i].writer+"</h5>";
+					str += "<p class='date'>"+list[i].regdate+"</p>";
+					str += "<p class='comment'>"+list[i].reply_content+"</p>";
+					str += "</div>";
+					str += "</div>";
+					str += "<div class='reply-btn'>";
+					str += "<a class='genric-btn primary small'";
+					str += "id='reportBtn"+[i]+"'";
+					str += "style='float: right; padding: 0 20px;'>신고하기</a>";
+					str += "</div>";
+					str += "</div>";
+				}
+				
+				console.log(str);
+				replyDIV.html(str);
+			}); // end function
+		} // end showList
 	});
 	</script>
 
