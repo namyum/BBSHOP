@@ -180,7 +180,7 @@
 				<ul class="pagination">
 					<!-- 페이지 목록 버튼 -->
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}">
+						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
 							<a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
@@ -219,7 +219,6 @@
 			success : function(result) {
 				
 				var str = '<tr>';
-				var btn = '<li class="page-item';
 				
 				$.each(result, function(index, value){
 					
@@ -229,27 +228,14 @@
 						+ '￦ ' + result[index].or_savings + '</h5></td><td><h5>' +  '￦ ' + result[index].or_savings_total + '</h5></td>';
 					str += '</tr>';
 					
-					if (parse != 0) {
-					
-						if (index == actionForm.find("input[name='pageNum']").val()) {
-						
-							btn += ' active"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
-
-						} else {
-						
-							btn += '"><a href="' + parse + '" class="page-link">' + parse + '</a></li>'
-						}
-					
-						btn += '<li class="page-item';
-					}
-					
 				});
 				
 				$('tbody').empty();
 				$('tbody').append(str);
 				
-				$('.pagination').empty();
-				$('.pagination').append(btn);
+				// 페이징 버튼 AJAX 처리
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
 			},
 			error : function() {

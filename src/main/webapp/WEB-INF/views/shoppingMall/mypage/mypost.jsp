@@ -14,7 +14,6 @@
 	padding: 0px 30px 0px 30px;
 	background: white;
 }
-
 </style>
 <div class="container">
 	<div class="order_details_table" style="margin-top: 10px">
