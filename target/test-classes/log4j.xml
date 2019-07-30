@@ -32,6 +32,21 @@
 		<level value="info" />
 	</logger>
 
+<<<<<<< HEAD
+=======
+	<!-- 테스트코드 로그 레벨 설정 : warn과 같은 높은 레벨의 로그만 기록 -->
+	<logger name="jdbc.audit">
+		<level value="warn" />
+	</logger>
+	
+	<logger name="jdbc.resultset">
+		<level value="warn" />
+	</logger>
+	<logger name="jdbc.connection">
+		<level value="warn" />
+	</logger>
+
+>>>>>>> 14f495f7f85d893c0704ad0f9afac93f2a531551
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
