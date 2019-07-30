@@ -100,12 +100,7 @@
 				<div class="myOrderCon">
 					<div class="row"
 						style="width: 1000px; margin: 0 auto; padding-left: 100px">
-						<div class="col-sm-2 col-md-2"
-							style="width: 150px; text-align: center;">
-							<span class="order_now">0</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>주문
-									완료</span></a>
-						</div>
+
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">${stts_list[0] }</span><br> <a href="#"
@@ -126,8 +121,12 @@
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
 							<span class="order_now">${stts_list[3] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>배송
-									완료</span></a>
+								class="genric-btn default circle" style="clear: both;"><span>배송 완료</span></a>
+						</div>
+						<div class="col-sm-2 col-md-2"
+							style="width: 150px; text-align: center;">
+							<span class="order_now">${stts_list[4] }</span><br> <a href="#"
+								class="genric-btn default circle" style="clear: both;"><span>주문 취소</span></a>
 						</div>
 					</div>
 				</div>
