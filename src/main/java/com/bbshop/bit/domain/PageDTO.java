@@ -10,7 +10,6 @@ public class PageDTO {
 	private PagingVO pagingVO;
 	
 	public PageDTO(PagingVO pagingVO, int total) {
-		
 		this.pagingVO = pagingVO;
 		this.total = total;
 		
@@ -26,30 +25,24 @@ public class PageDTO {
 		this.prev = this.startPage > 1;
 		
 		this.next = this.endPage < realEnd;
-
 	}
 
 	//Getter
 	public int getStartPage() {
 		return startPage;
 	}
-
 	public int getEndPage() {
 		return endPage;
 	}
-
 	public boolean isPrev() {
 		return prev;
 	}
-
 	public boolean isNext() {
 		return next;
 	}
-
 	public int getTotal() {
 		return total;
 	}
-
 	public PagingVO getPagingVO() {
 		return pagingVO;
 	}

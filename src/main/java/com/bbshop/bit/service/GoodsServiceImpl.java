@@ -30,78 +30,24 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	}
 
-	/* ∆‰¿Ã¬° X
-	@Override
-	public List<GoodsVO> getGoodsList_New(int category) {
-		log.info("getGoodsList..New..................");
-		
-		return mapper.getGoodsList_New(category);
-	}
-	@Override
-	public List<GoodsVO> getGoodsList_Best(int category) {
-		log.info("getGoodsList..Best..................");
-		
-		return mapper.getGoodsList_Best(category);
-	}
-	@Override
-	public List<GoodsVO> getGoodsList_LowPrice(int category) {
-		log.info("getGoodsList..LowPrice..................");
-		
-		return mapper.getGoodsList_LowPrice(category);
-	}
-	@Override
-	public List<GoodsVO> getGoodsList_HighPrice(int category) {
-		log.info("getGoodsList..HighPrice..................");
-		
-		return mapper.getGoodsList_HighPrice(category);
-	}
-	*/
 
 
 	/* ∆‰¿Ã¬° O */
 	@Override
-	public List<GoodsVO> getGoodsList_New(PagingVO pagingVO, int category) {
-		log.info("getGoodsList..New..With Paging................");
+	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount) {
+		log.info("getGoodsList...Ajax..With Paging................");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
 		map.put("category", category);
+		map.put("pagingVO", pagingVO);
+		map.put("sorting", sorting);
+		map.put("min_amount", Integer.parseInt(min_amount));
+		map.put("max_amount", Integer.parseInt(max_amount));
 		
-		return mapper.getGoodsList_New(map);
+		return mapper.getGoodsList(map);
 	}
 
-	@Override
-	public List<GoodsVO> getGoodsList_Best(PagingVO pagingVO, int category) {
-		log.info("getGoodsList..New..With Paging................");
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
-		map.put("category", category);
-		
-		return mapper.getGoodsList_Best(map);
-	}
 
-	@Override
-	public List<GoodsVO> getGoodsList_LowPrice(PagingVO pagingVO, int category) {
-		log.info("getGoodsList..New..With Paging................");
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
-		map.put("category", category);
-		
-		return mapper.getGoodsList_LowPrice(map);
-	}
-
-	@Override
-	public List<GoodsVO> getGoodsList_HighPrice(PagingVO pagingVO, int category) {
-		log.info("getGoodsList..New..With Paging................");
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
-		map.put("category", category);
-		
-		return mapper.getGoodsList_HighPrice(map);
-	}
 
 	
 	
@@ -116,6 +62,23 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return mapper.getTotalCount(map);
 	}
+
+	
+	
+	/* ªÛ«∞ ¡∂»∏ */
+	@Override
+	public GoodsVO getGoodsInfo(Long goods_num) {
+		log.info("getGoodsInfo....goods_num : "+goods_num+"............");
+		
+		return mapper.getGoodsInfo(goods_num);
+	}
+
+
+
+
+
+
+
 
 	
 	
