@@ -100,7 +100,7 @@ h3, h4, h6 {
 										<div class="info_item">
 											<i class="lnr lnr-home"></i>
 											<h6>주소</h6>
-											<p>서울시 강남구 삼성동</p>
+											<p>${AddrVO.roadAddress }</p>
 											<p>${AddrVO.addr }</p>
 										</div>
 										<div class="info_item">

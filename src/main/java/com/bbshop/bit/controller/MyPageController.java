@@ -73,7 +73,7 @@ public class MyPageController {
 			}
 		}
 		
-		// 적립금 전체 총 합
+		// 적립금 전체 총합
 		for (int i = 0; i < all_savings.size(); i++) {
 			
 			sum += all_savings.get(i);
@@ -213,9 +213,10 @@ public class MyPageController {
 	
 	// 배송지 수정하기
 	@RequestMapping("/modify_userAddr.do")
-	public String modify_userAddr(AddrVO addrVO) {
+	public String modify_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 		
 		addrVO.setUser_key(1);
+		addrVO.setZc_key(zipcode);
 		
 		System.out.println("modify_userAddr에서의 addrVO : " + addrVO.toString());
 		
@@ -235,10 +236,10 @@ public class MyPageController {
 	
 	// 배송지 등록하기
 	@RequestMapping("/write_userAddr.do")
-	public String write_userAddr(AddrVO addrVO) {
+	public String write_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 				
 		addrVO.setUser_key(1);
-		addrVO.setZc_key(1); // 기본 주소는 우편번호 테이블이 완성되면 불러올 것이므로 임시로 1을 저장.
+		addrVO.setZc_key(zipcode);
 		
 		System.out.println("write_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
 		
@@ -344,7 +345,7 @@ public class MyPageController {
 		return orders_list;
 	}
 	
-	// ajax로 내가 남긴 글 가져 오기
+	// ajax로 내가 남긴 글(후기) 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
 	public List<ReviewVO> getTableWithAjax(@RequestBody PagingVO pagingVO) {

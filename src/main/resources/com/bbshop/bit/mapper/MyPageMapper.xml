@@ -110,7 +110,7 @@
 <!-- 배송지 정보 관련 쿼리 -->
 	<insert id="insertAddrInfo">
 		INSERT into address 
-		VALUES (#{user_key}, #{zc_key}, #{name}, #{addr}, #{contact}, #{num})
+		VALUES (#{user_key}, #{zc_key}, #{name}, #{addr}, #{contact}, #{num}, #{roadAddress})
 	</insert>
 
 	<select id="getAddrList" resultType="com.bbshop.bit.domain.AddrVO">
@@ -123,9 +123,11 @@
 	<update id="updateAddrInfo">
 		UPDATE address
 		SET
+			zc_key = #{zc_key},
 			name = #{name},
 			addr = #{addr},
-			contact = #{contact}
+			contact = #{contact},
+			roadAddress = #{roadAddress}
 		WHERE user_key = #{user_key} AND num = #{num}
 	</update>
 	
