@@ -4,6 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/community_header.jsp"%>
 
+<!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+
+<%
+	String url = request.getRequestURL().toString() + "?BOARD_NUM=" + request.getParameter("BOARD_NUM");
+%>
+
 <style>
 body {
 	font-size: 17px;
@@ -35,13 +42,16 @@ body {
 }
 
 /* Modal Content/Box */
+
+
 #replyModal { .modal-content { background-color:#fefefe;
-	margin: 8% auto; /* 15% from the top and centered */
+	margin: 8% auto;  15% from the top and centered 
 	padding: 10px;
 	border: 1px solid #888;
-	width: 40%; /* Could be more or less, depending on screen size */
+	width: 40%;  Could be more or less, depending on screen size 
 	height: 50%;
 }
+
 
 }
 .modal-content {
@@ -49,8 +59,8 @@ body {
 	margin: 8% auto; /* 15% from the top and centered */
 	padding: 10px;
 	border: 1px solid #888;
-	width: 20%; /* Could be more or less, depending on screen size */
-	height: 35%;
+	width: 25%; !important /* Could be more or less, depending on screen size */
+	height: 45%;
 }
 /* The Close Button */
 .close {
@@ -177,7 +187,7 @@ body {
 										<a href='<c:out value="${post.UPLOADFILE}" />'>다운로드</a>
 										</c:if>
 									</p></td>
-								<td style="float: right;"><a href="#"
+								<td style="float: right;"><a
 									class="genric-btn primary small" id="reportBtn1"
 									style="float: right; padding: 0 20px;">신고하기</a></td>
 							</tr>
@@ -272,10 +282,11 @@ body {
 					<div style="width: 100%;">
 						<div class="button-group-area mt-40">
 							<a href="/community_list.do" id="go_list"
-								class="genric-btn primary radius" style="margin-left: 500px;">목록보기</a>
+								class="genric-btn primary radius" style="margin-left:35%">목록보기</a>
 							<a href="/community_modify.do" id="modify_post"
 								class="genric-btn primary radius">수정</a> <a id="delete_post"
-								class="genric-btn primary radius" style="float: right;">삭제</a>
+								class="genric-btn primary radius" style="float: right;" 
+								href="/communityDeleteAction.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>">삭제</a>
 						</div>
 					</div>
 					<!-- 수정, 삭제, 목록보기 버튼 끝 -->
@@ -344,30 +355,31 @@ body {
 		<div class="modal-content">
 			<!-- header -->
 			<div class="modal-header">
-							<!-- header title -->
+			<!-- header title -->
 				<h4 class="modal-title" align="center">신고하기</h4>
 				
 				<!-- 닫기(x) 버튼 -->
 				<span class="close">&times;</span>
 			</div>
 			<!-- body -->
-			<form id="reportForm" name="report" role="form" action="/community_detail.do">
+			<form id="reportForm" role="form" action="/report_registerAction.do" method="POST">
+			<input type="hidden" name="BOARD_NUM" value="<c:out value='${post.BOARD_NUM}'/>"/>
 				<div class="modal-body">
 					<table>
 						<tr class="report_content">
 							<td><p>작성자:</p></td>
-							<td><input type="text" name="writer" value="작성자"
+							<td><input type="text" name="WRITER" value="<c:out value='${post.WRITER}'/>"
 								class="form-control" readonly /></td>
 						</tr>
 						<tr>
 							<td><p>신고 내용 주소:</p></td>
-							<td><input type="text" name="team_num" class="form-control"
-								value="https://naver.com" readonly /></td>
-							<!-- or reply_num -->
+							<td><input type="text" name="URL" class="form-control" style="width:140%;"
+								value=<%=url %> readonly /></td>
+							
 						</tr>
 						<tr>
 							<td><p>신고 카테고리:</p></td>
-							<td><select class="nice-select">
+							<td><select class="nice-select" name="RE_CATEGORY">
 									<option value="header">신고사유</option>
 									<option value="swear">욕설</option>
 									<option value="flood">도배</option>
@@ -390,6 +402,7 @@ body {
 			</form>
 		</div>
 	</div>
+	
 	<!-- 모달 script -->
 	<script>
 		var modal = document.getElementById('myModal');
@@ -453,6 +466,78 @@ body {
 		delete_postBtn.onclick = function() {
 			alert('글을 삭제하시겠습니까?');
 		}
+	</script>
+	
+	<script type="text/javascript" src="/resources/community/js/reply.js">
+	</script>
+	
+	<script>
+	console.log("=============");
+	console.log("JS TEST");
+	
+	var bnoValue = '<c:out value = "${post.BOARD_NUM}"/>';
+	
+	/*
+	
+		// replyService 변수는 reply.js에 있는 변수임 !! 자바랑 상관없음
+	
+	replyService.add(
+			// 데이터베이스 컬럼 값을 사용해야 함
+			{reply_content:"되나용", writer:"되어랏", board_num:bnoValue},
+			
+			// 여기서의 result는 controller의 return값인 success를 받는 것
+			
+			function(result){
+				alert("RESULT: " + result);
+			}		
+	);
+
+	/*
+	replyService.getList(
+			
+			{board_num:bnoValue, PAGENUM:1}, 	
+			
+			// 여기서의 list는 controller의 리턴값인 댓글 리스트를 받는 것
+			
+			function(list){
+		
+				for(var i = 0, len = list.length||0; i<len; i++){
+				console.log(list[i]);
+			}
+		}
+	);
+	*/
+	
+	/*
+	replyService.remove(
+			
+			366, 
+			
+			// 여기서의 count는 controller의 return 값은 success, 혹은 서버에러를 받는 곳
+			
+			function(count){
+		
+		if(count === "success"){
+			alert("REMOVED");
+		}
+	}, function(err){
+		alert('ERROR...');
+	});
+	*/
+	
+	/*
+	replyService.update({
+		reply_num : 289,
+		board_num : bnoValue,
+		reply_content : "수정된 댓글입니다"
+	}, function(result){
+		alert("수정 완료..");
+	})
+	*/
+	
+	replyService.get(364, function(data){
+		console.log(data);
+	});
 	</script>
 
 	<%@ include file="../include/community_footer.jsp"%>
