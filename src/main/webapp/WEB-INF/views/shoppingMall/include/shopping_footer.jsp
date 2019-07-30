@@ -153,6 +153,7 @@
 </script>
 <!--================ 모달 & 장바구니 js====================== -->
 
+<!--
 <script>
 	// 페이지 active 처리
 	$(document).ready(function() {
@@ -173,7 +174,7 @@
 		})
 	});
 </script>
-
+-->
 
 <!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

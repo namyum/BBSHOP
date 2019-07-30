@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbshop.bit.mapper.GoodsMapper">
+
+<!-- 페이징 O -->
+<!-- 상품 목록, sorting값에 따라 동적쿼리 -->
+<!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
+<select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+	select *
+	from (
+	<choose>
+		<when test="sorting == 'new'">
+		select 
+		</when>
+		<when test="sorting == 'best'">
+		select /*+INDEX_DESC(goods idx_goods_best) */
+		</when>
+		<when test="sorting == 'lowPrice'">
+		select /*+INDEX_ASC(goods idx_goods_price) */
+		</when>
+		<when test="sorting == 'highPrice'">
+		select /*+INDEX_DESC(goods idx_goods_price) */
+		</when>
+	</choose>
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+<![CDATA[
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+]]>	
+			and category = #{category, jdbcType=INTEGER}
+<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	]]>
+<![CDATA[	and price < #{max_amount, jdbcType=INTEGER}	]]>	
+		<choose>
+			<when test="sorting == 'new'">
+			order by regdate desc
+			</when>
+			<when test="sorting == 'best'">
+<![CDATA[	and best >= 0	]]>
+			</when>
+		</choose>	
+	)
+<![CDATA[
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>	
+</select>
+
+
+
+<!-- 카테고리 별, goods 데이터 개수 */ -->
+<select id="getTotalCount" parameterType="hashmap" resultType="int">
+	select count(*) from goods where category = #{category, jdbcType=INTEGER}
+</select>
+
+
+
+<!-- 상품 조회 -->
+<select id="getGoodsInfo" resultType="com.bbshop.bit.domain.GoodsVO">
+	select * from goods where goods_num = #{goods_num}
+</select>
+
+
+</mapper>

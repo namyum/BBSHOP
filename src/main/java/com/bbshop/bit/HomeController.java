@@ -29,7 +29,7 @@ public class HomeController {
 	}
 
 	// 쇼핑몰 - 상품 리스트
-	@RequestMapping("/goods_list")
+	@RequestMapping("/goods_list.do")
 	public String goods_list() {
 		return "shoppingMall/goods/goods_list";
 	}
