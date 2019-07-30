@@ -1,10 +1,13 @@
 package com.bbshop.bit.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.CommunityVO;
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.CommunityMapper;
 
 @Service
@@ -37,6 +40,30 @@ public class CommunityServiceImpl implements CommunityService{
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
 		return communityMapper.getPost(board_num);
+	}
+	
+	@Override
+	public List<CommunityVO> getList(PagingVO pagingvo) {
+
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
+		return communityMapper.getListWithPaging(pagingvo);
+	}
+	
+	@Override
+	public int deletePost(Long board_num) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
+		return communityMapper.deletePost(board_num);
+	}
+	
+	@Override
+	public Long getBoardNum() {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
+		return communityMapper.getBoardNum();
 	}
 	
 }
