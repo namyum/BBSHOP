@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: Mingu
 Build-Jdk: 1.8.0_201
-=======
-Built-By: nej96
-Build-Jdk: 1.8.0_221
->>>>>>> 14f495f7f85d893c0704ad0f9afac93f2a531551
 Created-By: Maven Integration for Eclipse
 
