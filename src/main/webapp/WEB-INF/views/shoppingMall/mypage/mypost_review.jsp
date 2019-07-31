@@ -18,8 +18,8 @@
 </style>
 <div class="container">
 	<div class="order_details_table" style="margin-top: 10px">
-		<h3 class="mb-30 title_color">상품 후기</h3>
-		<h5 align="left">내가 작성한 상품 후기입니다.</h5>
+		<h3 class="mb-30 title_color" id="table_title">상품 후기</h3>
+		<h5 align="left">내가 작성한 <span id="table_content">상품 후기</span>입니다.</h5>
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
@@ -121,19 +121,32 @@ function getTableWithAjax(category) {
 								
 			var str = '';
 			
+			if (category == 'review') {
+				
+				category = '상품 후기';
+				
+			} else if (category == 'qna') {
+				
+				category = '상품 QnA';
+				
+			} else if (category == 'onetoone') {
+				
+				category = '1:1 문의';
+			}
+			
 			$.each(result, function(index, value){
 				
-				if (category == 'review') {
+				if (category == '상품 후기') {
 					
 					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
 						+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
 				
-				} else if (category == 'qna') {
+				} else if (category == '상품 QnA') {
 					
 					str += '<tr><td><h5>' + result[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].subject + '</h5></td><td><h5>'
 						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
 				
-				} else if (category == 'onetoone') {
+				} else if (category == '1:1 문의') {
 					
 					str += '<tr><td><h5>' + result[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].one_title + '</h5></td><td><h5>'
 						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
@@ -143,6 +156,12 @@ function getTableWithAjax(category) {
 				
 			$('tbody').empty();
 			$('tbody').append(str);
+			
+			$('#table_title').empty();
+			$('#table_title').append(category);
+			
+			$('#table_content').empty();
+			$('#table_content').append(category);
 		},
 		error : function() {
 				
