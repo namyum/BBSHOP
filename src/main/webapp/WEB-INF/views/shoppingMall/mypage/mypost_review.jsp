@@ -18,14 +18,14 @@
 </style>
 <div class="container">
 	<div class="order_details_table" style="margin-top: 10px">
-		<h3 class="mb-30 title_color" id="table_title">상품 후기</h3>
-		<h5 align="left">내가 작성한 <span id="table_content">상품 후기</span>입니다.</h5>
+		<h3 class="mb-30 title_color">내가 남긴 글</h3>
+		<h5 align="left">내가 작성한 <span id="table_content">전체</span>입니다.</h5>
 		<div class="single-element-widget">
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
 				<select id="category" onchange="getTableWithAjax(this.value);">
-					<option value="all">전체</option>
-					<option value="review" selected>상품 후기</option>
+					<option value="all" selected>전체</option>
+					<option value="review">상품 후기</option>
 					<option value="qna">상품 QnA</option>
 					<option value="onetoone">1:1 문의</option>
 				</select>
@@ -39,7 +39,7 @@
 						<th scope="col" style="width: 10%; font-weight: bold;">번호</th>
 						<th scope="col" style="width: 15%; font-weight: bold;">카테고리</th>
 						<th scope="col" style="font-weight: bold;">제목</th>
-						<th scope="col" style="width: 15%; font-weight: bold;">날짜</th>
+						<th scope="col" style="width: 18%; font-weight: bold;">날짜</th>
 						<th scope="col" style="width: 10%; font-weight: bold;">조회수</th>
 					</tr>
 				</thead>
@@ -116,40 +116,84 @@ function getTableWithAjax(category) {
 		dataType : 'json',
 		contentType: "application/json",
 		success : function(result) {
-			
-			console.log(result);
 								
 			var str = '';
+			var values = '';
+			
+			var start = ${pageMaker.startPage};
+			var end = ${pageMaker.endPage};
+			var paging = '';
 			
 			if (category == 'review') {
 				
 				category = '상품 후기';
+				values = result.review;
 				
 			} else if (category == 'qna') {
 				
 				category = '상품 QnA';
+				values = result.qna;
 				
 			} else if (category == 'onetoone') {
 				
 				category = '1:1 문의';
+				values = result.onetoone;		
+			
+			} else {
+				
+				category = '전체';
+				values = result;
 			}
 			
-			$.each(result, function(index, value){
+			$.each(values, function(index, value){
 				
+				console.log('index : ' + index + 'value : ' + value);
+								
 				if (category == '상품 후기') {
 					
-					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
-						+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+					console.log(values[index].re_hit);
+					
+					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
+						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
 				
 				} else if (category == '상품 QnA') {
 					
-					str += '<tr><td><h5>' + result[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].subject + '</h5></td><td><h5>'
-						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
+					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].subject + '</h5></td><td><h5>'
+						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
 				
 				} else if (category == '1:1 문의') {
 					
-					str += '<tr><td><h5>' + result[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].one_title + '</h5></td><td><h5>'
-						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
+					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
+						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
+				
+				} else {
+					
+					var list = values[index];
+					
+					if (index == 'review') {
+						
+						$.each(list, function(index, value) {
+						
+							str += '<tr><td><h5>' + list[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + list[index].title + '</h5></td><td><h5>'
+							+ list[index].re_date + '</h5></td><td><h5>' + list[index].re_hit + '</h5></td></tr>';
+						});
+						
+					} else if (index == 'qna') {
+						
+						$.each(list, function(index, value) {
+
+							str += '<tr><td><h5>' + list[index].qna_num + '</h5></td><td><h5>상품 QnA</h5></td><td><h5>' + list[index].subject + '</h5></td><td><h5>'
+								+ list[index].regdate + '</h5></td><td><h5>' + list[index].hit + '</h5></td></tr>';
+						});
+
+					} else if (index == 'onetoone') {
+						
+						$.each(list, function(index, value) {
+						
+							str += '<tr><td><h5>' + list[index].one_one_num + '</h5></td><td><h5>1:1 문의</h5></td><td><h5>' + list[index].one_title + '</h5></td><td><h5>'
+								+ list[index].regdate + '</h5></td><td><h5>' + list[index].hit + '</h5></td></tr>';
+						});
+					}
 				}
 				
 			});
@@ -157,11 +201,20 @@ function getTableWithAjax(category) {
 			$('tbody').empty();
 			$('tbody').append(str);
 			
-			$('#table_title').empty();
-			$('#table_title').append(category);
-			
 			$('#table_content').empty();
 			$('#table_content').append(category);
+			
+			// 페이징 버튼 AJAX 처리
+			$('.pagination').empty();
+			
+			for (var i = start; i <= end; i++) {
+				paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+			}
+			
+			$('.pagination').append(paging);
+			
+			$('.page-item').removeClass("active");
+			$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 		},
 		error : function() {
 				

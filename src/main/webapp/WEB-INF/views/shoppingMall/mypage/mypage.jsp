@@ -221,6 +221,10 @@
 								
 				var str = '';
 				
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				var paging = '';
+				
 				$.each(result, function(index, value){
 					
 					var parse = parseInt(index);
@@ -233,8 +237,16 @@
 				$('tbody').append(str);
 				
 				// 페이징 버튼 AJAX 처리
+				$('.pagination').empty();
+				
+				for (var i = start; i <= end; i++) {
+					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').append(paging);
+				
 				$('.page-item').removeClass("active");
-				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
 			},
 			error : function() {

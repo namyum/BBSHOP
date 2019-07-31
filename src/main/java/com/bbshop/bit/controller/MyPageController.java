@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -337,7 +338,7 @@ public class MyPageController {
 	// ajax로 내가 남긴 글 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
-	public List<?> getTableWithAjax(@RequestBody Map<String, Object> map) {
+	public Map<String, List<?>> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
@@ -345,22 +346,46 @@ public class MyPageController {
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
 		
-		long total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
-	
+		long total = 0;
+		
+		if (!category.equals("all")) {
+			
+			total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
+		}
+		
+		Map<String, List<?>> listMap = new HashMap<>();
+		
 		if (category.equals("review")) {
 			
-			return myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
+			listMap.put("review", myPageService.getReviewList(pagingVO, total, 1));
+			
+			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
-			return myPageService.getQnaList(pagingVO, total, 1);
+			listMap.put("qna", myPageService.getQnaList(pagingVO, total, 1));
+			
+			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
-			return myPageService.getOnetooneList(pagingVO, total, 1);
-		}
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, 1));
+			
+			return listMap;
 		
-		return null;
+		} else {
+			
+			total = myPageService.getTotal(pagingVO, "review"); // 테이블 데이터 개수 구하기.
+			listMap.put("review", myPageService.getReviewList(pagingVO, total, 1));
+			
+			total = myPageService.getTotal(pagingVO, "qna"); // 테이블 데이터 개수 구하기.
+			listMap.put("qna", myPageService.getQnaList(pagingVO, total, 1));
+			
+			total = myPageService.getTotal(pagingVO, "onetoone"); // 테이블 데이터 개수 구하기.
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, 1));
+			
+			return listMap;
+		}
 	}
 	
 }
