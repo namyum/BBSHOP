@@ -66,6 +66,7 @@
          <version>${org.slf4j-version}</version>
          <scope>runtime</scope>
       </dependency>
+
       <!-- lombok을 위한 주석처리..
       <dependency>
          <groupId>log4j</groupId>
@@ -93,6 +94,7 @@
       </dependency>
       -->
 
+
       <!-- @Inject -->
       <dependency>
          <groupId>javax.inject</groupId>
@@ -105,6 +107,7 @@
          <groupId>javax.servlet</groupId>
          <artifactId>javax.servlet-api</artifactId>
          <version>3.1.0</version>
+
          <scope>provided</scope>
       </dependency>
       <dependency>
@@ -190,7 +193,7 @@
          <artifactId>spring-test</artifactId>
          <version>${org.springframework-version}</version>
       </dependency>
-      
+
       <!-- lombok 0723 -->
       <dependency>
       	<groupId>org.projectlombok</groupId>
@@ -211,6 +214,7 @@
          <version>4.12</version>
          <scope>test</scope>
       </dependency>
+
       
       <!-- 의정 : sql의 ?가 어떤 값으로 처리되었는지 확인하는 기능 -->
       <!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
@@ -232,7 +236,7 @@
       	<artifactId>jackson-mapper-asl</artifactId>
       	<version>1.9.13</version>
       </dependency>
-      
+
    </dependencies>
    <build>
       <plugins>
