@@ -132,7 +132,7 @@ public class MyPageController {
 		
 		long total = 0;
 		
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "review"); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1);
 		
@@ -140,22 +140,6 @@ public class MyPageController {
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 
 		return "shoppingMall/mypage/mypost";
-	}
-	
-	// 내가 남긴 글 조회 -> 상품 후기
-	@RequestMapping("/mypost_review.do")
-	public String mypost_review(Model model, PagingVO pagingVO) {
-		
-		long total = 0;
-		
-		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
-	
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
-		
-		model.addAttribute("review_list", review_list);
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
-		
-		return "shoppingMall/mypage/mypost_review";
 	}
 	
 	// 회원 정보 수정 페이지
