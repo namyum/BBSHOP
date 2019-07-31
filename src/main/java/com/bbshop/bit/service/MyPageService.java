@@ -3,6 +3,7 @@ package com.bbshop.bit.service;
 import java.util.List;
 
 import com.bbshop.bit.domain.AddrVO;
+import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OnetooneVO;
@@ -68,12 +69,11 @@ public interface MyPageService {
 
 	// 닉네임 중복 확인
 	public int nickCheck(String nickname);
-
+	
 
 	// 전체 적립금 내역 가져 오기
 	public List<Long> getAllSavings(long key);
 
-	
-
-		
+	// Qna 내역 가져 오기
+	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long total, long key);
 }

@@ -113,7 +113,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/order_status";
 	}
 	
-	// 주문/배송 - 주문 취소
+	// 주문/배송 -> 주문 취소
 	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 				
@@ -152,20 +152,6 @@ public class MyPageController {
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		
 		return "shoppingMall/mypage/mypost_review";
-	}
-
-	// 내가 남긴 글 -> 상품 문의
-	@RequestMapping("/mypost_qna.do")
-	public String mypost_qna() {
-		
-		return "shoppingMall/mypage/mypost_qna";
-	}
-
-	// 내가 남긴 글 -> 1대1 문의
-	@RequestMapping("/mypost_one_to_one.do")
-	public String mypost_one_to_one() {
-		
-		return "shoppingMall/mypage/mypost_one_to_one";
 	}
 	
 	// 회원 정보 수정 페이지
@@ -301,7 +287,9 @@ public class MyPageController {
 		return Integer.toString(result);
 	}
 
-	// ajax로 적립금 목록 가져 오기
+// ajax 컨트롤러
+
+	// ajax로 적립금 가져 오기
 	@RequestMapping(value = "/savingListPaging.do", consumes = "application/json")
 	@ResponseBody
 	public List<SavingsVO> getSavingListPaging(@RequestBody PagingVO pagingVO) {
@@ -346,34 +334,30 @@ public class MyPageController {
 		return orders_list;
 	}
 	
-	// ajax로 내가 남긴 글 테이블 가져 오기
+	// ajax로 내가 남긴 글 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
 	public List<?> getTableWithAjax(@RequestBody Map<String, Object> map) {
-		
-		System.out.println("pageNum : " + map.get("pageNum"));
-		System.out.println("amount : " + map.get("amount"));
-		System.out.println("category : " + map.get("category"));
 		
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
 		String category = (String)map.get("category");
 		
-		PagingVO page = new PagingVO(pageNum, amount);
+		PagingVO pagingVO = new PagingVO(pageNum, amount);
 		
-		long total = myPageService.getTotal(page, category); // 테이블 데이터 개수 구하기.
+		long total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
 	
 		if (category.equals("review")) {
 			
-			return myPageService.getReviewList(page, total, 1); // 후기 테이블을 파라미터로 준다.
+			return myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
 			
 		} else if (category.equals("qna")) {
 			
-			return myPageService.getReviewList(page, total, 1);
+			return myPageService.getQnaList(pagingVO, total, 1);
 			
 		} else if (category.equals("onetoone")) {
 			
-			return myPageService.getOnetooneList(page, total, 1);
+			return myPageService.getOnetooneList(pagingVO, total, 1);
 		}
 		
 		return null;

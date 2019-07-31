@@ -128,10 +128,15 @@ function getTableWithAjax(category) {
 					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
 						+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
 				
+				} else if (category == 'qna') {
+					
+					str += '<tr><td><h5>' + result[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].subject + '</h5></td><td><h5>'
+						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
+				
 				} else if (category == 'onetoone') {
 					
 					str += '<tr><td><h5>' + result[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].one_title + '</h5></td><td><h5>'
-					+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
+						+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
 				}
 				
 			});

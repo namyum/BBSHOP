@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.AddrVO;
+import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OnetooneVO;
@@ -166,6 +167,14 @@ public class MyPageServiceImpl implements MyPageService {
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		return myPageMapper.getOnetooneList(pagingVO, total, key);
+	}
+
+	@Override
+	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long total, long key) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		return myPageMapper.getQnaList(pagingVO, total, key);
 	}
 
 }
