@@ -1,4 +1,4 @@
-package com.bbshop.bit;
+package com.bbshop.bit.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
