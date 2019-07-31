@@ -50,6 +50,8 @@ public class MyPageController {
 		
 		List<OrderVO> orders_list = myPageService.getAllOrdersList(1);
 		
+		long[] savings_total_list = new long[(int)total];
+		
 		// 내 주문 주문 상태별 묶기
 		int[] stts_list = new int[5];
 		
@@ -79,17 +81,18 @@ public class MyPageController {
 		for (int i = 0; i < all_savings.size(); i++) {
 			
 			sum += all_savings.get(i);
+			savings_total_list[i] = sum;
 		}
 		
-		// 적립금 총합 설정
-		for (int i = 0; i < savings_list.size(); i++) {
-							
-			savings_list.get(i).setOr_savings_total(sum);
+		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
+		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
+		
+		int cnt = (int)(pagingVO.getAmount() - 1);
+		
+		for (int i = start; i < end; i++) {
 			
-			sum -= savings_list.get(i).getOr_savings();
+			savings_list.get(cnt--).setOr_savings_total(savings_total_list[i]);
 		}
-		
-		total = myPageService.getTotal(pagingVO, "savings"); // 적립금 테이블 개수 구하기.
 				
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("savings_list", savings_list);
@@ -300,22 +303,27 @@ public class MyPageController {
 		
 		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<Long> all_savings = myPageService.getAllSavings(1);
-
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, 1);
+		
+		List<Long> all_savings = myPageService.getAllSavings(1);
+		
+		long[] savings_total_list = new long[(int)total];
 		
 		// 적립금 전체 총합
 		for (int i = 0; i < all_savings.size(); i++) {
 			
 			sum += all_savings.get(i);
+			savings_total_list[i] = sum;
 		}
 		
-		// 적립금 총합 설정
-		for (int i = 0; i < savings_list.size(); i++) {
-							
-			savings_list.get(i).setOr_savings_total(sum);
+		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
+		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
+		
+		int cnt = (int)(pagingVO.getAmount() - 1);
+		
+		for (int i = start; i < end; i++) {
 			
-			sum -= savings_list.get(i).getOr_savings();
+			savings_list.get(cnt--).setOr_savings_total(savings_total_list[i]);
 		}
 		
 		return savings_list;
