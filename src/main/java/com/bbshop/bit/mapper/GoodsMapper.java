@@ -15,7 +15,7 @@ public interface GoodsMapper {
 	
 	
 	// 카테고리 별, goods 데이터 개수 
-	public int getTotalCount(HashMap<String, Object> map);
+	public int getTotalCount(int category);
 	
 	
 	

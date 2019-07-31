@@ -24,14 +24,15 @@
 		select /*+INDEX_DESC(goods idx_goods_price) */
 		</when>
 	</choose>
-			rownum rn, goods_num, name, main_img, price, best, regdate
+			rownum rn, category, goods_num, name, main_img, price, best, regdate
 		from goods
 <![CDATA[
 		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 ]]>	
 			and category = #{category, jdbcType=INTEGER}
-<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	]]>
-<![CDATA[	and price < #{max_amount, jdbcType=INTEGER}	]]>	
+<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	
+			and price < #{max_amount, jdbcType=INTEGER}	
+]]>	
 		<choose>
 			<when test="sorting == 'new'">
 			order by regdate desc

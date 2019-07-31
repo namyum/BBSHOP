@@ -17,8 +17,8 @@ public interface GoodsService {
 									String min_amount, String max_amount);
 
 
-	/* 카테고리별 전체 goods 데이터 개수 */
-	public int getTotalCount(PagingVO pagingVO, int category);
+	/* 카테고리별  goods 데이터 개수 */
+	public int getTotalCount(int category);
 	
 	
 	/* 상품 조회 */

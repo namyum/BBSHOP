@@ -51,16 +51,12 @@ public class GoodsServiceImpl implements GoodsService {
 
 	
 	
-	/* 카테고리별 전체 goods 데이터 개수 */
+	/* 카테고리별  goods 데이터 개수 */
 	@Override
-	public int getTotalCount(PagingVO pagingVO, int category) {
+	public int getTotalCount(int category) {
 		log.info("get Total Count - " + category);
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
-		map.put("category", category);
-		
-		return mapper.getTotalCount(map);
+		return mapper.getTotalCount(category);
 	}
 
 	
