@@ -24,10 +24,10 @@
 			<div class="default-select" id="default-select"
 				style="margin-top: 30px;">
 				<select id="category" onchange="getTableWithAjax(this.value);">
-					<option value="전체">전체</option>
-					<option value="상품 후기" selected>상품 후기</option>
-					<option value="상품 QnA">상품 QnA</option>
-					<option value="1:1 문의">1:1 문의</option>
+					<option value="all">전체</option>
+					<option value="review" selected>상품 후기</option>
+					<option value="qna">상품 QnA</option>
+					<option value="onetoone">1:1 문의</option>
 				</select>
 				<h5 align="right">총 게시글 : ${pageMaker.total }개</h5>
 			</div>
@@ -94,61 +94,20 @@
 
 <script>
 
-function getTableWithAjax(sParam) {
+function getTableWithAjax(category) {
 	
 	var actionForm = $("#actionForm");
-		
-	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-	alert(sParam);
-		
-	var data = {
-		pageNum: $(this).attr("href"), 
-		amount: 5
-	};
-				
-	$.ajax({
-		type : 'POST',
-		url : '/getTableWithAjax.do',
-		data : JSON.stringify(data),
-		dataType : 'json',
-		contentType: "application/json",
-		success : function(result) {
-				
-			alert('AJAX 요청 성공!');
-			
-			console.log(result);
-								
-			var str = '';
-			
-			$.each(result, function(index, value){
-					
-				str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
-				+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
-			});
-				
-			$('tbody').empty();
-			$('tbody').append(str);
-		},
-		error : function() {
-				
-			alert('AJAX 요청 실패!');
-		}
-	});
-}
-
-$(document).on("click", ".page-item a", function(e) {
+	actionForm.find("input[name='pageNum']").val(1);
 	
-	e.preventDefault();
+	var amount = actionForm.find("input[name='amount']").val();
+	var pageNum = actionForm.find("input[name='pageNum']").val();
 	
-	var actionForm = $("#actionForm");
+	var data = {};
 	
-	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-	
-	var data = {
-		pageNum: $(this).attr("href"), 
-		amount: 5
-	};
+		data["pageNum"] = pageNum; 
+		data["amount"] = amount;
+		data["category"] = category;
 				
 	$.ajax({
 		type : 'POST',
@@ -163,17 +122,22 @@ $(document).on("click", ".page-item a", function(e) {
 			var str = '';
 			
 			$.each(result, function(index, value){
+				
+				if (category == 'review') {
 					
-				str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
-				+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+					str += '<tr><td><h5>' + result[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].title + '</h5></td><td><h5>'
+						+ result[index].re_date + '</h5></td><td><h5>' + result[index].re_hit + '</h5></td></tr>';
+				
+				} else if (category == 'onetoone') {
+					
+					str += '<tr><td><h5>' + result[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + result[index].one_title + '</h5></td><td><h5>'
+					+ result[index].regdate + '</h5></td><td><h5>' + result[index].hit + '</h5></td></tr>';
+				}
+				
 			});
 				
 			$('tbody').empty();
 			$('tbody').append(str);
-			
-			// 페이징 버튼 AJAX 처리
-			$('.page-item').removeClass("active");
-			$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 		},
 		error : function() {
 				

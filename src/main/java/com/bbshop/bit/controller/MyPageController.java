@@ -1,6 +1,7 @@
 package com.bbshop.bit.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -345,18 +346,37 @@ public class MyPageController {
 		return orders_list;
 	}
 	
-	// ajax로 내가 남긴 글(후기) 가져 오기
+	// ajax로 내가 남긴 글 테이블 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
-	public List<ReviewVO> getTableWithAjax(@RequestBody PagingVO pagingVO) {
+	public List<?> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
-		long total = 0;
+		System.out.println("pageNum : " + map.get("pageNum"));
+		System.out.println("amount : " + map.get("amount"));
+		System.out.println("category : " + map.get("category"));
 		
-		total = myPageService.getTotal(pagingVO, "review"); // 후기 테이블 데이터 개수 구하기.
+		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
+		long amount = (long)Integer.parseInt((String)map.get("amount"));
+		String category = (String)map.get("category");
+		
+		PagingVO page = new PagingVO(pageNum, amount);
+		
+		long total = myPageService.getTotal(page, category); // 테이블 데이터 개수 구하기.
 	
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1); // 후기 테이블을 파라미터로 준다.
+		if (category.equals("review")) {
+			
+			return myPageService.getReviewList(page, total, 1); // 후기 테이블을 파라미터로 준다.
+			
+		} else if (category.equals("qna")) {
+			
+			return myPageService.getReviewList(page, total, 1);
+			
+		} else if (category.equals("onetoone")) {
+			
+			return myPageService.getOnetooneList(page, total, 1);
+		}
 		
-		return review_list;
+		return null;
 	}
 	
 }

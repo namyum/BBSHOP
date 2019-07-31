@@ -49,5 +49,5 @@ public interface MyPageMapper {
 
 	public List<Long> getAllSavings(long key);
 
-	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key);
+	public List<OnetooneVO> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 }
