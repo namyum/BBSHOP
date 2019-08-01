@@ -104,9 +104,9 @@ body {
 				</div>
 				<div class="float-right">
 					<ul class="right_side">
-						<li><a href="/mypage"> 마이페이지 </a></li>
-						<li><a href="/shopping_main"> 쇼핑몰 </a></li>
-						<li><a href="/faq "> 고객센터 </a></li>
+						<li><a href="/mypage.do"> 마이페이지 </a></li>
+						<li><a href="/shopping_main.do"> 쇼핑몰 </a></li>
+						<li><a href="/faq.do"> 고객센터 </a></li>
 					</ul>
 				</div>
 			</div>
@@ -134,29 +134,27 @@ body {
 						<div class="row w-100">
 								<ul class="nav navbar-nav center_nav pull-right">
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">전체</a></li>
+										href="/community_list.do?TEAM_NAME=kbo">KBO</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">KBO</a></li>
+										href="community_list.do?TEAM_NAME=lg">LG</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">LG</a></li>
+										href="/community_list.do?TEAM_NAME=lotte">롯데</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">롯데</a></li>
+										href="/community_list.do?TEAM_NAME=hanwha">한화</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">한화</a></li>
+										href="/community_list.do?TEAM_NAME=kia">기아</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">기아</a></li>
+										href="/community_list.do?TEAM_NAME=doosan">두산</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">두산</a></li>
+										href="/community_list.do?TEAM_NAME=nc">NC</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">NC</a></li>
+										href="/community_list.do?TEAM_NAME=samsung">삼성</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">삼성</a></li>
+										href="/community_list.do?TEAM_NAME=kiwoom">키움</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">키움</a></li>
+										href="/community_list.do?TEAM_NAME=sk">SK</a></li>
 									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">SK</a></li>
-									<li class="nav-item active"><a class="nav-link"
-										href="/community_list">KT</a></li>
+										href="/community_list.do?TEAM_NAME=kt">KT</a></li>
 								</ul>
 						</div>
 					</div>
