@@ -65,15 +65,15 @@
 		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
 		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
 		<div class="col-md-6" style="margin-bottom: 10px; padding-left: 0px;">
-			<input type="checkbox" name="num" value="1" id="all">
+			<input type="checkbox" name="stts" value="5" id="all" onclick="showOrderList()">
 				<label for="all" class="addr_chk">전체</label>
-			<input type="checkbox" name="num" value="1" id="paid">
+			<input type="checkbox" name="stts" value="0" id="paid" onclick="showOrderList()">
 				<label for="paid" class="addr_chk">결제완료</label>
-			<input type="checkbox" name="num" value="1" id="paid">
-				<label for="paid" class="addr_chk">배송중</label>
-			<input type="checkbox" name="num" value="1" id="paid">
-				<label for="paid" class="addr_chk">배송완료</label>
-			<input type="checkbox" name="num" value="1" id="cancel">
+			<input type="checkbox" name="stts" value="2" id="delivering" onclick="showOrderList()">
+				<label for="delivering" class="addr_chk">배송중</label>
+			<input type="checkbox" name="stts" value="3" id="deliverFin" onclick="showOrderList()">
+				<label for="deliverFin" class="addr_chk">배송완료</label>
+			<input type="checkbox" name="stts" value="4" id="cancel" onclick="showOrderList()">
 				<label for="cancel" class="addr_chk">주문취소</label>
 		</div>
 		<!-- 끝 -->
@@ -186,6 +186,7 @@
 	var order_msg = '';
 	var receiver = '';
 
+	// 주문 취소
 	function fn_cancel_order(order_num) {
 
 		var answer = confirm("주문을 취소하시겠습니까?");
@@ -210,6 +211,7 @@
 		}
 	}
 
+	// 주문 배송 상세 조회 모달
 	function showModal(order_idx) {
 
 		var list = new Array();
@@ -235,7 +237,108 @@
 		order_msg = list[4];
 		receiver = list[5];
 	}
-
+	
+	// 주문 배송 상세 조회 체크박스
+	function showOrderList(checkbox) {
+		
+		var checkValues = '';
+		
+		actionForm.find("input[name='pageNum']").val($('.page-item.active a').attr("href"));
+		
+		if ($("input[name='stts']:checked").length == 0) {
+			
+			checkValues = '5';
+			
+		} else {
+		
+			$("input[name='stts']:checked").each(function(){
+		    
+				checkValues = $(this).val();
+			});
+		}
+		
+		var data = {};
+		  
+		data["stts"] = checkValues;
+		data["pageNum"] = actionForm.find("input[name='pageNum']").val();
+		data["amount"] = actionForm.find("input[name='amount']").val();
+		
+		console.log(data);
+		
+		$.ajax({
+			    
+			type: "POST",	    
+			url : "/orderListCheck.do",
+			data : JSON.stringify(data),    
+			dataType: "json",			
+			contentType:"application/json",			
+			success : function(result, status, xhr) {
+			
+				var str = '';
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				var paging = '';
+				
+				console.log('start : ' + start);
+				console.log('end : ' + end);
+								
+				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
+										
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</span>'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				$('.pagination').empty();
+				
+				for (var i = start; i <= end; i++) {
+					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			    
+			},
+			
+			error: function(jqXHR, textStatus, errorThrown) {
+			
+				alert("error = " + errorThrown);
+			    
+			}
+			
+		});
+	}
+	
 	$(document).ready(function() {
 
 		// 주문 목록 모달 처리
@@ -261,8 +364,8 @@
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		
 		var data = {
-				pageNum: $(this).attr("href"), 
-				amount: 5
+			pageNum: actionForm.find("input[name='pageNum']").val(), 
+			amount: actionForm.find("input[name='amount']").val()
 		};
 		
 		$.ajax({
@@ -327,74 +430,6 @@
 				$('.page-item').removeClass("active");
 				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
-			},
-			error : function() {
-				
-				alert('AJAX 요청 실패!');
-			}
-		});
-	});
-	
-	$(document).on("click", "#paid", function(e) {
-
-		alert('테스트');
-		
-		$.ajax({
-			type: "POST",
-			url: "/orderListPaging.do",
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType: "application/json",
-			success : function(result) {
-				
-				var str = '';
-				var start = ${pageMaker.startPage};
-				var end = ${pageMaker.endPage};
-				var paging = '';
-								
-				$.each(result, function(index, value){
-					
-					var parse = parseInt(index);
-					
-					console.log(parse);
-										
-					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
-						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
-						
-					switch(result[index].stts) {
-					
-						case 0 : str += '결제완료'; break;
-						case 1 : str += '배송준비중'; break;
-						case 2 : str += '배송중'; break;
-						case 3 : str += '<span style="color: blue;">배송완료</blue>'; break;
-						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
-					}
-					
-					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
-					
-					if (result[index].stts == 0) {
-						
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
-						+ '<span>주문 취소</span></button></td></tr>';
-						
-					} else {
-						
-						str += '</td></tr>';
-					}
-				});
-				
-				$('tbody').empty();
-				$('tbody').append(str);
-				
-				// 페이징 버튼 AJAX 처리
-				$('.pagination').empty();
-				for (var i = start; i < end; i++) {
-					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == num ? 'active' : ''} + '" id="btn_' + ${num } + '"><a href="' + ${num} + '" class="page-link">' + ${num} + '</a></li>';
-				}
-				$('.pagination').append(paging);
-				
-				$('.page-item').removeClass("active");
-				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 			},
 			error : function() {
 				

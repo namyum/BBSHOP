@@ -177,4 +177,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getQnaList(pagingVO, total, key);
 	}
 
+	@Override
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, long stts) {
+
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		return myPageMapper.getOrdersListStss(pagingVO, total, key, stts);
+	}
+
 }

@@ -353,6 +353,34 @@ public class MyPageController {
 		return orders_list;
 	}
 	
+	// ajax로 체크박스 배송 목록 가져 오기
+	@RequestMapping(value = "/orderListCheck.do", consumes = "application/json")
+	@ResponseBody
+	public List<OrderVO> getOrderListCheck(@RequestBody Map<String, Object> map) {
+		
+		long total = 0;
+		long user_key = (long)session.getAttribute("member");
+
+		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
+		long amount = (long)Integer.parseInt((String)map.get("amount"));
+		long stts = (long)Integer.parseInt((String)map.get("stts"));
+		
+		PagingVO pagingVO = new PagingVO(pageNum, amount);
+
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		
+		if (stts == 5) {
+		
+			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+			
+			return orders_list;
+		}
+
+		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts);
+		
+		return orders_list;
+	}
+	
 	// ajax로 내가 남긴 글 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody

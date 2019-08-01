@@ -82,8 +82,8 @@ public class MemberController {
 		return resultUrl;
 	}
 	
-	@RequestMapping(value="noAccount.do" , method=RequestMethod.GET)
-	public String noAccount (HttpServletRequest request,HttpSession session ,@RequestParam("toPage") String toPage) {
+	@RequestMapping(value="noAccount.do", method=RequestMethod.GET)
+	public String noAccount(HttpServletRequest request,HttpSession session ,@RequestParam("toPage") String toPage) {
 //		String toPage = request.getParameter("toPage"); //hidden 은 value값을 가져와야 한다.
 		System.out.println("비회원 페이지이동:"+toPage);
 		String result = "";
@@ -94,7 +94,7 @@ public class MemberController {
 		else {
 			result="redirect:/community_main.do";
 		}
-		session.setAttribute("member", "noAccount"+noAccountCount);
+		session.setAttribute("nickname", "noAccount" + noAccountCount);
 		
 		return result;
 	}

@@ -24,6 +24,9 @@ public interface MyPageService {
 	// 주문 내역 가지고 오기
 	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key);
 	
+	// 주문 내역 주문 상태에 따라 가지고 오기
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, long stts);
+	
 	// 리뷰 내역 가지고 오기
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
 	
@@ -76,4 +79,6 @@ public interface MyPageService {
 
 	// Qna 내역 가져 오기
 	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long total, long key);
+
+
 }

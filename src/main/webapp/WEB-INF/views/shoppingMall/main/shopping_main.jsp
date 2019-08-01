@@ -36,6 +36,11 @@
 .section_gap {
 	padding: 80px 0px;
 }
+
+/* 로그인 모달 추가 */
+#loginModal {
+	opacity: 0.9;
+}
 </style>
 
 

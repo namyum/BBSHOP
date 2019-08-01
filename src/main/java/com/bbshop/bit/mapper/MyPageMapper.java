@@ -24,6 +24,8 @@ public interface MyPageMapper {
 
 	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 
+	public List<OrderVO> getOrdersListStss(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key, @Param("stts") long stts);
+	
 	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 
 	public List<OnetooneVO> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
@@ -61,6 +63,7 @@ public interface MyPageMapper {
 	public List<OrderVO> getAllOrdersList(long key);
 
 	public List<Long> getAllSavings(long key);
+
 
 
 }
