@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
-import com.bbshop.bit.member.service.MemberService;
-import com.bbshop.bit.member.service.UserMailSendService;
+import com.bbshop.bit.service.MemberService;
+import com.bbshop.bit.service.UserMailSendService;
 
 @Controller
 @RequestMapping("*.do")
