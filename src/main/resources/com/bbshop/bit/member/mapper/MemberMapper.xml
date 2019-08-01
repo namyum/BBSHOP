@@ -29,14 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 </select>
 
-<insert id="moreDetailsRegister" parameterType="com.bbshop.bit.member.domain.MoreDetailsVO">
+<insert id="moreDetailsRegister" parameterType="com.bbshop.bit.domain.MoreDetailsVO">
 	
 		INSERT INTO U_MOREDETAIL (user_key,team,position,hand,brand1,brand2,brand3)
 		VALUES(#{USER_KEY}, #{TEAM},#{POSITION},#{HAND},#{BRAND1},#{BRAND2},#{BRAND3})
 
 </insert>
 
-<insert id="insertMember" parameterType="com.bbshop.bit.member.domain.MemberVO">
+<insert id="insertMember" parameterType="com.bbshop.bit.domain.MemberVO">
 	<selectKey keyProperty="USER_KEY" resultType="int" order="BEFORE">
 		select user_seq.nextval FROM DUAL
 	</selectKey>
@@ -48,19 +48,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		#{NICKNAME},SYSDATE,#{FLAG},#{GRADE},#{SAVINGS},#{CAUTION},SYSDATE)
 	</insert>
 
-<select id="memberPw" parameterType="com.bbshop.bit.member.domain.MemberVO" resultType="String">
+<select id="memberPw" parameterType="com.bbshop.bit.domain.MemberVO" resultType="String">
 	select member_pw from sh_user where member_id=#{MEMBER_ID}
 </select>
 
-<select id="getUser_key" parameterType="com.bbshop.bit.member.domain.MemberVO" resultType="long">
+<select id="getUser_key" parameterType="com.bbshop.bit.domain.MemberVO" resultType="long">
 	select user_key from sh_user where member_id=#{MEMBER_ID}
 </select>
 
-<select id="getId" parameterType="com.bbshop.bit.member.domain.MemberVO" resultType="int">
+<select id="getId" parameterType="com.bbshop.bit.domain.MemberVO" resultType="int">
 	select count(*) from sh_user where member_id=#{MEMBER_ID}
 </select>
 
-<select id="getNickname" parameterType="com.bbshop.bit.member.domain.MemberVO" resultType="int">
+<select id="getNickname" parameterType="com.bbshop.bit.domain.MemberVO" resultType="int">
 	select count(*) from sh_user where nickname=#{NICKNAME}
 </select>
 </mapper>
