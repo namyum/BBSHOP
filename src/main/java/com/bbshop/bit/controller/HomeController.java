@@ -1,4 +1,4 @@
-package com.bbshop.bit;
+package com.bbshop.bit.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
