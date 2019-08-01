@@ -484,7 +484,7 @@ body {
 				<div class="float-right">
 					<ul class="right_side">
 						<li>
-							<a href="/mypage">	<!-- MyPage -->
+							<a href="/savings.do">	<!-- MyPage -->
 								마이 페이지
 							</a>
 						</li>
