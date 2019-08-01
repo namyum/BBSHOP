@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.CommunityMapper;
+import com.bbshop.bit.mapper.ReplyMapper;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
@@ -64,6 +65,20 @@ public class CommunityServiceImpl implements CommunityService{
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
 		return communityMapper.getBoardNum();
+	}
+	
+	@Override
+	public int getCount(Long board_num) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.getCount(board_num);
+	}
+	
+	@Override
+	public int updatePost(CommunityVO community) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.updatePost(community);
 	}
 	
 }

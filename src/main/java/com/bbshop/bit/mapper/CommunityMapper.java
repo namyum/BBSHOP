@@ -13,5 +13,7 @@ public interface CommunityMapper {
 	public List<CommunityVO> getListWithPaging(PagingVO pagingvo);
 	public int deletePost(Long board_num);
 	public Long getBoardNum();
+	public int getCount(Long board_num);
+	public int updatePost(CommunityVO community);
 
 }

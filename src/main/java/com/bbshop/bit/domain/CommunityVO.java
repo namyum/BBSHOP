@@ -18,7 +18,7 @@ public class CommunityVO {
 	private Date MODDATE;	
 	private Long PREVIOUSPOST;	
 	private Long NEXTPOST;
-	private Long REPLY_NUM;	
+	private Long REPLY_COUNT;	 // 댓글 개수
 	private String URI;	
 	private Long REPORT_NUM;	
 //	private String IP;	

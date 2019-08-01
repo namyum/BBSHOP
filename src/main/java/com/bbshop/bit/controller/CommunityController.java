@@ -48,6 +48,7 @@ public class CommunityController {
 	public String community_detail(Model model, @RequestParam("BOARD_NUM") Long board_num) {
 		
 		model.addAttribute("post", communityService.getPost((long) board_num));
+		model.addAttribute("count", communityService.getCount(board_num));
 		return "shoppingMall/community/community_detail";
 	}
 
@@ -62,7 +63,9 @@ public class CommunityController {
 
 	// 커뮤니티 - 글 수정
 	@RequestMapping("/community_modify.do")
-	public String community_modify() {
+	public String community_modify(Model model, @RequestParam("BOARD_NUM") Long board_num) {
+		
+		model.addAttribute("post", communityService.getPost((long) board_num));
 		return "shoppingMall/community/community_modify";
 	}
 	
@@ -70,6 +73,8 @@ public class CommunityController {
 	
 	@RequestMapping("/community_list.do")
 	public String list(PagingVO pagingvo, Model model) {
+		
+		System.out.println(pagingvo);
 		
 		model.addAttribute("list", communityService.getList(pagingvo));
 		model.addAttribute("pageMaker", new PageDTO(pagingvo, 123));
@@ -104,6 +109,20 @@ public class CommunityController {
 		}
 		
 		return "redirect:/community_list.do";
+	}
+	
+	@RequestMapping("/communityUpdateAction.do")
+	public String communityUpdateAction(CommunityVO community, Model model) {
+		
+		int res = communityService.updatePost(community);
+		
+		if(res == 1) {
+			System.out.println("글이 수정되었습니다.");
+		} else {
+			System.out.println("글 수정에 실패했습니다.");
+		}
+		
+		return "redirect:/community_detail.do";
 	}
 	
 	@RequestMapping(value = "/crawlRank.do", method = RequestMethod.GET)

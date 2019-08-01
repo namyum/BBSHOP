@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="getPost" parameterType="Long" resultType="com.bbshop.bit.domain.CommunityVO">
-		SELECT team_name, title, board_num, writer, regdate, hit, reply_num, board_content, uploadFile 
+		SELECT team_name, title, board_num, writer, regdate, hit, reply_count, board_content, uploadFile 
 		FROM community 
 		WHERE board_num = #{BOARD_NUM}
 	</select>
@@ -48,10 +48,10 @@
 							title like '%'||#{KEYWORD}||'%'
 						</when>
 						<when test="type=='C'.toString()">
-							title like '%'||#{KEYWORD}||'%'
+							board_content like '%'||#{KEYWORD}||'%'
 						</when>
 						<when test="type=='N'.toString()">
-							title like '%'||#{KEYWORD}||'%'
+							writer like '%'||#{KEYWORD}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -75,5 +75,17 @@
 			  ORDER BY moddate desc)
 		WHERE ROWNUM = 1
 	</select>
+	
+	<select id="getCount" resultType="int">
+		SELECT count(*)
+		FROM cm_comment
+		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
+	</select>
+	
+	<update id="updatePost" parameterType="com.bbshop.bit.domain.CommunityVO">
+		UPDATE community 
+		SET team_name = #{TEAM_NAME}, title = #{TITLE}, board_content = #{BOARD_CONTENT}, moddate = sysdate
+		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
+	</update>
 	
 </mapper>

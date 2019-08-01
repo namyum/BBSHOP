@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/community_header.jsp"%>
+<jsp:useBean id="today" class="java.util.Date"/>
 
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
@@ -28,7 +29,7 @@ body {
 	transition: all 300ms linear 0s;
 }
 
-.modal {
+.report_modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top - display가 block 처리되었을 때 view보다 상단에 노출되게 해줌*/
@@ -161,7 +162,7 @@ body {
 												</td>
 												<td>
 													<p class="reply_num">
-														<i class="lnr lnr-bubble"></i><c:out value="${post.REPLY_NUM}" />
+														<i class="lnr lnr-bubble"></i>${count}
 													</p>
 												</td>
 											</tr>
@@ -200,10 +201,12 @@ body {
 								style="border-bottom: 1.5px solid #eee;">
 								<div class="user justify-content-between d-flex" style="min-width:100%;">
 									<div class="desc" style="min-width:100%;">
-										<h5>글쓴이</h5>
-										<p class="date">2019/07/11</p>
+										<h5 id="reply_writer">글쓴이</h5>
+										<p class="write_date" style="font-size:13px;color:#cccccc;margin-bottom:13px;">
+										<!-- sysdate 받아와야 함 -->
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${post.REGDATE}" /></p>
 										<input type="text" name="reply_content"
-											style="width: 100%; height: 100px;" />
+											id="reply_content" style="width: 100%; height: 100px;" />
 										<div class="reply-btn">
 											<a class="genric-btn primary small" id="reply_submit"
 												style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px;">등록</a>
@@ -212,8 +215,11 @@ body {
 								</div>
 							</div>
 						</div>
-						<h4>03 Comments</h4>
-						<div class="comment-list-show" style="padding-bottom:48px;">
+						
+						<!-- 댓글 -->
+						
+						<h4>${count} Comments</h4>
+						<div class="comment-list-show">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="desc">
@@ -223,25 +229,13 @@ body {
 									</div>
 								</div>
 								<div class="reply-btn">
-									<a class="genric-btn primary small" id="reportBtn2"
+									<a class="genric-btn primary small" id="reportBtn"
 										style="float: right; padding: 0 20px;">신고하기</a>
+									<a class="genric-btn primary small" id="modifyBtn"
+										style="float: right; padding: 0 20px;">수정</a>
 								</div>
 							</div>
-						</div>
-						<div class="comment-list left-padding">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="desc">
-										<h5>윌슨</h5>
-										<p class="date">2019/07/11</p>
-										<p class="comment">Hi i'm the best pitcher</p>
-									</div>
-								</div>
-								<div class="reply-btn">
-									<a class="genric-btn primary small" id="reportBtn4"
-										style="float: right; padding: 0 20px;">신고하기</a>
-								</div>
-							</div>
+							<input type="text" id="content">
 						</div>
 					</div>
 					<!-- 이전글 다음글 버튼 -->
@@ -268,7 +262,7 @@ body {
 						<div class="button-group-area mt-40">
 							<a href="/community_list.do" id="go_list"
 								class="genric-btn primary radius" style="margin-left:35%">목록보기</a>
-							<a href="/community_modify.do" id="modify_post"
+							<a href="/community_modify.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>" id="modify_post"
 								class="genric-btn primary radius">수정</a> <a id="delete_post"
 								class="genric-btn primary radius" style="float: right;" 
 								href="/communityDeleteAction.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>">삭제</a>
@@ -334,7 +328,7 @@ body {
 	<!--================Blog Area =================-->
 
 	<!-- 신고 modal -->
-	<div id="myModal" class="modal">
+	<div id="myModal" class="report_modal">
 
 		<!-- Modal content -->
 		<div class="modal-content">
@@ -388,21 +382,46 @@ body {
 		</div>
 	</div>
 	
+		<!-- ===============댓글달기 modal==================== -->
+	<!-- 글쓰기 모달 -->
+	<div class="modal fade" id="writing_modal" tabindex="-1" role="dialog"
+		aria-labelledby="writing_modal_label" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="width:30%;margin:8% auto;">
+				<div class="modal-header">
+					<h2 class="text-black" style="font-weight: bold">댓글 수정</h2>
+					<span class="close" data-dismiss="modal">&times;</span>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-11">
+							<form>
+								<div class="form-group row">
+									<div class="col-md-10">
+										<label for="content" class="text-black mt-10">내용 <span
+											class="text-danger">*</span></label>
+										<div>
+											<textarea class="single-textarea" style="margin-bottom: 10px"></textarea>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" align="center">
+					<button type="button" class="genric-btn danger radius" id="delete_replyBtn">삭제</button>
+					<button type="submit" class="genric-btn default radius" id="modify_replyBtn">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- 모달 script -->
 	<script>
 		var modal = document.getElementById('myModal');
 
 		var replymodal = document.getElementById('replyModal');
-
-		// Get the button that opens the modal
-		// 뷰 단계에서는 1,2,3,4 .. 등으로 정의하지만 백단으로 넘어가면 jstl 태그 + for문 사용할 것
-		var reportbtn1 = document.getElementById("reportBtn1");
-
-		var reportbtn2 = document.getElementById("reportBtn2");
-
-		var reportbtn3 = document.getElementById("reportBtn3");
-
-		var reportbtn4 = document.getElementById("reportBtn4");
 
 		// Get the <span> element that closes the modal
 		var span = document.getElementsByClassName("close")[0];
@@ -412,23 +431,10 @@ body {
 
 		// 글 상세 -> 삭제버튼
 		var delete_postBtn = document.getElementById('delete_post');
-
-		// When the user clicks on the button, open the modal 
-		reportbtn1.onclick = function() {
-			modal.style.display = "block";
-		}
-
-		reportbtn2.onclick = function() {
-			modal.style.display = "block";
-		}
-
-		reportbtn3.onclick = function() {
-			modal.style.display = "block";
-		}
-
-		reportbtn4.onclick = function() {
-			modal.style.display = "block";
-		}
+		
+		var bnoValue = '<c:out value="${post.BOARD_NUM}"/>';
+		
+		var replyDIV = $(".comment-list-show");
 
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function() {
@@ -451,10 +457,116 @@ body {
 		delete_postBtn.onclick = function() {
 			alert('글을 삭제하시겠습니까?');
 		}
+		
+		function showList(page){
+			
+			replyService.getList(
+			{board_num:bnoValue, PAGENUM: page|| 1}, function(list){
+				
+				var str = "";
+				
+				// 댓글이 없는 경우
+				if(list == null || list.length == 0){
+					replyDIV.html("");
+					
+					return;
+				}
+				for(var i = 0, len = list.length || 0; i < len; i++){
+					str += "<div class='single-comment justify-content-between d-flex'";
+					str += "style='padding-bottom:28px;'>"
+					str += "<div class='user justify-content-between d-flex'>";
+					str += "<div class='desc'>";
+					str += "<input type='hidden'";
+					str += "id='get_reply_num"+[i]+"'";
+					str += "value="+list[i].reply_num+">"
+					str += "<h5>"+list[i].writer+"</h5>";
+					str += "<p class='date'>"+replyService.displayTime(list[i].regdate)+"</p>";
+					str += "<p class='comment'>"+list[i].reply_content+"</p>";
+					str += "</div>";
+					str += "</div>";
+					str += "<div class='reply-btn'>";
+					str += "<a class='genric-btn primary small'";
+					str += "id='reportBtn"+[i]+"'";
+					str += "style='float: right; padding: 0 20px;'>신고하기</a>";
+					str += "<a class='genric-btn primary small'";
+					str += "style='font-weight: bold;font-size:17px;'"
+					str += "onclick='modify("+list[i].reply_num+")'>수정</a>";
+					str += "</div>";
+					str += "</div>";
+					str += "<input type='text'";
+					str += "class='"+list[i].reply_num+"content'";
+					str += "style='margin-bottom:20px;width:50%;padding-bottom:20px;display:none;'>";
+					str += "<button type='button'";
+					str += "class='genric-btn danger radius'";
+					str += "id='"+list[i].reply_num+"delete_replyBtn'";
+					str += "style='display:none;float:right;line-height:24px;margin-top:3%;margin-right:20%;'>삭제</button>"
+					str += "<button type='submit'";
+					str += "class='genric-btn default radius'";
+					str += "id='"+list[i].reply_num+"modify_replyBtn'";
+					str += "style='display:none;float:right;line-height:24px;margin-top:3%;'>수정</button>"
+					str += "</div>";
+				}
+				replyDIV.html(str);
+			}); // end function
+		} // end showList
+		
+		function modify(reply_num){
+			
+		//	$("."+reply_num+"content").toggle();
+		
+		$("."+reply_num+"content").toggle();
+		$("#"+reply_num+"delete_replyBtn").toggle();
+		$("#"+reply_num+"modify_replyBtn").toggle();
+
+			var modalInputContent = $("."+reply_num+"content");
+			
+			replyService.get(reply_num, function(reply){
+				modalInputContent.val(reply.reply_content);
+			});
+			
+			var reply = {reply_num : reply_num, reply_content : modalInputContent.val()};
+			
+			$("#"+reply_num+"modify_replyBtn").on("click", function(e){
+				
+					var reply = {reply_num : reply_num, reply_content : modalInputContent.val()};
+			
+					replyService.update(reply, function(result){
+
+					showList(1);
+					});
+					 
+				}) // end $("#modify_replyBtn").onclick
+				
+				$("#"+reply_num+"delete_replyBtn").on("click", function(e){
+						
+				replyService.remove(reply_num, function(result){
+
+					showList(1);
+				 });
+					 
+			})	 // end $("#delete_replyBtn").onclick
+			
+			
+			
+			
+		}
 	</script>
 	
 	<script type="text/javascript" src="/resources/community/js/reply.js">
 	</script>
+	
+	<!-- 댓글달기 및 신고하기 버튼 처리 -->
+	<script>
+		
+		for(var i = 0, len = "${count}" || 0; i < len; i++){
+			
+			$("#reportBtn"+i).click(function(){
+				alert('hi'+i);
+			});
+		};
+
+	</script>
+
 	
 	<script>
 	
@@ -462,7 +574,9 @@ body {
 		
 		var bnoValue = '<c:out value="${post.BOARD_NUM}"/>';
 		var replyDIV = $(".comment-list-show");
+		var number = $("#get_reply_num").val();
 		
+		// 댓글 출력
 		showList(1);
 		
 		function showList(page){
@@ -480,11 +594,14 @@ body {
 				}
 				for(var i = 0, len = list.length || 0; i < len; i++){
 					str += "<div class='single-comment justify-content-between d-flex'";
-					str += "style='padding-bottom:48px;'>"
+					str += "style='padding-bottom:28px;'>"
 					str += "<div class='user justify-content-between d-flex'>";
 					str += "<div class='desc'>";
+					str += "<input type='hidden'";
+					str += "id='get_reply_num"+[i]+"'";
+					str += "value="+list[i].reply_num+">"
 					str += "<h5>"+list[i].writer+"</h5>";
-					str += "<p class='date'>"+list[i].regdate+"</p>";
+					str += "<p class='date'>"+replyService.displayTime(list[i].regdate)+"</p>";
 					str += "<p class='comment'>"+list[i].reply_content+"</p>";
 					str += "</div>";
 					str += "</div>";
@@ -492,15 +609,58 @@ body {
 					str += "<a class='genric-btn primary small'";
 					str += "id='reportBtn"+[i]+"'";
 					str += "style='float: right; padding: 0 20px;'>신고하기</a>";
+					str += "<a class='genric-btn primary small'";
+					str += "style='font-weight: bold;font-size:17px;'"
+					str += "onclick='modify("+list[i].reply_num+")'>수정</a>";
 					str += "</div>";
+					str += "</div>";
+					str += "<input type='text'";
+					str += "class='"+list[i].reply_num+"content'";
+					str += "style='margin-bottom:20px;width:50%;padding-bottom:20px;display:none;'>";
+					str += "<button type='button'";
+					str += "class='genric-btn danger radius'";
+					str += "id='"+list[i].reply_num+"delete_replyBtn'";
+					str += "style='display:none;float:right;line-height:24px;margin-top:3%;margin-right:20%;'>삭제</button>"
+					str += "<button type='submit'";
+					str += "class='genric-btn default radius'";
+					str += "id='"+list[i].reply_num+"modify_replyBtn'";
+					str += "style='display:none;float:right;line-height:24px;margin-top:3%;'>수정</button>"
 					str += "</div>";
 				}
-				
-				console.log(str);
 				replyDIV.html(str);
 			}); // end function
 		} // end showList
-	});
+		
+		// 댓글 추가
+		var reply_writer = $("#reply_writer");
+		var reply_date = $(".write_date");
+		var reply_content = $("#reply_content");
+		var reply_submit = $("#reply_submit");
+		
+		reply_submit.on("click", function(e){
+			
+			if(confirm("댓글을 등록하시겠습니까?") == true){
+			
+				var reply= {
+						writer : reply_writer[0].innerText,
+						regdate : reply_date[0].innerText,
+						reply_content : reply_content[0].value,
+						board_num : bnoValue
+				};
+				replyService.add(reply, function(result){
+				
+					reply_content[0].value = "";
+					
+					showList(1);
+
+				});
+			}
+			 else{
+		    		return false;
+		    	}
+		});
+		
+	}); // end $(document).ready
 	</script>
 
 	<%@ include file="../include/community_footer.jsp"%>
