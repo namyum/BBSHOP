@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="com.bbshop.bit.cart.mapper.CartMapper">
+ <resultMap type="com.bbshop.bit.cart.domain.Cart_PDVO" id="CartResultMap">
+	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
+	<result property ="PRICE" column ="PRICE"/>
+	<result property ="QNTTY" column ="QNTTY"/>
+	<result property ="GD_CT_KEY" column ="GD_CT_KEY"/>
+	<result property ="SAVINGS" column ="SAVINGS"/>
+	<result property ="STOCK_STTS" column ="STOCK_STTS"/>
+	<result property ="USER_KEY" column ="USER_KEY"/>
+</resultMap>
+
+
+<select id = "getCartList" parameterType="long" resultType="CartResultMap">
+	select * from cart_pd where user_key =${user_key}
+</select>
+
+
+
+
+
+
+</mapper>
