@@ -18,6 +18,10 @@
 .col-md-4:first-child::before {
 	content: '';
 }
+
+a {
+	text-decoration: none;
+}
 </style>
 <div class="container">
 	<div class="section-top-border" style="display: flex;">
@@ -80,14 +84,14 @@
 			<div style="padding: 50px 40px 50px 40px;">
 				<div class="blog_info text-center">
 					<ul class="blog_meta list" style="clear: both">
-						<li><a href="#"><span>mangoJuiceDeli</span> <i
-								class="lnr lnr-user"></i> </a></li>
-						<li><a href="#"><span>2019년 7월 6일 가입</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right" title="2019/07/12"><span>가입일</span> <i
 								class="lnr lnr-calendar-full"></i> </a></li>
-						<li><a href="#"><span>누적 구매액</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right" title="￦ 50,000"><span>누적 구매액</span> <i
 								class="lnr lnr-eye"></i> </a></li>
-						<li><a href="#"><span>다음 등급까지 남은 구매액</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right" title="￦ 25,000"><span>다음 등급까지 남은 구매액</span> <i
 								class="lnr lnr-bubble"></i> </a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="right" title="회원님은 경고 횟수 0회 입니다."><span>누적 경고</span> <i
+								class="lnr lnr-user"></i> </a></li>
 					</ul>
 				</div>
 			</div>
