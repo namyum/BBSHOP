@@ -971,14 +971,14 @@
             $("#md_birth").val(MEMBER_BIRTH);              
         });
         
-        $('#moredetails_submit').click(function(){
-           	var team=$("#team option:selected").val();
+        $('#moredetailsform').on('click', '#moredetails_submit', function(){
+           	
+        	var team=$("#team option:selected").val();
            	var position=$("#position option:selected").val();
            	var hand=$("#hand option:selected").val();
            	var brand1=$("#brand1 option:selected").val();
            	var brand2=$("#brand2 option:selected").val();
            	var brand2=$("#brand3 option:selected").val();
-            
            	
            	var MEMBER_ID= $("#md_id").val();
             var MEMBER_PW= $("#md_pw").val();
@@ -987,8 +987,11 @@
             var MEMBER_PHONE= $("#md_phone").val();
             var MEMBER_BIRTH= $("#md_birth").val();
             
-           	
-         var formData={TEAM:${'team'},POSITION:${'position'},HAND:${'hand'},BRAND1:${'brand1'},BRAND2:${'brand2'},BRAND3:${'brand3'},MEMBER_ID:${'MEMBER_ID'},MEMBER_PW:${'MEMBER_PW'},NICKNAME:${'MEMBER_NICKNAME'},NAME:${'MEMBER_NAME'},PHONE:${'MEMBER_PHONE'},BIRTH:${'MEMBER_BIRTH'}};
+            console.log(${'team'});
+            console.log(${team});
+            console.log(team);
+              	
+         	var formData={TEAM:${'team'},POSITION:${'position'},HAND:${'hand'},BRAND1:${'brand1'},BRAND2:${'brand2'},BRAND3:${'brand3'},MEMBER_ID:${'MEMBER_ID'},MEMBER_PW:${'MEMBER_PW'},NICKNAME:${'MEMBER_NICKNAME'},NAME:${'MEMBER_NAME'},PHONE:${'MEMBER_PHONE'},BIRTH:${'MEMBER_BIRTH'}};
        	
             jQuery.ajax({
     			url : 'moredetails.do',

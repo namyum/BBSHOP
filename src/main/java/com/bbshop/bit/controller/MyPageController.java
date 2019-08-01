@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,20 +37,24 @@ public class MyPageController {
 	@Autowired
 	private HttpSession session;
 	
+	@Inject
+    PasswordEncoder passwordEncoder;
+	
 	// 회원 정보 조회 -> 적립금 불러오기
 	@RequestMapping(value = "/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
 						
 		long sum = 0;
 		long total = 0;
+		long user_key = (long)session.getAttribute("member");
 		
 		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, 1);
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
-		List<Long> all_savings = myPageService.getAllSavings(1);
+		List<Long> all_savings = myPageService.getAllSavings(user_key);
 		
-		List<OrderVO> orders_list = myPageService.getAllOrdersList(1);
+		List<OrderVO> orders_list = myPageService.getAllOrdersList(user_key);
 		
 		long[] savings_total_list = new long[(int)total];
 		
@@ -106,10 +112,11 @@ public class MyPageController {
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
 		long total = 0;
-		
+		long user_key = (long)session.getAttribute("member");
+
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orders_list", orders_list);
@@ -131,10 +138,11 @@ public class MyPageController {
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
-		
+		long user_key = (long)session.getAttribute("member");
+
 		total = myPageService.getTotal(pagingVO, "review"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, 1);
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
 		
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -146,13 +154,15 @@ public class MyPageController {
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
-		System.out.println("/modify_info.do 컨트롤러 진입");
+		long user_key = (long)session.getAttribute("member");
 		
-		MemberVO member = myPageService.getUserInfo(1);
-		List<AddrVO> addr_list = myPageService.getAddrList(1);
-		MoreDetailsVO member_detail = myPageService.getDetail(1);
+		MemberVO member = myPageService.getUserInfo(user_key);
+		List<AddrVO> addr_list = myPageService.getAddrList(user_key);
+		MoreDetailsVO member_detail = myPageService.getDetail(user_key);
 		
-		System.out.println(addr_list.toString());
+		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
+		
+		System.out.println("modify_info 컨트롤러의 member : " + member.toString());
 				
 		model.addAttribute("memberInfo", member);
 		model.addAttribute("addr_list", addr_list);
@@ -164,8 +174,10 @@ public class MyPageController {
 	// 회원 정보 수정
 	@RequestMapping("/modify_userInfo.do")
 	public String modify_userInfo(MemberVO memberVO) {
-				
-		memberVO.setUSER_KEY(1); // user_key는 계속 데리고 다니는 데이터가 아니라, 세션으로부터 받아야 하므로 테스트상 임의로 넣음.
+
+		long user_key = (long)session.getAttribute("member");
+		
+		memberVO.setUSER_KEY(user_key); // user_key는 계속 데리고 다니는 데이터가 아니라, 세션으로부터 받아야 하므로 테스트상 임의로 넣음.
 		
 		myPageService.updateUserInfo(memberVO);
 		
@@ -176,7 +188,9 @@ public class MyPageController {
 	@RequestMapping("/modify_addr.do")
 	public String modify_addr(@RequestParam("num") int index, Model model) {
 		
-		List<AddrVO> addr_list = myPageService.getAddrList(1);
+		long user_key = (long)session.getAttribute("member");
+
+		List<AddrVO> addr_list = myPageService.getAddrList(user_key);
 		
 		AddrVO addrVO = addr_list.get(index-1);
 
@@ -190,10 +204,12 @@ public class MyPageController {
 	@RequestMapping("/modify_userAddr.do")
 	public String modify_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 		
-		addrVO.setUser_key(1);
+		long user_key = (long)session.getAttribute("member");
+
+		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
 		
-		System.out.println("modify_userAddr에서의 addrVO : " + addrVO.toString());
+		System.out.println("modify_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
 		
 		myPageService.updateAddrInfo(addrVO);
 		
@@ -213,7 +229,9 @@ public class MyPageController {
 	@RequestMapping("/write_userAddr.do")
 	public String write_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 				
-		addrVO.setUser_key(1);
+		long user_key = (long)session.getAttribute("member");
+
+		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
 		
 		System.out.println("write_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
@@ -227,7 +245,9 @@ public class MyPageController {
 	@RequestMapping("/delete_userAddr.do")
 	public String delete_userAddr(@RequestParam("num") int num) {
 		
-		myPageService.deleteAddrInfo(1, num);
+		long user_key = (long)session.getAttribute("member");
+
+		myPageService.deleteAddrInfo(user_key, num);
 		
 		return "forward:/modify_info.do";
 	}
@@ -243,7 +263,9 @@ public class MyPageController {
 	@RequestMapping("/secede.do")
 	public String secede() {
 		
-		myPageService.deleteUserInfo(1);
+		long user_key = (long)session.getAttribute("member");
+
+		myPageService.deleteUserInfo(user_key);
 		
 		return "shoppingMall/main/shopping_main";
 	}
@@ -252,11 +274,13 @@ public class MyPageController {
 	@RequestMapping("/modify_detail.do")
 	public String modify_detail(MoreDetailsVO moreDetailsVO) {
 		
-		moreDetailsVO.setUSER_KEY(1);
+		long user_key = (long)session.getAttribute("member");
+
+		moreDetailsVO.setUSER_KEY(user_key);
 		
 		System.out.println("컨트롤러에서의 VO : " + moreDetailsVO.toString());
 		
-		myPageService.updateDetailInfo(moreDetailsVO, 1);
+		myPageService.updateDetailInfo(moreDetailsVO, user_key);
 		
 		System.out.println("mapper 통과");
 		
@@ -284,12 +308,13 @@ public class MyPageController {
 		
 		long sum = 0;
 		long total = 0;
-		
+		long user_key = (long)session.getAttribute("member");
+
 		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, 1);
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
-		List<Long> all_savings = myPageService.getAllSavings(1);
+		List<Long> all_savings = myPageService.getAllSavings(user_key);
 		
 		long[] savings_total_list = new long[(int)total];
 		
@@ -303,7 +328,7 @@ public class MyPageController {
 		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
 		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
 		
-		int cnt = (int)(pagingVO.getAmount() - 1);
+		int cnt = (int)(pagingVO.getAmount()-1);
 		
 		for (int i = start; i < end; i++) {
 			
@@ -319,10 +344,11 @@ public class MyPageController {
 	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
 		
 		long total = 0;
+		long user_key = (long)session.getAttribute("member");
 
 		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, 1);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
 		return orders_list;
 	}
@@ -332,6 +358,8 @@ public class MyPageController {
 	@ResponseBody
 	public Map<String, List<?>> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
+		long user_key = (long)session.getAttribute("member");
+
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
 		String category = (String)map.get("category");
@@ -349,32 +377,32 @@ public class MyPageController {
 		
 		if (category.equals("review")) {
 			
-			listMap.put("review", myPageService.getReviewList(pagingVO, total, 1));
+			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
 			
 			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
-			listMap.put("qna", myPageService.getQnaList(pagingVO, total, 1));
+			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
 			
 			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
-			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, 1));
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
 			
 			return listMap;
 		
 		} else {
 			
 			total = myPageService.getTotal(pagingVO, "review"); // 테이블 데이터 개수 구하기.
-			listMap.put("review", myPageService.getReviewList(pagingVO, total, 1));
+			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
 			
 			total = myPageService.getTotal(pagingVO, "qna"); // 테이블 데이터 개수 구하기.
-			listMap.put("qna", myPageService.getQnaList(pagingVO, total, 1));
+			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
 			
 			total = myPageService.getTotal(pagingVO, "onetoone"); // 테이블 데이터 개수 구하기.
-			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, 1));
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
 			
 			return listMap;
 		}
