@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbshop.bit.member.domain.MemberVO;
-import com.bbshop.bit.member.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.member.service.MemberService;
 import com.bbshop.bit.member.service.UserMailSendService;
 
