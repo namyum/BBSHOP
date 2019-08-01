@@ -360,7 +360,7 @@ body {
 				<span class="close">&times;</span>
 			</div>
 			<!-- body -->
-			<form id="reportForm" name="report" role="form" action="/community_info">
+			<form id="reportForm" name="report" role="form" action="/community_detail">
 				<div class="modal-body">
 					<table>
 						<tr class="report_content">
