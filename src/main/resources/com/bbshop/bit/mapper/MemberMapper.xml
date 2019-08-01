@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace ="com.bbshop.bit.member.mapper.MemberMapper">
+<mapper namespace ="com.bbshop.bit.mapper.MemberMapper">
 
-	<resultMap type="com.bbshop.bit.member.domain.MemberVO" id="MemberResultMap">
+	<resultMap type="com.bbshop.bit.domain.MemberVO" id="MemberResultMap">
 		<result property ="USER_KEY" column ="USER_KEY"/>
 		<result property ="MEMBER_ID" column ="MEMBER_ID"/>
 		<result property ="NICKNAME" column ="NICKNAME"/>
