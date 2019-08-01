@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="en">
 
@@ -503,6 +505,15 @@ body {
 								장바구니
 							</a>
 						</li>
+						<!-- 민구 추가 -->
+						<c:choose>
+							<c:when test="${member eq 'noAccount' }">
+								<li><a href="/login"> 로그인 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/logout"> 로그아웃 </a></li>							
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 
