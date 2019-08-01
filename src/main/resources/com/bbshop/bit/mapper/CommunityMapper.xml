@@ -2,90 +2,104 @@
 
 <!DOCTYPE mapper
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	 
+
 <mapper namespace="com.bbshop.bit.mapper.CommunityMapper">
 
-	<insert id="insertPost" parameterType="com.bbshop.bit.domain.CommunityVO">
-		<selectKey keyProperty="SEQ_BOARD" resultType="int" order="BEFORE">
+	<insert id="insertPost"
+		parameterType="com.bbshop.bit.domain.CommunityVO">
+		<selectKey keyProperty="SEQ_BOARD" resultType="int"
+			order="BEFORE">
 			select seq_board.nextval FROM DUAL
 		</selectKey>
 
-		INSERT INTO community(board_num, writer, user_key, team_name, title, board_content, uploadFile) 
-		VALUES 
-		(SEQ_BOARD.nextval, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE})
-		 
+		INSERT INTO community(board_num, writer, user_key, team_name, title,
+		board_content, uploadFile)
+		VALUES
+		(SEQ_BOARD.nextval, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT},
+		#{UPLOADFILE})
+
 	</insert>
-	
+
 	<select id="getNickname" parameterType="int" resultType="String">
-		SELECT nickname 
-		FROM sh_user 
+		SELECT
+		nickname
+		FROM sh_user
 		WHERE user_key = #{USER_KEY}
 	</select>
-	
-	<select id="getPost" parameterType="Long" resultType="com.bbshop.bit.domain.CommunityVO">
-		SELECT team_name, title, board_num, writer, regdate, hit, reply_count, board_content, uploadFile 
-		FROM community 
+
+	<select id="getPost" parameterType="Long"
+		resultType="com.bbshop.bit.domain.CommunityVO">
+		SELECT team_name, title, board_num, writer, regdate, hit,
+		reply_count, board_content, uploadFile
+		FROM community
 		WHERE board_num = #{BOARD_NUM}
 	</select>
-	
-	<select id="getListWithPaging"
+
+	<select id="getListWithPaging" parameterType="map"
 		resultType="com.bbshop.bit.domain.CommunityVO">
+
 	<![CDATA[
-	select
-	
-		board_num, title, board_content,writer,regdate,moddate, hit
-		
+
+	select board_num, title, board_content,writer,regdate,moddate, hit
 	from 
 		(
 			select rownum rn, board_num, title, board_content, writer, regdate, moddate, hit 
 			from community 
-			where ]]>
+			where team_name= #{teamName} and ]]>
+
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-			<foreach item="type" collection="typeArr">
+			<foreach item="type" collection="pagingvo.typeArr">
+
 				<trim prefix="OR">
 					<choose>
 						<when test="type=='T'.toString()">
-							title like '%'||#{KEYWORD}||'%'
+							title like '%'||#{pagingvo.KEYWORD}||'%'
 						</when>
 						<when test="type=='C'.toString()">
-							board_content like '%'||#{KEYWORD}||'%'
+							board_content like '%'||#{pagingvo.KEYWORD}||'%'
 						</when>
 						<when test="type=='N'.toString()">
-							writer like '%'||#{KEYWORD}||'%'
+							writer like '%'||#{pagingvo.KEYWORD}||'%'
 						</when>
 					</choose>
 				</trim>
 			</foreach>
 		</trim>
+
 			<![CDATA[
-			 rownum <= #{PAGENUM} * #{AMOUNT})
-	where rn > (#{PAGENUM} -1) * #{AMOUNT}
+			 rownum <= #{pagingvo.PAGENUM} * #{pagingvo.AMOUNT})
+	where rn > (#{pagingvo.PAGENUM} -1) * #{pagingvo.AMOUNT}
 	]]>
+
 	</select>
-	
+
 	<delete id="deletePost" parameterType="Long">
 		DELETE FROM community
 		WHERE board_num = #{BOARD_NUM}
 	</delete>
-	
+
 	<select id="getBoardNum" resultType="Long">
 		SELECT *
-		FROM (SELECT board_num
-			  FROM community
-			  ORDER BY moddate desc)
+		FROM (SELECT
+		board_num
+		FROM community
+		ORDER BY moddate desc)
 		WHERE ROWNUM = 1
 	</select>
-	
+
 	<select id="getCount" resultType="int">
 		SELECT count(*)
 		FROM cm_comment
 		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
 	</select>
-	
-	<update id="updatePost" parameterType="com.bbshop.bit.domain.CommunityVO">
-		UPDATE community 
-		SET team_name = #{TEAM_NAME}, title = #{TITLE}, board_content = #{BOARD_CONTENT}, moddate = sysdate
-		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
+
+	<update id="updatePost"
+		parameterType="com.bbshop.bit.domain.CommunityVO">
+		UPDATE community
+		SET team_name = #{TEAM_NAME}, title = #{TITLE}, board_content =
+		#{BOARD_CONTENT}, moddate = sysdate
+		WHERE board_num = #{BOARD_NUM,
+		jdbcType=NUMERIC}
 	</update>
-	
+
 </mapper>

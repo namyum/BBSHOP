@@ -1,15 +1,14 @@
 package com.bbshop.bit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.CommunityVO;
-import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.CommunityMapper;
-import com.bbshop.bit.mapper.ReplyMapper;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
@@ -44,11 +43,12 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public List<CommunityVO> getList(PagingVO pagingvo) {
+	public List<CommunityVO> getList(Map<String,Object> map) {
+		
 
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
-		return communityMapper.getListWithPaging(pagingvo);
+		return communityMapper.getListWithPaging(map);
 	}
 	
 	@Override

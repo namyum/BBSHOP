@@ -31,57 +31,57 @@ a {
 				<nav style="width: 1200px; transform: translateX(-25px);">
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"
 						style="margin-top: 120px;">
-						<a class="nav-item nav-link active" id="nav-home-tab"
+<a class="nav-item nav-link" id="nav-home-tab" name="kbo"
 							data-toggle="tab" href="#nav-home" role="tab"
 							aria-controls="nav-home" aria-selected="true"> <img
 							src="resources/community/img/kbo_main.png" width="70" height="70"
 							class="img-fluid rounded"></a> <a
-							class="nav-item nav-link link" id="nav-home-tab"
-							data-toggle="tab" href="#nav-home" role="tab"
+							class="nav-item nav-link link" id="nav-contact-tab" name="lg"
+							data-toggle="tab" href="#nav-contact" role="tab"
 							aria-controls="nav-home" aria-selected="false"> <img
 							src="resources/community/img/lgtwins_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+							class="nav-item nav-link" id="nav-contact-tab" name="lotte" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
 							aria-selected="false"> <img
 							src="resources/community/img/lottegiants_main.png" width="80"
 							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab"
+						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="hanwha"
 							data-toggle="tab" href="#nav-contact" role="tab"
 							aria-controls="nav-contact" aria-selected="false"> <img
 							src="resources/community/img/hanwhaeagles_main.png" width="80"
 							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+							class="nav-item nav-link" id="nav-contact-tab" name="kia" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
 							aria-selected="false"> <img
 							src="resources/community/img/kiatigers_main.png" width="80"
 							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab"
+						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="doosan"
 							data-toggle="tab" href="#nav-contact" role="tab"
 							aria-controls="nav-contact" aria-selected="false"> <img
 							src="resources/community/img/doosanbears_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+							class="nav-item nav-link" id="nav-contact-tab" name ="nc" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
 							aria-selected="false"> <img
 							src="resources/community/img/ncdinos_main.png" width="80"
 							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab"
+						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="samsung"
 							data-toggle="tab" href="#nav-contact" role="tab"
 							aria-controls="nav-contact" aria-selected="false"> <img
 							src="resources/community/img/samsunglions_main.png" width="75"
 							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+							class="nav-item nav-link" id="nav-contact-tab" name="kiwoom" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
 							aria-selected="false"> <img
 							src="resources/community/img/kiwoomheroes_main.png" width="80"
 							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab"
+						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="sk"
 							data-toggle="tab" href="#nav-contact" role="tab"
 							aria-controls="nav-contact" aria-selected="false"> <img
 							src="resources/community/img/skwyverns_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+							class="nav-item nav-link" id="nav-contact-tab" name="kt" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
 							aria-selected="false"> <img
 							src="resources/community/img/ktwiz_main.png" width="70"
@@ -176,7 +176,8 @@ a {
 										value='<c:out value="${pageMaker.pagingvo.PAGENUM}"/>' /> <input
 										type="hidden" name="AMOUNT"
 										value='<c:out value="${pageMaker.pagingvo.AMOUNT}"/>' />
-									<button class="btn btn-defaault">검색</button>
+										<input type='hidden' name="TEAM_NAME" value=${teamName}>
+									<button class="btn btn-default">검색</button>
 								</form>
 							</div>
 						</div>
@@ -196,17 +197,32 @@ a {
 		value='<c:out value="${pageMaker.pagingvo.TYPE }"/>'> <input
 		type='hidden' name='KEYWORD'
 		value='<c:out value="${pageMaker.pagingvo.KEYWORD }"/>'>
+		<input type='hidden' name="TEAM_NAME" value=${teamName}>
 </form>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var logoName = $('a.nav-item.nav-link');
+		var teamName = '${teamName}';
+		
+		// 메인에서 접속 시에 navtab 이동
+		var navtab = $("#nav-tab");	
+		navtab.find("a[name='" + teamName + "']").addClass("active show");
+		
 		var actionForm = $("#actionForm");
+
 		$(".page-item a").on("click", function(e) {
+			
 			e.preventDefault();
+			
 			console.log('click');
+			
 			actionForm.find("input[name='PAGENUM']").val($(this).attr("href"));
+			
 			actionForm.submit();
 		});
+		
 		//검색처리 이벤트
 		var searchForm = $("#searchForm");
 		$("#searchForm button").on("click", function(e) {

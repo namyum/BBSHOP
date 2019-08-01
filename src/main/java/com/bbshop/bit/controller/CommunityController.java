@@ -2,13 +2,14 @@ package com.bbshop.bit.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,12 +72,15 @@ public class CommunityController {
 	
 	// 페이징 포함한 리스트
 	
-	@RequestMapping("/community_list.do")
-	public String list(PagingVO pagingvo, Model model) {
+	@RequestMapping(value ="/community_list.do",  method=RequestMethod.GET)
+	public String list(PagingVO pagingvo, Model model, @RequestParam("TEAM_NAME") String teamName) {
 		
-		System.out.println(pagingvo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pagingvo", pagingvo);
+		map.put("teamName", teamName);
 		
-		model.addAttribute("list", communityService.getList(pagingvo));
+		model.addAttribute("teamName", teamName);
+		model.addAttribute("list", communityService.getList(map));
 		model.addAttribute("pageMaker", new PageDTO(pagingvo, 123));
 		
 		return "shoppingMall/community/community_list";
