@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.cart.domain.Cart_PDVO;
+import com.bbshop.bit.cart.domain.GoodsVO;
 import com.bbshop.bit.cart.mapper.CartMapper;
 
-@Service("cartservice")
+@Service("cartService")
 public class CartServiceImpl implements CartService {
 
 	@Autowired
@@ -27,6 +28,21 @@ public class CartServiceImpl implements CartService {
 		
 		// TODO Auto-generated method stub
 		return cartList;
+	}
+	@Override
+	public List<GoodsVO> getGoodsList(long goodsnum){
+		System.out.println("GoodsNum이 들어오는가?"+goodsnum);
+		
+		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+		sqlSession.getMapper(CartMapper.class);
+		
+		List<GoodsVO> goodsList = mapper.getGoodsList(goodsnum);
+		System.out.println(goodsList);
+		
+		return goodsList;
+		
+		
+		
 	}
 
 }

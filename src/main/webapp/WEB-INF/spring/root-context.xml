@@ -29,6 +29,5 @@
 	</bean>
 	
 	
-	
 	<mybatis-spring:scan base-package="com.bbshop.bit.cart.mapper"/>
 </beans>

@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace ="com.bbshop.bit.cart.mapper.CartMapper">
+
  <resultMap type="com.bbshop.bit.cart.domain.Cart_PDVO" id="CartResultMap">
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="PRICE" column ="PRICE"/>
@@ -13,13 +14,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="USER_KEY" column ="USER_KEY"/>
 </resultMap>
 
+<resultMap type="com.bbshop.bit.cart.domain.GoodsVO" id="GoodsResultMap">
+	<result property = "GOODS_NUM" column ="GOODS_NUM"/>
+	<result property = "CATEGORY" column ="CATEGORY"/>
+	<result property = "NAME" column ="NAME"/>
+	<result property = "STOCK" column ="STOCK"/>
+	<result property = "DETAIL" column ="DETAIL"/>
+	<result property = "MAIN_IMG" column ="MAIN_IMG"/>
+	
 
-<select id = "getCartList" parameterType="long" resultType="CartResultMap">
-	select * from cart_pd where user_key =${user_key}
+
+</resultMap>
+
+
+<select id = "getCartList" resultMap="CartResultMap">
+	select * from cart_pd where user_key =#{user_key}
 </select>
 
 
+<select id ="getGoodsList" resultMap ="GoodsResultMap">
+	select * from pd_info where goods_num =#{goodsnum}
 
+</select>
 
 
 

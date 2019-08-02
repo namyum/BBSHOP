@@ -1,5 +1,6 @@
 package com.bbshop.bit.cart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bbshop.bit.cart.domain.Cart_PDVO;
+import com.bbshop.bit.cart.domain.GoodsVO;
 import com.bbshop.bit.cart.service.CartService;
 
 
@@ -22,8 +24,8 @@ import com.bbshop.bit.cart.service.CartService;
 public class CartController {
 	
 	
-	@Autowired
-	CartService cartservice;
+	@Autowired(required=true)
+	CartService cartService;
 	
 	@RequestMapping("cart.do")
 	public String cart(HttpSession session, Model model) {
@@ -31,8 +33,16 @@ public class CartController {
 		long user_key = 1;
 		Cart_PDVO vo = new Cart_PDVO();
 		vo.setUSER_KEY(user_key);
-		List<Cart_PDVO> cartList = cartservice.getCartList(user_key);
 		
+		List<Cart_PDVO> cartList = cartService.getCartList(user_key);
+		List<GoodsVO> goodsList=new ArrayList<GoodsVO>();
+		for(int i = 0; i<cartList.size();i++) {
+		long goodsnum = cartList.get(i).getGOODS_NUM();
+		goodsList = cartService.getGoodsList(goodsnum);
+		}
+		model.addAttribute("goodsList",goodsList);
+		model.addAttribute("cartList",cartList);
+		System.out.println(goodsList);
 		return "shoppingMall/cart/cart";
 	}
 }
