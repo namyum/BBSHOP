@@ -52,6 +52,11 @@ public class MyPageController {
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
+		if (savings_list.size() == 0) {
+			
+			return "shoppingMall/mypage/mypage";
+		}
+		
 		List<Long> all_savings = myPageService.getAllSavings(user_key);
 		
 		List<OrderVO> orders_list = myPageService.getAllOrdersList(user_key);

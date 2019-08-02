@@ -257,11 +257,13 @@
 			});
 		}
 		
+		var pageNum = actionForm.find("input[name='pageNum']").val();
+		var amount = actionForm.find("input[name='amount']").val();
 		var data = {};
 		  
 		data["stts"] = checkValues;
-		data["pageNum"] = actionForm.find("input[name='pageNum']").val();
-		data["amount"] = actionForm.find("input[name='amount']").val();
+		data["pageNum"] = pageNum;
+		data["amount"] = amount;
 		
 		console.log(data);
 		
@@ -275,8 +277,8 @@
 			success : function(result, status, xhr) {
 			
 				var str = '';
-				var start = ${pageMaker.startPage};
-				var end = ${pageMaker.endPage};
+				var end = (Math.ceil(pageNum / 5.0)) * 5;
+				var start = end - 4;
 				var paging = '';
 				
 				console.log('start : ' + start);

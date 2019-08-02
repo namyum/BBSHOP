@@ -561,7 +561,10 @@ body {
 					<ul class="right_side">
 						<!-- 민구 추가 -->
 						<c:choose>
-							<c:when test="${nickname eq 'noAccount' }">
+							<c:when test="${member == 00 }">
+								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
+							</c:when>
+							<c:when test="${member == 000 }">
 								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
 							</c:when>
 							<c:otherwise>
@@ -722,5 +725,6 @@ body {
 		function noAccToLogin() {
 
 			alert('마이 페이지는 로그인을 하셔야 볼 수 있습니다.');
+			location.href='/index.do';
 		}
 	</script>

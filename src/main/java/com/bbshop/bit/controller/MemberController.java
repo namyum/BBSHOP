@@ -94,6 +94,8 @@ public class MemberController {
 		else {
 			result="redirect:/community_main.do";
 		}
+		
+		session.setAttribute("member", (long)00);
 		session.setAttribute("nickname", "noAccount" + noAccountCount);
 		
 		return result;
