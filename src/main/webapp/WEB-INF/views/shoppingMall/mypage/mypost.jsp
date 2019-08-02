@@ -146,8 +146,6 @@ function getTableWithAjax(category) {
 			}
 			
 			$.each(values, function(index, value){
-				
-				console.log('index : ' + index + 'value : ' + value);
 								
 				if (category == '상품 후기') {
 					
@@ -168,7 +166,11 @@ function getTableWithAjax(category) {
 				
 				} else {
 					
+					console.log('values : ' + values);
+					
 					var list = values[index];
+					
+					console.log(list);
 					
 					if (index == 'review') {
 						

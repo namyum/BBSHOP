@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.AddrVO;
+import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
@@ -389,7 +391,7 @@ public class MyPageController {
 	// ajax로 내가 남긴 글 가져 오기
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
-	public Map<String, List<?>> getTableWithAjax(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
 
@@ -406,7 +408,7 @@ public class MyPageController {
 			total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
 		}
 		
-		Map<String, List<?>> listMap = new HashMap<>();
+		Map<String, Object> listMap = new HashMap<>();
 		
 		if (category.equals("review")) {
 			
@@ -428,14 +430,35 @@ public class MyPageController {
 		
 		} else {
 			
-			total = myPageService.getTotal(pagingVO, "review"); // 테이블 데이터 개수 구하기.
-			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
+			long sum = 0;
 			
-			total = myPageService.getTotal(pagingVO, "qna"); // 테이블 데이터 개수 구하기.
-			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
+			total = myPageService.getTotal(pagingVO, "review");
+			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+			sum += total;
+
+			total = myPageService.getTotal(pagingVO, "qna");
+			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
+			sum += total;
 			
-			total = myPageService.getTotal(pagingVO, "onetoone"); // 테이블 데이터 개수 구하기.
-			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
+			total = myPageService.getTotal(pagingVO, "onetoone");
+			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
+			sum += total;
+			
+			for (int i = 0; i < qna_list.size(); i++) {
+				qna_list.get(i).setQna_num(sum--);
+			}
+			
+			for (int i = 0; i < onetoone_list.size(); i++) {
+				onetoone_list.get(i).setOne_one_num(sum--);
+			}
+			
+			for (int i = 0; i < review_list.size(); i++) {
+				review_list.get(i).setRv_num(sum--);
+			}
+			
+			listMap.put("qna", qna_list);		
+			listMap.put("onetoone", onetoone_list);
+			listMap.put("review", review_list);
 			
 			return listMap;
 		}

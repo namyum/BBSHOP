@@ -78,6 +78,7 @@
 
 	<!--============추천상품 공간 : 전달받은 추천상품리스트를 출력=============-->
 	<!--================Feature Product Area =================-->
+	<div class="container">
 	<section class="feature_product_area section_gap">
 		<div class="main_box">
 			<div class="container-fluid">

@@ -76,7 +76,8 @@ a {
 				<h4>
 					<span>멤버십 혜택 안내</span>
 				</h4>
-				<span><a href="#" style="color: #777777;">자세히 보기</a></span>
+				<span><a href="#" style="color: #777777;" data-toggle="tooltip" data-placement="bottom"
+							title="멤버십 등급 및 혜택 출력 될 것임">자세히 보기</a></span>
 			</div>
 		</div>
 		<div class="col-sm-3 col-md-3 text-center"
@@ -84,13 +85,17 @@ a {
 			<div style="padding: 50px 40px 50px 40px;">
 				<div class="blog_info text-center">
 					<ul class="blog_meta list" style="clear: both">
-						<li><a href="#" data-toggle="tooltip" data-placement="right" title="2019/07/12"><span>가입일</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right"
+							title="2019/07/12"><span>가입일</span> <i
 								class="lnr lnr-calendar-full"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right" title="￦ 50,000"><span>누적 구매액</span> <i
-								class="lnr lnr-eye"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right" title="￦ 25,000"><span>다음 등급까지 남은 구매액</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right"
+							title="￦ 50,000"><span>누적 구매액</span> <i class="lnr lnr-eye"></i>
+						</a></li>
+						<li><a href="#" data-toggle="tooltip" data-placement="right"
+							title="￦ 25,000"><span>다음 등급까지 남은 구매액</span> <i
 								class="lnr lnr-bubble"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right" title="회원님은 경고 횟수 0회 입니다."><span>누적 경고</span> <i
+						<li><a href="#" data-toggle="tooltip" data-placement="right"
+							title="회원님은 경고 횟수 0회 입니다."><span>누적 경고</span> <i
 								class="lnr lnr-user"></i> </a></li>
 					</ul>
 				</div>
@@ -107,30 +112,73 @@ a {
 
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">${stts_list[0] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>결제
-									완료</span></a>
+							 <c:choose>
+									<c:when test="${empty stts_list[0] }">
+										<span class="order_now">0</span>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<span class="order_now">${stts_list[0] }</span>
+										<br>
+									</c:otherwise>
+								</c:choose> <a href="#" class="genric-btn default circle"
+								style="clear: both;"> <span>결제완료</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">${stts_list[1] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>배송
-									준비중</span></a>
+							 <c:choose>
+									<c:when test="${empty stts_list[1] }">
+										<span class="order_now">0</span>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<span class="order_now">${stts_list[1] }</span>
+										<br>
+									</c:otherwise>
+								</c:choose> <a href="#" class="genric-btn default circle"
+								style="clear: both;"> <span>배송 준비중</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">${stts_list[2] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>배송중</span></a>
+							 <c:choose>
+									<c:when test="${empty stts_list[2] }">
+										<span class="order_now">0</span>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<span class="order_now">${stts_list[2] }</span>
+										<br>
+									</c:otherwise>
+								</c:choose> <a href="#" class="genric-btn default circle"
+								style="clear: both;"> <span>배송중</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">${stts_list[3] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>배송 완료</span></a>
+							 <c:choose>
+									<c:when test="${empty stts_list[3] }">
+										<span class="order_now">0</span>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<span class="order_now">${stts_list[3] }</span>
+										<br>
+									</c:otherwise>
+								</c:choose> <a href="#" class="genric-btn default circle"
+								style="clear: both;"> <span>배송 완료</span></a>
 						</div>
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
-							<span class="order_now">${stts_list[4] }</span><br> <a href="#"
-								class="genric-btn default circle" style="clear: both;"><span>주문 취소</span></a>
+							 <c:choose>
+									<c:when test="${empty stts_list[4] }">
+										<span class="order_now">0</span>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<span class="order_now">${stts_list[4] }</span>
+										<br>
+									</c:otherwise>
+								</c:choose> <a href="#" class="genric-btn default circle"
+								style="clear: both;"> <span>주문 취소</span></a>
 						</div>
 					</div>
 				</div>
@@ -154,11 +202,12 @@ a {
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
-					<c:forEach var="savingsVO" items="${savings_list }" varStatus="status">
+					<c:forEach var="savingsVO" items="${savings_list }"
+						varStatus="status">
 						<tr>
 							<td>
 								<h5>
-									<c:out value="${savingsVO.or_date }" default="null"/>
+									<c:out value="${savingsVO.or_date }" default="null" />
 								</h5>
 							</td>
 							<td>
@@ -168,12 +217,14 @@ a {
 							</td>
 							<td>
 								<h5>
-									￦ <c:out value="${savingsVO.or_savings }" default="null" />
+									￦
+									<c:out value="${savingsVO.or_savings }" default="null" />
 								</h5>
 							</td>
 							<td>
 								<h5>
-									￦ <c:out value="${savingsVO.or_savings_total }" default="null" />
+									￦
+									<c:out value="${savingsVO.or_savings_total }" default="null" />
 								</h5>
 							</td>
 						</tr>
@@ -183,82 +234,91 @@ a {
 			<div class="text-center">
 				<ul class="pagination">
 					<!-- 페이지 목록 버튼 -->
-					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
-							<a href="${num}" class="page-link">${num}</a>
+					<c:forEach var="num" begin="${pageMaker.startPage}"
+						end="${pageMaker.endPage}">
+						<li
+							class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}"
+							id="btn_${num }"><a href="${num}" class="page-link">${num}</a>
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 			<form id="actionForm" action="/savings.do">
-				<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
-				<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+				<input type="hidden" name="pageNum"
+					value="${pageMaker.pagingVO.pageNum }"> <input
+					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 			</form>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-
 	var actionForm = $("#actionForm");
-	
+
 	$(document).on("click", ".page-item a", function(e) {
 
-		e.preventDefault();
-		
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		
-		var data = {
-				pageNum: $(this).attr("href"), 
-				amount: 5
-				
-		};
-		
-		$.ajax({
-			type: "POST",
-			url: "/savingListPaging.do",
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType: "application/json",
-			success : function(result) {
-								
-				var str = '';
-				
-				var start = ${pageMaker.startPage};
-				var end = ${pageMaker.endPage};
-				var paging = '';
-				
-				$.each(result, function(index, value){
-					
-					var parse = parseInt(index);
+				e.preventDefault();
 
-					str += '<tr><td><h5>' + result[index].or_date + '</h5></td><td><h5>' + result[index].or_items + '</h5></td><td><h5>'
-						+ '￦ ' + result[index].or_savings + '</h5></td><td><h5>' +  '￦ ' + result[index].or_savings_total + '</h5></td></tr>';					
-				});
-				
-				$('tbody').empty();
-				$('tbody').append(str);
-				
-				// 페이징 버튼 AJAX 처리
-				$('.pagination').empty();
-				
-				for (var i = start; i <= end; i++) {
-					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
-				}
-				
-				$('.pagination').append(paging);
-				
-				$('.page-item').removeClass("active");
-				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-				
-			},
-			error : function() {
-				alert('AJAX 요청 실패!');
-			}
-		});
-	});
-	
+				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+						var data = {
+							pageNum : $(this).attr("href"),
+							amount : 5
+						};
+
+						$.ajax({
+									type : "POST",
+									url : "/savingListPaging.do",
+									data : JSON.stringify(data),
+									dataType : "json",
+									contentType : "application/json",
+									success : function(result) {
+
+										var str = '';
+
+										var start = ${pageMaker.startPage};
+										var end = ${pageMaker.endPage};
+										var paging = '';
+
+										$.each(result, function(index, value) {
+
+															var parse = parseInt(index);
+
+															str += '<tr><td><h5>'
+																	+ result[index].or_date
+																	+ '</h5></td><td><h5>'
+																	+ result[index].or_items
+																	+ '</h5></td><td><h5>'
+																	+ '￦ '
+																	+ result[index].or_savings
+																	+ '</h5></td><td><h5>'
+																	+ '￦ '
+																	+ result[index].or_savings_total
+																	+ '</h5></td></tr>';
+														});
+
+										$('tbody').empty();
+										$('tbody').append(str);
+
+										// 페이징 버튼 AJAX 처리
+										$('.pagination').empty();
+										
+										for (var i = start; i <= end; i++) {
+											paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+										}
+										
+										$('.pagination').append(paging);
+										
+										$('.page-item').removeClass("active");
+										$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+
+									},
+									error : function() {
+										alert('AJAX 요청 실패!');
+									}
+								});
+					});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

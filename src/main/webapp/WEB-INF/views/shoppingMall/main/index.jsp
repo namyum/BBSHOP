@@ -244,12 +244,12 @@
 
         /*버튼 메뉴(shop,gocommunity)의 색상. */
         .BBSHOP {
-            background-color: hsla(203, 96%, 51%, 0.3);
+            background-color: hsla(203, 96%, 51%, 0.6);
         }
 
         /*모달창 투명도*/
         #loginModal {
-            opacity: 0.9;
+            opacity: 1;
         }
 
         #sign_up {
@@ -309,7 +309,7 @@
                                     </td>
 
                                     <td width="1500"></td>
-                                    <td style="text-align: center" class="BBSHOP" width="1000" height="120">
+                                    <td style="text-align: center" class="BBSHOP" width="500" height="120">
                                         <button id="goCommunity"
                                             style="background-color: rgba(255, 255, 255, 0); border: none">
                                             <p align="center">
@@ -486,12 +486,12 @@
               
                 </table>
                 <br>
-                <input type="submit" class="btn btn-info btn-block" id="sign_btn" name="sign" value="회원가입" disabled="true" >
-                
-                </form>
+                <button id="moredetails_btn" class="btn btn-info btn-block" disabled="true">추가사항 입력</button>
                 
                 <br>
-                <button id="moredetails_btn" class="btn btn-info btn-block" disabled="true">추가사항 입력</button>
+                <input type="submit" class="btn btn-info btn-block" id="sign_btn" name="sign" value="회원가입" disabled="true" >
+                </form>
+                
 
 
             </div>
