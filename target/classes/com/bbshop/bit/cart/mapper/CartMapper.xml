@@ -19,11 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property = "CATEGORY" column ="CATEGORY"/>
 	<result property = "NAME" column ="NAME"/>
 	<result property = "STOCK" column ="STOCK"/>
-	<result property = "DETAIL" column ="DETAIL"/>
+	<result property = "DISCOUNT" column="DISCOUNT"/>
+	<result property = "SALES" column="SALES"/>
 	<result property = "MAIN_IMG" column ="MAIN_IMG"/>
-	
-
-
+	<result property = "BRAND" column ="BRAND"/>
 </resultMap>
 
 
@@ -33,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 
 <select id ="getGoodsList" resultMap ="GoodsResultMap">
-	select * from pd_info where goods_num =#{goodsnum}
+	select goods_num,category,name,stock,main_img,brand,sales,discount from pd_info where goods_num =#{goodsnum}
 
 </select>
 

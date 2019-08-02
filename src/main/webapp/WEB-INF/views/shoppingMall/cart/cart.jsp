@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
     
 <%@ include file="../include/shopping_header.jsp" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.bbshop.bit.cart.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%
+List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
+List<Cart_PDVO> cartList= (List<Cart_PDVO>)request.getAttribute("cartList");
+%>
+
 
 <style>
 @font-face{font-family:'NanumBarunpen';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
@@ -83,6 +92,7 @@ body{font-family:NanumBarunpen, sans-serif}
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach var="cart" items="${cartList}" varStatus="status" >
 							<tr>
 								<td>
 								<input type='checkbox' class='check' id='pd_check'>
@@ -90,15 +100,15 @@ body{font-family:NanumBarunpen, sans-serif}
 								<td>
 									<div class="media">
 										<div class="d-flex">
-											<img src="resources/shoppingMall/img/0.jpeg" width=100% height=100% alt="">
+											<img src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>" width=100% height=100% alt="">
 										</div>
 										<div class="media-body">
-											<p>야구용품 1입니다.야구용품 1입니다.야구용품 1입니다.야구용품 1입니다.야구용품 1입니다.야구용품 1입니다.</p>
+											<p><c:out value="${goodsList[status.index].NAME}"/></p>
 										</div>
 									</div>
 								</td>
 								<td>
-									<h5>$360.00</h5>
+									<h5><c:out value="${cart.PRICE}"/></h5>
 								</td>
 								<td>
 									<div class="product_count">
@@ -117,7 +127,8 @@ body{font-family:NanumBarunpen, sans-serif}
 									<h5>$720.00</h5>
 								</td>
 							</tr>
-														<tr class="bottom_button">
+							</c:forEach>
+							<tr class="bottom_button">
 								<td>
 									
 								</td>

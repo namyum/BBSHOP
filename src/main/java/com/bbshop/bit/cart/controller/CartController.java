@@ -38,11 +38,15 @@ public class CartController {
 		List<GoodsVO> goodsList=new ArrayList<GoodsVO>();
 		for(int i = 0; i<cartList.size();i++) {
 		long goodsnum = cartList.get(i).getGOODS_NUM();
+		int price =cartList.get(i).getPRICE();
+		System.out.println("price:"+price);
+		
 		goodsList = cartService.getGoodsList(goodsnum);
+		
 		}
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("cartList",cartList);
-		System.out.println(goodsList);
+		
 		return "shoppingMall/cart/cart";
 	}
 }

@@ -9,15 +9,8 @@ public class GoodsVO {
 	private int CATEGORY;
 	private String NAME;
 	private int STOCK;
-	private String DETAIL;
 	private String BRAND;
 	private String MAIN_IMG;
-	private String DTL_IMG1;
-	private String DTL_IMG2;
-	private int BEST;
 	private int DISCOUNT;
-	private int SOLDOUT;
 	private int SALES;
-	private DATE REGDATE;
-	
 	}
