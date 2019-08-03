@@ -335,7 +335,7 @@ body {
 					<input type="text" class="form-control" id="search_name"
 						placeholder="검색할 상품명을 적어주세요." /><br />
 				</div>
-				<br /> <input type="submit" class="btn btn-info btn-block"
+				<br /> <input type="button" class="btn btn-info btn-block"
 					id="search_submit_btn" value="검색" />
 			</form>
 		</div>

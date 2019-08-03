@@ -150,6 +150,24 @@
 		}
 	}
 	
+	$('#search_submit_btn').click(function() {
+		
+		$.ajax({
+			
+			type: "POST",
+			url: "/getGoodsList_Ajax.do",
+			data: {
+				"search": $('#search_name').val()
+			},
+			success: function() {
+				
+			},
+			error: function() {
+				
+			}
+		});
+	});
+	
 </script>
 <!--================ 모달 & 장바구니 js====================== -->
 

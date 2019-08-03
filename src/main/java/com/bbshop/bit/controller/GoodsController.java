@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,7 +75,6 @@ public class GoodsController {
 	}
 	
 	
-	
 	@RequestMapping(value="/goods_info.do", method=RequestMethod.GET)
 	public String getGoodsInfo(@RequestParam long goods_num, @RequestParam int category, Model model) {
 		log.info("Controller..getGoodsList..goods_num:" + goods_num + ".....");
@@ -84,6 +85,14 @@ public class GoodsController {
 		
 		
 		return "shoppingMall/goods/goods_info";
+	}
+	
+	@RequestMapping("/goods_list_ajax.do")
+	public List<GoodsVO> getGoodsList() {
+		
+		List<GoodsVO> goodsList = new ArrayList<GoodsVO>();
+		
+		return goodsList;
 	}
 
 
