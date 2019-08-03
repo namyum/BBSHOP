@@ -481,19 +481,13 @@
                                 </td>
 
                             </tr>
-
-                            
-              
                 </table>
                 <br>
-                <button id="moredetails_btn" class="btn btn-info btn-block" disabled="true">추가사항 입력</button>
-                
+                <input type="button" id="moredetails_btn" class="btn btn-info btn-block" disabled="true">추가사항 입력</button>
+               
                 <br>
                 <input type="submit" class="btn btn-info btn-block" id="sign_btn" name="sign" value="회원가입" disabled="true" >
                 </form>
-                
-
-
             </div>
         </div>
 
@@ -843,15 +837,21 @@
 	});	
     
     $().ready(function(){
-    		$sign_btn=document.getElementById('sign_btn');
-    		$moredetails_btn =document.getElementById('moredetails_btn');	
+    	
+    		$sign_btn = document.getElementById('sign_btn');
+    		$moredetails_btn = document.getElementById('moredetails_btn');	
     		
     	if($('#sign_id').val()!=null &&$('#sign_pwd').val()!=null &&$('#sign_nickname').val()!=null && $('#sign_phone').val()!=null){
-    		 $('#sign_birth').blur(function(){
+    		 
+    		$('#sign_birth').blur(function(){
     			 
-    		$sign_btn = $('#sign_btn').attr('disabled',false);
-    		$moredetails_btn = $('#moredetails_btn').attr('disabled',false);
-    		 })
+    		
+    			$sign_btn = $('#sign_btn').attr('disabled',false);
+    		
+    			$moredetails_btn = $('#moredetails_btn').attr('disabled',false);
+    		 
+    		})
+    	
     	}		
     	
     })
@@ -952,6 +952,7 @@
         })
         //추가사항 눌렀을때
         $('#moredetails_btn').click(function () {
+        	
             modal_sign_up.style.display = "none";
             moredetails.style.display = "block";
             
@@ -986,12 +987,8 @@
             var MEMBER_NAME= $("#md_name").val();
             var MEMBER_PHONE= $("#md_phone").val();
             var MEMBER_BIRTH= $("#md_birth").val();
-            
-            console.log(${'team'});
-            console.log(${team});
-            console.log(team);
               	
-         	var formData={TEAM:${'team'},POSITION:${'position'},HAND:${'hand'},BRAND1:${'brand1'},BRAND2:${'brand2'},BRAND3:${'brand3'},MEMBER_ID:${'MEMBER_ID'},MEMBER_PW:${'MEMBER_PW'},NICKNAME:${'MEMBER_NICKNAME'},NAME:${'MEMBER_NAME'},PHONE:${'MEMBER_PHONE'},BIRTH:${'MEMBER_BIRTH'}};
+         	var formData={TEAM:team, POSITION:position, HAND:hand, BRAND1:brand1, BRAND2:brand2, BRAND3:brand3, MEMBER_ID:MEMBER_ID, MEMBER_PW:MEMBER_PW, NICKNAME:MEMBER_NICKNAME, NAME:MEMBER_NAME, PHONE:MEMBER_PHONE, BIRTH:MEMBER_BIRTH};
        	
             jQuery.ajax({
     			url : 'moredetails.do',
@@ -1052,8 +1049,6 @@
             	findinfo.style.display="none";
             }
         }
-        
-
 
     </script>
 </body>

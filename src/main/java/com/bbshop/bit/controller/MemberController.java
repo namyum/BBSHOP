@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,17 +164,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="moredetails.do", method=RequestMethod.POST)
-	public String moredetails(MemberVO vo, MoreDetailsVO md, HttpServletRequest request) {
+	public String moredetails(@RequestBody MemberVO vo, @RequestBody MoreDetailsVO md, HttpServletRequest request) {
 		
 		vo.setGRADE("silver");
 		System.out.println(vo.toString());
 		System.out.println(md.toString());
 		
 		try {
-		
 			memberService.register(vo);
 			long user_key=memberService.getUser_key(vo);
 			System.out.println(user_key);
+			
 			md.setUSER_KEY(user_key);
 			memberService.moreDetailsRegister(md);
 			System.out.println("추가정보 등록 성공!");
