@@ -24,10 +24,16 @@
 		select /*+INDEX_DESC(goods idx_goods_price) */
 		</when>
 	</choose>
-			rownum rn, goods_num, name, main_img, price, best, regdate
-		from goods
+	rownum rn, goods_num, name, main_img, price, best, regdate
+	from goods
+	where
+	<choose>
+		<when test="type == 'N'.toString()">
+			name like '%'||#{serach}||'%'
+		</when>
+	</choose>
 <![CDATA[
-		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 			and category = #{category, jdbcType=INTEGER}
 			and price > #{min_amount, jdbcType=INTEGER}
 			and price < #{max_amount, jdbcType=INTEGER}
