@@ -5,11 +5,20 @@
 	 
 <mapper namespace="com.bbshop.bit.mapper.ReportMapper">
 
-<insert id="insertReport" parameterType="com.bbshop.bit.domain.ReportVO">
+<insert id="insertReplyReport" parameterType="com.bbshop.bit.domain.ReportReplyVO">
 	<selectKey keyProperty="SEQ_REPORT" resultType="int" order="BEFORE">
 			SELECT seq_report.nextval FROM DUAL
 	</selectKey>
-	INSERT INTO Report_info(report_num, re_category, board_num, writer, url) 
-	VALUES(seq_report.nextval, #{RE_CATEGORY}, #{BOARD_NUM}, #{WRITER}, #{URL})
+	INSERT INTO report_reply(report_num, re_category, board_num, writer, uri, reply_num) 
+	VALUES(seq_report.nextval, #{RE_CATEGORY}, #{BOARD_NUM}, #{WRITER}, #{URI}, #{REPLY_NUM})
 </insert>
+
+<insert id="insertBoardReport" parameterType="com.bbshop.bit.domain.ReportBoardVO">
+	<selectKey keyProperty="SEQ_REPORTBOARD" resultType="int" order="BEFORE">
+			SELECT seq_reportBoard.nextval FROM DUAL
+	</selectKey>
+	INSERT INTO report_board(report_num, re_category, board_num, writer, uri) 
+	VALUES(seq_reportBoard.nextval, #{RE_CATEGORY}, #{BOARD_NUM}, #{WRITER}, #{URI})
+</insert>
+
 </mapper>
