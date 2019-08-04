@@ -29,11 +29,11 @@
 		where
 		<choose>
 			<when test='pagingVO.type == "N"'>
-				name like '%'||#{pagingVO.keyword}||'%' and
+				name like '%'||#{pagingVO.keyword}||'%'
 			</when>
 		</choose>
 <![CDATA[
-			rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 			and category = #{category, jdbcType=INTEGER}
 			and price > #{min_amount, jdbcType=INTEGER}
 			and price < #{max_amount, jdbcType=INTEGER}
@@ -46,13 +46,11 @@
 <![CDATA[	and best >= 0	]]>
 			</when>
 		</choose>	
-	)
+		)
 <![CDATA[
 	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
 ]]>	
 </select>
-
-
 
 <!-- 카테고리 별, goods 데이터 개수 */ -->
 <select id="getTotalCount" parameterType="hashmap" resultType="int">
