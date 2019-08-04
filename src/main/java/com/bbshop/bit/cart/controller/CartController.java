@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.cart.domain.Cart_PDVO;
 import com.bbshop.bit.cart.domain.GoodsVO;
@@ -23,6 +26,8 @@ import com.bbshop.bit.cart.service.CartService;
 @RequestMapping("*.do")
 public class CartController {
 	
+	List<Cart_PDVO> cartList ;
+	List<GoodsVO> goodsList;
 	
 	@Autowired(required=true)
 	CartService cartService;
@@ -34,25 +39,38 @@ public class CartController {
 		Cart_PDVO vo = new Cart_PDVO();
 		vo.setUSER_KEY(user_key);
 		
-		List<Cart_PDVO> cartList = cartService.getCartList(user_key);
-		List<GoodsVO> goodsList = new ArrayList<GoodsVO>();
+		cartList = cartService.getCartList(user_key);
+		goodsList = new ArrayList<GoodsVO>();
 		
 		for (int i = 0; i < cartList.size(); i++) {
 			long goodsnum = cartList.get(i).getGOODS_NUM();
+			Cart_PDVO temp = cartList.get(i);
+			temp.setTOTALPRICE(temp.getPRICE());
+			cartList.set(i, temp);
 			int price = cartList.get(i).getPRICE();
-			System.out.println("price:" + price);
-
 			goodsList.add(cartService.getGoods(goodsnum));
 
 		}
 
 		for(int i = 0 ; i<goodsList.size();i++) {
 			System.out.println("굿즈리스트 다들어오는가?"+goodsList.get(i));
-			System.out.println("굿즈리스트 사이즈="+goodsList.size());
+			System.out.println("카트리스트 토탈이 수정되었낭?"+cartList.get(i));
 		}
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("cartList",cartList);
 		
 		return "shoppingMall/cart/cart";
+	}
+	@ResponseBody
+	@RequestMapping(value="QnttyUp.do" , method=RequestMethod.GET)
+	public int qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index) {
+		Cart_PDVO temp =cartList.get(index);
+		System.out.println(index);
+		System.out.println(qnt);
+		temp.setQNTTY(qnt);
+		temp.setTOTALPRICE(temp.getPRICE()*qnt);
+		System.out.println(temp.getTOTALPRICE());
+		cartList.set(index, temp);
+		return temp.getTOTALPRICE();
 	}
 }

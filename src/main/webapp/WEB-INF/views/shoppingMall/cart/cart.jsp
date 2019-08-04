@@ -9,7 +9,7 @@
 List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
 List<Cart_PDVO> cartList= (List<Cart_PDVO>)request.getAttribute("cartList");
 %>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
 @font-face{font-family:'NanumBarunpen';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
@@ -123,21 +123,41 @@ body{font-family:NanumBarunpen, sans-serif}
 								<td>
 									<div class="product_count">
 										<input type="text" name="qty" id="sst${status.index}" value="${cart.QNTTY }" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst${status.index}'); var sst = result.value; if( !isNaN( sst )) result.value++; return false;"
+										<button id="QNTTYUP${status.index}" onclick="var result = document.getElementById('sst${status.index}'); var sst = result.value; if( !isNaN( sst )) result.value++;  return false;"
 										 class="increase items-count" type="button">
 											<i class="lnr lnr-chevron-up"></i>
 										</button>
-										<button onclick="var result = document.getElementById('sst${status.index}'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
+										<button id="QNTTYDOWN${status.index}" onclick="var result = document.getElementById('sst${status.index}'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
 										 class="reduced items-count" type="button">
 											<i class="lnr lnr-chevron-down"></i>
 										</button>
 									</div>
 								</td>
 								<td>
-									<h5 id="totalPrice${status.index}"></h5>
+									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}"/></h5>
 								</td>
 							</tr>
-							</c:forEach>
+ 							<script>
+
+							$('#QNTTYUP${status.index}').click(function(){
+								var sst = $('#sst${status.index}').val();
+								
+								$.ajax({
+ 				        			url:"QnttyUp.do?index=${status.index}&QNTTY="+sst,
+ 				        			type:"GET",
+ 				        			dataType:"json",
+ 				        			success : function(data) {
+ 				        		
+ 				        				$("#totalPrice${status.index}").html(data);
+ 				        		
+ 									}, error : function() {
+ 											console.log("실패");
+ 									}
+ 								});
+ 							});
+ 						    
+ 							</script>
+ 							</c:forEach>
 							<tr class="shipping_area">
 								<td>
 

@@ -11,5 +11,6 @@ public class Cart_PDVO {
 	public int SAVINGS;
 	public int STOCK_STTS;
 	public long USER_KEY;
+	public int TOTALPRICE;
 
 }
