@@ -35,14 +35,20 @@ public class CartController {
 		vo.setUSER_KEY(user_key);
 		
 		List<Cart_PDVO> cartList = cartService.getCartList(user_key);
-		List<GoodsVO> goodsList=new ArrayList<GoodsVO>();
-		for(int i = 0; i<cartList.size();i++) {
-		long goodsnum = cartList.get(i).getGOODS_NUM();
-		int price =cartList.get(i).getPRICE();
-		System.out.println("price:"+price);
+		List<GoodsVO> goodsList = new ArrayList<GoodsVO>();
 		
-		goodsList = cartService.getGoodsList(goodsnum);
-		
+		for (int i = 0; i < cartList.size(); i++) {
+			long goodsnum = cartList.get(i).getGOODS_NUM();
+			int price = cartList.get(i).getPRICE();
+			System.out.println("price:" + price);
+
+			goodsList.add(cartService.getGoods(goodsnum));
+
+		}
+
+		for(int i = 0 ; i<goodsList.size();i++) {
+			System.out.println("굿즈리스트 다들어오는가?"+goodsList.get(i));
+			System.out.println("굿즈리스트 사이즈="+goodsList.size());
 		}
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("cartList",cartList);

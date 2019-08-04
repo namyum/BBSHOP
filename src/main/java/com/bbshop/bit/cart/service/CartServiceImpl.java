@@ -30,16 +30,16 @@ public class CartServiceImpl implements CartService {
 		return cartList;
 	}
 	@Override
-	public List<GoodsVO> getGoodsList(long goodsnum){
+	public GoodsVO getGoods(long goodsnum){
 		System.out.println("GoodsNum이 들어오는가?"+goodsnum);
 		
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		
-		List<GoodsVO> goodsList = mapper.getGoodsList(goodsnum);
-		System.out.println(goodsList);
+		GoodsVO goods = mapper.getGoods(goodsnum);
+		System.out.println(goods);
 		
-		return goodsList;
+		return goods;
 		
 		
 		
