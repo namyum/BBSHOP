@@ -27,4 +27,5 @@ public class CommunityVO {
 	private Long LEV;	
 	private Long DEP;	
 	private int SEQ_BOARD;
+	private int RN;
 }
