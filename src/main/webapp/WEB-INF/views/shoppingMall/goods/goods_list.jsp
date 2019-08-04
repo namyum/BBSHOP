@@ -166,14 +166,12 @@
 										output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
 										output += "<a href='#'><h4>" + goods.name + "</h4></a>";
 										output += "<h5>" + goods.price + "원</h5></div></div>";
-										console.log("output : " + output);
-										$('.latest_product_inner').append(output);
-										
 
+										$('.latest_product_inner').append(output);
 									});
 								},
 								error: function(request,status,error){
-								    alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+								    alert('에러');
 								}
 							});
 						}

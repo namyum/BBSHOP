@@ -150,47 +150,43 @@
 		}
 	}
 	
-	// 일반 검색 모달 검색 버튼 눌렀을 때
+	// 일반 검색 버튼 눌렀을 때
 	function general_search() {
 		
-		var pageNum = ${pageMaker.pagingVO.pageNum};
-		var amount = ${pageMaker.pagingVO.amount};
-		var category = ${categoryInt};
+		var pageNum = 1; // ${pageMaker.pagingVO.pageNum};
+		var amount = 8; // ${pageMaker.pagingVO.amount};
+		var category = 1; // ${categoryInt};
 		var sorting = $('select.sorting option:selected').val();
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
 		
+		// 일반 검색 키워드
 		if ($('#search_name').val() != null) {
 			var search = $('#search_name').val();
 		}
-		
-		// search 값
-		console.log(search);
 		
 		if(min_amount === "")
 			min_amount = "1000";
 		if(max_amount === "")
 			max_amount = "500000";
 		
-		// 상품 목록이 들어갈 div 클래스 이름 - 초기화
-		$('.latest_product_inner').empty();
-		
 		$.ajax({
 			url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
 					"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount + "&&search=" + search,
 			type : 'GET',
-//			data : JSON.stringify(goodsList),
 			dataType: 'json',
 			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 			success : function(goodsList) {
 				
 				alert('ajax 성공!');
 				
-				console.log(goodsList);
+				search_Modal.style.display = "none";
 				
-				$.each(goodsList, function(index, goods) {				
-					
-					var output = "";
+				console.log('일반 검색 반환 상품 리스트 : ' + goodsList);
+				
+				var output = "";
+
+				$.each(goodsList, function(index, goods) {
 					
 					output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 					output += "<div class='f_p_item'>";
@@ -200,14 +196,101 @@
 					output += "<a href='#'><h4>" + goods.name + "</h4></a>";
 					output += "<h5>" + goods.price + "원</h5></div></div>";
 					
-					$('.latest_product_inner').append(output);
-					
-
 				});
+				
+				// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+				$('.latest_product_inner').empty();
+				
+				$('.latest_product_inner').append(output);
 			},
-			error : function() {alert('ajax 통신 실패!');}
+			error : function() {
+				
+				alert('ajax 통신 실패!');
+			}
 		});
 	};
+	
+	// 상세 검색 버튼 눌렀을 때
+	function detail_search() {
+		
+		var pageNum = 1; // ${pageMaker.pagingVO.pageNum};
+		var amount = 8; // ${pageMaker.pagingVO.amount};
+		var category = 1; // ${categoryInt};
+		var sorting = $('select.sorting option:selected').val();
+		var min_amount = $('#min_amount').val();
+		var max_amount = $('#max_amount').val();
+		
+		// 각 상세 검색 필터 체크박스
+		var positions = new Array();
+		var hands = new Array();
+		var brands = new Array();
+		
+		$("input[name='position']:checked").each(function() {
+			
+			positions.push($(this).val());
+		})
+
+		$("input[name='hand']:checked").each(function() {
+			
+			hands.push($(this).val());
+		})
+		
+		$("input[name='brand']:checked").each(function() {
+			
+			brands.push($(this).val());
+		})
+		
+		// 상세 검색 데이터 잘 들어갔는지 테스트
+		console.log('포지션 : ' + positions);
+		console.log('좌/우 : ' + hands);
+		console.log('브랜드 : ' + brands);
+		
+		if(min_amount === "")
+			min_amount = "1000";
+		if(max_amount === "")
+			max_amount = "500000";
+		
+		$.ajax({
+			url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
+					"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount 
+					+ "&&positions=" + positions + "&&hands=" + hands + "&&brands=" + brands,
+			type : 'GET',
+			dataType: 'json',
+			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			success : function(goodsList) {
+				
+				alert('ajax 성공!');
+				
+				searchBig_Modal.style.display = "none";
+				
+				var output = "";
+				
+				$.each(goodsList, function(index, goods) {				
+					
+					console.log(goods);
+					
+					output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
+					output += "<div class='f_p_item'>";
+					output += "<div class='f_p_img'>";
+					output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&&category=" + goods.category +"'>";
+					output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
+					output += "<a href='#'><h4>" + goods.name + "</h4></a>";
+					output += "<h5>" + goods.price + "원</h5></div></div>";
+					
+				});
+				
+				// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+				$('.latest_product_inner').empty();
+				
+				$('.latest_product_inner').append(output);
+
+			},
+			error : function() {
+				
+				alert('ajax 통신 실패!');
+			}
+		});
+	}
 	
 </script>
 <!--================ 모달 & 장바구니 js====================== -->

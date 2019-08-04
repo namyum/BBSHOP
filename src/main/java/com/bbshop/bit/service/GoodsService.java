@@ -9,12 +9,11 @@ public interface GoodsService {
 	
 	// 카테고리 int > String
 	public String category(int category);
-	
 
 	
 	/* 페이징 O, 상품 목록 */
-	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting,
-									String min_amount, String max_amount);
+	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
+			List<String> positions, List<Integer> hands, List<String> brands);
 
 
 	/* 카테고리별 전체 goods 데이터 개수 */

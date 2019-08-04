@@ -29,27 +29,39 @@ public class GoodsServiceImpl implements GoodsService {
 			default: return "야구공";
 		}
 	}
-
-
-
 	/* 페이징 O */
 	@Override
-	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount) {
+	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
+			List<String> positions, List<Integer> hands, List<String> brands) {
+		
 		log.info("getGoodsList...Ajax..With Paging................");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("category", category);
 		map.put("pagingVO", pagingVO);
 		map.put("sorting", sorting);
 		map.put("min_amount", Integer.parseInt(min_amount));
 		map.put("max_amount", Integer.parseInt(max_amount));
 		
+		// 검색 리스트 배열에 값이 담겨 있으면, map에 담는다.
+		if (positions != null) {
+		
+			map.put("positions", positions);
+		}
+		
+		if (hands != null) {
+			
+			map.put("hands", hands);
+		}
+		
+		if (brands != null) {
+			
+			map.put("brands", brands);
+		}
+		
 		return mapper.getGoodsList(map);
 	}
-
-
-
-	
 	
 	/* 카테고리별 전체 goods 데이터 개수 */
 	@Override

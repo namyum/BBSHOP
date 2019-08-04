@@ -38,7 +38,7 @@ public class GoodsServiceTests {
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(16);
 		
-		service.getGoodsList(1, pagingVO, "lowPrice", "1000", "300000").forEach(goods -> log.info(goods));
+		// service.getGoodsList(1, pagingVO, "lowPrice", "1000", "300000", new String['테스트'], new String['테스트'], new String['테스트']).forEach(goods -> log.info(goods));
 	}
 	
 //	@Test

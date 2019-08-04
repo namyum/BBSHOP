@@ -336,7 +336,7 @@ body {
 						placeholder="검색할 상품명을 적어주세요." /><br />
 				</div>
 				<br /> <input type="button" class="btn btn-info btn-block"
-					id="search_submit_btn" value="검색" onclick="general_search()"/>
+					id="search_submit_btn" value="검색" onclick="general_search()" />
 			</form>
 		</div>
 	</div>
@@ -360,22 +360,22 @@ body {
 					<!-- 포지션 -->
 					<tr>
 						<th><label for="position">포지션</label></th>&emsp;
-						<td><input type="checkbox" name="position" id="1루수" /><label
+						<td><input type="checkbox" name="position" id="1루수" value="1루수"/><label
 							for="1루수"><span></span>1루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="2루수" /><label
+						<td><input type="checkbox" name="position" id="2루수" value="2루수"/><label
 							for="2루수"><span></span>2루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="3루수" /><label
+						<td><input type="checkbox" name="position" id="3루수" value="3루수"/><label
 							for="3루수"><span></span>3루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="유격수" /><label
-							for="유격수"><span></span>유격수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="유격수" value="유격수"/><label
+							for="유격수" ><span></span>유격수</label>&nbsp;</td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="position" id="포수" /><label
+						<td><input type="checkbox" name="position" id="포수" value="포수"/><label
 							for="포수"><span></span>포수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="투수" /><label
+						<td><input type="checkbox" name="position" id="투수" value="투수"/><label
 							for="투수"><span></span>투수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="외야수" /><label
+						<td><input type="checkbox" name="position" id="외야수" value="외야수"/><label
 							for="외야수"><span></span>외야수</label>&nbsp;</td>
 						<td></td>
 					</tr>
@@ -383,46 +383,46 @@ body {
 					<tr>
 						<th><label for="hand">좌/우</label></th>
 						<td colspan="2"><input type="checkbox" name="hand"
-							id="left_checkbox" /><label for="left_checkbox"><span></span>좌투(오른손
+							id="left_checkbox" value=0 /><label for="left_checkbox"><span></span>좌투(오른손
 								착용)</label></td>
 						<td colspan="2"><input type="checkbox" name="hand"
-							id="right_checkbox" /><label for="right_checkbox"><span></span>우투(왼손
+							id="right_checkbox" value=1 /><label for="right_checkbox"><span></span>우투(왼손
 								착용)</label></td>
 					</tr>
 					<!-- 브랜드 -->
 					<tr>
 						<th><label for="brand">브랜드</label></th>
-						<td><input type="checkbox" name="brand" id="mizuno" /><label
+						<td><input type="checkbox" name="brand" id="mizuno" value="mizuno"/><label
 							for="mizuno"><span></span>Mizuno</label></td>
-						<td><input type="checkbox" name="brand" id="wilson" /><label
+						<td><input type="checkbox" name="brand" id="wilson" value="wilson"/><label
 							for="wilson"><span></span>Wilson</label></td>
-						<td><input type="checkbox" name="brand" id="adidas" /><label
+						<td><input type="checkbox" name="brand" id="adidas" value="adidas"/><label
 							for="adidas"><span></span>Adidas</label></td>
-						<td><input type="checkbox" name="brand" id="nike" /><label
+						<td><input type="checkbox" name="brand" id="nike" value="nike"/><label
 							for="nike"><span></span>Nike</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="morimoto" /><label
+						<td><input type="checkbox" name="brand" id="morimoto" value="morimoto"/><label
 							for="morimoto"><span></span>Morimoto</label></td>
-						<td><input type="checkbox" name="brand" id="descente" /><label
+						<td><input type="checkbox" name="brand" id="descente" value="descente"/><label
 							for="descente"><span></span>Descente</label></td>
-						<td colspan="2"><input type="checkbox" name="brand"
-							id="underarmour" /> <label for="underarmour"><span></span>UnderArmour</label></td>
+						<td colspan="2"><input type="checkbox" name="brand" id="underarmour" 
+						value="underarmour"/> <label for="underarmour"><span></span>UnderArmour</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="brett" /><label
+						<td><input type="checkbox" name="brand" id="brett" value="brett"/><label
 							for="brett"><span></span>Brett</label></td>
-						<td><input type="checkbox" name="brand" id="fila" /> <label
+						<td><input type="checkbox" name="brand" id="fila" value="fila"/> <label
 							for="fila"><span></span>FILA</label></td>
-						<td><input type="checkbox" name="brand" id="asics" /> <label
+						<td><input type="checkbox" name="brand" id="asics" value="asics"/> <label
 							for="asics"><span></span>Asics</label></td>
 						<td></td>
 					</tr>
 				</table>
-				<br> <input type="submit" class="btn btn-info btn-block"
-					id="searchBig_submit_btn" value="검색">
+				<br> <input type="button" class="btn btn-info btn-block"
+					id="searchBig_submit_btn" value="검색" onclick="detail_search()">
 			</form>
 		</div>
 	</div>
@@ -548,7 +548,7 @@ body {
 								<li><a href="/login"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/logout"> 로그아웃 </a></li>							
+								<li><a href="/logout"> 로그아웃 </a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
