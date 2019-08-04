@@ -57,10 +57,23 @@ public class GoodsController {
 	@RequestMapping(value="/getGoodsList_Ajax.do", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getGoodsList_Ajax(@RequestParam int category, PagingVO pagingVO, @RequestParam String sorting,
-										@RequestParam String min_amount, @RequestParam String max_amount) {
+										@RequestParam String min_amount, @RequestParam String max_amount, @RequestParam(required=false) String search) {
+		
 		log.info("Controller...goods_list.jsp...goodsListAjax");
 		
+		// 일반 검색이 null 이 아니면 PagingVO 객체에 검색 타입과 키워드 추가.
+		if (search != null) {
+			
+			pagingVO.setType("N");
+			pagingVO.setKeyword(search);
+		}
+		
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount);
+		
+		for (GoodsVO goodsVO : goodsList) {
+			
+			System.out.println(goodsVO.toString());
+		}
 		
 		String str = "";
 		ObjectMapper mapper = new ObjectMapper();
@@ -86,14 +99,5 @@ public class GoodsController {
 		
 		return "shoppingMall/goods/goods_info";
 	}
-	
-	@RequestMapping("/goods_list_ajax.do")
-	public List<GoodsVO> getGoodsList() {
-		
-		List<GoodsVO> goodsList = new ArrayList<GoodsVO>();
-		
-		return goodsList;
-	}
-
 
 }

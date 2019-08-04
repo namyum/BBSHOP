@@ -24,14 +24,14 @@
 		select /*+INDEX_DESC(goods idx_goods_price) */
 		</when>
 	</choose>
-	rownum rn, goods_num, name, main_img, price, best, regdate
-	from goods
-	where
-	<choose>
-		<when test="type == 'N'.toString()">
-			name like '%'||#{serach}||'%'
-		</when>
-	</choose>
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+		where
+		<choose>
+			<when test='pagingVO.type == "N"'>
+				name like '%'||#{pagingVO.keyword}||'%' and
+			</when>
+		</choose>
 <![CDATA[
 			rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 			and category = #{category, jdbcType=INTEGER}

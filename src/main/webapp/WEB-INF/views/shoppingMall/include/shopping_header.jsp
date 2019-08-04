@@ -336,7 +336,7 @@ body {
 						placeholder="검색할 상품명을 적어주세요." /><br />
 				</div>
 				<br /> <input type="button" class="btn btn-info btn-block"
-					id="search_submit_btn" value="검색" />
+					id="search_submit_btn" value="검색" onclick="general_search()"/>
 			</form>
 		</div>
 	</div>

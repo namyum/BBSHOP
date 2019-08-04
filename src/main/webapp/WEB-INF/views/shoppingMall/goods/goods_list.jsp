@@ -172,7 +172,9 @@
 
 									});
 								},
-								error : function() {alert('ajax 통신 실패!');}
+								error: function(request,status,error){
+								    alert("code:"+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+								}
 							});
 						}
 						</script>

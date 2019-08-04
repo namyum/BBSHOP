@@ -33,11 +33,16 @@ public class GoodsMapperTests {
 	
 	@Test
 	public void testPaging() {
+		
 		PagingVO pagingVO = new PagingVO();
 		
 		//8개씩 2페이지
 		pagingVO.setPageNum(2);
 		pagingVO.setAmount(8);
+		
+		//검색 조건 설정
+		pagingVO.setType("N");
+		pagingVO.setKeyword("이치로");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);

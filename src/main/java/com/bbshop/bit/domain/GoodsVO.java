@@ -105,5 +105,13 @@ public class GoodsVO {
 		this.regdate = regdate;
 	}
 	
+	@Override
+	public String toString() {
+		return "GoodsVO [goods_num=" + goods_num + ", category=" + category + ", name=" + name + ", stock=" + stock
+				+ ", price=" + price + ", brand=" + brand + ", main_img=" + main_img + ", dtl_img1=" + dtl_img1
+				+ ", dtl_img2=" + dtl_img2 + ", best=" + best + ", discount=" + discount + ", soldout=" + soldout
+				+ ", sales=" + sales + ", regdate=" + regdate + "]";
+	}
+	
 	
 }

@@ -150,23 +150,64 @@
 		}
 	}
 	
-	$('#search_submit_btn').click(function() {
+	// 일반 검색 모달 검색 버튼 눌렀을 때
+	function general_search() {
+		
+		var pageNum = ${pageMaker.pagingVO.pageNum};
+		var amount = ${pageMaker.pagingVO.amount};
+		var category = ${categoryInt};
+		var sorting = $('select.sorting option:selected').val();
+		var min_amount = $('#min_amount').val();
+		var max_amount = $('#max_amount').val();
+		
+		if ($('#search_name').val() != null) {
+			var search = $('#search_name').val();
+		}
+		
+		// search 값
+		console.log(search);
+		
+		if(min_amount === "")
+			min_amount = "1000";
+		if(max_amount === "")
+			max_amount = "500000";
+		
+		// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+		$('.latest_product_inner').empty();
 		
 		$.ajax({
-			
-			type: "POST",
-			url: "/getGoodsList_Ajax.do",
-			data: {
-				"search": $('#search_name').val()
-			},
-			success: function() {
+			url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
+					"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount + "&&search=" + search,
+			type : 'GET',
+//			data : JSON.stringify(goodsList),
+			dataType: 'json',
+			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			success : function(goodsList) {
 				
-			},
-			error: function() {
+				alert('ajax 성공!');
 				
-			}
+				console.log(goodsList);
+				
+				$.each(goodsList, function(index, goods) {				
+					
+					var output = "";
+					
+					output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
+					output += "<div class='f_p_item'>";
+					output += "<div class='f_p_img'>";
+					output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&&category=" + goods.category +"'>";
+					output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
+					output += "<a href='#'><h4>" + goods.name + "</h4></a>";
+					output += "<h5>" + goods.price + "원</h5></div></div>";
+					
+					$('.latest_product_inner').append(output);
+					
+
+				});
+			},
+			error : function() {alert('ajax 통신 실패!');}
 		});
-	});
+	};
 	
 </script>
 <!--================ 모달 & 장바구니 js====================== -->
