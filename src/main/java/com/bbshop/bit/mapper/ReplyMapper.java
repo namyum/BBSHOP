@@ -11,9 +11,9 @@ public interface ReplyMapper {
 	
 	public int insertReply(ReplyVO vo);
 	
-	public ReplyVO readReply(Long reply_num);
+	public ReplyVO readReply(long reply_num);
 	
-	public int deleteReply(Long reply_num);
+	public int deleteReply(long reply_num);
 	
 	public int updateReply(ReplyVO vo);
 	
@@ -22,8 +22,7 @@ public interface ReplyMapper {
 	// @Param("") 의 내용이 mapper.xml의 #{} 와 매칭됨
 	public List<ReplyVO> getListWithPaging(
 			@Param("pagingvo") PagingVO pagingvo,
-			@Param("BOARD_NUM") Long board_num);
-	
-	
+			@Param("BOARD_NUM") long board_num);
 
+	public int getCountByBno(long board_num);
 }

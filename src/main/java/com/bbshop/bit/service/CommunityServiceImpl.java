@@ -35,7 +35,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public CommunityVO getPost(Long board_num) {
+	public CommunityVO getPost(long board_num) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
@@ -52,7 +52,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public int deletePost(Long board_num) {
+	public int deletePost(long board_num) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
@@ -60,7 +60,7 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public Long getBoardNum() {
+	public long getBoardNum() {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
@@ -74,4 +74,23 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityMapper.updatePost(community);
 	}
 	
+	@Override
+	public Long findNextPost(String team_name, Long board_num) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.findNextPost(team_name, board_num);
+	}
+	
+	@Override
+	public Long findPreviousPost(String team_name, Long board_num) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.findPreviousPost(team_name, board_num);
+	}
+	
+	@Override
+	public long updateHit(long board_num) {
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		return communityMapper.updateHit(board_num);
+	}
 }

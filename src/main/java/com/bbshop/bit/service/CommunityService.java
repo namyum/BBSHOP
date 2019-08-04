@@ -9,10 +9,13 @@ public interface CommunityService {
 	
 	public int insertPost(CommunityVO community);
 	public String getNickname(int user_key);
-	public CommunityVO getPost(Long board_num);
+	public CommunityVO getPost(long board_num);
 	public List<CommunityVO> getList(Map<String,Object> map);
-	public int deletePost(Long board_num);
-	public Long getBoardNum();
+	public int deletePost(long board_num);
+	public long getBoardNum();
 	public int updatePost(CommunityVO community);
+	public Long findNextPost(String team_name, Long board_num);
+	public Long findPreviousPost(String team_name, Long board_num);
+	public long updateHit(long board_num);
 
 }

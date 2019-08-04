@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReplyVO {
 	
-	private Long reply_num;
+	private long reply_num;
 	private String reply_content;
 	private Date regdate;
 	private Date moddate;
-	private Long report_num;
-	private Long board_num;
-	private Long user_key;
+	private long report_num;
+	private long board_num;
+	private long user_key;
 	private String writer;
 	private int seq_reply;
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReplyPageDTO;
 import com.bbshop.bit.domain.ReplyVO;
 import com.bbshop.bit.mapper.ReplyMapper;
 
@@ -25,14 +26,14 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	public ReplyVO getReply(Long reply_num) {
+	public ReplyVO getReply(long reply_num) {
 		
 		ReplyMapper replymapper = sqlSession.getMapper(ReplyMapper.class);
 		return replymapper.readReply(reply_num);
 	}
 	
 	@Override
-	public int removeReply(Long reply_num) {
+	public int removeReply(long reply_num) {
 		
 		ReplyMapper replymapper = sqlSession.getMapper(ReplyMapper.class);
 		int res = replymapper.deleteReply(reply_num);
@@ -48,10 +49,20 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	public List<ReplyVO> getList(PagingVO pagingvo, Long board_num){
+	public List<ReplyVO> getList(PagingVO pagingvo, long board_num){
 		
 		ReplyMapper replymapper = sqlSession.getMapper(ReplyMapper.class);
 		return replymapper.getListWithPaging(pagingvo, board_num);
+	}
+	
+	@Override
+	public ReplyPageDTO getListPage(PagingVO pagingvo, long board_num) {
+		
+		ReplyMapper replymapper = sqlSession.getMapper(ReplyMapper.class);
+		
+		return new ReplyPageDTO(
+				replymapper.getCountByBno(board_num),
+				replymapper.getListWithPaging(pagingvo, board_num));
 	}
 
 }

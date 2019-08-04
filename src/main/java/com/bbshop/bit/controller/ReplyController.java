@@ -41,7 +41,7 @@ public class ReplyController {
 	
 	@RequestMapping(value="/pages/{board_num}/{PAGENUM}.do", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
 	method= RequestMethod.GET)
-	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("PAGENUM") int page, @PathVariable("board_num") Long board_num){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("PAGENUM") int page, @PathVariable("board_num") long board_num){
 		
 		PagingVO pagingvo = new PagingVO(page, 10);
 		
@@ -51,14 +51,14 @@ public class ReplyController {
 	// RequestMapping은 모든 method를 잡으므로, method = RequestMethed.GET을 안적어주면 delete를 해도 이쪽 컨트롤러를 탐
 	@RequestMapping(value="/{reply_num}.do", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
 			method= RequestMethod.GET)
-	public ResponseEntity<ReplyVO> get(@PathVariable("reply_num") Long reply_num) {
+	public ResponseEntity<ReplyVO> get(@PathVariable("reply_num") long reply_num) {
 		
 		return new ResponseEntity<>(replyService.getReply(reply_num), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{reply_num}.do", produces = {MediaType.TEXT_PLAIN_VALUE}, 
 			method=RequestMethod.DELETE)
-	public ResponseEntity<String> remove(@PathVariable("reply_num") Long reply_num){
+	public ResponseEntity<String> remove(@PathVariable("reply_num") long reply_num){
 		
 		return replyService.removeReply(reply_num) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
@@ -69,7 +69,7 @@ public class ReplyController {
 			consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(
 			@RequestBody ReplyVO vo,
-			@PathVariable("reply_num") Long reply_num) {
+			@PathVariable("reply_num") long reply_num) {
 		
 		vo.setReply_num(reply_num);
 		

@@ -47,25 +47,17 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글 상세
 	@RequestMapping("/community_detail.do")
-	public String community_detail(Model model, @RequestParam("BOARD_NUM") Long board_num) {
+	public String community_detail(Model model, @RequestParam("BOARD_NUM") long board_num) {
 		
+		communityService.updateHit(board_num);
 		model.addAttribute("post", communityService.getPost((long) board_num));
 
 		return "shoppingMall/community/community_detail";
 	}
 
-	
-	// 여기 컨트롤러에 크롤링을 넣거나 메서드로 불러오거나
-//	@RequestMapping("/community_detail.do")
-//	public String community_detail(Model model, @RequestParam("BOARD_NUM") Long board_num) {
-//		
-//		model.addAttribute("post", communityService.getPost((long) board_num));
-//		return "forward:/commu";
-//	}
-
 	// 커뮤니티 - 글 수정
 	@RequestMapping("/community_modify.do")
-	public String community_modify(Model model, @RequestParam("BOARD_NUM") Long board_num) {
+	public String community_modify(Model model, @RequestParam("BOARD_NUM") long board_num) {
 		
 		model.addAttribute("post", communityService.getPost((long) board_num));
 		model.addAttribute("boardNum", board_num);
@@ -104,7 +96,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/communityDeleteAction.do")
-	public String communityDeleteAction(@RequestParam("BOARD_NUM") Long board_num, @RequestParam("TEAM_NAME") String teamName) {
+	public String communityDeleteAction(@RequestParam("BOARD_NUM") long board_num, @RequestParam("TEAM_NAME") String teamName) {
 		
 		int res = communityService.deletePost(board_num);
 		
@@ -166,6 +158,30 @@ public class CommunityController {
         model.setViewName("crawl");
         
 		return model;
+	}
+	
+	@RequestMapping("/communityGetNextPostNumAction.do")
+	public String getNextPostNumAction(@RequestParam("TEAM_NAME") String team_name, @RequestParam("BOARD_NUM") Long board_num,
+			Model model) {
+		
+		if(communityService.findNextPost(team_name, board_num) != null) {
+		model.addAttribute("BOARD_NUM", communityService.findNextPost(team_name, board_num));
+		} else {
+			model.addAttribute("BOARD_NUM", board_num);
+		}
+		return "redirect:/community_detail.do";
+	}
+	
+	@RequestMapping("/communityGetPrevPostNumAction.do")
+	public String getPrevPostNumAction(@RequestParam("TEAM_NAME") String team_name, @RequestParam("BOARD_NUM") Long board_num,
+			Model model) {
+
+		if(communityService.findPreviousPost(team_name, board_num) != null) {
+		model.addAttribute("BOARD_NUM", communityService.findPreviousPost(team_name, board_num));
+		} else {
+			model.addAttribute("BOARD_NUM", board_num);
+		}
+		return "redirect:/community_detail.do";
 	}
 
 }
