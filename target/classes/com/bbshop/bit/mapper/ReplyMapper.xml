@@ -32,10 +32,26 @@
 	</update>
 	
 	<select id="getListWithPaging" resultType="com.bbshop.bit.domain.ReplyVO">
-		SELECT reply_num, board_num, reply_content, writer, regdate, moddate 
-		FROM cm_comment
-		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
-		ORDER BY reply_num asc
+		
+		<![CDATA[
+		SELECT reply_num, board_num, reply_content, writer, regdate, moddate
+		FROM 
+			(
+			SELECT /*+INDEX(cm_comment idx_reply) */
+				rownum rn, reply_num, board_num, reply_content, writer, regdate, moddate
+				FROM cm_comment
+				WHERE board_num = #{BOARD_NUM}
+				AND reply_num > 0
+				AND rownum <= #{pagingvo.PAGENUM} * #{pagingvo.AMOUNT}
+			) WHERE rn > (#{pagingvo.PAGENUM} -1 ) * #{pagingvo.AMOUNT}
+		]]>
+		
+	</select>
+	
+	<select id="getCountByBno" resultType="int">
+	<![CDATA[
+	SELECT count(reply_num) from cm_comment WHERE board_num = #{board_num}
+	]]>
 	</select>
 	
 </mapper>
