@@ -37,9 +37,10 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글쓰기
 	@RequestMapping("/community_form.do")
-	public String community_form(Model model) {
+	public String community_form(Model model, @RequestParam("TEAM_NAME") String teamName) {
 		
 		model.addAttribute("nickname",communityService.getNickname(1));
+		model.addAttribute("teamName", teamName);
 		
 		return "shoppingMall/community/community_form";
 	}
@@ -49,7 +50,7 @@ public class CommunityController {
 	public String community_detail(Model model, @RequestParam("BOARD_NUM") Long board_num) {
 		
 		model.addAttribute("post", communityService.getPost((long) board_num));
-		model.addAttribute("count", communityService.getCount(board_num));
+
 		return "shoppingMall/community/community_detail";
 	}
 
@@ -67,6 +68,7 @@ public class CommunityController {
 	public String community_modify(Model model, @RequestParam("BOARD_NUM") Long board_num) {
 		
 		model.addAttribute("post", communityService.getPost((long) board_num));
+		model.addAttribute("boardNum", board_num);
 		return "shoppingMall/community/community_modify";
 	}
 	
@@ -102,7 +104,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/communityDeleteAction.do")
-	public String communityDeleteAction(@RequestParam("BOARD_NUM") Long board_num) {
+	public String communityDeleteAction(@RequestParam("BOARD_NUM") Long board_num, @RequestParam("TEAM_NAME") String teamName) {
 		
 		int res = communityService.deletePost(board_num);
 		
@@ -112,13 +114,15 @@ public class CommunityController {
 			System.out.println("글 삭제에 실패했습니다.");
 		}
 		
-		return "redirect:/community_list.do";
+		return "redirect:/community_list.do?TEAM_NAME="+teamName;
 	}
 	
 	@RequestMapping("/communityUpdateAction.do")
 	public String communityUpdateAction(CommunityVO community, Model model) {
 		
+		System.out.println(community);
 		int res = communityService.updatePost(community);
+		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
 		
 		if(res == 1) {
 			System.out.println("글이 수정되었습니다.");
