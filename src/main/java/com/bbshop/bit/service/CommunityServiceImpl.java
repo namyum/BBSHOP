@@ -68,13 +68,6 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public int getCount(Long board_num) {
-		
-		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
-		return communityMapper.getCount(board_num);
-	}
-	
-	@Override
 	public int updatePost(CommunityVO community) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);

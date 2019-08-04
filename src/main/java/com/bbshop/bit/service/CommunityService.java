@@ -13,7 +13,6 @@ public interface CommunityService {
 	public List<CommunityVO> getList(Map<String,Object> map);
 	public int deletePost(Long board_num);
 	public Long getBoardNum();
-	public int getCount(Long board_num);
 	public int updatePost(CommunityVO community);
 
 }
