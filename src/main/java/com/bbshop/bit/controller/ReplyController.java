@@ -5,15 +5,14 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReplyPageDTO;
 import com.bbshop.bit.domain.ReplyVO;
 import com.bbshop.bit.service.ReplyService;
 
@@ -42,11 +41,11 @@ public class ReplyController {
 	
 	@RequestMapping(value="/pages/{board_num}/{PAGENUM}.do", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE},
 	method= RequestMethod.GET)
-	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("PAGENUM") int page, @PathVariable("board_num") Long board_num){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("PAGENUM") int page, @PathVariable("board_num") Long board_num){
 		
 		PagingVO pagingvo = new PagingVO(page, 10);
 		
-		return new ResponseEntity<>(replyService.getList(pagingvo, board_num), HttpStatus.OK);
+		return new ResponseEntity<>(replyService.getListPage(pagingvo, board_num), HttpStatus.OK);
 	}
 	
 	// RequestMapping은 모든 method를 잡으므로, method = RequestMethed.GET을 안적어주면 delete를 해도 이쪽 컨트롤러를 탐
