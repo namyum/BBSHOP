@@ -31,59 +31,59 @@ a {
 				<nav style="width: 1200px; transform: translateX(-25px);">
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"
 						style="margin-top: 120px;">
-<a class="nav-item nav-link" id="nav-home-tab" name="kbo"
-							data-toggle="tab" href="#nav-home" role="tab"
-							aria-controls="nav-home" aria-selected="true"> <img
+							<a class="nav-item nav-link" id="nav-home-tab" name="kbo"
+							data-toggle="tab" role="tab"
+							aria-controls="nav-home" aria-selected="true" onclick="location.href='/community_list.do?TEAM_NAME=kbo'"> <img
 							src="resources/community/img/kbo_main.png" width="70" height="70"
 							class="img-fluid rounded"></a> <a
 							class="nav-item nav-link link" id="nav-contact-tab" name="lg"
 							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-home" aria-selected="false"> <img
+							aria-controls="nav-home" aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=lg'"> <img
 							src="resources/community/img/lgtwins_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
 							class="nav-item nav-link" id="nav-contact-tab" name="lotte" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
-							aria-selected="false"> <img
+							aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=lotte'"> <img
 							src="resources/community/img/lottegiants_main.png" width="80"
 							height="70" class="img-fluid rounded">
 						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="hanwha"
 							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"> <img
+							aria-controls="nav-contact" aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=hanwha'"> <img
 							src="resources/community/img/hanwhaeagles_main.png" width="80"
 							height="70" class="img-fluid rounded"></a> <a
 							class="nav-item nav-link" id="nav-contact-tab" name="kia" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
-							aria-selected="false"> <img
+							aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=kia'"> <img
 							src="resources/community/img/kiatigers_main.png" width="80"
 							height="70" class="img-fluid rounded">
 						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="doosan"
 							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"> <img
+							aria-controls="nav-contact" aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=doosan'"> <img
 							src="resources/community/img/doosanbears_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
 							class="nav-item nav-link" id="nav-contact-tab" name ="nc" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
-							aria-selected="false"> <img
+							aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=nc'"> <img
 							src="resources/community/img/ncdinos_main.png" width="80"
 							height="70" class="img-fluid rounded">
 						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="samsung"
 							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"> <img
+							aria-controls="nav-contact" aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=samsung'"> <img
 							src="resources/community/img/samsunglions_main.png" width="75"
 							height="70" class="img-fluid rounded"></a> <a
 							class="nav-item nav-link" id="nav-contact-tab" name="kiwoom" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
-							aria-selected="false"> <img
+							aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=kiwoom'"> <img
 							src="resources/community/img/kiwoomheroes_main.png" width="80"
 							height="70" class="img-fluid rounded">
 						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="sk"
 							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"> <img
+							aria-controls="nav-contact" aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=sk'"> <img
 							src="resources/community/img/skwyverns_main.png" width="70"
 							height="70" class="img-fluid rounded"></a> <a
 							class="nav-item nav-link" id="nav-contact-tab" name="kt" data-toggle="tab"
 							href="#nav-contact" role="tab" aria-controls="nav-contact"
-							aria-selected="false"> <img
+							aria-selected="false" onclick="location.href='/community_list.do?TEAM_NAME=kt'"> <img
 							src="resources/community/img/ktwiz_main.png" width="70"
 							height="70" class="img-fluid rounded">
 						</a>
@@ -91,7 +91,7 @@ a {
 				</nav>
 				<div>
 					<div style="text-align: right; padding: 30px 0; width: auto;">
-						<input type="button" onclick="location.href='/community_form.do'"
+						<input type="button" onclick="location.href='/community_form.do?TEAM_NAME=${teamName}'"
 							value="글쓰기" />
 					</div>
 				</div>
@@ -111,7 +111,7 @@ a {
 							<tbody>
 								<c:forEach items="${list}" var="board">
 									<tr>
-										<td><c:out value="${board.BOARD_NUM}" /></td>
+										<td><c:out value="${board.RN}" /></td>
 										<td style="text-align: left;"><a
 											href="/community_detail.do?BOARD_NUM=<c:out value="${board.BOARD_NUM}"/>"><c:out
 													value="${board.TITLE}" /></a></td>
