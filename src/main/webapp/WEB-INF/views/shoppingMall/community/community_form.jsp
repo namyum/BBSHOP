@@ -25,14 +25,14 @@
 					<div class="mt-10">
 						<input type="text" name="TITLE" placeholder="제목"
 							onfocus="this.placeholder = ''" onblur="this.placeholder = '제목'"
-							required class="single-input">
+							required class="single-input" required>
 					</div>
 					<div class="input-group-icon mt-10">
 						<div class="icon">
 							<i class="fa fa-thumb-tack" aria-hidden="true"></i>
 						</div>
 						<div class="form-select" id="default-select">
-							<select name="TEAM_NAME">
+							<select name="TEAM_NAME" required>
 								<option value="header">말머리를 선택하세요</option>
 								<option value="kbo">KBO</option>
 								<option value="lg">LG</option>
@@ -61,7 +61,7 @@
 								<td align="center"><br /> <input type="submit" id="savebutton" value="등록" 
 								style="float:right;"></td>
 								<td align="center"><br /> <input type="button" value="취소" style="float:left;"
-									onclick="location.href='/community_list.do'" /></td>
+									onclick="location.href='/community_list.do?TEAM_NAME=${teamName}'" /></td>
 							</tr>
 						</table>
 					</div>
@@ -100,7 +100,7 @@
 			fCreator : "createSEditor2"
 		});
 		
-	    $("#savebutton").click(function(){ //id가 editor인 textarea에 에디터에서 대입        
+	    $("#savebutton").click(function(){     
 	    	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  // 이부분에 에디터 validation 검증                  
 	    	//폼 submit    
 	    	if(confirm("글을 등록하시겠습니까?") == true){
