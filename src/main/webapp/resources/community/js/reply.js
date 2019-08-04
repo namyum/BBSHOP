@@ -25,6 +25,7 @@ var replyService = (function(){
 	
 	function getList(param, callback, error){
 		
+		console.log("getList타나요");
 		var board_num = param.board_num;
 		
 		var page = param.PAGENUM || 1;
@@ -36,7 +37,8 @@ var replyService = (function(){
 			contentType: 'application/x-www-form-urlencoded;charset=utf-8',
 			success: function(data){
 				if(callback){
-					callback(data);
+					//callback(data); // 댓글 목록만 가져오는 경우
+					callback(data.replyCnt, data.list); // 댓글 숫자와 목록을 가져오는 경우
 				}
 			},
 			error: function(xhr, status, er){
