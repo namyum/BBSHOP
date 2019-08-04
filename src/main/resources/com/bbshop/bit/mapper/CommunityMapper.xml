@@ -87,19 +87,12 @@
 		WHERE ROWNUM = 1
 	</select>
 
-	<select id="getCount" resultType="int">
-		SELECT count(*)
-		FROM cm_comment
-		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
-	</select>
-
 	<update id="updatePost"
 		parameterType="com.bbshop.bit.domain.CommunityVO">
 		UPDATE community
 		SET team_name = #{TEAM_NAME}, title = #{TITLE}, board_content =
-		#{BOARD_CONTENT}, moddate = sysdate
-		WHERE board_num = #{BOARD_NUM,
-		jdbcType=NUMERIC}
+		#{BOARD_CONTENT}, uploadFile = #{UPLOADFILE} , moddate = sysdate
+		WHERE board_num = #{BOARD_NUM, jdbcType=NUMERIC}
 	</update>
 
 </mapper>
