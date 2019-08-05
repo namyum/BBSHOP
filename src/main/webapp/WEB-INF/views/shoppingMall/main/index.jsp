@@ -557,13 +557,13 @@
                                     <div class="position select">
                                     <select class="form-control" name="POSITION" id="position">
                                     	<option value="position">Position</option>
-                                        <option value="First baseman">1루수</option>
-                                        <option value="Second baseman">2루수</option>
-                                        <option value="third baseman">3루수</option>
-                                        <option value="shortstop">유격수</option>
-                                        <option value="outfielder">외야수</option>
-                                        <option value="catcher">포수</option>
-                                        <option value="pitcher">투수</option>
+                                        <option value="1루수">1루수</option>
+                                        <option value="2루수">2루수</option>
+                                        <option value="3루수">3루수</option>
+                                        <option value="유격수">유격수</option>
+                                        <option value="외야수">외야수</option>
+                                        <option value="포수">포수</option>
+                                        <option value="투수">투수</option>
 
                                     </select>
                                     </div>
@@ -915,8 +915,7 @@
         		alert("인증키가 틀립니다XXXXXXXX.")
         		$('input[id=insertkey]').focus();
         	}
-        	}
-        
+        }
         
     </script>
 
@@ -963,7 +962,6 @@
             var MEMBER_PHONE= $("#sign_phone").val();
             var MEMBER_BIRTH= $("#sign_birth").val();
             
-            
             $("#md_id").val(MEMBER_ID);  
             $("#md_pw").val(MEMBER_PW);  
             $("#md_nickname").val(MEMBER_NICKNAME);  
@@ -979,7 +977,7 @@
            	var hand=$("#hand option:selected").val();
            	var brand1=$("#brand1 option:selected").val();
            	var brand2=$("#brand2 option:selected").val();
-           	var brand2=$("#brand3 option:selected").val();
+           	var brand3=$("#brand3 option:selected").val();
            	
            	var MEMBER_ID= $("#md_id").val();
             var MEMBER_PW= $("#md_pw").val();
@@ -987,12 +985,10 @@
             var MEMBER_NAME= $("#md_name").val();
             var MEMBER_PHONE= $("#md_phone").val();
             var MEMBER_BIRTH= $("#md_birth").val();
-              	
-         	var formData = new Array();
          	
-         	formData = {TEAM:team, POSITION:position, HAND:hand, BRAND1:brand1, BRAND2:brand2, BRAND3:brand3, MEMBER_ID:MEMBER_ID, MEMBER_PW:MEMBER_PW, NICKNAME:MEMBER_NICKNAME, NAME:MEMBER_NAME, PHONE:MEMBER_PHONE, BIRTH:MEMBER_BIRTH};
-       	
-         	console.log('formData : ' + formData);
+            var formData={TEAM:${'team'},POSITION:${'position'},HAND:${'hand'},BRAND1:${'brand1'},BRAND2:${'brand2'},BRAND3:${'brand3'},MEMBER_ID:${'MEMBER_ID'},MEMBER_PW:${'MEMBER_PW'},NICKNAME:${'MEMBER_NICKNAME'},NAME:${'MEMBER_NAME'},PHONE:${'MEMBER_PHONE'},BIRTH:${'MEMBER_BIRTH'}};
+            
+            console.log('formData : ' + formData);
          	
             jQuery.ajax({
     			url : 'moredetails.do',

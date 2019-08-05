@@ -132,7 +132,7 @@ public class MemberController {
 			vo.setPHONE("kakao");
 			
 			memberService.register(vo);
-			session.setAttribute("member", vo.getMEMBER_ID());
+			session.setAttribute("member", vo.getUSER_KEY());
 		}
 		System.out.println(result);
 		return result;
@@ -163,20 +163,22 @@ public class MemberController {
 		return key;
 	}
 	
-	@RequestMapping(value="moredetails.do", method=RequestMethod.POST)
-	public String moredetails(@RequestBody MemberVO vo, @RequestBody MoreDetailsVO md, HttpServletRequest request) {
+	@RequestMapping(value="moredetails.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String moredetails(MemberVO vo, MoreDetailsVO md, HttpServletRequest request) {
 		
-		System.out.println("mordedetails 컨트롤러 진입 성공");
+		System.out.println("moredetails 컨트롤러 진입 성공");
 		
-		vo.setGRADE("silver");
+		vo.setGRADE("silver"); // 등급 설정
 		
 		System.out.println("moredetails 컨트롤러에서의 vo : " + vo.toString());
 		System.out.println("moredetails 컨트롤러에서의 md : " + md.toString());
 		
 		try {
+			
 			memberService.register(vo);
+			
 			long user_key=memberService.getUser_key(vo);
-			System.out.println(user_key);
+			System.out.println("vo user_key : " + user_key);
 			
 			md.setUSER_KEY(user_key);
 			memberService.moreDetailsRegister(md);
@@ -185,13 +187,11 @@ public class MemberController {
 			return "redirect:index.do";
 		}
 		catch(Exception e) {
+			
 			System.out.println("회원등록 실패..");
 
 			return "redirect:index.do";
 		}
-		
-		
-		
 	}
 	
 	@ResponseBody
