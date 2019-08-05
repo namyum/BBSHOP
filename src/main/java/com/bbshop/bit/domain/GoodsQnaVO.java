@@ -1,24 +1,23 @@
 package com.bbshop.bit.domain;
 
-import java.util.Date;
-
 public class GoodsQnaVO {
 
-	private int qna_num;
+	private long qna_num;	// 시퀀스값
 	private String title;
 	private String content;
-	private String file;
-	private Date regdate;
+	private String attached_file;
+	private String regdate;
 	private long goods_num;
 	private long user_key;
-	private int re_ref;		// 원글 참조 번호
-	private int re_lev;		// 계층 (답글일 경우 1)
-	private int re_seq;		// 글 번호??? 머더라?? 다시 물어보기
+	private long re_ref;		// 원글 참조 번호 (qna_num과 항상 같은 번호)
+	private int re_lev;			// 답글 계층 (사용자:원글:0, 관리자:답글:1)
+	private int re_seq;			// 답글 순서 (사용자:원글:0, 관리자:답글:1)
 	
-	public int getQna_num() {
+	
+	public long getQna_num() {
 		return qna_num;
 	}
-	public void setQna_num(int qna_num) {
+	public void setQna_num(long qna_num) {
 		this.qna_num = qna_num;
 	}
 	public String getTitle() {
@@ -33,16 +32,16 @@ public class GoodsQnaVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getFile() {
-		return file;
+	public String getAttached_file() {
+		return attached_file;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public void setAttached_file(String attached_file) {
+		this.attached_file = attached_file;
 	}
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 	public long getGoods_num() {
@@ -57,10 +56,10 @@ public class GoodsQnaVO {
 	public void setUser_key(long user_key) {
 		this.user_key = user_key;
 	}
-	public int getRe_ref() {
+	public long getRe_ref() {
 		return re_ref;
 	}
-	public void setRe_ref(int re_ref) {
+	public void setRe_ref(long re_ref) {
 		this.re_ref = re_ref;
 	}
 	public int getRe_lev() {
@@ -78,9 +77,9 @@ public class GoodsQnaVO {
 	
 	@Override
 	public String toString() {
-		return "GoodsQnaVO [qna_num=" + qna_num + ", title=" + title + ", content=" + content + ", file=" + file
-				+ ", regdate=" + regdate + ", goods_num=" + goods_num + ", user_key=" + user_key + ", re_ref=" + re_ref
-				+ ", re_lev=" + re_lev + ", re_seq=" + re_seq + "]";
+		return "GoodsQnaVO [qna_num=" + qna_num + ", title=" + title + ", content=" + content + ", attached_file="
+				+ attached_file + ", regdate=" + regdate + ", goods_num=" + goods_num + ", user_key=" + user_key
+				+ ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq=" + re_seq + "]";
 	}
 	
 }

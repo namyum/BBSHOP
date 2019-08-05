@@ -244,7 +244,7 @@
 
         /*버튼 메뉴(shop,gocommunity)의 색상. */
         .BBSHOP {
-            background-color: hsla(203, 96%, 51%, 0.3);
+            background-color: hsla(203, 96%, 51%, 0.6);
         }
 
         /*모달창 투명도*/
@@ -355,7 +355,7 @@
                                     </td>
 
                                     <td width="1500"></td>
-                                    <td style="text-align: center" class="BBSHOP" width="1000" height="120">
+                                    <td style="text-align: center" class="BBSHOP" width="500" height="120">
                                         <button id="goCommunity"
                                             style="background-color: rgba(255, 255, 255, 0); border: none">
                                             <p align="center">
@@ -384,7 +384,7 @@
                 <span class="close">&times;</span>
                 <h2 align="center">로 그 인</h2>
                 <div class="modal-body" style="padding: 40px 50px;">
-                    <form name="loginform" role="form" action="/shopping_main" method="post">
+                    <form name="loginform" role="form" action="/shopping_main.do" method="post">
                         <div class="form-group">
                             <label for="userid">ID</label> <input type="text" class="form-control" id="userid"
                                 name="userid" placeholder="ID를 입력하세요...">

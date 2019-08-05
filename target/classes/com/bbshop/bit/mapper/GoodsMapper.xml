@@ -12,7 +12,7 @@
 	from (
 	<choose>
 		<when test="sorting == 'new'">
-		select 
+		select /*+INDEX_DESC(goods idx_goods_date) */
 		</when>
 		<when test="sorting == 'best'">
 		select /*+INDEX_DESC(goods idx_goods_best) */
@@ -35,7 +35,7 @@
 ]]>	
 		<choose>
 			<when test="sorting == 'new'">
-			order by regdate desc
+<![CDATA[	and regdate > '18/01/01'	]]>
 			</when>
 			<when test="sorting == 'best'">
 <![CDATA[	and best >= 0	]]>
@@ -48,17 +48,88 @@
 </select>
 
 
-
 <!-- 카테고리 별, goods 데이터 개수 */ -->
 <select id="getTotalCount" parameterType="hashmap" resultType="int">
 	select count(*) from goods where category = #{category, jdbcType=INTEGER}
 </select>
 
 
-
 <!-- 상품 조회 -->
 <select id="getGoodsInfo" resultType="com.bbshop.bit.domain.GoodsVO">
 	select * from goods where goods_num = #{goods_num}
+</select>
+
+
+<!--======================================================================-->
+
+
+<!-- 상품 QNA 등록 - insert문이 실행되고 생성된  pk(시퀀스) 값을 알아야 하는 경우 -->
+<insert id="insertGoodsQnaSelectKey">
+	
+	<selectKey keyProperty="qna_num" order="BEFORE" resultType="long">
+		select seq_qna.nextval from dual
+	</selectKey>
+
+	insert into qna
+	values(#{qna_num}, #{title}, #{content}, #{attached_file}, sysdate, #{goods_num}, 950131, #{qna_num}, 0, 0)
+</insert>
+
+
+<!-- 상품 QNA 목록 (goods_num이 카테고리) -->
+<!-- hashmap[pagingVO(pageNum, amount), goods_num] -->
+<select id="getQnaList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsQnaVO">
+	select *
+	from (
+		select /*+INDEX(qna idx_qna_list) */
+			rownum rn, qna_num, title, content, attached_file, regdate, goods_num, user_key, re_ref, re_lev, re_seq
+		from QNA
+<![CDATA[
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+]]>	
+			and goods_num = #{goods_num, jdbcType=INTEGER}
+<![CDATA[	
+			and re_ref > 0
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>	
+</select>
+
+
+
+<!--======================================================================-->
+
+
+
+<!-- user_key를 이용해 moredetail을 가져온다. -->
+<select id="findDetail" resultType="com.bbshop.bit.domain.MoreDetailVO">
+	select * from u_moredetail where user_key = #{user_key}
+</select>
+
+<!-- 추천 상품 : 회원 -->
+<select id="recommendGoodsList" resultType="com.bbshop.bit.domain.GoodsVO">
+	select distinct a.*
+	from goods a, gd_glove b, gd_uniform c
+	where
+		(a.brand in (#{brand1}, #{brand2}, #{brand3}) and b.position = #{position} and a.goods_num = b.goods_num) 
+		
+		or
+		
+		(a.brand in (#{brand1}, #{brand2}, #{brand3}) and c.team = #{team} and a.goods_num = c.goods_num)
+	order by a.goods_num 
+</select>
+
+<!-- 추천 상품 : 회원 -->
+<select id="recommendBestList" resultType="com.bbshop.bit.domain.GoodsVO">
+	select *
+	from ( 
+		select /*+INDEX_DESC(goods idx_goods_best) */
+			rownum rn, goods_num, name, main_img, price, best, regdate
+		from goods
+<![CDATA[		
+	where rownum <= 10 and best >= 0
+	)
+	where rn > 0
+]]>
 </select>
 
 

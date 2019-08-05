@@ -32,15 +32,12 @@ public class GoodsControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	@Test
+//	@Test
 	public void testGoodsList() throws Exception {
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/getGoodsList_Ajax")
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/getQnaList_Ajax.do")
 				.param("pageNum", "1")
-				.param("amount", "8")
-				.param("category", "1")
-				.param("sorting", "highPrice")
-				.param("min_amount", "1000")
-				.param("max_amount", "300000"))
+				.param("amount", "10")
+				.param("goods_num", "21"))
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
@@ -50,6 +47,13 @@ public class GoodsControllerTests {
 	public void testGoodsInfo() throws Exception {
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/goods_info")
 				.param("goods_num", "8"))
+				.andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void testreco() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/shopping_main.do")
+				)
 				.andReturn().getModelAndView().getModelMap());
 	}
 }

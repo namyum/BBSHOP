@@ -49,7 +49,7 @@ function goodsList_Ajax() {
 	if(max_amount === "")
 		max_amount = "500000";
 
-//	var actionForm = $("#actionForm");
+
 	var s = $("#actionForm input[name='pageNum']").val();
 	
 
@@ -172,9 +172,6 @@ function goodsList_Ajax() {
 						
 						<script>
 						goodsList_Ajax();
-						
-						
-						
 						</script>
 						
 					</div>
@@ -219,7 +216,7 @@ function goodsList_Ajax() {
 		
 		
 		<form id="actionForm">
-			<input type="hidden" name="pageNum" value="1">
+			<input type="hidden" name="pageNum" value="1">	<!-- 초기값 1 -->
 			<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 			<input type="hidden" name="category" value="${categoryInt }">
 			<input type="hidden" name="sorting" value="$('select.sorting option:selected').val()">
@@ -231,33 +228,11 @@ function goodsList_Ajax() {
 	</section>
 	<!--================End Category Product Area =================-->
 
-<!-- 
-	<script>
-	function goodsList_Ajax() {
-
-
-		var s = $('.page-item.active a').text();
-		var actionForm = $("#actionForm");
-		var s = actionForm.find("input[name='pageNum']").val();
-		alert(s);
-		
-		if(s === undefined)
-			alert("야야야");
-		else
-			alert(s);
-*/
--->
-	<script>
-	
+	<script>	
 	$(document).ready(function() {
 		
 		// paging
 		var actionForm = $("#actionForm");
-		/*		
-		var sorting = $('select.sorting option:selected').val();
-		var min_amount = $('#min_amount').val();
-		var max_amount = $('#max_amount').val();
-		*/
 		
 		$(".page-item").on("click", function(e) {
 			e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
@@ -272,10 +247,7 @@ function goodsList_Ajax() {
 			$('#actionForm input[name="pageNum"]').val(page);
 
 			goodsList_Ajax();
-
 		});
-		
-		
 		
 		/*
 		// 페이지 active 처리
@@ -284,16 +256,6 @@ function goodsList_Ajax() {
 		$('.page-item').click(function() {
 			$('.page-item').removeClass("active");
 			$(this).addClass("active");
-		});
-		
-		$('.page-item-left').click(function() {
-			$('.page-item').removeClass("active");
-			page_item[5].classList.add("active");
-		});
-		$('.page-item-right').click(function() {
-			$('.page-item').removeClass("active");
-			page_item[1].classList.add("active");
-			
 		});
 		*/
 		
