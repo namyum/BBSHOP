@@ -3,6 +3,7 @@ package com.bbshop.bit.cart.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class CartController {
 	@RequestMapping("cart.do")
 	public String cart(HttpSession session, Model model) {
 		System.out.println("cart페이지");
+		int allPrice=0;
+		int shipping_fee=0;
 		long user_key = 1;
 		Cart_PDVO vo = new Cart_PDVO();
 		vo.setUSER_KEY(user_key);
@@ -54,20 +57,12 @@ public class CartController {
 			System.out.println("카트리스트 토탈이 수정되었낭?"+cartList.get(i));
 		}
 		
-		int allPrice=0;
 		
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
 		}
 		
-		int shipping_fee=0;
-		if(allPrice>=2000000) {
-			shipping_fee=0;
-		}
-		else {
-			shipping_fee=2500;
-			allPrice+=2500;
-		}
+		shipping_fee=calcShipping_fee(allPrice);
 		model.addAttribute("shipping_fee", shipping_fee);
 		model.addAttribute("allPrice", allPrice);
 		
@@ -80,25 +75,19 @@ public class CartController {
 	@RequestMapping(value="QnttyUp.do" , method=RequestMethod.GET)
 	public String qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index,Model model) {
 		Cart_PDVO temp =cartList.get(index);
+		int allPrice=0;
+		int shipping_fee=0;
 		System.out.println(index);
 		System.out.println(qnt);
 		temp.setQNTTY(qnt);
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
 		System.out.println(temp.getTOTALPRICE());
 		cartList.set(index, temp);
-		int allPrice=0;
 		
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
 		}
-		int shipping_fee=0;
-		if(allPrice>=2000000) {
-			shipping_fee=0;
-		}
-		else {
-			shipping_fee=2500;
-			allPrice+=2500;
-		}
+		shipping_fee=calcShipping_fee(allPrice);
 		System.out.println(allPrice);
 		
 		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
@@ -107,19 +96,21 @@ public class CartController {
 	@RequestMapping(value="QnttyDown.do" , method=RequestMethod.GET)
 	public String qnttyDown(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index ,Model model) {
 		Cart_PDVO temp =cartList.get(index);
-		System.out.println(index);
-		System.out.println(qnt);
+		int allPrice=0;
+		int shipping_fee=0;
+
 		temp.setQNTTY(qnt);
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
-		System.out.println(temp.getTOTALPRICE());
 		cartList.set(index, temp);
-		
-		int allPrice=0;
-		
+		shipping_fee=calcShipping_fee(allPrice);
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
 		}
-		System.out.println(allPrice);
+
+		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
+	}
+	
+	public int calcShipping_fee(int allPrice) {
 		int shipping_fee=0;
 		if(allPrice>=2000000) {
 			shipping_fee=0;
@@ -128,8 +119,12 @@ public class CartController {
 			shipping_fee=2500;
 			allPrice+=2500;
 		}
-	
+		return shipping_fee;
+	}
+	@RequestMapping(value="selectDelete.do" , method=RequestMethod.POST)
+	public String selectDelete(HttpServletRequest request) {
+		request.getParameter("listindex");
 		
-		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
+		return "cart.do";
 	}
 }

@@ -183,7 +183,7 @@ body{font-family:NanumBarunpen, sans-serif}
  							</c:forEach>
 							<tr class="shipping_area">
 								<td>
-
+								<button style="width:100%" class="main_btn" id="selectDelete">선택삭제</button>
 								</td>
 								<td>
 								</td>
@@ -220,7 +220,7 @@ body{font-family:NanumBarunpen, sans-serif}
 							<tr class="out_button_area">
 								<td style="text-align:center"><div align="center" class="checkout_btn_inner">
 											<a class="main_btn" href="/order">결제하기</a>
-											<button class="main_btn" id="selectDelete">선택삭제</button>
+											
 											<a class="gray_btn" href="/goods_list">계속 쇼핑하기</a>
 											
 										</div>
@@ -234,12 +234,17 @@ body{font-family:NanumBarunpen, sans-serif}
 			</div>
 		</div>
 		<script>
+		//for문을 돌려서 체크 된값을 가져오고 그 인덱스를 가져와서 
+		//해당 인덱스의 값을 카트 에서 지워주면될듯.
 		$("#selectDelete").click(function(){
-			
-			
-			
-			
-		})
+			var listindex=[];
+			alert("들어오징?");
+			$('input:checkbox[type=checkbox]:checked').each(function () {
+				listindex.push($('.check').index(this));
+				alert('checked'+listindex);
+				
+				});
+		});
 		
 		
 		</script>
