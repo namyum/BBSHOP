@@ -158,7 +158,7 @@
 		
 		var actionForm = $("#actionForm");
 
-		actionForm.find("input[name='pageNum']").val(1);
+		actionForm.find("input[name='pageNum']").val(1); // 처음에는 1페이지를 출력한다.
 		
 		var amount = actionForm.find("input[name='amount']").val();
 		var pageNum = actionForm.find("input[name='pageNum']").val();

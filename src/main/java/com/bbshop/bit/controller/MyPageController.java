@@ -173,10 +173,14 @@ public class MyPageController {
 			review_list.get(i).setRv_num(sum--);
 		}
 		
+		PageDTO pageMaker = new PageDTO(pagingVO, total);
+		
+		System.out.println("mypost 컨트롤러의 pageMaker : " + pageMaker.toString());
+		
 		model.addAttribute("qna_list", qna_list);
 		model.addAttribute("onetoone_list", onetoone_list);
 		model.addAttribute("review_list", review_list);
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		model.addAttribute("pageMaker", pageMaker);
 
 		return "shoppingMall/mypage/mypost";
 	}

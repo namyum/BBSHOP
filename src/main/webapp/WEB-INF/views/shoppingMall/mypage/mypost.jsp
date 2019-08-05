@@ -138,7 +138,7 @@
 					<!-- 페이지 목록 버튼 -->
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 						<li class="page-item  ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
-							<a href="${num}" class="page-link">${num}</a>
+							<a href="${num}" class="page-link" onclick="getTableWithAjax()">${num}</a>
 						</li>
 					</c:forEach>
 				</ul>
