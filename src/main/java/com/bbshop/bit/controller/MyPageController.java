@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,12 +146,35 @@ public class MyPageController {
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
 		long total = 0;
+		long sum = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "review"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "qna");
+		List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
+		sum += total;		
 		
+		total = myPageService.getTotal(pagingVO, "review");
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+		sum += total;
 		
+		total = myPageService.getTotal(pagingVO, "onetoone");
+		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
+		sum += total;
+		
+		for (int i = 0; i < qna_list.size(); i++) {
+			qna_list.get(i).setQna_num(sum--);
+		}
+		
+		for (int i = 0; i < onetoone_list.size(); i++) {
+			onetoone_list.get(i).setOne_one_num(sum--);
+		}
+		
+		for (int i = 0; i < review_list.size(); i++) {
+			review_list.get(i).setRv_num(sum--);
+		}
+		
+		model.addAttribute("qna_list", qna_list);
+		model.addAttribute("onetoone_list", onetoone_list);
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 
@@ -169,7 +193,9 @@ public class MyPageController {
 		
 		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
 		
-		System.out.println("modify_info 컨트롤러의 member : " + member.toString());
+		System.out.println("modify_info 컨트롤러의 회원 정보 : " + member.toString());
+		System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
+		System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
 				
 		model.addAttribute("memberInfo", member);
 		model.addAttribute("addr_list", addr_list);
@@ -428,6 +454,7 @@ public class MyPageController {
 			
 			return listMap;
 		
+		// 전체 게시글 출력 코드
 		} else {
 			
 			long sum = 0;

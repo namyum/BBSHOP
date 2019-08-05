@@ -44,6 +44,64 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="qnaVO" items="${qna_list }">
+						<tr>
+							<td>
+								<h5>
+									<c:out value="${qnaVO.qna_num }" default="null" />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									상품 QnA
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value='${qnaVO.subject }' />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value='${qnaVO.regdate }' />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value="${qnaVO.hit }" default="null" />
+								</h5>
+							</td>
+						</tr>
+					</c:forEach>
+					<c:forEach var="onetooneVO" items="${onetoone_list }">
+						<tr>
+							<td>
+								<h5>
+									<c:out value="${onetooneVO.one_one_num }" default="null" />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									1:1 문의
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value='${onetooneVO.one_title }' />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value='${onetooneVO.regdate }' />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value="${onetooneVO.hit }" default="null" />
+								</h5>
+							</td>
+						</tr>
+					</c:forEach>
 					<c:forEach var="reviewVO" items="${review_list }">
 						<tr>
 							<td>
@@ -52,7 +110,9 @@
 								</h5>
 							</td>
 							<td>
-								<h5>상품 후기</h5>
+								<h5>
+									상품 후기
+								</h5>
 							</td>
 							<td>
 								<h5>
@@ -91,139 +151,5 @@
 		</div>
 	</div>
 </div>
-
-<script>
-
-function getTableWithAjax(category) {
-	
-	var actionForm = $("#actionForm");
-
-	actionForm.find("input[name='pageNum']").val(1);
-	
-	var amount = actionForm.find("input[name='amount']").val();
-	var pageNum = actionForm.find("input[name='pageNum']").val();
-	
-	var data = {};
-	
-		data["pageNum"] = pageNum; 
-		data["amount"] = amount;
-		data["category"] = category;
-				
-	$.ajax({
-		type : 'POST',
-		url : '/getTableWithAjax.do',
-		data : JSON.stringify(data),
-		dataType : 'json',
-		contentType: "application/json",
-		success : function(result) {
-								
-			var str = '';
-			var values = '';
-			
-			var start = ${pageMaker.startPage};
-			var end = ${pageMaker.endPage};
-			var paging = '';
-			
-			if (category == 'review') {
-				
-				category = '상품 후기';
-				values = result.review;
-				
-			} else if (category == 'qna') {
-				
-				category = '상품 QnA';
-				values = result.qna;
-				
-			} else if (category == 'onetoone') {
-				
-				category = '1:1 문의';
-				values = result.onetoone;		
-			
-			} else {
-				
-				category = '전체';
-				values = result;
-			}
-			
-			$.each(values, function(index, value){
-								
-				if (category == '상품 후기') {
-					
-					console.log(values[index].re_hit);
-					
-					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
-				
-				} else if (category == '상품 QnA') {
-					
-					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].subject + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
-				
-				} else if (category == '1:1 문의') {
-					
-					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
-				
-				} else {
-					
-					console.log('values : ' + values);
-					
-					var list = values[index];
-					
-					console.log(list);
-					
-					if (index == 'review') {
-						
-						$.each(list, function(index, value) {
-						
-							str += '<tr><td><h5>' + list[index].rv_num + '</h5></td><td><h5>상품 후기</h5></td><td><h5>' + list[index].title + '</h5></td><td><h5>'
-							+ list[index].re_date + '</h5></td><td><h5>' + list[index].re_hit + '</h5></td></tr>';
-						});
-						
-					} else if (index == 'qna') {
-						
-						$.each(list, function(index, value) {
-
-							str += '<tr><td><h5>' + list[index].qna_num + '</h5></td><td><h5>상품 QnA</h5></td><td><h5>' + list[index].subject + '</h5></td><td><h5>'
-								+ list[index].regdate + '</h5></td><td><h5>' + list[index].hit + '</h5></td></tr>';
-						});
-
-					} else if (index == 'onetoone') {
-						
-						$.each(list, function(index, value) {
-						
-							str += '<tr><td><h5>' + list[index].one_one_num + '</h5></td><td><h5>1:1 문의</h5></td><td><h5>' + list[index].one_title + '</h5></td><td><h5>'
-								+ list[index].regdate + '</h5></td><td><h5>' + list[index].hit + '</h5></td></tr>';
-						});
-					}
-				}
-				
-			});
-				
-			$('tbody').empty();
-			$('tbody').append(str);
-			
-			$('#table_content').empty();
-			$('#table_content').append(category);
-			
-			// 페이징 버튼 AJAX 처리
-			$('.pagination').empty();
-			
-			for (var i = start; i <= end; i++) {
-				paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
-			}
-			
-			$('.pagination').append(paging);
-			
-			$('.page-item').removeClass("active");
-			$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-		},
-		error : function() {
-				
-			alert('AJAX 요청 실패!');
-		}
-	});
-}
-</script>
 
 <%@ include file="../include/mypage_footer.jsp"%>
