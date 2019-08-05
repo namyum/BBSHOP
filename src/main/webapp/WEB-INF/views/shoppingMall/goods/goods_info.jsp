@@ -3,11 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ include file="../include/shopping_header.jsp" %>
-
+<head>
 <style>
-* {
-	font-weight : bold;
-}
 .tab-content>#home {
 	text-align: center;
 }
@@ -18,7 +15,6 @@
 }
 
 .fa-star:before {
-
 	color: rgb(251, 214, 0);
 }
 
@@ -76,18 +72,107 @@ a#default-select.default-select {
 #qna_Modal, #review_Modal {
 	opacity: 1.0;
 }
+/* .review_item.reply { */
+/*     padding-left: 50px; */
+/* } */
+.product_description_area .table-responsive table td h5 {
+	font-weight : bold !important;
+}
+.product_description_area .table-responsive table .gd_info {
+	display : none;
+}
+.product_description_area table tr {
+	border-bottom : 1px solid lightgray;
+	font-size : 16px;
+}
+.product_description_area table th {
+	padding : 15px 0;
+	text-align : center;
+	font-color : black !important;
+}
+.product_description_area table td {
+	padding : 15px 0;
+	text-align : center;
+	font-weight : normal;
+	font-color : black !important;
+}
+.product_description_area table td .view {
+	padding : 15px;
+	font-color : black !important;
+	font-weight : normal !important;
+}
 </style>
 
+<script>
+function qnaList_Ajax() {
+	
+//	var goods_num = ${goods.goods_num};
+
+//	var actionForm = $("#actionForm");
+//	var s = $("#actionForm input[name='pageNum']").val();
+	
+
+//	var qnaPageNum = $('#actionForm input[name="pageNum"]').val();
+//	if(qnaPageNum === undefined)
+//		qnaPageNum = 1;
+	var qnaPageNum = 1;
+	var qnaAmount = 20;
+	var goods_num = ${goods.goods_num};
+	
+	var data = {};
+	data["pageNum"] = qnaPageNum * 1;
+	data["amount"] = qnaAmount;
+	data["goods_num"] = goods_num;
+	console.log(data);
+	
+	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+	$('#qna_list').empty();
+	
+	$.ajax({
+		type : "POST",
+		url : "/getQnaList_Ajax.do",
+		data : JSON.stringify(data),
+		dataType: "json",
+		contentType : "application/json",
+		success : function(data) {
+			$.each(data, function(index, qna) {
+				var output = "";
+				
+				if(data[index].re_lev == 1) 
+					output += "<tr class='qna_item reply'>";
+				else
+					output += "<tr class='qna_item'>";
+					
+				
+					
+				output += "<td>" + data[index].qna_num + "</td>";
+				output += "<td>" + data[index].title + "</td>";
+				output += "<td>" + data[index].user_key + "</td>";
+				output += "<td>" + data[index].regdate + "</td></tr>";
+				
+				output += "<tr class='qna_content' style='display:none;'>";
+				output += "<td colspan='4'><div class='view'><p>" + data[index].content + "</p></div></td></tr>";
+				
+				console.log("output : " + output);
+				$('#qna_list').append(output);
+
+			});
+		},
+		error : function() {alert('qna ajax 통신 실패!');}
+	});
+}
+</script>
+</head>
 
 	<!--================Home Banner Area =================-->	
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					<h2>상품 정보 페이지</h2>
+					<h2>상품 정보</h2>
 					<div class="page_link">
 						<a href="/shopping_main">쇼핑몰</a>		
-						<a href="/goods_list.do?">${categoryString }</a>	<!-- 값 넣어주기 -->
+						<a href="/goods_list.do?category=${categoryInt }">${categoryString }</a>	<!-- 값 넣어주기 -->
 						<a href="/goods_info.do?goods_num=${goods.goods_num }&&category=${categoryInt}">${goods.name }</a>	<!-- 값 넣어주기 -->
 					</div>
 				</div>
@@ -117,22 +202,21 @@ a#default-select.default-select {
 						<!-- 옵션들 -->
 						<ul class="list">
 							<li>
-								<!-- 카테고리 값 넣어주세요, 클릭 시 페이지 이동--> 
-								<!-- 카테고리 값 읽기 : document.getElementById("category").innerHTML -->
-								<a class="active" href="/goods_list">
-									<span>카테고리</span><span style="padding-left:20px; color:red;" id="category" data-category=${goods.category }>${goods.category }</span>
+								<!-- 카테고리 값, 클릭 시 페이지 이동--> 
+								<a class="active" href="/goods_list.do?category=${categoryInt }">
+									<span>카테고리</span><span style="padding-left:20px; color:red;" id="category">${categoryString }</span>
 								</a>
 							</li>
 							<li>&nbsp;</li>
 							<!-- select된 값 읽기  var value = $('#glove_hand option:selected').val(); -->
 					<!-- 글러브 옵션 ---------------->
 							<li>	
-								<a class="default-select glove" id="default-select" href="#none">
+								 <a class="default-select glove" id="default-select" href="#none">
 									<!-- 옵션1 -->
 									<label for="glove_hand"><span class="option">좌 / 우</span></label>
 									<select id="glove_hand">
-										<option value="left">좌투(오른손착용)</option>
-										<option value="right">우투(왼손착용)</option>
+										<option value="0">좌투(오른손착용)</option>
+										<option value="1">우투(왼손착용)</option>
 									</select>
 								</a>
 							</li>
@@ -141,8 +225,8 @@ a#default-select.default-select {
 									<!-- 옵션2 -->
 									<label for="glove_tame"><span class="option">길들이기</span></label>
 									<select id="glove_tame">
-										<option value="false">선택안함</option>
-										<option value="true">볼집+각잡기(+15000)</option>
+										<option value="0">선택안함</option>
+										<option value="1">볼집+각잡기(+15000)</option>
 									</select>
 								</a>
 							</li>
@@ -187,8 +271,8 @@ a#default-select.default-select {
 								<a class="default-select shoes" id="default-select" href="#none">
 									<label for="shoes_spike"><span class="option">사이즈</span></label>
 									<select id="shoes_spike">
-										<option value="false">선택안함</option>
-										<option value="true">스파이크(+5000)</option>
+										<option value="0">선택안함</option>
+										<option value="1">스파이크(+5000)</option>
 									</select>
 								</a>
 							</li>
@@ -198,11 +282,12 @@ a#default-select.default-select {
 								<a class="default-select ball" id="default-select" href="#none">
 									<label for="ball_count"><span class="option">판매단위</span></label>
 									<select id="ball_count">
-										<option value="1">낱개</option>
-										<option value="12">12개(1타스)</option>
+										<option value="0">낱개</option>
+										<option value="1">12개(1타스)</option>
 									</select>
 								</a>
 							</li>
+					<!-- ---------------------->
 						</ul>
 						<p>
 							적립금 : 1790원 <br>
@@ -251,11 +336,10 @@ a#default-select.default-select {
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<!-- #home : 상세 설명 -->
+<!-- #home : 상세 설명 -->
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<!-- DB, 사진3번째컬럼, 상세사진 긴~거 띄우기 -->
-				  	<img class="bbshop-info" src=${goods.main_img } alt="">
-				  	상세사진img로 바꿀 예쩡 db에 넣기 전이기떄문.
+				  	<img class="bbshop-info" src=${goods.dtl_img2 } alt="" style="max-width: -webkit-fill-available;" >
 				</div>
 				
 <!-- #profile : 상품 정보 (객체의 속성들? 다 설정) ----------------------------------------------------------------------------------->
@@ -264,36 +348,48 @@ a#default-select.default-select {
 						<table class="table">
 							<tbody>
 								<tr>
-									<td><h5 style="font-weight : bold;">카테고리</h5></td>
-									<td><h5 style="font-weight : bold;"><c:out value="${categoryString }" /></h5></td>
+									<td><h5>카테고리</h5></td>
+									<td><h5><c:out value="${categoryString }" /></h5></td>
 								</tr>
 								<tr>
-									<td><h5 style="font-weight : bold;">상품번호</h5></td>
-									<td><h5 style="font-weight : bold;"><c:out value="${goods.goods_num }" /></h5></td>
+									<td><h5>상품번호</h5></td>
+									<td><h5><c:out value="${goods.goods_num }" /></h5></td>
 								</tr>
 								<tr>
-									<td><h5 style="font-weight : bold;">상품명</h5></td>
-									<td><h5 style="font-weight : bold;"><c:out value="${goods.name }" /></h5></td>
+									<td><h5>상품명</h5></td>
+									<td><h5><c:out value="${goods.name }" /></h5></td>
 								</tr>
 								<tr>
-									<td><h5 style="font-weight : bold;">가격</h5></td>
-									<td><h5 style="font-weight : bold;"><c:out value="${goods.price }" />원</h5></td>
+									<td><h5>가격</h5></td>
+									<td><h5><c:out value="${goods.price }" />원</h5></td>
 								</tr>
 								<tr>
-									<td><h5 style="font-weight : bold;">브랜드</h5></td>
-									<td><h5 style="font-weight : bold;"><c:out value="${goods.brand }" /></h5></td>
+									<td><h5>브랜드</h5></td>
+									<td><h5><c:out value="${goods.brand }" /></h5></td>
 								</tr>
-								<tr>
-									<td><h5 style="font-weight : bold;">좌/우</h5></td>
-									<td><h5 style="font-weight : bold;">좌투(오른손착용), 우투(왼손착용)</h5></td>
+								<tr class="gd_info glove">
+									<td><h5>포지션</h5></td>
+									<td><h5>투수, 올라운드</h5></td>
 								</tr>
-								<tr>
-									<td><h5 style="font-weight : bold;">포지션</h5></td>
-									<td><h5 style="font-weight : bold;">투수, 올라운드</h5></td>
+								<tr class="gd_info glove bat shoes">
+									<td><h5>색상</h5></td>
+									<td><h5>black</h5></td>
 								</tr>
-								<tr>
-									<td><h5 style="font-weight : bold;">색상</h5></td>
-									<td><h5 style="font-weight : bold;">black</h5></td>
+								<tr class="gd_info bat">
+									<td><h5>재질</h5></td>
+									<td><h5>알루미늄</h5></td>
+								</tr>
+								<tr class="gd_info uniform">
+									<td><h5>구단</h5></td>
+									<td><h5>??</h5></td>
+								</tr>
+								<tr class="gd_info uniform">
+									<td><h5>홈어웨이</h5></td>
+									<td><h5>??</h5></td>
+								</tr>
+								<tr class="gd_info ball">
+									<td><h5>용도</h5></td>
+									<td><h5>??</h5></td>
 								</tr>
 							</tbody>
 						</table>
@@ -305,50 +401,43 @@ a#default-select.default-select {
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="comment_list">
-								<div class="review_item">
-									<div class="media">
-								<!--	<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-1.png" alt="">
-										</div>	  우리 db에 회원이미지는 없으니까?	-->
-										<div class="media-body">
-											<h4>1(문의번호) 상품 크기 문의합니다.(제목)</h4>
-											<h5>남냠남(닉네임) &emsp;12th Feb, 2017 at 05:56 pm(시간)</h5>
-									<!--	<a class="reply_btn" href="#">Reply</a>	-->
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
-								<div class="review_item reply">
-									<div class="media">
-							<!--		<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-2.png" alt="">
-										</div>		-->
-										<div class="media-body">
-											<h4>Re : 상품 크기 문의합니다.(제목)</h4>
-											<h5>관리자(닉네임) &emsp; 12th Feb, 2017 at 05:56 pm(시간)</h5>
-									<!--	<a class="reply_btn" href="#">Reply</a>	-->
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-							<!--		<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-3.png" alt="">
-										</div>	-->
-										<div class="media-body">
-											<h4>2. 재입고 문의</h4>
-											<h5>이지수달 &emsp; 12th Feb, 2017 at 05:56 pm</h5>
-											<!--	<a class="reply_btn" href="#">Reply</a>	-->
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
+								<table border="0" style="width : -webkit-fill-available;">
+									<thead>
+										<tr>
+											<th scope="col" class="qna_number">번호</th>
+											<th scope="col" class="qna_title" style="width:60%;">제목</th>
+											<th scope="col" class="qna_nickname">닉네임</th>
+											<th scope="col" class="qna_date">날짜</th>
+										</tr>
+									</thead>
+									<tbody id="qna_list">
+								
+									<script>
+										qnaList_Ajax();
+									</script>
+							
+<!-- 										번호,제목,닉네임,날짜 -->
+<!-- 										<tr class="qna_item"> -->
+<!-- 											<td style="padding:20px, 0;">3</td> -->
+<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
+<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
+<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
+<!-- 										</tr> -->
+<!-- 										내용 -->
+<!-- 										<tr class="qna_content" style="display:none;"> -->
+<!-- 											<td colspan="4"> -->
+<!-- 												<div class="view"> -->
+<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
+<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+	
+									</tbody>
+								</table>
+							
 								<!-- Q&A 작성버튼 -->
-								<div class="col-md-12 text-right">
+								<div class="col-md-12 text-right" style="padding : 20px 0 0 0;">
 									<button class="btn submit_btn" id="qna_btn">상품 문의 등록</button>
 								</div>
 							</div>
@@ -359,36 +448,38 @@ a#default-select.default-select {
 							<div class="qna_Content review_box ">
 								<span class="modal_close close">&times;</span>	<!-- X버튼 -->
 								<h4 align="center">Q&A 작성하기</h4>
-								<form class="row contact_form" action="" method="post" id="contactForm" novalidate="novalidate">
+								
+								<!-- 상품QNA 작성 FORM (id:#contactForm) -->
+								<form class="row contact_form" action="/registerGoodsQna.do" method="get" id="contactForm" novalidate="novalidate">
 									<!-- Q&A 제목 -->
 									<div class="col-md-12">
 										<div class="form-group">
 											<input type="text" class="form-control" id="title" name="title" placeholder="Q&A 제목">
 										</div>
 									</div>
-									<!-- Q&A 작성자 readonly -->
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" readonly class="form-control" name="writer" id="message" value="session에서 오는 회원 닉네임">
-										</div>
-									</div>
 									<!-- Q&A 내용 -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Q&A 내용"></textarea>
+											<textarea class="form-control" name="content" id="content" rows="1" placeholder="Q&A 내용"></textarea>
 										</div>
 									</div>
 									<!-- Q&A 첨부파일 -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="FILE" class="form-control" id="file" name="file" placeholder="첨부파일">
+											<input type="FILE" class="form-control" id="attached_file" name="attached_file" placeholder="첨부파일">
 										</div>
 									</div>
+									
+									<!-- hidden : goods_num -->
+									<input type="hidden" name="goods_num" value=${goods.goods_num }>
+									<input type="hidden" name="category" value=${goods.category }>
+								
 									<!-- Q&A 등록(submit)버튼 -->
 									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn submit_btn">등록하기</button>
+										<input type="submit" value="등록하기" class="btn submit_btn" >
 									</div>
 								</form>
+							
 							</div>
 						</div>
 		<!-- ==================== end qna 작성 모달 ==================== -->
@@ -582,9 +673,22 @@ a#default-select.default-select {
 	</section>
 	<!--================End Product Description Area =================-->
 
-<script type="text/javascript">
-	//카테고리 별로 옵션 다르게 나오게 하기.
-	var category = document.getElementById("category");
+<script>
+	// table(qna, review) - 제목 클릭시, 내용 보여주는 이벤트
+	var qna_item = document.getElementsByClassName("qna_item");
+	var qna_content = document.getElementsByClassName("qna_content");
+	
+	// ajax로 동적으로 데이터 뿌려준 후, 그 데이터에 대한 click event처리
+	$(document).on("click", ".qna_item", function() {
+		var index =  $('.qna_item').index(this);
+		$(".qna_content:eq(" + index + ")").toggle();
+	});
+</script>
+
+<script>
+	// 카테고리 별로 옵션 다르게 나오게 하기.
+	// var category = document.getElementById("category");
+	// 하드코딩 - 수정필요
 	
 	var glove = document.querySelectorAll("a.glove");
 	var bat = document.querySelectorAll("a.bat");
@@ -592,36 +696,40 @@ a#default-select.default-select {
 	var shoes = document.querySelectorAll("a.shoes");
 	var ball = document.querySelectorAll("a.ball");
 	
-	if(category.innerHTML == 1) {
-		category.innerHTML = "글러브";
-		for(i=0; i<glove.length; i++) {
-			glove[i].style.display = "flex";
+	var category = ${categoryInt};
+	var categoryOption = ['', glove, bat, uniform, shoes, ball];
+	
+	/*
+	for(let i=1; i<categoryArr.length; i++) {
+		if(category == i) {
+			for(j=0; i<categoryOption[i].length; i++) {
+				categoryOption[i][j].style.display = "flex";
+			}
 		}
+	}
+	*/
+	
+	if(category == 1) {
+		$('.gd_info.glove').css('display', 'table-row');
+		$('a.glove').css('display', 'flex');
 	}
 	else if(category == 2) {
-		category.innerHTML = "배트";
-		for(i=0; i<bat.length; i++) {
-			bat[i].style.display = "flex";
-		}
+		$('.gd_info.bat').css('display', 'table-row');
+		$('a.bat').css('display', 'flex');
 	}
 	else if(category == 3) {
-		category.innerHTML = "유니폼";
-		for(i=0; i<uniform.length; i++) {
-			uniform[i].style.display = "flex";
-		}
+		$('.gd_info.uniform').css('display', 'table-row');
+		$('a.uniform').css('display', 'flex');
 	}
 	else if(category == 4) {
-		category.innerHTML = "야구화";
-		for(i=0; i<shoes.length; i++) {
-			shoes[i].style.display = "flex";
-		}
+		$('.gd_info.shoes').css('display', 'table-row');
+		$('a.shoes').css('display', 'flex');
 	}
 	else if(category == 5) {
-		category.innerHTML = "야구공";
-		for(i=0; i<ball.length; i++) {
-			ball[i].style.display = "flex";
-		}
+		$('.gd_info.ball').css('display', 'table-row');
+		$('a.ball').css('display', 'flex');
 	}
+	
 </script>
 
 <script>
