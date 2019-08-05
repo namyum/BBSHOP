@@ -166,9 +166,12 @@ public class MemberController {
 	@RequestMapping(value="moredetails.do", method=RequestMethod.POST)
 	public String moredetails(@RequestBody MemberVO vo, @RequestBody MoreDetailsVO md, HttpServletRequest request) {
 		
+		System.out.println("mordedetails 컨트롤러 진입 성공");
+		
 		vo.setGRADE("silver");
-		System.out.println(vo.toString());
-		System.out.println(md.toString());
+		
+		System.out.println("moredetails 컨트롤러에서의 vo : " + vo.toString());
+		System.out.println("moredetails 컨트롤러에서의 md : " + md.toString());
 		
 		try {
 			memberService.register(vo);

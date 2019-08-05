@@ -988,8 +988,12 @@
             var MEMBER_PHONE= $("#md_phone").val();
             var MEMBER_BIRTH= $("#md_birth").val();
               	
-         	var formData={TEAM:team, POSITION:position, HAND:hand, BRAND1:brand1, BRAND2:brand2, BRAND3:brand3, MEMBER_ID:MEMBER_ID, MEMBER_PW:MEMBER_PW, NICKNAME:MEMBER_NICKNAME, NAME:MEMBER_NAME, PHONE:MEMBER_PHONE, BIRTH:MEMBER_BIRTH};
+         	var formData = new Array();
+         	
+         	formData = {TEAM:team, POSITION:position, HAND:hand, BRAND1:brand1, BRAND2:brand2, BRAND3:brand3, MEMBER_ID:MEMBER_ID, MEMBER_PW:MEMBER_PW, NICKNAME:MEMBER_NICKNAME, NAME:MEMBER_NAME, PHONE:MEMBER_PHONE, BIRTH:MEMBER_BIRTH};
        	
+         	console.log('formData : ' + formData);
+         	
             jQuery.ajax({
     			url : 'moredetails.do',
     			type : 'POST',
@@ -1000,9 +1004,10 @@
     				alert("통신완료!");
     			},
     			error:function(){
+    				
     				alert("ajax통신 실패!!!");
     			}
-    			});
+    		});
            //	location.href="moredetails.do?TEAM="+team;
         });
 		//아이디 비밀번호 찾기 눌렀을때
