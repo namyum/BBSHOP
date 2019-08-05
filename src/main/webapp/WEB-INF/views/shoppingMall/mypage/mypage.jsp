@@ -254,6 +254,7 @@ a {
 </div>
 
 <script type="text/javascript">
+
 	var actionForm = $("#actionForm");
 
 	$(document).on("click", ".page-item a", function(e) {
@@ -300,7 +301,7 @@ a {
 
 										$('tbody').empty();
 										$('tbody').append(str);
-
+										
 										// 페이징 버튼 AJAX 처리
 										$('.pagination').empty();
 										
@@ -309,10 +310,7 @@ a {
 										}
 										
 										$('.pagination').append(paging);
-										
-										$('.page-item').removeClass("active");
 										$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-
 									},
 									error : function() {
 										alert('AJAX 요청 실패!');

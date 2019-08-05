@@ -275,7 +275,6 @@
 				
 				$('.pagination').append(paging);
 				
-				$('.page-item').removeClass("active");
 				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 			},
 			error : function() {
