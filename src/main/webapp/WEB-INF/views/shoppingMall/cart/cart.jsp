@@ -238,11 +238,23 @@ body{font-family:NanumBarunpen, sans-serif}
 		//해당 인덱스의 값을 카트 에서 지워주면될듯.
 		$("#selectDelete").click(function(){
 			var listindex=[];
-			alert("들어오징?");
 			$('input:checkbox[type=checkbox]:checked').each(function () {
 				listindex.push($('.check').index(this));
-				alert('checked'+listindex);
-				
+			
+				});
+			var ajaxarr={"listindex":listindex}
+			alert(listindex);
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+     			url:"selectDelete.do",
+     			type:"POST",
+     			data:ajaxarr,
+     			dataType:"text", //text를 받아와서 data를 ,를 기점으로 잘라서 배열에 저장.
+     			success : function(data) {
+     				console.log("성공");
+     				}, error : function() {
+							console.log("실패");
+					}
 				});
 		});
 		

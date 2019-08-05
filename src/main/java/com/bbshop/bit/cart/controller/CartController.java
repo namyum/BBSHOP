@@ -123,8 +123,11 @@ public class CartController {
 	}
 	@RequestMapping(value="selectDelete.do" , method=RequestMethod.POST)
 	public String selectDelete(HttpServletRequest request) {
-		request.getParameter("listindex");
+		String[] listindex =request.getParameterValues("listindex");
 		
+		for(int i = 0 ; i<listindex.length;i++) {
+			System.out.println(listindex[i]);
+		}
 		return "cart.do";
 	}
 }
