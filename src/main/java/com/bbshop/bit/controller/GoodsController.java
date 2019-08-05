@@ -1,23 +1,23 @@
 package com.bbshop.bit.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MoreDetailVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.GoodsService;
@@ -41,99 +41,72 @@ public class GoodsController {
 		
 		log.info("Controller...goods_list.jsp");
 		
-		String id = (String)session.getAttribute("id");
+		// String id = (String)session.getAttribute("id");
 		
 		// id = "noAccount";
 		
 		model.addAttribute("categoryInt", category);
 		model.addAttribute("categoryString", service.category(category));
 		
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, 123));
-		model.addAttribute("id", id); // 세션에서 받은 id 값을 model에 추가함.
+		int total = service.getTotalCount(category);
+		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		
 		return "shoppingMall/goods/goods_list";
 	}
-	
-	
+
 	// 상품 목록 페이지 - ajax 데이터 뿌려주기 
-	@RequestMapping(value="/getGoodsList_Ajax.do", method=RequestMethod.GET, produces="application/json;charset=UTF-8")
+	@RequestMapping(value="/getGoodsList_Ajax.do", consumes="application/json")
 	@ResponseBody
-	public String getGoodsList_Ajax(@RequestParam int category, PagingVO pagingVO, @RequestParam String sorting,
-										@RequestParam String min_amount, @RequestParam String max_amount, 
-										@RequestParam(required=false) String search, 
-										@RequestParam(required=false) String positions,
-										@RequestParam(required=false) String hands,
-										@RequestParam(required=false) String brands) throws JsonGenerationException, JsonMappingException, IOException {
-		
+	public List<GoodsVO> getGoodsList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...goods_list.jsp...goodsListAjax");
 		
-		String str = "";
-		ObjectMapper mapper = new ObjectMapper();
+		// service메소드 호출하며.. 전달할 map에 들어갈 parameter..
+		// service자체를 맵으로 바꿔볼깝..
+		int category = (int) map.get("category");
+		
+		PagingVO pagingVO = new PagingVO();
+		pagingVO.setPageNum((int) map.get("pageNum"));
+		pagingVO.setAmount((int) map.get("amount"));
+		
+		String sorting = (String) map.get("sorting");
+		
+		String min_amount = (String) map.get("min_amount");
+		String max_amount = (String) map.get("max_amount");
+		
+		String search = "";
 		
 		List<String> positions_list = new ArrayList<String>();
 		List<Integer> hands_list = new ArrayList<Integer>();
 		List<String> brands_list = new ArrayList<String>();
-
-		// 일반 검색이면 PagingVO 객체에 검색 타입과 키워드 추가.
-		if (search != null) {
+		
+		if (map.get("search") != null) {
+			search = (String)map.get("search");
 			
 			pagingVO.setType("N");
 			pagingVO.setKeyword(search);
 		}
 		
-		// 상세 검색이면 ','를 단위로 키워드를 잘라서 배열에 넣은 뒤에 서비스로 넘긴다.
-		if (positions != null) {
-			
-			String[] positions_arr = positions.split(",");
-			
-			for (int i = 0; i < positions_arr.length; i++) {
-				positions_list.add(positions_arr[i]);
-			}
-			
-			System.out.println(positions_list.toString());
+		if (map.get("postions") != null) {
+			positions_list = (List<String>)map.get("postions");
 		}
 		
-		if (hands != null) {
-			
-			String[] hands_arr = hands.split(",");
-			
-			for (int i = 0; i < hands_arr.length; i++) {
-				hands_list.add(Integer.parseInt(hands_arr[i]));
-			}
-			
-			System.out.println(hands_list.toString());
+		if (map.get("hands") != null) {
+			hands_list = (List<Integer>)map.get("hands");
 		}
 		
-		if (brands != null) {
-			
-			String[] brands_arr = brands.split(",");
-			
-			for (int i = 0; i < brands_arr.length; i++) {
-				brands_list.add(brands_arr[i]);
-			}
-			
-			System.out.println(brands_arr.toString());
+		if (map.get("brands") != null) {
+			brands_list = (List<String>)map.get("brands");
 		}
 		
 		// 상세 검색이 아니면 빈 배열을 넘긴다.
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount, 
 				positions_list, hands_list, brands_list);
 
-		System.out.println("컨트롤러에서의 goodsList : " + goodsList.toString());
-		
-		try {
-			
-			str = mapper.writeValueAsString(goodsList);
-			
-		} catch(Exception e) {
-			
-			System.out.println("Controller에서 실패" );
-		}
-
-		return str;
+		return goodsList;
 	}
 	
-	
+	// 상품 조회 페이지
 	@RequestMapping(value="/goods_info.do", method=RequestMethod.GET)
 	public String getGoodsInfo(@RequestParam long goods_num, @RequestParam int category, Model model) {
 		log.info("Controller..getGoodsList..goods_num:" + goods_num + ".....");
@@ -145,5 +118,93 @@ public class GoodsController {
 		
 		return "shoppingMall/goods/goods_info";
 	}
+	
+	
+	
+	
+	
+	
+	/* 상품 QNA 등록 */
+	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.GET)
+	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) {
+		log.info("Controller..insertGoodsQna...!");
+		
+		/* 세션 user_key 값 받아오기 
+		long user_key = (long)session.getAttribute("user_key");
+		String nickname = (String)session.getAttribute("nickname");
+		
+		// 비회원일 경우, 
+		if(nickname.substring(0,9).equals("noAccount")) {
+			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
+		}
+		// 회원일 경우,.
+		else {
+			long user_key = (long)session.getAttribute("user_key");
+			qna.setUser_key(user_key);
+		}			
+		*/
+		
+		// 합치기 전 임시 user_key
+		long user_key = 950131l;
+		qna.setUser_key(user_key);
+		
+		service.insertGoodsQna(qna);
+		
+		model.addAttribute("goods", service.getGoodsInfo(qna.getGoods_num()));
+		model.addAttribute("categoryInt", category);
+		model.addAttribute("categoryString", service.category(category));
+		
+		return "shoppingMall/goods/goods_info";
+	}
+	
+	// 상품QNA 목록 페이지 - ajax 데이터 뿌려주기 
+	@RequestMapping(value="/getQnaList_Ajax.do", consumes="application/json")
+	@ResponseBody
+	public List<GoodsQnaVO> getQnaList_Ajax(@RequestBody Map<String, Object> map){
+		log.info("Controller...QNA_list.jsp...qnaListAjax");
+		
+		PagingVO pagingVO = new PagingVO();
+		pagingVO.setPageNum((int) map.get("pageNum"));
+		pagingVO.setAmount((int) map.get("amount"));
+		
+		long goods_num = (long) ((int)map.get("goods_num") * 1.0);
+		
+		List<GoodsQnaVO> qnaList = service.getQnaList(pagingVO, goods_num);
 
+		return qnaList;
+	}
+	
+	
+	
+	
+	// 쇼핑 메인 - 추천상품
+	@RequestMapping(value="/shopping_main.do", method=RequestMethod.GET)
+	public String shopping_main(HttpSession session, Model model) {
+		log.info("Controller...shopping_main.jsp");
+		
+//		// 세션 user_key 값 받아오기 
+//		String nickname = (String)session.getAttribute("nickname");
+//		
+//		// 비회원일 경우, 
+//		if(nickname.substring(0,9).equals("noAccount")) {
+//			List<GoodsVO> recommendList = service.recommendBestList();
+//		
+//			model.addAttribute("recommendList", recommendList);
+//		}
+//		// 회원일 경우,.
+//		else {
+//			long user_key = (long)session.getAttribute("user_key");
+		
+			// 합치기 전 임시 user_key
+			long user_key = 950131l;
+			
+			MoreDetailVO moredetail = service.findDetail(user_key);
+			List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
+			
+			model.addAttribute("recommendList", recommendList);
+//		}			
+		
+		return "shoppingMall/main/shopping_main";
+	}
+	
 }

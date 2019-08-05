@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MoreDetailVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.GoodsMapper;
 
@@ -29,6 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
 			default: return "야구공";
 		}
 	}
+	
 	/* 페이징 O */
 	@Override
 	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
@@ -63,19 +67,13 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getGoodsList(map);
 	}
 	
-	/* 카테고리별 전체 goods 데이터 개수 */
+	/* 카테고리별  goods 데이터 개수 */
 	@Override
-	public int getTotalCount(PagingVO pagingVO, int category) {
+	public int getTotalCount(int category) {
 		log.info("get Total Count - " + category);
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingVO", pagingVO);
-		map.put("category", category);
-		
-		return mapper.getTotalCount(map);
+		return mapper.getTotalCount(category);
 	}
-
-	
 	
 	/* 상품 조회 */
 	@Override
@@ -88,8 +86,51 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 
+	
+	/* 상품 QNA 등록 */
+	@Override
+	public void insertGoodsQna(GoodsQnaVO qna) {
+		log.info("Service - insertGoodsQna");
+		
+		mapper.insertGoodsQnaSelectKey(qna);
+	}
 
+	/* 상품 QNA 목록 */
+	@Override
+	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long goods_num) {
+		log.info("Service - getQnaList");
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pagingVO", pagingVO);
+		map.put("goods_num", goods_num);
 
+		return mapper.getQnaList(map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/* user_key를 이용해 moredetail을 가져온다. */
+	@Override
+	public MoreDetailVO findDetail(long user_key) {
+		return mapper.findDetail(user_key);
+	}
+	
+	/* 추천상품 - 회원 */
+	@Override
+	public List<GoodsVO> recommendGoodsList(MoreDetailVO moredetail) {
+		return mapper.recommendGoodsList(moredetail);
+	}
+	
+	/* 추천상품 - 비회원 */
+	@Override
+	public List<GoodsVO> recommendBestList() {
+		return mapper.recommendBestList();
+	}
 
 
 	

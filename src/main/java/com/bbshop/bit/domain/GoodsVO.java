@@ -4,26 +4,26 @@ import java.util.Date;
 
 public class GoodsVO {
 	
-	private Long goods_num;		// 상품 번호
+	private long goods_num;		// 상품 번호
 	private int category;		// 카테고리 (1:글러브, 2:배트, 3:유니폼, 4:야구화, 5:야구공)
 	private String name;		// 상품명
-	private Long stock;			// 재고 수 (의정 - default:100)
-	private Long price;			// 가격
+	private long stock;			// 재고 수 (의정 - default:100)
+	private long price;			// 가격
 	private String brand;		// 브랜드 (10개)
 	private String main_img;	// 메인 사진(goodsList)
 	private String dtl_img1;	// 상세 사진1(goodsInfo - 대표)
 	private String dtl_img2;	// 상세 사진2(goodsInfo - 상세설명 사진 긴거)
 	private int best;			// 인기상품 (0:일반, 1:인기상품)
-	private Long discount;		// 할인율
+	private long discount;		// 할인율
 	private int soldout;		// 품절여부 (0:품절아님, 1:품절)
-	private Long sales;			// 판매 수량
+	private long sales;			// 판매 수량
 	private Date regdate;		// 등록일
 	
 	
-	public Long getGoods_num() {
+	public long getGoods_num() {
 		return goods_num;
 	}
-	public void setGoods_num(Long goods_num) {
+	public void setGoods_num(long goods_num) {
 		this.goods_num = goods_num;
 	}
 	public int getCategory() {
@@ -38,16 +38,16 @@ public class GoodsVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getStock() {
+	public long getStock() {
 		return stock;
 	}
-	public void setStock(Long stock) {
+	public void setStock(long stock) {
 		this.stock = stock;
 	}
-	public Long getPrice() {
+	public long getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	public String getBrand() {
@@ -80,10 +80,10 @@ public class GoodsVO {
 	public void setBest(int best) {
 		this.best = best;
 	}
-	public Long getDiscount() {
+	public long getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Long discount) {
+	public void setDiscount(long discount) {
 		this.discount = discount;
 	}
 	public int getSoldout() {
@@ -92,10 +92,10 @@ public class GoodsVO {
 	public void setSoldout(int soldout) {
 		this.soldout = soldout;
 	}
-	public Long getSales() {
+	public long getSales() {
 		return sales;
 	}
-	public void setSales(Long sales) {
+	public void setSales(long sales) {
 		this.sales = sales;
 	}
 	public Date getRegdate() {
