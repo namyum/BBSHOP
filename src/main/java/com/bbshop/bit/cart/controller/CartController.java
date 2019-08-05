@@ -18,10 +18,7 @@ import com.bbshop.bit.cart.domain.GoodsVO;
 import com.bbshop.bit.cart.service.CartService;
 
 
-/*1. 멤버 키를 받아서 카트리스트를 받아오자
- *2. 카트리스트에서 굿즈 넘을 받아서 상품 정보를 가져오자
- *3. 굿즈 리스트에서 필요한 항목을 받아오자.
- *4. 필요한 항목을 받은것을 jsp에 model에 넣어서 보내주자.*/
+
 @Controller
 @RequestMapping("*.do")
 public class CartController {
@@ -56,6 +53,24 @@ public class CartController {
 			System.out.println("굿즈리스트 다들어오는가?"+goodsList.get(i));
 			System.out.println("카트리스트 토탈이 수정되었낭?"+cartList.get(i));
 		}
+		
+		int allPrice=0;
+		
+		for(int i = 0 ; i<cartList.size();i++) {
+			allPrice +=cartList.get(i).getTOTALPRICE(); 
+		}
+		
+		int shipping_fee=0;
+		if(allPrice>=2000000) {
+			shipping_fee=0;
+		}
+		else {
+			shipping_fee=2500;
+			allPrice+=2500;
+		}
+		model.addAttribute("shipping_fee", shipping_fee);
+		model.addAttribute("allPrice", allPrice);
+		
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("cartList",cartList);
 		
@@ -63,7 +78,7 @@ public class CartController {
 	}
 	@ResponseBody
 	@RequestMapping(value="QnttyUp.do" , method=RequestMethod.GET)
-	public int qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index) {
+	public String qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index,Model model) {
 		Cart_PDVO temp =cartList.get(index);
 		System.out.println(index);
 		System.out.println(qnt);
@@ -71,6 +86,50 @@ public class CartController {
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
 		System.out.println(temp.getTOTALPRICE());
 		cartList.set(index, temp);
-		return temp.getTOTALPRICE();
+		int allPrice=0;
+		
+		for(int i = 0 ; i<cartList.size();i++) {
+			allPrice +=cartList.get(i).getTOTALPRICE(); 
+		}
+		int shipping_fee=0;
+		if(allPrice>=2000000) {
+			shipping_fee=0;
+		}
+		else {
+			shipping_fee=2500;
+			allPrice+=2500;
+		}
+		System.out.println(allPrice);
+		
+		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
+	}
+	@ResponseBody
+	@RequestMapping(value="QnttyDown.do" , method=RequestMethod.GET)
+	public String qnttyDown(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index ,Model model) {
+		Cart_PDVO temp =cartList.get(index);
+		System.out.println(index);
+		System.out.println(qnt);
+		temp.setQNTTY(qnt);
+		temp.setTOTALPRICE(temp.getPRICE()*qnt);
+		System.out.println(temp.getTOTALPRICE());
+		cartList.set(index, temp);
+		
+		int allPrice=0;
+		
+		for(int i = 0 ; i<cartList.size();i++) {
+			allPrice +=cartList.get(i).getTOTALPRICE(); 
+		}
+		System.out.println(allPrice);
+		int shipping_fee=0;
+		if(allPrice>=2000000) {
+			shipping_fee=0;
+		}
+		else {
+			shipping_fee=2500;
+			allPrice+=2500;
+		}
+	
+		
+		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
 	}
 }

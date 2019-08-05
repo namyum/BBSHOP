@@ -8,6 +8,8 @@
 <%
 List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
 List<Cart_PDVO> cartList= (List<Cart_PDVO>)request.getAttribute("cartList");
+int allPrice = (int)request.getAttribute("allPrice");
+int shipping_fee = (int)request.getAttribute("shipping_fee");
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
@@ -22,13 +24,13 @@ body{font-family:NanumBarunpen, sans-serif}
 }*/
 </style>
 	<!-- 1. vo를 만들자  (완료)
-		 2. 전체 선택을 누르면 상품이 전체다 뜨게하자.
-		 3. 퀀티티의 양을 늘리면 토탈 값이 올라가자
-		 4. 토탈이 올라가면 서브토탈이 올라가자.
-		 5. 금액이 일정이상 올라가면 배송료를 무료로 주자.
+		 2. 전체 선택을 누르면 상품이 전체다 뜨게하자.(완료)
+		 3. 퀀티티의 양을 늘리면 토탈 값이 올라가자(완료)
+		 4. 토탈이 올라가면 서브토탈이 올라가자.(완료)
+		 5. 금액이 일정이상 올라가면 배송료를 무료로 주자.(완료)
 		 6. 물품의 사진을 받아오자.(완료)
-		 7.해당 상품이 삭제되면 삭제되는 controller를 써서 삭제를 하자.
-		 
+		 7. 해당 상품이 삭제되면 삭제되는 controller를 써서 삭제를 하자.(선택삭제,전체삭제)
+		 8. 위의 사항이 모두 마무리가되면 주문으로 넘겨주자.(DB를 만져야함)
 		
 		 
 	-->
@@ -70,7 +72,7 @@ body{font-family:NanumBarunpen, sans-serif}
 					<h2>Shopping Cart</h2>
 					<div class="page_link">
 						<a href="/shopping_main">쇼핑몰</a>
-						<a href="/cart">Cart</a>
+						<a href="/cart.do">Cart</a>
 					</div>
 				</div>
 			</div>
@@ -114,7 +116,7 @@ body{font-family:NanumBarunpen, sans-serif}
 											<p><c:out value="${goodsList[status.index].NAME}"/></p>
 								</td>
 								<td>
-									<h5 id=price${status.index}><c:out value="${cart.PRICE}"/></h5>
+									<h5 id=price${status.index}><c:out value="${cart.PRICE}원"/></h5>
 								</td>
 								<td>
 								<h5><c:out value="${cart.SAVINGS}"/></h5>
@@ -134,22 +136,43 @@ body{font-family:NanumBarunpen, sans-serif}
 									</div>
 								</td>
 								<td>
-									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}"/></h5>
+									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}원"/></h5>
 								</td>
 							</tr>
  							<script>
-
+ 							//지금 은 버튼이 움직일때로 했는데 후에 시간이 나면 버튼말고 인풋태그의 값이 변할때 값이 변하는걸로 변경하자.
+							//업버튼을 눌렀을시 ajax로 값을 변경해준다.
 							$('#QNTTYUP${status.index}').click(function(){
 								var sst = $('#sst${status.index}').val();
-								
+								//get방식을 이용해서 값을 보냄
 								$.ajax({
  				        			url:"QnttyUp.do?index=${status.index}&QNTTY="+sst,
  				        			type:"GET",
- 				        			dataType:"json",
+ 				        			dataType:"text", //text를 받아와서 data를 ,를 기점으로 잘라서 배열에 저장.
  				        			success : function(data) {
- 				        		
- 				        				$("#totalPrice${status.index}").html(data);
- 				        		
+ 				        				var result =data.split(",");
+ 				        				
+ 				        				$("#totalPrice${status.index}").html(result[0]+"원");
+ 				        				$("#allPrice").html(result[1]+"원");
+ 				        				$("#shipping_fee").html(result[2]+"원");
+ 									}, error : function() {
+ 											console.log("실패");
+ 									}
+ 								});
+ 							});
+							$('#QNTTYDOWN${status.index}').click(function(){
+								var sst = $('#sst${status.index}').val();
+								
+								$.ajax({
+ 				        			url:"QnttyDown.do?index=${status.index}&QNTTY="+sst,
+ 				        			type:"GET",
+ 				        			dataType:"text",
+ 				        			success : function(data) {
+ 				        				var result = data.split(",");
+ 				        				
+ 				        				$("#totalPrice${status.index}").html(result[0]+"원");
+ 				        				$("#allPrice").html(result[1]+"원");
+ 				        				$("#shipping_fee").html(result[2]+"원");
  									}, error : function() {
  											console.log("실패");
  									}
@@ -166,34 +189,18 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								<td></td>
 								<td></td>
-								<td></td>
-								
+								<td></td>	
 								<td>
-
 								</td>
 								<td>
 									<h5>배송비</h5>
-								</td>
-								
-								
-								
-								
+								</td>				
 								<td>
-									<div class="shipping_box">
-										<ul class="list">
-											<li class="active">
-												<a href="#">2500원</a>
-											</li>
-											<li >
-												<a href="#">   0원</a>
-											</li>
-										</ul>
-									</div>
+									<h5 id="shipping_fee">${shipping_fee}원</h5>
 								</td>
 							</tr>
 							<tr>
 								<td>
-
 								</td>
 								<td>
 								</td>
@@ -201,20 +208,19 @@ body{font-family:NanumBarunpen, sans-serif}
 								<td></td>
 								<td></td>
 								<td>
-
 								</td>
 								<td>
 									<h5>Total:</h5>
 								</td>
 								<td>
-									<h5>$2160.00</h5>
+									<h5 id="allPrice">${allPrice}원</h5>
 								</td>
 							</tr>
 								<table align="center">
 							<tr class="out_button_area">
 								<td style="text-align:center"><div align="center" class="checkout_btn_inner">
 											<a class="main_btn" href="/order">결제하기</a>
-											<a class="main_btn" href="/order">선택삭제</a>
+											<button class="main_btn" id="selectDelete">선택삭제</button>
 											<a class="gray_btn" href="/goods_list">계속 쇼핑하기</a>
 											
 										</div>
@@ -227,6 +233,16 @@ body{font-family:NanumBarunpen, sans-serif}
 				</div>
 			</div>
 		</div>
+		<script>
+		$("#selectDelete").click(function(){
+			
+			
+			
+			
+		})
+		
+		
+		</script>
 	</section>
 	<!--================End Cart Area =================-->
 
