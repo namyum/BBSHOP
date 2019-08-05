@@ -36,6 +36,11 @@
 .section_gap {
 	padding: 80px 0px;
 }
+
+/* 로그인 모달 추가 */
+#loginModal {
+	opacity: 0.9;
+}
 </style>
 
 
@@ -73,6 +78,7 @@
 
 	<!--============추천상품 공간 : 전달받은 추천상품리스트를 출력=============-->
 	<!--================Feature Product Area =================-->
+	<div class="container">
 	<section class="feature_product_area section_gap">
 		<div class="main_box">
 			<div class="container-fluid">

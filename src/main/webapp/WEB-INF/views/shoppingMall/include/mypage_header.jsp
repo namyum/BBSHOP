@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <html lang="en">
-
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -709,6 +710,15 @@ body {
 								장바구니
 							</a>
 						</li>
+						<!-- 민구 추가 -->
+						<c:choose>
+							<c:when test="${nickname eq 'noAccount' }">
+								<li><a href="/index.do"> 로그인 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/index.do"> 로그아웃 </a></li>							
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 
@@ -848,10 +858,10 @@ body {
 		<div class="container-fluid">
 			<div class="section-top-border">
 				<ul class="myPageTop">
-					<li><a href="/mypage" class="menu">마이페이지</a></li>
-					<li><a href="/order_status" class="menu">주문/배송</a></li>
-					<li><a href="/mypost" class="menu">내가 남긴 글</a></li>
-					<li><a href="/modify_info" class="menu">회원 정보 수정</a></li>
+					<li><a href="/savings.do" class="menu">마이페이지</a></li>
+					<li><a href="/order_status.do" class="menu">주문/배송</a></li>
+					<li><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
+					<li><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>
