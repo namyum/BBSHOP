@@ -153,29 +153,43 @@
 	// 일반 검색 버튼 눌렀을 때
 	function general_search() {
 		
-		var pageNum = 1; // ${pageMaker.pagingVO.pageNum};
-		var amount = 8; // ${pageMaker.pagingVO.amount};
-		var category = 1; // ${categoryInt};
-		var sorting = $('select.sorting option:selected').val();
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
+		var search = '';
 		
-		// 일반 검색 키워드
-		if ($('#search_name').val() != null) {
-			var search = $('#search_name').val();
-		}
+		var pageNum = $('#actionForm input[name="pageNum"]').val();
+		
+		if(pageNum === undefined)
+			pageNum = 1;
 		
 		if(min_amount === "")
 			min_amount = "1000";
 		if(max_amount === "")
 			max_amount = "500000";
 		
+		var data = {};
+		
+		data["pageNum"] = pageNum * 1;
+		data["amount"] = ${pageMaker.pagingVO.amount};
+		data["category"] = ${categoryInt};
+		data["sorting"] = $('select.sorting option:selected').val();
+		data["min_amount"] = min_amount;
+		data["max_amount"] = max_amount;
+		
+		// 일반 검색 키워드
+		if ($('#search_name').val() != null) {
+			search = $('#search_name').val();
+			data["search"] = search;
+		}
+
+		console.log(data);
+		
 		$.ajax({
-			url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
-					"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount + "&&search=" + search,
-			type : 'GET',
+			url : "/getGoodsList_Ajax.do",
+			type : 'POST',
+			data : JSON.stringify(data),
 			dataType: 'json',
-			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			contentType : "application/json",
 			success : function(goodsList) {
 				
 				alert('ajax 성공!');
@@ -213,12 +227,18 @@
 	// 상세 검색 버튼 눌렀을 때
 	function detail_search() {
 		
-		var pageNum = 1; // ${pageMaker.pagingVO.pageNum};
-		var amount = 8; // ${pageMaker.pagingVO.amount};
-		var category = 1; // ${categoryInt};
-		var sorting = $('select.sorting option:selected').val();
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
+		
+		var pageNum = $('#actionForm input[name="pageNum"]').val();
+		
+		if(pageNum === undefined)
+			pageNum = 1;
+		
+		if(min_amount === "")
+			min_amount = "1000";
+		if(max_amount === "")
+			max_amount = "500000";
 		
 		// 각 상세 검색 필터 체크박스
 		var positions = new Array();
@@ -239,24 +259,32 @@
 			
 			brands.push($(this).val());
 		})
+
 		
 		// 상세 검색 데이터 잘 들어갔는지 테스트
 		console.log('포지션 : ' + positions);
 		console.log('좌/우 : ' + hands);
 		console.log('브랜드 : ' + brands);
 		
-		if(min_amount === "")
-			min_amount = "1000";
-		if(max_amount === "")
-			max_amount = "500000";
+		var data = {};
+		
+		data["pageNum"] = pageNum * 1;
+		data["amount"] = ${pageMaker.pagingVO.amount};
+		data["category"] = ${categoryInt};
+		data["sorting"] = $('select.sorting option:selected').val();
+		data["min_amount"] = min_amount;
+		data["max_amount"] = max_amount;
+		
+		data["positions"] = positions;
+		data["hands"] = hands;
+		data["brands"] = brands;
 		
 		$.ajax({
-			url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
-					"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount 
-					+ "&&positions=" + positions + "&&hands=" + hands + "&&brands=" + brands,
-			type : 'GET',
+			url : "/getGoodsList_Ajax.do",
+			type : 'POST',
+			data : JSON.stringify(data),
 			dataType: 'json',
-			contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+			contentType : 'application/json',
 			success : function(goodsList) {
 				
 				alert('ajax 성공!');

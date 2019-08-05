@@ -27,7 +27,7 @@
 			rownum rn, g.goods_num, g.name, g.main_img, g.price, g.best, g.regdate, gg.position, gg.hand, g.brand
 		FROM goods g, gd_glove gg
       	WHERE g.goods_num = gg.goods_num 
-		<if test='pagingVO.type == "N"'>
+		<if test="pagingVO.type != null and !pagingVO.type.equals('')">
 			AND name like '%'||#{pagingVO.keyword}||'%'
 		</if>
 		<if test='positions.size != 0'>
@@ -49,7 +49,7 @@
 			</foreach>
 		</if>
 <![CDATA[
-			and where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			and rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 ]]>	
 			and category = #{category, jdbcType=INTEGER}
 <![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	

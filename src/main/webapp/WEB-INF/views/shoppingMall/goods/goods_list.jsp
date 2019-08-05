@@ -43,57 +43,72 @@ function goodsList_Ajax() {
 	
 	var min_amount = $('#min_amount').val();
 	var max_amount = $('#max_amount').val();
-	 
+	var search = '';
+	
+	var pageNum = $('#actionForm input[name="pageNum"]').val();
+	
+	if(pageNum === undefined)
+		pageNum = 1;
+	
 	if(min_amount === "")
 		min_amount = "1000";
 	if(max_amount === "")
 		max_amount = "500000";
-
-
-	var s = $("#actionForm input[name='pageNum']").val();
-	
-
-	var pageNum = $('#actionForm input[name="pageNum"]').val();
-	if(pageNum === undefined)
-		pageNum = 1;
 	
 	var data = {};
+	
 	data["pageNum"] = pageNum * 1;
 	data["amount"] = ${pageMaker.pagingVO.amount};
 	data["category"] = ${categoryInt};
 	data["sorting"] = $('select.sorting option:selected').val();
 	data["min_amount"] = min_amount;
 	data["max_amount"] = max_amount;
-	console.log(data);
-
 	
-	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
-	$('.latest_product_inner').empty();
+	// 일반 검색 키워드
+	if ($('#search_name').val() != null) {
+		search = $('#search_name').val();
+		data["search"] = search;
+	}
+
+	console.log(data);
 	
 	$.ajax({
-		type : "POST",
 		url : "/getGoodsList_Ajax.do",
+		type : 'POST',
 		data : JSON.stringify(data),
-		dataType: "json",
+		dataType: 'json',
 		contentType : "application/json",
-		success : function(data) {
-			$.each(data, function(index, goods) {
-				
-				var output = "";
+		success : function(goodsList) {
+			
+			alert('ajax 성공!');
+			
+			search_Modal.style.display = "none";
+			
+			console.log('일반 검색 반환 상품 리스트 : ' + goodsList);
+			
+			var output = "";
+
+			$.each(goodsList, function(index, goods) {
 				
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";
 				output += "<div class='f_p_img'>";
-				output += "<a href='goods_info.do?goods_num=" + data[index].goods_num + "&&category=" + data[index].category +"'>";
-				output += "<img class='img-fluid' src='" + data[index].main_img +"' alt=''></a></div>";
-				output += "<a href='#'><h4>" + data[index].name + "</h4></a>";
-				output += "<h5>" + data[index].price + "원</h5></div></div>";
-				console.log("output : " + output);
-				$('.latest_product_inner').append(output);
-
+				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&&category=" + goods.category +"'>";
+				output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
+				output += "<a href='#'><h4>" + goods.name + "</h4></a>";
+				output += "<h5>" + goods.price + "원</h5></div></div>";
+				
 			});
+			
+			// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+			$('.latest_product_inner').empty();
+			
+			$('.latest_product_inner').append(output);
 		},
-		error : function() {alert('ajax 통신 실패!');}
+		error : function() {
+			
+			alert('ajax 통신 실패!');
+		}
 	});
 }
 </script>
@@ -172,72 +187,6 @@ function goodsList_Ajax() {
 						
 						<script>
 						goodsList_Ajax();						
-						
-						function goodsList_Ajax() {
-							
-							/*
-							var min_amount = $('#min_amount').val();
-							var max_amount = $('#max_amount').val();
-							 
-							if(min_amount === "")
-								min_amount = "1000";
-							if(max_amount === "")
-								max_amount = "500000";
-						
-							var goodsList = {
-								"pageNum" 	: ${pageMaker.pagingVO.pageNum},
-								"amount"	: ${pageMaker.pagingVO.amount},
-								"category"	: ${categoryInt},
-								"sorting"	: $('select.sorting option:selected').val(),
-								"min_amount": min_amount,
-								"max_amount": max_amount
-							};
-							
-							*/
-							
-							var pageNum = ${pageMaker.pagingVO.pageNum};
-							var amount = ${pageMaker.pagingVO.amount};
-							var category = ${categoryInt};
-							var sorting = $('select.sorting option:selected').val();
-							var min_amount = $('#min_amount').val();
-							var max_amount = $('#max_amount').val();
-							 
-							
-							if(min_amount === "")
-								min_amount = "1000";
-							if(max_amount === "")
-								max_amount = "500000";
-							
-							
-							// 상품 목록이 들어갈 div 클래스 이름 - 초기화
-							$('.latest_product_inner').empty();
-							
-							$.ajax({
-								url : "/getGoodsList_Ajax.do?pageNum=" + pageNum + "&&amount=" + amount + "&&category=" + category +
-										"&&sorting=" + sorting + "&&min_amount=" + min_amount + "&&max_amount=" + max_amount,
-								type : 'GET',
-//								data : JSON.stringify(goodsList),
-								dataType: 'json',
-								contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-								success : function(goodsList) {
-									$.each(goodsList, function(index, goods) {
-										var output = "";
-										output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
-										output += "<div class='f_p_item'>";
-										output += "<div class='f_p_img'>";
-										output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&&category=" + goods.category +"'>";
-										output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
-										output += "<a href='#'><h4>" + goods.name + "</h4></a>";
-										output += "<h5>" + goods.price + "원</h5></div></div>";
-
-										$('.latest_product_inner').append(output);
-									});
-								},
-								error: function(request,status,error){
-								    alert('에러');
-								}
-							});
-						}
 						</script>
 						
 					</div>
