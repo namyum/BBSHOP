@@ -19,8 +19,8 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-6" style="margin-left:auto;margin-right:auto;text-align:center;">
 				<h3 class="mb-30 title_color" style="font-weight:bold;">글 수정</h3>
-				<form id="writeForm" action="/communityUpdateAction.do">
-				<input type="hidden" name="BOARD_NUM" value=<c:out value='${post.BOARD_NUM}'/>/>
+				<form id="writeForm" action="/communityUpdateAction.do" method="post">
+				<input type="hidden" name="BOARD_NUM" value=<c:out value='${post.BOARD_NUM}'/>>
 					<div class="mt-10">
 						<input type="text" name="WRITER" value=<c:out value='${post.WRITER}'/> required
 							class="single-input" readonly>
@@ -56,14 +56,14 @@
 						<textarea name="BOARD_CONTENT" id="ir1" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;"></textarea>
 					</div>
 					<div class="mt-10">
-						<input type="file"  style="float:left;"/>
+						<input type="file" name="UPLOADFILE" style="float:left;"/>
 					</div>
 					<div class="mt-10">
 						<table style="width:100%;">
 							<tr>
-								<td align="center"><br /> <input type="submit" value="수정" style="float:right;"/></td>
+								<td align="center"><br /> <input type="submit" id="savebutton" value="수정" style="float:right;"/></td>
 								<td align="center"><br /> <input type="button" value="취소" style="float:left;"
-									onclick="location.href='/community_list.do'" /></td>
+									onclick="location.href='/community_list.do?TEAM_NAME=${post.TEAM_NAME}'" /></td>
 							</tr>
 						</table>
 					</div>
@@ -101,6 +101,16 @@
 			},
 			fCreator : "createSEditor2"
 		});
+		
+	    $("#savebutton").click(function(){   
+	    	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  // 이부분에 에디터 validation 검증                  
+	    	//폼 submit    
+	    	if(confirm("글을 수정하시겠습니까?") == true){
+	    	$("#writeForm").submit();     
+	    	} else{
+	    		return false;
+	    	}
+	    });
 	</script>
 	
 	<script>

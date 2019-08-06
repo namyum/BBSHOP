@@ -124,4 +124,10 @@
 		SET hit = hit + 1
 		WHERE board_num = #{BOARD_NUM}
 	</update>
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+	select count(*) from community
+	where team_name= #{teamName}
+	</select>
+	
 </mapper>

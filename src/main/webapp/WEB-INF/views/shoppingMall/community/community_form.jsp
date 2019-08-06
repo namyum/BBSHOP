@@ -50,7 +50,7 @@
 					</div>
 					<div class="mt-10">
 
-						<textarea name="BOARD_CONTENT" id="ir1" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;"></textarea>
+						<textarea id="ir1" name="BOARD_CONTENT" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;"></textarea>
 					</div>
 					<div class="mt-10">
 						<input type="file" name="UPLOADFILE" style="float:left;"/>
@@ -100,8 +100,8 @@
 			fCreator : "createSEditor2"
 		});
 		
-	    $("#savebutton").click(function(){     
-	    	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  // 이부분에 에디터 validation 검증                  
+	    $("#savebutton").click(function(){  
+	    	oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);  // 이부분에 에디터 validation 검증    
 	    	//폼 submit    
 	    	if(confirm("글을 등록하시겠습니까?") == true){
 	    	$("#writeForm").submit();     

@@ -24,7 +24,7 @@
   	<welcome-file-list>
 		<welcome-file>community_main.do</welcome-file>
 	</welcome-file-list>
-	
+
 	<!-- Korean Filter -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
