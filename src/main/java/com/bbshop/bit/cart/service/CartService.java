@@ -10,5 +10,7 @@ public interface CartService {
 
 	public List<Cart_PDVO> getCartList(long user_key);
 	public GoodsVO getGoods(long goodsnum);
+	public void modify(Cart_PDVO qnt);
 	public void selectDelete(Map<String,Object> deleteMap);
+	public void deleteAll();
 }

@@ -42,15 +42,29 @@ public class CartServiceImpl implements CartService {
 		
 		return goods;
 		
-		
-		
+	}
+	
+	@Override
+	public void modify(Cart_PDVO qnt) {
+		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+		sqlSession.getMapper(CartMapper.class);
+		mapper.modify(qnt);
+		System.out.println("수정되었습니다.");
 	}
 	@Override
 	public void selectDelete(Map<String,Object> deleteMap) {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.selectDelete(deleteMap);
+		System.out.println("삭제 되었습니다.");
 		
+	}
+	@Override
+	public void deleteAll() {
+		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+		sqlSession.getMapper(CartMapper.class);
+		mapper.deleteAll();
+		System.out.println("전체삭제 되었습니다.");
 	}
 
 }

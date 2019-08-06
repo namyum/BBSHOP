@@ -20,8 +20,6 @@ import com.bbshop.bit.cart.domain.Cart_PDVO;
 import com.bbshop.bit.cart.domain.GoodsVO;
 import com.bbshop.bit.cart.service.CartService;
 
-
-
 @Controller
 @RequestMapping("*.do")
 public class CartController {
@@ -47,7 +45,7 @@ public class CartController {
 		for (int i = 0; i < cartList.size(); i++) {
 			long goodsnum = cartList.get(i).getGOODS_NUM();
 			Cart_PDVO temp = cartList.get(i);
-			temp.setTOTALPRICE(temp.getPRICE());
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cartList.set(i, temp);
 			int price = cartList.get(i).getPRICE();
 			goodsList.add(cartService.getGoods(goodsnum));
@@ -62,6 +60,7 @@ public class CartController {
 		
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
+			
 		}
 		
 		shipping_fee=calcShipping_fee(allPrice);
@@ -79,12 +78,16 @@ public class CartController {
 		Cart_PDVO temp =cartList.get(index);
 		int allPrice=0;
 		int shipping_fee=0;
+		
 		System.out.println(index);
 		System.out.println(qnt);
-		temp.setQNTTY(qnt);
+		temp.setQNTTY(qnt);		
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
+		
 		System.out.println(temp.getTOTALPRICE());
+		cartService.modify(temp);
 		cartList.set(index, temp);
+		System.out.println(temp);
 		
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
@@ -103,8 +106,12 @@ public class CartController {
 
 		temp.setQNTTY(qnt);
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
+		
 		cartList.set(index, temp);
 		shipping_fee=calcShipping_fee(allPrice);
+		
+		cartService.modify(temp);
+		System.out.println(temp);
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
 		}
@@ -126,22 +133,27 @@ public class CartController {
 	@RequestMapping(value="selectDelete.do" , method=RequestMethod.POST)
 	public String selectDelete(HttpServletRequest request) {
 		String[] listindex =request.getParameterValues("listindex");
-		//delete from tbl_member where userid in ('user30','user20')
-		List<String> deletetemp =new ArrayList<String>();
+		if(!listindex[0].equals("0")) {
 		List<Integer> deleteList = new ArrayList<Integer>();
+		List<Integer> deleteListResult = new ArrayList<Integer>();
 		Map<String,Object> deleteMap = new HashMap<String,Object>();
 		for(int i = 0 ; i<listindex.length;i++) {
-			deletetemp.add(i, listindex[i]);
+			deleteList.add(i, Integer.parseInt(listindex[i]));
+			System.out.println(listindex[i]);
 		}
 		//체크박스에서 받은 인자의 인덱스가 cartlist에서 pk가 몇번인지 받아와야한다.
-		for(int i = 0; i<deletetemp.size();i++) {
-			
-			deleteList.add(i,(int) cartList.get(i).GD_CT_KEY);
-			System.out.println(deleteList.get(i));
+		for(int i = 0; i<deleteList.size();i++) {
+			System.out.println("deletetemp에 있는값:"+deleteList.get(i));
+			//cart리스트는 0 부터 시작하고 받아온것은 1부터 시작하기때문에 -1을 넣어줬다.
+			deleteListResult.add(i,(int) cartList.get(deleteList.get(i)-1).GD_CT_KEY);
+			System.out.println("deleteResult에 있는값:"+deleteListResult.get(i));
 		}
-		deleteMap.put("deleteList", deleteList);
+		deleteMap.put("deleteListResult", deleteListResult);
 		cartService.selectDelete(deleteMap);
-		
+		}
+		else {
+			cartService.deleteAll();
+		}
 		return "cart.do";
 	}
 }
