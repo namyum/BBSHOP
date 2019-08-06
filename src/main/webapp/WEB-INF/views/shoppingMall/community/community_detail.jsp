@@ -162,7 +162,7 @@ body {
 								<td><p>
 										<c:if test="${post.UPLOADFILE ne null}">
 										첨부파일: 
-										<a href='<c:out value="${post.UPLOADFILE}" />'>다운로드</a>
+										<a href='#'>${post.UPLOADFILE}</a>
 										</c:if>
 									</p></td>
 								<td style="float: right;"><a
