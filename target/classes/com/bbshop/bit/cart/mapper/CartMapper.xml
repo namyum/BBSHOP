@@ -36,6 +36,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 </select>
 
-
+<delete id ="selectDelete" parameterType="hashMap">
+	delete
+	from cart_gd
+	where gd_ct_key IN
+	<foreach collection="deleteList" item="delete" open="(" close=")" separator=",">
+	#{delete.value}
+	</foreach> 
+</delete>
 
 </mapper>

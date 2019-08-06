@@ -1,7 +1,9 @@
 package com.bbshop.bit.cart.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -124,10 +126,22 @@ public class CartController {
 	@RequestMapping(value="selectDelete.do" , method=RequestMethod.POST)
 	public String selectDelete(HttpServletRequest request) {
 		String[] listindex =request.getParameterValues("listindex");
-		
+		//delete from tbl_member where userid in ('user30','user20')
+		List<String> deletetemp =new ArrayList<String>();
+		List<Integer> deleteList = new ArrayList<Integer>();
+		Map<String,Object> deleteMap = new HashMap<String,Object>();
 		for(int i = 0 ; i<listindex.length;i++) {
-			System.out.println(listindex[i]);
+			deletetemp.add(i, listindex[i]);
 		}
+		//체크박스에서 받은 인자의 인덱스가 cartlist에서 pk가 몇번인지 받아와야한다.
+		for(int i = 0; i<deletetemp.size();i++) {
+			
+			deleteList.add(i,(int) cartList.get(i).GD_CT_KEY);
+			System.out.println(deleteList.get(i));
+		}
+		deleteMap.put("deleteList", deleteList);
+		cartService.selectDelete(deleteMap);
+		
 		return "cart.do";
 	}
 }

@@ -1,6 +1,7 @@
 package com.bbshop.bit.cart.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class CartServiceImpl implements CartService {
 		return goods;
 		
 		
+		
+	}
+	@Override
+	public void selectDelete(Map<String,Object> deleteMap) {
+		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
+		sqlSession.getMapper(CartMapper.class);
+		mapper.selectDelete(deleteMap);
 		
 	}
 
