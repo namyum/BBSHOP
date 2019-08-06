@@ -61,6 +61,13 @@ public class GoodsController {
 	public List<GoodsVO> getGoodsList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...goods_list.jsp...goodsListAjax");
 		
+		System.out.println("컨트롤러에서의 map : " + map.toString());
+		
+		String sorting = "";
+		String min_amount = "";
+		String max_amount = "";
+		String search = "";
+		
 		// service메소드 호출하며.. 전달할 map에 들어갈 parameter..
 		// service자체를 맵으로 바꿔볼깝..
 		int category = (int) map.get("category");
@@ -69,12 +76,23 @@ public class GoodsController {
 		pagingVO.setPageNum((int) map.get("pageNum"));
 		pagingVO.setAmount((int) map.get("amount"));
 		
-		String sorting = (String) map.get("sorting");
 		
-		String min_amount = (String) map.get("min_amount");
-		String max_amount = (String) map.get("max_amount");
+		// 상품 상세인 경우 해당 값들이 전부 들어오지 않는다.
+		if (map.get("sorting") != null) {
+			sorting = (String)map.get("sorting");
+		}
 		
-		String search = "";
+		if (map.get("min_amount") != null) {
+			min_amount = (String)map.get("min_amount");
+		}
+		
+		if (map.get("max_amount") != null) {
+			max_amount = (String)map.get("max_amount");
+		}
+		
+		if (map.get("search") != null) {
+			search = (String)map.get("search");
+		}
 		
 		List<String> positions_list = new ArrayList<String>();
 		List<Integer> hands_list = new ArrayList<Integer>();

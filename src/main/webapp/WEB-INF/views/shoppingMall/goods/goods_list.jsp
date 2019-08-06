@@ -63,12 +63,6 @@ function goodsList_Ajax() {
 	data["sorting"] = $('select.sorting option:selected').val();
 	data["min_amount"] = min_amount;
 	data["max_amount"] = max_amount;
-	
-	// 일반 검색 키워드
-	if ($('#search_name').val() != null) {
-		search = $('#search_name').val();
-		data["search"] = search;
-	}
 
 	console.log(data);
 	
@@ -80,15 +74,17 @@ function goodsList_Ajax() {
 		contentType : "application/json",
 		success : function(goodsList) {
 			
-			alert('ajax 성공!');
+			alert('상품 목록 불러오기 성공!');
 			
 			search_Modal.style.display = "none";
 			
-			console.log('일반 검색 반환 상품 리스트 : ' + goodsList);
+			console.log('반환 리스트 : ' + goodsList);
 			
 			var output = "";
 
 			$.each(goodsList, function(index, goods) {
+				
+				console.log(goods);
 				
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";

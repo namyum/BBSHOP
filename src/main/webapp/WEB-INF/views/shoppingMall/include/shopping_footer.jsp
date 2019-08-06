@@ -155,9 +155,9 @@
 		
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
-		var search = '';
 		
 		var pageNum = $('#actionForm input[name="pageNum"]').val();
+		var amount = $('#actionForm input[name="amount"]').val();
 		
 		if(pageNum === undefined)
 			pageNum = 1;
@@ -170,17 +170,14 @@
 		var data = {};
 		
 		data["pageNum"] = pageNum * 1;
-		data["amount"] = ${pageMaker.pagingVO.amount};
+		data["amount"] = 8;
 		data["category"] = ${categoryInt};
 		data["sorting"] = $('select.sorting option:selected').val();
 		data["min_amount"] = min_amount;
 		data["max_amount"] = max_amount;
 		
 		// 일반 검색 키워드
-		if ($('#search_name').val() != null) {
-			search = $('#search_name').val();
-			data["search"] = search;
-		}
+		data["search"] = $('#search_name').val();
 
 		console.log(data);
 		
@@ -192,13 +189,14 @@
 			contentType : "application/json",
 			success : function(goodsList) {
 				
-				alert('ajax 성공!');
+				alert('일반 검색 ajax 성공!');
 				
 				search_Modal.style.display = "none";
 				
 				console.log('일반 검색 반환 상품 리스트 : ' + goodsList);
 				
 				var output = "";
+				var pagination = "";
 
 				$.each(goodsList, function(index, goods) {
 					
@@ -216,6 +214,9 @@
 				$('.latest_product_inner').empty();
 				
 				$('.latest_product_inner').append(output);
+				
+				$('.pagination').empty();
+				
 			},
 			error : function() {
 				
@@ -269,7 +270,7 @@
 		var data = {};
 		
 		data["pageNum"] = pageNum * 1;
-		data["amount"] = ${pageMaker.pagingVO.amount};
+		data["amount"] = 8;
 		data["category"] = ${categoryInt};
 		data["sorting"] = $('select.sorting option:selected').val();
 		data["min_amount"] = min_amount;
@@ -287,7 +288,7 @@
 			contentType : 'application/json',
 			success : function(goodsList) {
 				
-				alert('ajax 성공!');
+				alert('상세 검색 ajax 성공!');
 				
 				searchBig_Modal.style.display = "none";
 				
