@@ -93,4 +93,12 @@ public class CommunityServiceImpl implements CommunityService{
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		return communityMapper.updateHit(board_num);
 	}
+	
+	@Override
+	public int getTotal(Map<String,Object> map) {
+		
+		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+		
+		return communityMapper.getTotalCount(map);
+	}
 }

@@ -17,5 +17,6 @@ public interface CommunityService {
 	public Long findNextPost(String team_name, Long board_num);
 	public Long findPreviousPost(String team_name, Long board_num);
 	public long updateHit(long board_num);
+	public int getTotal(Map<String, Object> map);
 
 }

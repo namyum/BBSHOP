@@ -24,5 +24,6 @@ public interface CommunityMapper {
 			@Param("TEAM_NAME") String team_name,
 			@Param("BOARD_NUM") Long board_num);
 	public long updateHit(long board_num);
+	public int getTotalCount(Map<String,Object> map);
 	
 }
