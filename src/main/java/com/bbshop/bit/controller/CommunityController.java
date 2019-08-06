@@ -1,9 +1,13 @@
 package com.bbshop.bit.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bbshop.bit.domain.CommunityVO;
@@ -37,8 +43,21 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글쓰기
 	@RequestMapping("/community_form.do")
-	public String community_form(Model model, @RequestParam("TEAM_NAME") String teamName) {
+	public String community_form(Model model, @RequestParam("TEAM_NAME") String teamName, HttpSession session) {
 		
+		/*
+		 long user_key = (long)session.getAttribute("user_key");
+		 String nickname = (String)session.getAttribute("nickname");
+		 
+		 // 비회원
+		 if(nickname.substring(0,9).equals("noAccount")) {
+		 	// alert("로그인이 필요합니다.");
+		 }
+		 else{
+		 	long user_key = (long)session.getAttribute("user_key");
+		 	qna.setUser_key(user_key);
+		 	}
+		 */
 		model.addAttribute("nickname",communityService.getNickname(1));
 		model.addAttribute("teamName", teamName);
 		
@@ -72,10 +91,11 @@ public class CommunityController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingvo", pagingvo);
 		map.put("teamName", teamName);
+		int total = communityService.getTotal(map);
 		
 		model.addAttribute("teamName", teamName);
 		model.addAttribute("list", communityService.getList(map));
-		model.addAttribute("pageMaker", new PageDTO(pagingvo, 123));
+		model.addAttribute("pageMaker", new PageDTO(pagingvo, total));
 		
 		return "shoppingMall/community/community_list";
 	}
@@ -83,7 +103,10 @@ public class CommunityController {
 	@RequestMapping("/communityWriteAction.do")
 	public String communityWriteAction(CommunityVO community, Model model) throws Exception{
 			
+		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+
 		int res = communityService.insertPost(community);
+		
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
 		
 		if(res == 1) {
@@ -112,7 +135,6 @@ public class CommunityController {
 	@RequestMapping("/communityUpdateAction.do")
 	public String communityUpdateAction(CommunityVO community, Model model) {
 		
-		System.out.println(community);
 		int res = communityService.updatePost(community);
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
 		

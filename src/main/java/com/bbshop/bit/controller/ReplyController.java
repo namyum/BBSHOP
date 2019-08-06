@@ -1,6 +1,6 @@
 package com.bbshop.bit.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +30,21 @@ public class ReplyController {
 	@RequestMapping(value="/new.do", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE},
 	method= RequestMethod.POST)
 	// @RequestBody를 적용해서 JSON 데이터를 ReplyVO 타입으로 변환하도록 한 것
-	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
+	public ResponseEntity<String> create(@RequestBody ReplyVO vo, HttpSession session){
+		
+		/*
+		 long user_key = (long)session.getAttribute("user_key");
+		 String nickname = (String)session.getAttribute("nickname");
+		 
+		 // 비회원
+		 if(nickname.substring(0,9).equals("noAccount")) {
+		 	// 글쓰기 input에 readonly로 로그인하라고 띄우기
+		 }
+		 else{
+		 	long user_key = (long)session.getAttribute("user_key");
+		 	qna.setUser_key(user_key);
+		 	}
+		 */
 		
 		int insertCount = replyService.registerReply(vo);
 		
