@@ -91,7 +91,7 @@ function goodsList_Ajax() {
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";
 				output += "<div class='f_p_img'>";
-				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&category=" + ${categoryInt} + "'>"; // goods.category가 안 먹혀서 일단 페이지 내의 ${categoryInt}를 들고 옴. 
+				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&category=" + goods.category + "'>"; // goods.category가 안 먹혀서 일단 페이지 내의 ${categoryInt}를 들고 옴. 
 				output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
 				output += "<a href='#'><h4>" + goods.name + "</h4></a>";
 				output += "<h5>" + goods.price + "원</h5></div></div>";
