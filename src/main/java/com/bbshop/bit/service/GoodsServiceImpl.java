@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailVO;
+import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.GoodsMapper;
 
@@ -130,6 +131,38 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<GoodsVO> recommendBestList() {
 		return mapper.recommendBestList();
+	}
+	
+	/* ajax로 데이터 불러올 때 전체 개수 구하기 */	
+	@Override
+	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
+			List<String> positions, List<Integer> hands, List<String> brands) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("category", category);
+		map.put("pagingVO", pagingVO);
+		map.put("sorting", sorting);
+		map.put("min_amount", Integer.parseInt(min_amount));
+		map.put("max_amount", Integer.parseInt(max_amount));
+		
+		// 검색 리스트 배열에 값이 담겨 있으면, map에 담는다.
+		if (positions != null) {
+		
+			map.put("positions", positions);
+		}
+		
+		if (hands != null) {
+			
+			map.put("hands", hands);
+		}
+		
+		if (brands != null) {
+			
+			map.put("brands", brands);
+		}
+		
+		return mapper.getTotalCountAjax(map);
 	}
 
 

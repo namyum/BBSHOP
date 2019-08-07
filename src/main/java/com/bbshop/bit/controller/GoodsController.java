@@ -41,6 +41,8 @@ public class GoodsController {
 		
 		log.info("Controller...goods_list.jsp");
 		
+		System.out.println("컨트롤러에서의 category : " + category);
+		
 		// String id = (String)session.getAttribute("id");
 		
 		// id = "noAccount";
@@ -117,9 +119,18 @@ public class GoodsController {
 			brands_list = (List<String>)map.get("brands");
 		}
 		
+		int total = service.getTotalCountAjax(category, pagingVO, sorting, min_amount, max_amount, 
+				positions_list, hands_list, brands_list);
+		
+		
 		// 상세 검색이 아니면 빈 배열을 넘긴다.
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount, 
 				positions_list, hands_list, brands_list);
+		
+		for (GoodsVO goods : goodsList) {
+			
+			System.out.println("db에서 불러온 goodsList : " + goods.toString());
+		}
 
 		return goodsList;
 	}

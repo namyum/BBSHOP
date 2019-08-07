@@ -5,6 +5,7 @@ import java.util.List;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailVO;
+import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 
 public interface GoodsService {
@@ -18,6 +19,10 @@ public interface GoodsService {
 
 	/* 카테고리별  goods 데이터 개수 */
 	public int getTotalCount(int category);
+	
+	/* ajax로 데이터 불러올 때 전체 개수 구하기 */
+	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
+			List<String> positions, List<Integer> hands, List<String> brands);
 	
 	/* 상품 조회 */
 	public GoodsVO getGoodsInfo(Long goods_num);
@@ -46,4 +51,6 @@ public interface GoodsService {
 	
 	/* 추천상품 - 비회원 */
 	public List<GoodsVO> recommendBestList();
+
+	
 }

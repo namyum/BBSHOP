@@ -4,57 +4,57 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbshop.bit.mapper.GoodsMapper">
 
-<!-- 페이징 O -->
-<!-- 상품 목록, sorting값에 따라 동적쿼리 -->
-<!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
-<select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
-	SELECT *
-	FROM (
-	<choose>
-		<when test="sorting == 'new'">
-		SELECT /*+INDEX_DESC(goods idx_goods_date) */
-		</when>
-		<when test="sorting == 'best'">
-		SELECT /*+INDEX_DESC(goods idx_goods_best) */
-		</when>
-		<when test="sorting == 'lowPrice'">
-		SELECT /*+INDEX_ASC(goods idx_goods_price) */
-		</when>
-		<when test="sorting == 'highPrice'">
-		SELECT /*+INDEX_DESC(goods idx_goods_price) */
-		</when>
-	</choose>
-			rownum rn, g.goods_num, g.name, g.main_img, g.price, g.best, g.regdate, gg.position, gg.hand, g.brand
+	<!-- 검색 기준을 <sql>에 묶음 -->
+	<sql id="criteria">
+		<choose>
+			<when test="sorting == 'new'">
+				SELECT /*+INDEX_DESC(goods idx_goods_date) */
+			</when>
+			<when test="sorting == 'best'">
+				SELECT /*+INDEX_DESC(goods idx_goods_best) */
+			</when>
+			<when test="sorting == 'lowPrice'">
+				SELECT /*+INDEX_ASC(goods idx_goods_price) */
+			</when>
+			<when test="sorting == 'highPrice'">
+				SELECT /*+INDEX_DESC(goods idx_goods_price) */
+			</when>
+		</choose>
+		rownum rn, g.goods_num, g.name, g.main_img, g.price, g.best,
+		g.regdate, gg.position, gg.hand, g.brand
 		FROM goods g, gd_glove gg
-      	WHERE g.goods_num = gg.goods_num 
+		WHERE g.goods_num = gg.goods_num
 		<if test="pagingVO.type != null and !pagingVO.type.equals('')">
 			AND name like '%'||#{pagingVO.keyword}||'%'
 		</if>
 		<if test='positions.size != 0'>
-			AND position IN 
-			<foreach item="val" index="index" collection="positions" open="(" separator="," close=")">
+			AND position IN
+			<foreach item="val" index="index" collection="positions"
+				open="(" separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
 		<if test='hands.size != 0'>
-			AND hand IN 
-			<foreach item="val" index="index" collection="hands" open="(" separator="," close=")">
+			AND hand IN
+			<foreach item="val" index="index" collection="hands" open="("
+				separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
 		<if test='brands.size != 0'>
-			AND brand IN 
-			<foreach item="val" index="index" collection="brands" open="(" separator="," close=")">
+			AND brand IN
+			<foreach item="val" index="index" collection="brands"
+				open="(" separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
 <![CDATA[
 			and rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
-]]>	
+]]>
 			and category = #{category, jdbcType=INTEGER}
 <![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	
 			and price < #{max_amount, jdbcType=INTEGER}	
-]]>	
+]]>
 		<choose>
 			<when test="sorting == 'new'">
 <![CDATA[	and regdate > '18/01/01'	]]>
@@ -62,7 +62,17 @@
 			<when test="sorting == 'best'">
 <![CDATA[	AND best >= 0	]]>
 			</when>
-		</choose>	
+		</choose>
+	</sql>
+
+<!-- 페이징 O -->
+<!-- 상품 목록, sorting값에 따라 동적쿼리 -->
+<!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
+<select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
+	SELECT DISTINCT rownum rn, goods_num, name, main_img, price, best, regdate, position, hand, brand
+	FROM 
+		(
+			<include refid="criteria"></include>
 		)
 <![CDATA[
 	WHERE rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
@@ -71,9 +81,67 @@
 
 <!-- 카테고리 별, goods 데이터 개수 */ -->
 <select id="getTotalCount" parameterType="hashmap" resultType="int">
-	select count(*) from goods where category = #{category, jdbcType=INTEGER}
+	SELECT count(*) 
+	FROM goods 
+	WHERE category = #{category, jdbcType=INTEGER}
 </select>
 
+<!-- ajax로 데이터 불러올 때 전체 개수 구하기  -->
+<select id="getTotalCountAjax" parameterType="hashmap" resultType="int">
+		<choose>
+			<when test="sorting == 'new'">
+				SELECT /*+INDEX_DESC(goods idx_goods_date) */
+			</when>
+			<when test="sorting == 'best'">
+				SELECT /*+INDEX_DESC(goods idx_goods_best) */
+			</when>
+			<when test="sorting == 'lowPrice'">
+				SELECT /*+INDEX_ASC(goods idx_goods_price) */
+			</when>
+			<when test="sorting == 'highPrice'">
+				SELECT /*+INDEX_DESC(goods idx_goods_price) */
+			</when>
+		</choose>
+			count(*)
+		FROM goods g, gd_glove gg
+		WHERE g.goods_num = gg.goods_num
+		<if test="pagingVO.type != null and !pagingVO.type.equals('')">
+			AND name like '%'||#{pagingVO.keyword}||'%'
+		</if>
+		<if test='positions.size != 0'>
+			AND position IN
+			<foreach item="val" index="index" collection="positions"
+				open="(" separator="," close=")">
+				#{val}
+			</foreach>
+		</if>
+		<if test='hands.size != 0'>
+			AND hand IN
+			<foreach item="val" index="index" collection="hands" open="("
+				separator="," close=")">
+				#{val}
+			</foreach>
+		</if>
+		<if test='brands.size != 0'>
+			AND brand IN
+			<foreach item="val" index="index" collection="brands"
+				open="(" separator="," close=")">
+				#{val}
+			</foreach>
+		</if>
+			and category = #{category, jdbcType=INTEGER}
+<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	
+			and price < #{max_amount, jdbcType=INTEGER}	
+]]>
+		<choose>
+			<when test="sorting == 'new'">
+<![CDATA[	and regdate > '18/01/01'	]]>
+			</when>
+			<when test="sorting == 'best'">
+<![CDATA[	AND best >= 0	]]>
+			</when>
+		</choose>
+</select>
 
 <!-- 상품 조회 -->
 <select id="getGoodsInfo" resultType="com.bbshop.bit.domain.GoodsVO">

@@ -156,7 +156,7 @@
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
 		
-		var pageNum = $('#actionForm input[name="pageNum"]').val();
+		var pageNum = 1;
 		var amount = $('#actionForm input[name="amount"]').val();
 		
 		if(pageNum === undefined)
@@ -195,8 +195,8 @@
 				
 				console.log('일반 검색 반환 상품 리스트 : ' + goodsList);
 				
-				var output = "";
-				var pagination = "";
+				var paging = '';
+				var output = '';
 
 				$.each(goodsList, function(index, goods) {
 					
@@ -212,11 +212,52 @@
 				
 				// 상품 목록이 들어갈 div 클래스 이름 - 초기화
 				$('.latest_product_inner').empty();
-				
 				$('.latest_product_inner').append(output);
 				
-				$('.pagination').empty();
+				// 페이징 버튼 처리
+				var pagination = "";
+				var end = Math.ceil(pageNum / 10.0) * 10;
+				var start = end - 9;
+				var realEnd = Math.ceil( (goodsList.length * 1.0) / amount );
 				
+				console.log('end : ' + end);
+				console.log('start : ' + start);
+				console.log('realEnd : ' + realEnd);
+				
+				if (realEnd < end) {
+					end = realEnd;
+				}
+				
+				console.log('realEnd 적용 후의 end : ' + end);
+				for (var i = start; i <= end; i++) {
+					paging += '<li class="page-item ';
+					
+					if (pageNum == i) {
+						paging += 'active';
+					}
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				var actionForm = $("#actionForm");
+				
+				$(document).on("click", ".page-item", function(e) {
+					
+					e.preventDefault();
+					
+					$('.page-item').removeClass("active");
+					$(this).addClass("active");
+					
+					var page = $('.page-item.active a').text();
+
+					// form 태그 내 pageNum값은 href 속성값으로 변경
+					$('#actionForm input[name="pageNum"]').val(page);
+
+				});
 			},
 			error : function() {
 				
@@ -231,7 +272,8 @@
 		var min_amount = $('#min_amount').val();
 		var max_amount = $('#max_amount').val();
 		
-		var pageNum = $('#actionForm input[name="pageNum"]').val();
+		var pageNum = 1; // 검색 버튼을 누르면 항상 1페이지를 보여주도록 pageNum을 고정한다.
+		var amount = $('#actionForm input[name="amount"]').val();
 		
 		if(pageNum === undefined)
 			pageNum = 1;
@@ -260,7 +302,6 @@
 			
 			brands.push($(this).val());
 		})
-
 		
 		// 상세 검색 데이터 잘 들어갔는지 테스트
 		console.log('포지션 : ' + positions);
@@ -292,7 +333,8 @@
 				
 				searchBig_Modal.style.display = "none";
 				
-				var output = "";
+				var paging = '';
+				var output = '';
 				
 				$.each(goodsList, function(index, goods) {				
 					
@@ -309,9 +351,40 @@
 				});
 				
 				// 상품 목록이 들어갈 div 클래스 이름 - 초기화
-				$('.latest_product_inner').empty();
-				
+				$('.latest_product_inner').empty();			
 				$('.latest_product_inner').append(output);
+
+				// 페이징 버튼 처리
+				var pagination = "";
+				var end = Math.ceil(pageNum / 10.0) * 10;
+				var start = end - 9;
+				var realEnd = Math.ceil( (goodsList.length * 1.0) / amount );
+				
+				console.log('goodsList.length : ' + goodsList.length);
+				console.log('end : ' + end);
+				console.log('start : ' + start);
+				console.log('realEnd : ' + realEnd);
+				
+				if (realEnd < end) {
+					end = realEnd;
+				}
+				
+				console.log('realEnd 적용 후의 end : ' + end);
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (pageNum == i) {
+						paging += 'active';
+					}
+					
+					paging += '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
 
 			},
 			error : function() {
@@ -320,7 +393,7 @@
 			}
 		});
 	}
-	
+
 </script>
 <!--================ 모달 & 장바구니 js====================== -->
 

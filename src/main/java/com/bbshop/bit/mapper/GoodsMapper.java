@@ -45,4 +45,7 @@ public interface GoodsMapper {
 	
 	// 추천 상품 - 비회원
 	public List<GoodsVO> recommendBestList();
+
+	/* ajax로 데이터 불러올 때 전체 개수 구하기 */	
+	public int getTotalCountAjax(HashMap<String, Object> map);
 }

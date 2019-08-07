@@ -696,6 +696,8 @@ function qnaList_Ajax() {
 	var shoes = document.querySelectorAll("a.shoes");
 	var ball = document.querySelectorAll("a.ball");
 	
+	console.log(glove);
+	
 	var category = ${categoryInt};
 	var categoryOption = ['', glove, bat, uniform, shoes, ball];
 	

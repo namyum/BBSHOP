@@ -74,7 +74,7 @@ function goodsList_Ajax() {
 		contentType : "application/json",
 		success : function(goodsList) {
 			
-			alert('상품 목록 불러오기 성공!');
+			alert('goods_list / 상품 목록 불러오기 성공!');
 			
 			search_Modal.style.display = "none";
 			
@@ -84,12 +84,14 @@ function goodsList_Ajax() {
 
 			$.each(goodsList, function(index, goods) {
 				
-				console.log(goods);
+				console.log('상품 목록 goods : ' + goodsList);
+				
+				console.log(goods.category);
 				
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";
 				output += "<div class='f_p_img'>";
-				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&&category=" + goods.category +"'>";
+				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&category=" + ${categoryInt} + "'>";
 				output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
 				output += "<a href='#'><h4>" + goods.name + "</h4></a>";
 				output += "<h5>" + goods.price + "원</h5></div></div>";
@@ -246,6 +248,9 @@ function goodsList_Ajax() {
 		var actionForm = $("#actionForm");
 		
 		$(".page-item").on("click", function(e) {
+			
+			alert('goods_list의 paging 작동');	
+			
 			e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
 			
 			$('.page-item').removeClass("active");
