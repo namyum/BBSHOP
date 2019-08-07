@@ -84,9 +84,7 @@ function goodsList_Ajax() {
 
 			$.each(goodsList, function(index, goods) {
 				
-				console.log('상품 목록 goods : ' + goodsList);
-				
-				console.log(goods.category);
+				console.log('상품 목록 goods : ' + goods[index]);
 				
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";

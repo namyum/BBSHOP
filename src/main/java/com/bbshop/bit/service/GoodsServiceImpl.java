@@ -46,8 +46,11 @@ public class GoodsServiceImpl implements GoodsService {
 		map.put("category", category);
 		map.put("pagingVO", pagingVO);
 		map.put("sorting", sorting);
-		map.put("min_amount", Integer.parseInt(min_amount));
-		map.put("max_amount", Integer.parseInt(max_amount));
+		
+		if ((min_amount != null && !("".equals(min_amount))) && (max_amount != null && !("".equals(max_amount)))) {
+			map.put("min_amount", Integer.parseInt(min_amount));
+			map.put("max_amount", Integer.parseInt(max_amount));
+		}
 		
 		// 검색 리스트 배열에 값이 담겨 있으면, map에 담는다.
 		if (positions != null) {
@@ -143,8 +146,11 @@ public class GoodsServiceImpl implements GoodsService {
 		map.put("category", category);
 		map.put("pagingVO", pagingVO);
 		map.put("sorting", sorting);
-		map.put("min_amount", Integer.parseInt(min_amount));
-		map.put("max_amount", Integer.parseInt(max_amount));
+		
+		if ((min_amount != null && !("".equals(min_amount))) && (max_amount != null && !("".equals(max_amount)))) {
+			map.put("min_amount", Integer.parseInt(min_amount));
+			map.put("max_amount", Integer.parseInt(max_amount));
+		}
 		
 		// 검색 리스트 배열에 값이 담겨 있으면, map에 담는다.
 		if (positions != null) {

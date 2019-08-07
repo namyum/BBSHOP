@@ -49,12 +49,15 @@
 			</foreach>
 		</if>
 <![CDATA[
-			and rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+			AND rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
 ]]>
-			and category = #{category, jdbcType=INTEGER}
-<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	
-			and price < #{max_amount, jdbcType=INTEGER}	
+			AND category = #{category, jdbcType=INTEGER}
+<![CDATA[	AND price > #{min_amount, jdbcType=INTEGER}	
+			AND price < #{max_amount, jdbcType=INTEGER}	
 ]]>
+			<!-- DISTINCT는 GOODS_NUM만 적용할 수 없으므로 길들이기와 좌/우가 0인 것을 기본값으로 들고 오도록 지정해준다. -->
+			AND hand = 0
+			AND taming = 0
 		<choose>
 			<when test="sorting == 'new'">
 <![CDATA[	and regdate > '18/01/01'	]]>
@@ -69,7 +72,7 @@
 <!-- 상품 목록, sorting값에 따라 동적쿼리 -->
 <!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
 <select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
-	SELECT DISTINCT goods_num, category, name, main_img, price, best, regdate
+	SELECT goods_num, category, name, main_img, price, best, regdate
 	FROM 
 		(
 			<include refid="criteria"></include>
@@ -88,59 +91,14 @@
 
 <!-- ajax로 데이터 불러올 때 전체 개수 구하기  -->
 <select id="getTotalCountAjax" parameterType="hashmap" resultType="int">
-		<choose>
-			<when test="sorting == 'new'">
-				SELECT /*+INDEX_DESC(goods idx_goods_date) */
-			</when>
-			<when test="sorting == 'best'">
-				SELECT /*+INDEX_DESC(goods idx_goods_best) */
-			</when>
-			<when test="sorting == 'lowPrice'">
-				SELECT /*+INDEX_ASC(goods idx_goods_price) */
-			</when>
-			<when test="sorting == 'highPrice'">
-				SELECT /*+INDEX_DESC(goods idx_goods_price) */
-			</when>
-		</choose>
-			count(*)
-		FROM goods g, gd_glove gg
-		WHERE g.goods_num = gg.goods_num
-		<if test="pagingVO.type != null and !pagingVO.type.equals('')">
-			AND name like '%'||#{pagingVO.keyword}||'%'
-		</if>
-		<if test='positions.size != 0'>
-			AND position IN
-			<foreach item="val" index="index" collection="positions"
-				open="(" separator="," close=")">
-				#{val}
-			</foreach>
-		</if>
-		<if test='colors.size != 0'>
-			AND color IN
-			<foreach item="val" index="index" collection="colors" open="("
-				separator="," close=")">
-				#{val}
-			</foreach>
-		</if>
-		<if test='brands.size != 0'>
-			AND brand IN
-			<foreach item="val" index="index" collection="brands"
-				open="(" separator="," close=")">
-				#{val}
-			</foreach>
-		</if>
-			and category = #{category, jdbcType=INTEGER}
-<![CDATA[	and price > #{min_amount, jdbcType=INTEGER}	
-			and price < #{max_amount, jdbcType=INTEGER}	
-]]>
-		<choose>
-			<when test="sorting == 'new'">
-<![CDATA[	and regdate > '18/01/01'	]]>
-			</when>
-			<when test="sorting == 'best'">
-<![CDATA[	AND best >= 0	]]>
-			</when>
-		</choose>
+	SELECT count(*)
+	FROM
+		(
+			<include refid="criteria"></include>
+		)
+<![CDATA[
+	WHERE rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>			
 </select>
 
 <!-- 상품 조회 -->
