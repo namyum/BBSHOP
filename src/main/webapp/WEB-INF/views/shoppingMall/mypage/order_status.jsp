@@ -18,23 +18,24 @@
 	background: white;
 }
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 20px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	padding: 20px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 1px solid #ddd;
 }
 
 .modal-dialog, .mdl_od {
-  width: 80%;
-  height: 50%;
-  margin: 0;
-  padding: 0;
+	width: 80%;
+	height: 50%;
+	margin: 0;
+	padding: 0;
 }
 
 .modal-content, .mdl_od {
-  height: auto;
-  min-height: auto;
+	height: auto;
+	min-height: auto;
 }
 
 .modal, .modal-center {
@@ -43,139 +44,399 @@
 }
 
 @media screen and (min-width: 768px) {
-  .modal.modal-center:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-    height: 60%;
-  }
+	.modal.modal-center:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: "";
+		height: 60%;
+	}
 }
 
 .modal-dialog, .modal-center {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
 }
 </style>
 
 <div class="container">
-	<div class="order_details_table" style="margin-top: 10px">
-		<h3 class="mb-30 title_color">주문 / 배송</h3>
-		<h5 align="left" style="float: left;">내 주문의 상태를 <span>조회</span>하고 <span>취소</span>할 수 있습니다.</h5>
-		<h5 align="right">내 주문 : 10건</h5>
-		<div class="table-responsive">
-			<table class="table table-hover" style="margin-top: 30px;">
-				<thead>
-					<tr style="background: #b5dab6;">
-						<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
-						<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
-						<th scope="col" style="font-weight: bold;">주문목록</th>
-						<th scope="col" style="width: 15%; font-weight: bold;">결제금액</th>
-						<th scope="col" style="width: 15%; font-weight: bold;">배송현황</th>
-						<th scope="col" style="width: 15%; font-weight: bold;">주문<span>취소</span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<h5>6</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					</tr>
-					<tr>
-						<td>
-							<h5>5</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					<tr>
-						<td>
-							<h5>4</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					</tr>
-					<tr>
-						<td>
-							<h5>3</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					</tr>
-					<tr>
-						<td>
-							<h5>2</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					</tr>
-					<tr>
-						<td>
-							<h5>1</h5>
-						</td>
-						<td>
-							<h5>2019-07-09</h5>
-						</td>
-						<td><h5><a href="#modal_order_detail" data-toggle="modal" style="color: #222222;">야구공</a></h5></td>
-						<td>
-							<h5>￦ 10,000</h5>
-						</td>
-						<td><button type="button" class="genric-btn default radius"
-								data-toggle="modal" data-target="#myModal"><span>조회</span></button></td>
-						<td><button type="button" class="genric-btn danger radius" onclick="alert('구매가 취소되었습니다.');"><span>취소</span></button></td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="text-center">
-				<ul class="pagination">
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-				</ul>
-			</div>
+	<div class="order_details_table" style="margin-top: 10px;">
+		<p><h3 class="mb-30 title_color">주문 / 배송</h3></p>
+		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
+		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
+		<div class="col-md-6" style="margin-bottom: 10px; padding-left: 0px;">
+			<input type="checkbox" name="stts" value="5" id="all" onclick="showOrderList()">
+				<label for="all" class="addr_chk">전체</label>
+			<input type="checkbox" name="stts" value="0" id="paid" onclick="showOrderList()">
+				<label for="paid" class="addr_chk">결제완료</label>
+			<input type="checkbox" name="stts" value="2" id="delivering" onclick="showOrderList()">
+				<label for="delivering" class="addr_chk">배송중</label>
+			<input type="checkbox" name="stts" value="3" id="deliverFin" onclick="showOrderList()">
+				<label for="deliverFin" class="addr_chk">배송완료</label>
+			<input type="checkbox" name="stts" value="4" id="cancel" onclick="showOrderList()">
+				<label for="cancel" class="addr_chk">주문취소</label>
 		</div>
+		<!-- 끝 -->
+		<table class="table table-hover">
+			<thead>
+				<tr style="background: #b5dab6;">
+					<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
+					<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
+					<th scope="col" style="font-weight: bold;">주문목록</th>
+					<th scope="col" style="width: 10%; font-weight: bold;">결제금액</th>
+					<th scope="col" style="width: 10%; font-weight: bold;">주문상태</th>
+					<th scope="col" style="width: 15%; font-weight: bold;">배송현황</th>
+					<th scope="col" style="width: 15%; font-weight: bold;">주문취소</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
+					<tr>
+						<td style="text-align: center;">
+							<h5>
+								<c:out value="${orderVO.order_num }" default="null" />
+							</h5>
+						</td>
+						<td>
+							<h5>
+								<c:out value="${orderVO.or_date }" default="null" />
+							</h5>
+						</td>
+						<td><h5>
+								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal"
+									data-target="#modal_order_detail" style="color: #222222;"
+									onclick="showModal('${status.index}');"> <c:out
+										value='${orderVO.items }' /></a>
+							</h5></td>
+						<td>
+							<h5>
+								￦ <c:out value="${orderVO.pymntamnt }" default="null" />
+							</h5>
+						</td>
+						<td>
+							<h5>
+								<c:choose>
+									<c:when test="${orderVO.stts == 0 }">
+										결제완료
+			    					</c:when>
+									<c:when test="${orderVO.stts == 1 }">
+			       						배송준비중
+			   						</c:when>
+									<c:when test="${orderVO.stts == 2 }">
+										배송중
+								    </c:when>
+									<c:when test="${orderVO.stts == 3 }">
+										<span style="color: blue;">배송완료</span>
+								    </c:when>
+									<c:when test="${orderVO.stts == 4 }">
+										<span style="color: red;">주문취소</span>
+									</c:when>
+								</c:choose>
+							</h5>
+						</td>
+						<td>
+							<button type="button" id="see_order" class="genric-btn default radius">
+								<span>배송 조회</span>
+							</button>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${orderVO.stts == 0}">
+									<button type="button" id="cancel_order" class="genric-btn danger radius"
+										onClick="fn_cancel_order('${orderVO.order_num}')">
+										<span>주문 취소</span>
+									</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" id="cancel_order" class="genric-btn danger radius"
+										style="visibility: hidden;">
+										<span>주문 취소</span>
+									</button>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<ul class="pagination">
+				<!-- 페이지 목록 버튼 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="page-item ${pageMaker.pagingVO.pageNum == num ? 'active' : ''}" id="btn_${num }">
+						<a href="${num}" class="page-link">${num}</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+		<!-- 페이징 버튼 처리를 위한 히든 폼 -->
+		<form id="actionForm" action="order_status.do">
+			<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+		</form>
 	</div>
 </div>
+
+<script>
+
+	var order_num = '';
+	var order_item = '';
+	var order_date = '';
+	var order_name = '';
+	var order_msg = '';
+	var receiver = '';
+
+	// 주문 취소
+	function fn_cancel_order(order_num) {
+
+		var answer = confirm("주문을 취소하시겠습니까?");
+
+		if (answer == true) {
+
+			alert("주문이 취소되었습니다.");
+
+			var formObj = document.createElement("form");
+			var i_order_num = document.createElement("input");
+
+			i_order_num.name = "order_num";
+			i_order_num.value = order_num;
+
+			formObj.appendChild(i_order_num);
+			document.body.appendChild(formObj);
+
+			formObj.method = "post";
+			formObj.action = "/order_cancel.do";
+
+			formObj.submit();
+		}
+	}
+
+	// 주문 배송 상세 조회 모달
+	function showModal(order_idx) {
+
+		var list = new Array();
+
+		<c:forEach items="${orders_list}" var="orderVO" varStatus="status">
+			
+			if ('${status.index}' == order_idx) {
+	
+				list.push('${orderVO.order_num}');
+				list.push('${orderVO.items}');
+				list.push('${orderVO.or_date}');
+				list.push('${orderVO.name}')
+				list.push('${orderVO.or_msg}')
+				list.push('${orderVO.receiver}');
+			}
+			
+		</c:forEach>
+
+		order_num = list[0];
+		order_item = list[1];
+		order_date = list[2];
+		order_name = list[3];
+		order_msg = list[4];
+		receiver = list[5];
+	}
+	
+	// 주문 배송 상세 조회 체크박스
+	function showOrderList(checkbox) {
+		
+		var checkValues = '';
+		
+		actionForm.find("input[name='pageNum']").val($('.page-item.active a').attr("href"));
+		
+		if ($("input[name='stts']:checked").length == 0) {
+			
+			checkValues = '5';
+			
+		} else {
+		
+			$("input[name='stts']:checked").each(function(){
+		    
+				checkValues = $(this).val();
+			});
+		}
+		
+		var pageNum = actionForm.find("input[name='pageNum']").val();
+		var amount = actionForm.find("input[name='amount']").val();
+		var data = {};
+		  
+		data["stts"] = checkValues;
+		data["pageNum"] = pageNum;
+		data["amount"] = amount;
+		
+		console.log(data);
+		
+		$.ajax({
+			    
+			type: "POST",	    
+			url : "/orderListCheck.do",
+			data : JSON.stringify(data),    
+			dataType: "json",			
+			contentType:"application/json",			
+			success : function(result, status, xhr) {
+			
+				var str = '';
+				var end = (Math.ceil(pageNum / 5.0)) * 5;
+				var start = end - 4;
+				var paging = '';
+				
+				console.log('start : ' + start);
+				console.log('end : ' + end);
+								
+				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
+										
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</span>'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				$('.pagination').empty();
+				
+				for (var i = start; i <= end; i++) {
+					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			    
+			},
+			
+			error: function(jqXHR, textStatus, errorThrown) {
+			
+				alert("error = " + errorThrown);
+			    
+			}
+			
+		});
+	}
+	
+	$(document).ready(function() {
+
+		// 주문 목록 모달 처리
+		$('#modal_order_detail').on('show.bs.modal', function(event) {
+
+			$('#mdl_or_num').val(order_num);
+			$('#or_date').val(order_date);
+			$('#goods').html(order_item);
+			$('#orderer').val(order_name);
+			$('#order_notes').html(order_msg);
+			$('#receiver').val(receiver);
+		});
+
+	});
+	
+	// 페이징 AJAX 처리
+	var actionForm = $("#actionForm");
+	
+	$(document).on("click", ".page-item a", function(e) {
+
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		
+		var data = {
+			pageNum: actionForm.find("input[name='pageNum']").val(), 
+			amount: actionForm.find("input[name='amount']").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/orderListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				var str = '';
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				var paging = '';
+				
+				console.log('start : ' + start);
+				console.log('end : ' + end);
+								
+				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
+										
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</span>'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				$('.pagination').empty();
+				
+				for (var i = start; i <= end; i++) {
+					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').append(paging);
+				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	});
+</script>
 
 <%@ include file="../include/mypage_footer.jsp"%>
