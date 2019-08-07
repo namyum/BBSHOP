@@ -183,7 +183,7 @@ body{font-family:NanumBarunpen, sans-serif}
  							</c:forEach>
 							<tr class="shipping_area">
 								<td>
-								<button style="width:100%" class="main_btn" id="selectDelete">선택삭제</button>
+								
 								</td>
 								<td>
 								</td>
@@ -216,20 +216,27 @@ body{font-family:NanumBarunpen, sans-serif}
 									<h5 id="allPrice">${allPrice}원</h5>
 								</td>
 							</tr>
-								<table align="center">
-							<tr class="out_button_area">
-								<td style="text-align:center"><div align="center" class="checkout_btn_inner">
-											<a class="main_btn" href="/order">결제하기</a>
-											
-											<a class="gray_btn" href="/goods_list">계속 쇼핑하기</a>
-											
-										</div>
-										</td>
-							</tr>
-								</table>
-							
 						</tbody>
 					</table>
+							
+							
+							
+							<div style="float:left">
+							<button style="width:100%" class="genric-btn danger radius e-large" id="selectDelete">선택삭제</button>
+								</div>				
+							
+							
+							
+							<div style="float:right" class="checkout_btn_inner">
+											<a class="main_btn" href="/order">결제하기</a>
+											
+											<a class="genric-btn default-border radius e-large" href="/goods_list">계속 쇼핑하기</a>
+										</div>
+											
+								
+							
+							
+							
 				</div>
 			</div>
 		</div>
