@@ -147,8 +147,8 @@
 
 
 
-<!-- user_key를 이용해 moredetail을 가져온다. -->
-<select id="findDetail" resultType="com.bbshop.bit.domain.MoreDetailVO">
+<!-- user_key를 이용해 moredetails을 가져온다. -->
+<select id="findDetail" resultType="com.bbshop.bit.domain.MoreDetailsVO">
 	select * from u_moredetail where user_key = #{user_key}
 </select>
 
