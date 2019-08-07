@@ -381,13 +381,25 @@ body {
 					</tr>
 					<!-- 좌투/우투 -->
 					<tr>
-						<th><label for="hand">좌/우</label></th>
-						<td colspan="2"><input type="checkbox" name="hand"
-							id="left_checkbox" value=0 /><label for="left_checkbox"><span></span>좌투(오른손
-								착용)</label></td>
-						<td colspan="2"><input type="checkbox" name="hand"
-							id="right_checkbox" value=1 /><label for="right_checkbox"><span></span>우투(왼손
-								착용)</label></td>
+						<th><label for="color">색상</label></th>
+						<td>
+							<input type="checkbox" name="color" id="black" value="black" /><label 
+							for="black"><span></span>블랙</label>&nbsp;
+						</td>
+						<td>
+							<input type="checkbox" name="color" id="white" value="white" /><label 
+							for="white"><span></span>화이트</label>&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="checkbox" name="color" id="red" value="red"/><label
+							for="red"><span></span>레드</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="yellow" value="yellow"/><label
+							for="yellow"><span></span>옐로우</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="blue" value="blue"/><label
+							for="blue"><span></span>블루</label>&nbsp;</td>
+						<td></td>
 					</tr>
 					<!-- 브랜드 -->
 					<tr>
