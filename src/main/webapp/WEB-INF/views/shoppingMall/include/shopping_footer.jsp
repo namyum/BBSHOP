@@ -243,8 +243,6 @@
 				$('.pagination').empty();
 				$('.pagination').append(paging);
 				
-				var actionForm = $("#actionForm");
-				
 				$(document).on("click", ".page-item", function(e) {
 					
 					e.preventDefault();
@@ -385,6 +383,19 @@
 				$('.pagination').empty();
 				$('.pagination').append(paging);
 				
+				$(document).on("click", ".page-item", function(e) {
+					
+					e.preventDefault();
+					
+					$('.page-item').removeClass("active");
+					$(this).addClass("active");
+					
+					var page = $('.page-item.active a').text();
+
+					// form 태그 내 pageNum값은 href 속성값으로 변경
+					$('#actionForm input[name="pageNum"]').val(page);
+
+				});
 
 			},
 			error : function() {
