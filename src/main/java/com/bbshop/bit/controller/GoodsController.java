@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.MoreDetailVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.GoodsService;
@@ -227,7 +227,7 @@ public class GoodsController {
 			// 합치기 전 임시 user_key
 			long user_key = 950131l;
 			
-			MoreDetailVO moredetail = service.findDetail(user_key);
+			MoreDetailsVO moredetail = service.findDetail(user_key);
 			List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
 			
 			model.addAttribute("recommendList", recommendList);

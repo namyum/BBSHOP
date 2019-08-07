@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.MoreDetailVO;
-import com.bbshop.bit.domain.PageDTO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.mapper.GoodsMapper;
 
@@ -86,10 +85,6 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return mapper.getGoodsInfo(goods_num);
 	}
-
-
-
-
 	
 	/* 상품 QNA 등록 */
 	@Override
@@ -111,22 +106,15 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getQnaList(map);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	/* user_key를 이용해 moredetail을 가져온다. */
 	@Override
-	public MoreDetailVO findDetail(long user_key) {
+	public MoreDetailsVO findDetail(long user_key) {
 		return mapper.findDetail(user_key);
 	}
 	
 	/* 추천상품 - 회원 */
 	@Override
-	public List<GoodsVO> recommendGoodsList(MoreDetailVO moredetail) {
+	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail) {
 		return mapper.recommendGoodsList(moredetail);
 	}
 	

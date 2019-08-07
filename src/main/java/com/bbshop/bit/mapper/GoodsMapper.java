@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.MoreDetailVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 
 public interface GoodsMapper {
 		
@@ -38,10 +38,10 @@ public interface GoodsMapper {
 	
 	
 	// user_key를 이용해 moredetail을 가져온다.
-	public MoreDetailVO findDetail(long user_key);
+	public MoreDetailsVO findDetail(long user_key);
 	
 	// 추천 상품 - 회원
-	public List<GoodsVO> recommendGoodsList(MoreDetailVO moredetail);
+	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail);
 	
 	// 추천 상품 - 비회원
 	public List<GoodsVO> recommendBestList();

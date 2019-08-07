@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.MoreDetailVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
 
 import lombok.Setter;
@@ -97,13 +97,14 @@ public class GoodsMapperTests {
 	
 //	@Test
 	public void testRecommend() {
-		MoreDetailVO m = new MoreDetailVO();
-		m.setBrand1("nike");
-		m.setBrand2("adidas");
-		m.setBrand3("brett");
-		m.setPosition("투수");
-		m.setTeam("lg");
-		m.setUser_key(950131);
+		MoreDetailsVO m = new MoreDetailsVO();
+		
+		m.setBRAND1("nike");
+		m.setBRAND2("adidas");
+		m.setBRAND3("brett");
+		m.setPOSITION("투수");
+		m.setTEAM("lg");
+		m.setUSER_KEY(950131);
 		
 		List<GoodsVO> list = mapper.recommendGoodsList(m);
 		list.forEach(goods -> log.info(goods));
@@ -113,7 +114,7 @@ public class GoodsMapperTests {
 	public void testFineDetail() {
 		long user_key = 950131l;
 		
-		MoreDetailVO md = mapper.findDetail(user_key);
+		MoreDetailsVO md = mapper.findDetail(user_key);
 		
 		log.info(md);
 		
