@@ -360,24 +360,14 @@ body {
 					<!-- 포지션 -->
 					<tr>
 						<th><label for="position">포지션</label></th>&emsp;
-						<td><input type="checkbox" name="position" id="1루수" value="1루수"/><label
-							for="1루수"><span></span>1루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="2루수" value="2루수"/><label
-							for="2루수"><span></span>2루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="3루수" value="3루수"/><label
-							for="3루수"><span></span>3루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="유격수" value="유격수"/><label
-							for="유격수" ><span></span>유격수</label>&nbsp;</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="checkbox" name="position" id="포수" value="포수"/><label
-							for="포수"><span></span>포수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="투수" value="투수"/><label
-							for="투수"><span></span>투수</label>&nbsp;</td>
 						<td><input type="checkbox" name="position" id="외야수" value="외야수"/><label
 							for="외야수"><span></span>외야수</label>&nbsp;</td>
-						<td></td>
+						<td><input type="checkbox" name="position" id="내야수" value="내야수"/><label
+							for="내야수"><span></span>내야수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="투수" value="투수"/><label
+							for="투수"><span></span>투수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="포수" value="포수"/><label
+							for="포수" ><span></span>포수</label>&nbsp;</td>
 					</tr>
 					<!-- 색상 -->
 					<tr>
