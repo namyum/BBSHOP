@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
@@ -13,8 +12,6 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- 수정필요 icon 뭘로할지? -->
 <link rel="icon" href="img/favicon.png" type="image/png">
-
-
 <title>야매샵</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/shoppingMall/css/bootstrap.css">
@@ -318,11 +315,14 @@ body {
 	animation: fadein .2s;
 	z-index: 100;
 	overflow: auto;
+<<<<<<< HEAD
 }
 
 /* 로그인 모달
 #loginModal {
 	opacity: 0.9;
+=======
+>>>>>>> goods
 }
 
 #sign_up {
@@ -358,8 +358,8 @@ body {
 					<input type="text" class="form-control" id="search_name"
 						placeholder="검색할 상품명을 적어주세요." /><br />
 				</div>
-				<br /> <input type="submit" class="btn btn-info btn-block"
-					id="search_submit_btn" value="검색" />
+				<br /> <input type="button" class="btn btn-info btn-block"
+					id="search_submit_btn" value="검색" onclick="general_search()" />
 			</form>
 		</div>
 	</div>
@@ -383,69 +383,71 @@ body {
 					<!-- 포지션 -->
 					<tr>
 						<th><label for="position">포지션</label></th>&emsp;
-						<td><input type="checkbox" name="position" id="1루수" /><label
-							for="1루수"><span></span>1루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="2루수" /><label
-							for="2루수"><span></span>2루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="3루수" /><label
-							for="3루수"><span></span>3루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="유격수" /><label
-							for="유격수"><span></span>유격수</label>&nbsp;</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="checkbox" name="position" id="포수" /><label
-							for="포수"><span></span>포수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="투수" /><label
-							for="투수"><span></span>투수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="외야수" /><label
+						<td><input type="checkbox" name="position" id="외야수" value="외야수"/><label
 							for="외야수"><span></span>외야수</label>&nbsp;</td>
-						<td></td>
+						<td><input type="checkbox" name="position" id="내야수" value="내야수"/><label
+							for="내야수"><span></span>내야수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="투수" value="투수"/><label
+							for="투수"><span></span>투수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="포수" value="포수"/><label
+							for="포수" ><span></span>포수</label>&nbsp;</td>
 					</tr>
-					<!-- 좌투/우투 -->
+					<!-- 색상 -->
 					<tr>
-						<th><label for="hand">좌/우</label></th>
-						<td colspan="2"><input type="checkbox" name="hand"
-							id="left_checkbox" /><label for="left_checkbox"><span></span>좌투(오른손
-								착용)</label></td>
-						<td colspan="2"><input type="checkbox" name="hand"
-							id="right_checkbox" /><label for="right_checkbox"><span></span>우투(왼손
-								착용)</label></td>
+						<th><label for="color">색상</label></th>
+						<td>
+							<input type="checkbox" name="color" id="black" value="black" /><label 
+							for="black"><span></span>블랙</label>&nbsp;
+						</td>
+						<td>
+							<input type="checkbox" name="color" id="white" value="white" /><label 
+							for="white"><span></span>화이트</label>&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="checkbox" name="color" id="red" value="red"/><label
+							for="red"><span></span>레드</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="yellow" value="yellow"/><label
+							for="yellow"><span></span>옐로우</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="blue" value="blue"/><label
+							for="blue"><span></span>블루</label>&nbsp;</td>
+						<td></td>
 					</tr>
 					<!-- 브랜드 -->
 					<tr>
 						<th><label for="brand">브랜드</label></th>
-						<td><input type="checkbox" name="brand" id="mizuno" /><label
+						<td><input type="checkbox" name="brand" id="mizuno" value="mizuno"/><label
 							for="mizuno"><span></span>Mizuno</label></td>
-						<td><input type="checkbox" name="brand" id="wilson" /><label
+						<td><input type="checkbox" name="brand" id="wilson" value="wilson"/><label
 							for="wilson"><span></span>Wilson</label></td>
-						<td><input type="checkbox" name="brand" id="adidas" /><label
+						<td><input type="checkbox" name="brand" id="adidas" value="adidas"/><label
 							for="adidas"><span></span>Adidas</label></td>
-						<td><input type="checkbox" name="brand" id="nike" /><label
+						<td><input type="checkbox" name="brand" id="nike" value="nike"/><label
 							for="nike"><span></span>Nike</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="morimoto" /><label
+						<td><input type="checkbox" name="brand" id="morimoto" value="morimoto"/><label
 							for="morimoto"><span></span>Morimoto</label></td>
-						<td><input type="checkbox" name="brand" id="descente" /><label
+						<td><input type="checkbox" name="brand" id="descente" value="descente"/><label
 							for="descente"><span></span>Descente</label></td>
-						<td colspan="2"><input type="checkbox" name="brand"
-							id="underarmour" /> <label for="underarmour"><span></span>UnderArmour</label></td>
+						<td colspan="2"><input type="checkbox" name="brand" id="underarmour" 
+						value="underarmour"/> <label for="underarmour"><span></span>UnderArmour</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="brett" /><label
+						<td><input type="checkbox" name="brand" id="brett" value="brett"/><label
 							for="brett"><span></span>Brett</label></td>
-						<td><input type="checkbox" name="brand" id="fila" /> <label
+						<td><input type="checkbox" name="brand" id="fila" value="fila"/> <label
 							for="fila"><span></span>FILA</label></td>
-						<td><input type="checkbox" name="brand" id="asics" /> <label
+						<td><input type="checkbox" name="brand" id="asics" value="asics"/> <label
 							for="asics"><span></span>Asics</label></td>
 						<td></td>
 					</tr>
 				</table>
-				<br> <input type="submit" class="btn btn-info btn-block"
-					id="searchBig_submit_btn" value="검색">
+				<br> <input type="button" class="btn btn-info btn-block"
+					id="searchBig_submit_btn" value="검색" onclick="detail_search()">
 			</form>
 		</div>
 	</div>
@@ -540,7 +542,7 @@ body {
 		<div class="miniCart_total" style="display: flex;">
 			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
 			&emsp;&emsp;
-			<h2 style="color: black; font-weight: bold;">30,000원</h2>
+			<h2 style="color: black; font-weight: bold;">155,000원</h2>
 		</div>
 		<!-- footer -->
 		<div class="miniCart_footer">
@@ -579,10 +581,10 @@ body {
 						<!-- 민구 추가 -->
 						<c:choose>
 							<c:when test="${nickname eq 'noAccount' }">
-								<li><a href="/index.do"> 로그인 </a></li>
+								<li><a href="/login"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/index.do"> 로그아웃 </a></li>
+								<li><a href="/logout"> 로그아웃 </a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -616,10 +618,8 @@ body {
 								<ul class="nav navbar-nav center_nav pull-right">
 									<!-- 서브메뉴1 글러브 -->
 									<!-- li태그 자체에 onclick이벤트를 줘야 페이지이동 합니다.(a href는 이동이 안됨) -->
-									<li class="nav-item submenu dropdown"
-										onclick="javascript: location.href='/goods_list'"><a
-										href="#none" id="submenu_name"
-										class="nav-link dropdown-toggle" data-toggle="dropdown"
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=1'">
+										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">글러브</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item"><a class="nav-link"
@@ -628,12 +628,13 @@ body {
 												href="/goods_list">글러브 카테2</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="/goods_list">글러브 카테3</a></li>
-										</ul></li>
+										</ul>
+									</li>
 
 									<!-- 서브메뉴2 배트 -->
 									<li class="nav-item submenu dropdown"
-										onclick="javascript: location.href='/goods_list'"><a
-										href="#none" id="submenu_name"
+										onclick="javascript: location.href='/goods_list.do?category=2'">
+										<a href="#none" id="submenu_name"
 										class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">배트</a>
 										<ul class="dropdown-menu">
@@ -643,12 +644,13 @@ body {
 												href="/goods_list">배트 카테2</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="/goods_list">배트 카테3</a></li>
-										</ul></li>
+										</ul>
+									</li>
 
 									<!-- 서브메뉴3 유니폼 -->
 									<li class="nav-item submenu dropdown"
-										onclick="javascript: location.href='/goods_list'"><a
-										href="#none" id="submenu_name"
+										onclick="javascript: location.href='/goods_list.do?category=3'">
+										<a href="#none" id="submenu_name"
 										class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">유니폼</a>
 										<ul class="dropdown-menu">
@@ -658,12 +660,13 @@ body {
 												href="/goods_list">유니폼 카테2</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="/goods_list">유니폼 카테3</a></li>
-										</ul></li>
+										</ul>
+									</li>
 
 									<!-- 서브메뉴4 야구화 -->
 									<li class="nav-item submenu dropdown"
-										onclick="javascript: location.href='/goods_list'"><a
-										href="#none" id="submenu_name"
+										onclick="javascript: location.href='/goods_list.do?category=4'">
+										<a href="#none" id="submenu_name"
 										class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">야구화</a>
 										<ul class="dropdown-menu">
@@ -673,12 +676,13 @@ body {
 												href="/goods_list">야구화 카테2</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="/goods_list">야구화 카테3</a></li>
-										</ul></li>
+										</ul>
+									</li>
 
 									<!-- 서브메뉴5 야구공 -->
 									<li class="nav-item submenu dropdown"
-										onclick="javascript: location.href='/goods_list'"><a
-										href="#none" id="submenu_name"
+										onclick="javascript: location.href='/goods_list.do?category=5'">
+										<a href="#none" id="submenu_name"
 										class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">야구공</a>
 										<ul class="dropdown-menu">
@@ -688,7 +692,8 @@ body {
 												href="/goods_list">야구공 카테2</a></li>
 											<li class="nav-item"><a class="nav-link"
 												href="/goods_list">야구공 카테3</a></li>
-										</ul></li>
+										</ul>
+									</li>
 								</ul>
 							</div>
 

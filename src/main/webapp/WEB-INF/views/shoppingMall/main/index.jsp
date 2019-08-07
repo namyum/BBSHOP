@@ -338,7 +338,11 @@
                 <span class="close">&times;</span>
                 <h2 align="center">로 그 인</h2>
                 <div class="modal-body" style="padding: 40px 50px;">
+<<<<<<< HEAD
                     <form id="loginform" name="loginform" role="form" action="login.do" method="post">
+=======
+                    <form name="loginform" role="form" action="/shopping_main.do" method="post">
+>>>>>>> goods
                         <div class="form-group">
                        <input type='hidden' id='toPage' name='toPage' value=''>
                             <label for="userid">ID</label> <input type="text" class="form-control" id="userid"
