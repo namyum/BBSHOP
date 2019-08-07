@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
 <html lang="en">
@@ -704,11 +704,15 @@ body {
 								고객센터
 							</a>
 						</li>
-						<li>	
-							<a href="/cart">
-								장바구니
-							</a>
-						</li>
+						<!-- 민구 추가 -->
+						<c:choose>
+							<c:when test="${nickname eq 'noAccount' }">
+								<li><a href="/login"> 로그인 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/logout"> 로그아웃 </a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 

@@ -546,7 +546,7 @@ body {
 						<li><a href="/cart"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
 						<c:choose>
-							<c:when test="${id eq 'noAccount' }">
+							<c:when test="${nickname eq 'noAccount' }">
 								<li><a href="/login"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
