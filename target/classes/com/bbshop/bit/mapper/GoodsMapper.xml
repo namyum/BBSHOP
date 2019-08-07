@@ -69,7 +69,7 @@
 <!-- 상품 목록, sorting값에 따라 동적쿼리 -->
 <!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
 <select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
-	SELECT DISTINCT rownum rn, goods_num, name, main_img, price, best, regdate
+	SELECT DISTINCT goods_num, name, main_img, price, best, regdate
 	FROM 
 		(
 			<include refid="criteria"></include>
