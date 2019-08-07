@@ -79,7 +79,7 @@ public class GoodsController {
 		pagingVO.setAmount((int) map.get("amount"));
 		
 		
-		// 상품 상세인 경우 해당 값들이 전부 들어오지 않는다.
+		// 상품 상세인 경우 해당 값들이 전부 들어오지 않으므로 null 체크를 해준다.
 		if (map.get("sorting") != null) {
 			sorting = (String)map.get("sorting");
 		}
@@ -97,7 +97,7 @@ public class GoodsController {
 		}
 		
 		List<String> positions_list = new ArrayList<String>();
-		List<Integer> hands_list = new ArrayList<Integer>();
+		List<String> colors_list = new ArrayList<String>();
 		List<String> brands_list = new ArrayList<String>();
 		
 		if (map.get("search") != null) {
@@ -111,8 +111,8 @@ public class GoodsController {
 			positions_list = (List<String>)map.get("postions");
 		}
 		
-		if (map.get("hands") != null) {
-			hands_list = (List<Integer>)map.get("hands");
+		if (map.get("colors") != null) {
+			colors_list = (List<String>)map.get("colors");
 		}
 		
 		if (map.get("brands") != null) {
@@ -120,12 +120,12 @@ public class GoodsController {
 		}
 		
 		int total = service.getTotalCountAjax(category, pagingVO, sorting, min_amount, max_amount, 
-				positions_list, hands_list, brands_list);
+				positions_list, colors_list, brands_list);
 		
 		
 		// 상세 검색이 아니면 빈 배열을 넘긴다.
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount, 
-				positions_list, hands_list, brands_list);
+				positions_list, colors_list, brands_list);
 		
 		for (GoodsVO goods : goodsList) {
 			

@@ -34,9 +34,9 @@
 				#{val}
 			</foreach>
 		</if>
-		<if test='hands.size != 0'>
-			AND hand IN
-			<foreach item="val" index="index" collection="hands" open="("
+		<if test='colors.size != 0'>
+			AND color IN
+			<foreach item="val" index="index" collection="colors" open="("
 				separator="," close=")">
 				#{val}
 			</foreach>
@@ -69,7 +69,7 @@
 <!-- 상품 목록, sorting값에 따라 동적쿼리 -->
 <!-- 전달받은 hashmap[pagingVO(pageNum,amount), category, sorting] -->
 <select id="getGoodsList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsVO">
-	SELECT DISTINCT rownum rn, goods_num, name, main_img, price, best, regdate, position, hand, brand
+	SELECT DISTINCT rownum rn, goods_num, name, main_img, price, best, regdate
 	FROM 
 		(
 			<include refid="criteria"></include>
@@ -115,9 +115,9 @@
 				#{val}
 			</foreach>
 		</if>
-		<if test='hands.size != 0'>
-			AND hand IN
-			<foreach item="val" index="index" collection="hands" open="("
+		<if test='colors.size != 0'>
+			AND color IN
+			<foreach item="val" index="index" collection="colors" open="("
 				separator="," close=")">
 				#{val}
 			</foreach>

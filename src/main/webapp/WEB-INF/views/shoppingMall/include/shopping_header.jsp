@@ -379,7 +379,7 @@ body {
 							for="외야수"><span></span>외야수</label>&nbsp;</td>
 						<td></td>
 					</tr>
-					<!-- 좌투/우투 -->
+					<!-- 색상 -->
 					<tr>
 						<th><label for="color">색상</label></th>
 						<td>

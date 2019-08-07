@@ -285,7 +285,7 @@
 		
 		// 각 상세 검색 필터 체크박스
 		var positions = new Array();
-		var hands = new Array();
+		var colors = new Array();
 		var brands = new Array();
 		
 		$("input[name='position']:checked").each(function() {
@@ -293,9 +293,9 @@
 			positions.push($(this).val());
 		})
 
-		$("input[name='hand']:checked").each(function() {
+		$("input[name='color']:checked").each(function() {
 			
-			hands.push($(this).val());
+			colors.push($(this).val());
 		})
 		
 		$("input[name='brand']:checked").each(function() {
@@ -305,7 +305,7 @@
 		
 		// 상세 검색 데이터 잘 들어갔는지 테스트
 		console.log('포지션 : ' + positions);
-		console.log('좌/우 : ' + hands);
+		console.log('색상 : ' + colors);
 		console.log('브랜드 : ' + brands);
 		
 		var data = {};
@@ -318,7 +318,7 @@
 		data["max_amount"] = max_amount;
 		
 		data["positions"] = positions;
-		data["hands"] = hands;
+		data["colors"] = colors;
 		data["brands"] = brands;
 		
 		$.ajax({

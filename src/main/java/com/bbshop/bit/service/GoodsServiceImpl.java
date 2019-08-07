@@ -37,7 +37,7 @@ public class GoodsServiceImpl implements GoodsService {
 	/* 페이징 O */
 	@Override
 	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
-			List<String> positions, List<Integer> hands, List<String> brands) {
+			List<String> positions, List<String> colors, List<String> brands) {
 		
 		log.info("getGoodsList...Ajax..With Paging................");
 		
@@ -55,9 +55,9 @@ public class GoodsServiceImpl implements GoodsService {
 			map.put("positions", positions);
 		}
 		
-		if (hands != null) {
+		if (colors != null) {
 			
-			map.put("hands", hands);
+			map.put("colors", colors);
 		}
 		
 		if (brands != null) {
@@ -136,7 +136,7 @@ public class GoodsServiceImpl implements GoodsService {
 	/* ajax로 데이터 불러올 때 전체 개수 구하기 */	
 	@Override
 	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
-			List<String> positions, List<Integer> hands, List<String> brands) {
+			List<String> positions, List<String> colors, List<String> brands) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -152,9 +152,9 @@ public class GoodsServiceImpl implements GoodsService {
 			map.put("positions", positions);
 		}
 		
-		if (hands != null) {
+		if (colors != null) {
 			
-			map.put("hands", hands);
+			map.put("colors", colors);
 		}
 		
 		if (brands != null) {
