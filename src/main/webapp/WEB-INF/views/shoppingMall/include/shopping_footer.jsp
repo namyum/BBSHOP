@@ -230,12 +230,13 @@
 				}
 				
 				console.log('realEnd 적용 후의 end : ' + end);
+				
 				for (var i = start; i <= end; i++) {
+					
 					paging += '<li class="page-item ';
 					
-					if (pageNum == i) {
+					if (pageNum == i)
 						paging += 'active';
-					}
 					
 					paging += '" id="btn_' + i + '">';
 					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';

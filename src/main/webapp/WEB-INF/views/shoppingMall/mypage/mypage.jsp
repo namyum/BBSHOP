@@ -202,33 +202,6 @@ a {
 					</tr>
 				</thead>
 				<tbody style="text-align: center;">
-					<c:forEach var="savingsVO" items="${savings_list }"
-						varStatus="status">
-						<tr>
-							<td>
-								<h5>
-									<c:out value="${savingsVO.or_date }" default="null" />
-								</h5>
-							</td>
-							<td>
-								<h5>
-									<c:out value="${savingsVO.or_items }" default="null" />
-								</h5>
-							</td>
-							<td>
-								<h5>
-									￦
-									<c:out value="${savingsVO.or_savings }" default="null" />
-								</h5>
-							</td>
-							<td>
-								<h5>
-									￦
-									<c:out value="${savingsVO.or_savings_total }" default="null" />
-								</h5>
-							</td>
-						</tr>
-					</c:forEach>
 				</tbody>
 			</table>
 			<div class="text-center">
@@ -245,9 +218,8 @@ a {
 			</div>
 			<!-- 페이징 버튼 처리를 위한 히든 폼 -->
 			<form id="actionForm" action="/savings.do">
-				<input type="hidden" name="pageNum"
-					value="${pageMaker.pagingVO.pageNum }"> <input
-					type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
+				<input type="hidden" name="pageNum" value="${pageMaker.pagingVO.pageNum }">
+				<input type="hidden" name="amount" value="${pageMaker.pagingVO.amount }">
 			</form>
 		</div>
 	</div>
@@ -256,67 +228,130 @@ a {
 <script type="text/javascript">
 
 	var actionForm = $("#actionForm");
+	
+	// 페이지가 로드되면 불러와지는 적립금 리스트
+	$(document).ready(function() {
 
+		var data = {
+			pageNum : 1,
+			amount : 5
+		};
+
+		$.ajax({
+			type : "POST",
+			url : "/savingListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType : "application/json",
+			success : function(result) {
+
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				
+				var str = '';
+				var paging = '';
+
+				$.each(result, function(index, value) {
+
+					str += '<tr><td><h5>' + result[index].or_date
+							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + '￦ '
+							+ result[index].or_savings + '</h5></td><td><h5>'
+							+ '￦ ' + result[index].or_savings_total
+							+ '</h5></td></tr>';
+				});
+
+				$('tbody').empty();
+				$('tbody').append(str);
+
+				// 페이징 버튼 AJAX 처리
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('#btn_1').addClass("active");
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	});
+	
+	// 페이지네이션 버튼 클릭시 이벤트 처리
 	$(document).on("click", ".page-item a", function(e) {
+		
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 
-				e.preventDefault();
+		var data = {
+			pageNum : actionForm.find("input[name='pageNum']").val(),
+			amount : 5 // 기본값인 10이 이쁘지 않아서 일단 5로 고정시켜 놓았다.
+		};
 
-				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		$.ajax({
+			type : "POST",
+			url : "/savingListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType : "application/json",
+			success : function(result) {
 
-						var data = {
-							pageNum : $(this).attr("href"),
-							amount : 5
-						};
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+			
+				var str = '';
+				var paging = '';
 
-						$.ajax({
-									type : "POST",
-									url : "/savingListPaging.do",
-									data : JSON.stringify(data),
-									dataType : "json",
-									contentType : "application/json",
-									success : function(result) {
+				$.each(result, function(index, value) {
 
-										var str = '';
+					str += '<tr><td><h5>' + result[index].or_date
+							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + '￦ '
+							+ result[index].or_savings + '</h5></td><td><h5>'
+							+ '￦ ' + result[index].or_savings_total
+							+ '</h5></td></tr>';
+				});
 
-										var start = ${pageMaker.startPage};
-										var end = ${pageMaker.endPage};
-										var paging = '';
+				$('tbody').empty();
+				$('tbody').append(str);
 
-										$.each(result, function(index, value) {
+				// 페이징 버튼 AJAX 처리
 
-															var parse = parseInt(index);
-
-															str += '<tr><td><h5>'
-																	+ result[index].or_date
-																	+ '</h5></td><td><h5>'
-																	+ result[index].or_items
-																	+ '</h5></td><td><h5>'
-																	+ '￦ '
-																	+ result[index].or_savings
-																	+ '</h5></td><td><h5>'
-																	+ '￦ '
-																	+ result[index].or_savings_total
-																	+ '</h5></td></tr>';
-														});
-
-										$('tbody').empty();
-										$('tbody').append(str);
-										
-										// 페이징 버튼 AJAX 처리
-										$('.pagination').empty();
-										
-										for (var i = start; i <= end; i++) {
-											paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
-										}
-										
-										$('.pagination').append(paging);
-										$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-									},
-									error : function() {
-										alert('AJAX 요청 실패!');
-									}
-								});
-					});
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>

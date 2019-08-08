@@ -43,15 +43,17 @@ public class MyPageController {
 	@Inject
     PasswordEncoder passwordEncoder;
 	
-	// 회원 정보 조회 -> 적립금 불러오기
+	// �쉶�썝 �젙蹂� 議고쉶 -> �쟻由쎄툑 遺덈윭�삤湲�
 	@RequestMapping(value = "/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
+		
+		pagingVO.setAmount(5); // 기본 생성자로 설정되는 10에서 5로 바꿔준다.
 						
 		long sum = 0;
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 		
-		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "savings"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -66,7 +68,7 @@ public class MyPageController {
 		
 		long[] savings_total_list = new long[(int)total];
 		
-		// 내 주문 주문 상태별 묶기
+		// �궡 二쇰Ц 二쇰Ц �긽�깭蹂� 臾띔린
 		int[] stts_list = new int[5];
 		
 		for (int i = 0; i < orders_list.size(); i++) {
@@ -91,7 +93,7 @@ public class MyPageController {
 			}
 		}
 		
-		// 적립금 전체 총합
+		// �쟻由쎄툑 �쟾泥� 珥앺빀
 		for (int i = 0; i < all_savings.size(); i++) {
 			
 			sum += all_savings.get(i);
@@ -115,14 +117,14 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypage";
 	}
 	
-	// 주문/배송 목록 불러오기
+	// 二쇰Ц/諛곗넚 紐⑸줉 遺덈윭�삤湲�
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
@@ -132,7 +134,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/order_status";
 	}
 	
-	// 주문/배송 -> 주문 취소
+	// 二쇰Ц/諛곗넚 -> 二쇰Ц 痍⑥냼
 	@RequestMapping("/order_cancel.do")
 	public String getOrderCanceled(Model model, @RequestParam("order_num") long order_num) {
 				
@@ -141,7 +143,7 @@ public class MyPageController {
 		return "redirect:/order_status.do";
 	}
 	
-	// 내가 남긴 글 조회
+	// �궡媛� �궓湲� 湲� 議고쉶
 	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
@@ -175,7 +177,7 @@ public class MyPageController {
 		
 		PageDTO pageMaker = new PageDTO(pagingVO, total);
 		
-		System.out.println("mypost 컨트롤러의 pageMaker : " + pageMaker.toString());
+		System.out.println("mypost 而⑦듃濡ㅻ윭�쓽 pageMaker : " + pageMaker.toString());
 		
 		model.addAttribute("qna_list", qna_list);
 		model.addAttribute("onetoone_list", onetoone_list);
@@ -185,7 +187,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/mypost";
 	}
 	
-	// 회원 정보 수정 페이지
+	// �쉶�썝 �젙蹂� �닔�젙 �럹�씠吏�
 	@RequestMapping("/modify_info.do")
 	public String getModifyInfo(Model model) {
 		
@@ -195,11 +197,11 @@ public class MyPageController {
 		List<AddrVO> addr_list = myPageService.getAddrList(user_key);
 		MoreDetailsVO member_detail = myPageService.getDetail(user_key);
 		
-		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
+		member.setMEMBER_PW(""); // �븫�샇�솕�맂 鍮꾨�踰덊샇媛� �뱾�뼱�엳�뒗 硫ㅻ쾭VO�쓽 鍮꾨�踰덊샇 �븘�뱶瑜� 珥덇린�솕�빐以��떎.
 		
-		System.out.println("modify_info 컨트롤러의 회원 정보 : " + member.toString());
-		System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
-		System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
+		System.out.println("modify_info 而⑦듃濡ㅻ윭�쓽 �쉶�썝 �젙蹂� : " + member.toString());
+		System.out.println("modify_info 而⑦듃濡ㅻ윭�쓽 諛곗넚吏� �젙蹂� : " + addr_list.toString());
+		System.out.println("modify_info 而⑦듃濡ㅻ윭�쓽 異붽� �궗�빆 : " + member_detail.toString());
 				
 		model.addAttribute("memberInfo", member);
 		model.addAttribute("addr_list", addr_list);
@@ -208,20 +210,20 @@ public class MyPageController {
 		return "shoppingMall/mypage/modify_info";
 	}
 	
-	// 회원 정보 수정
+	// �쉶�썝 �젙蹂� �닔�젙
 	@RequestMapping("/modify_userInfo.do")
 	public String modify_userInfo(MemberVO memberVO) {
 
 		long user_key = (long)session.getAttribute("member");
 		
-		memberVO.setUSER_KEY(user_key); // user_key는 계속 데리고 다니는 데이터가 아니라, 세션으로부터 받아야 하므로 테스트상 임의로 넣음.
+		memberVO.setUSER_KEY(user_key); // user_key�뒗 怨꾩냽 �뜲由ш퀬 �떎�땲�뒗 �뜲�씠�꽣媛� �븘�땲�씪, �꽭�뀡�쑝濡쒕��꽣 諛쏆븘�빞 �븯誘�濡� �뀒�뒪�듃�긽 �엫�쓽濡� �꽔�쓬.
 		
 		myPageService.updateUserInfo(memberVO);
 		
 		return "forward:/modify_info.do";
 	}
 	
-	// 배송지 수정 페이지
+	// 諛곗넚吏� �닔�젙 �럹�씠吏�
 	@RequestMapping("/modify_addr.do")
 	public String modify_addr(@RequestParam("num") int index, Model model) {
 		
@@ -237,7 +239,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/modify_addr";
 	}
 	
-	// 배송지 수정하기
+	// 諛곗넚吏� �닔�젙�븯湲�
 	@RequestMapping("/modify_userAddr.do")
 	public String modify_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 		
@@ -246,14 +248,14 @@ public class MyPageController {
 		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
 		
-		System.out.println("modify_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
+		System.out.println("modify_userAddr 而⑦듃濡ㅻ윭�쓽 addrVO : " + addrVO.toString());
 		
 		myPageService.updateAddrInfo(addrVO);
 		
 		return "forward:/modify_info.do";
 	}
 
-	// 배송지 등록 페이지
+	// 諛곗넚吏� �벑濡� �럹�씠吏�
 	@RequestMapping("/write_addr.do")
 	public String write_addr(@RequestParam("num") int num, Model model) {
 		
@@ -262,7 +264,7 @@ public class MyPageController {
 		return "shoppingMall/mypage/write_addr";
 	}
 	
-	// 배송지 등록하기
+	// 諛곗넚吏� �벑濡앺븯湲�
 	@RequestMapping("/write_userAddr.do")
 	public String write_userAddr(AddrVO addrVO, @RequestParam("zipcode") long zipcode) {
 				
@@ -271,14 +273,14 @@ public class MyPageController {
 		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
 		
-		System.out.println("write_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
+		System.out.println("write_userAddr 而⑦듃濡ㅻ윭�쓽 addrVO : " + addrVO.toString());
 		
 		myPageService.insertAddrInfo(addrVO);
 		
 		return "forward:/modify_info.do";
 	}
 	
-	// 배송지 삭제하기
+	// 諛곗넚吏� �궘�젣�븯湲�
 	@RequestMapping("/delete_userAddr.do")
 	public String delete_userAddr(@RequestParam("num") int num) {
 		
@@ -289,14 +291,14 @@ public class MyPageController {
 		return "forward:/modify_info.do";
 	}
 
-	// 회원 탈퇴 페이지
+	// �쉶�썝 �깉�눜 �럹�씠吏�
 	@RequestMapping("/withdraw.do")
 	public String withdraw() {
 		
 		return "shoppingMall/mypage/withdraw";
 	}
 	
-	// 회원 탈퇴
+	// �쉶�썝 �깉�눜
 	@RequestMapping("/secede.do")
 	public String secede() {
 		
@@ -307,7 +309,7 @@ public class MyPageController {
 		return "shoppingMall/main/shopping_main";
 	}
 	
-	// 추가 사항 수정하기
+	// 異붽� �궗�빆 �닔�젙�븯湲�
 	@RequestMapping("/modify_detail.do")
 	public String modify_detail(MoreDetailsVO moreDetailsVO) {
 		
@@ -315,16 +317,16 @@ public class MyPageController {
 
 		moreDetailsVO.setUSER_KEY(user_key);
 		
-		System.out.println("컨트롤러에서의 VO : " + moreDetailsVO.toString());
+		System.out.println("而⑦듃濡ㅻ윭�뿉�꽌�쓽 VO : " + moreDetailsVO.toString());
 		
 		myPageService.updateDetailInfo(moreDetailsVO, user_key);
 		
-		System.out.println("mapper 통과");
+		System.out.println("mapper �넻怨�");
 		
 		return "redirect:/modify_info.do";
 	}
 	
-	// 닉네임 중복 확인
+	// �땳�꽕�엫 以묐났 �솗�씤
 	@RequestMapping(value = "/nickCheck.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String nickCheck(HttpServletRequest request) {
@@ -336,9 +338,9 @@ public class MyPageController {
 		return Integer.toString(result);
 	}
 
-// ajax 컨트롤러
+// ajax 而⑦듃濡ㅻ윭
 
-	// ajax로 적립금 가져 오기
+	// ajax濡� �쟻由쎄툑 媛��졇 �삤湲�
 	@RequestMapping(value = "/savingListPaging.do", consumes = "application/json")
 	@ResponseBody
 	public List<SavingsVO> getSavingListPaging(@RequestBody PagingVO pagingVO) {
@@ -347,7 +349,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "savings"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -355,7 +357,7 @@ public class MyPageController {
 		
 		long[] savings_total_list = new long[(int)total];
 		
-		// 적립금 전체 총합
+		// �쟻由쎄툑 �쟾泥� 珥앺빀
 		for (int i = 0; i < all_savings.size(); i++) {
 			
 			sum += all_savings.get(i);
@@ -375,7 +377,7 @@ public class MyPageController {
 		return savings_list;
 	}
 	
-	// ajax로 배송 목록 가져 오기
+	// ajax濡� 諛곗넚 紐⑸줉 媛��졇 �삤湲�
 	@RequestMapping(value = "/orderListPaging.do", consumes = "application/json")
 	@ResponseBody
 	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
@@ -383,14 +385,14 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
 		return orders_list;
 	}
 	
-	// ajax로 체크박스 배송 목록 가져 오기
+	// ajax濡� 泥댄겕諛뺤뒪 諛곗넚 紐⑸줉 媛��졇 �삤湲�
 	@RequestMapping(value = "/orderListCheck.do", consumes = "application/json")
 	@ResponseBody
 	public List<OrderVO> getOrderListCheck(@RequestBody Map<String, Object> map) {
@@ -404,7 +406,7 @@ public class MyPageController {
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		if (stts == 5) {
 		
@@ -418,7 +420,7 @@ public class MyPageController {
 		return orders_list;
 	}
 	
-	// ajax로 내가 남긴 글 가져 오기
+	// ajax濡� �궡媛� �궓湲� 湲� 媛��졇 �삤湲�
 	@RequestMapping(value = "/getTableWithAjax.do", consumes = "application/json")
 	@ResponseBody
 	public Map<String, Object> getTableWithAjax(@RequestBody Map<String, Object> map) {
@@ -435,7 +437,7 @@ public class MyPageController {
 		
 		if (!category.equals("all")) {
 			
-			total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
+			total = myPageService.getTotal(pagingVO, category); // �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		}
 		
 		Map<String, Object> listMap = new HashMap<>();
@@ -458,7 +460,7 @@ public class MyPageController {
 			
 			return listMap;
 		
-		// 전체 게시글 출력 코드
+		// �쟾泥� 寃뚯떆湲� 異쒕젰 肄붾뱶
 		} else {
 			
 			long sum = 0;

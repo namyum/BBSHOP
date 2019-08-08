@@ -58,17 +58,17 @@
 							</td>
 							<td>
 								<h5>
-									<c:out value='${qnaVO.subject }' />
+									<c:out value='${qnaVO.title }' />
+								</h5>
+							</td>
+							<td>
+								<h5>
+									<c:out value='${qnaVO.content }' />
 								</h5>
 							</td>
 							<td>
 								<h5>
 									<c:out value='${qnaVO.regdate }' />
-								</h5>
-							</td>
-							<td>
-								<h5>
-									<c:out value="${qnaVO.hit }" default="null" />
 								</h5>
 							</td>
 						</tr>
