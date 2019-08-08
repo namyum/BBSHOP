@@ -98,7 +98,6 @@ function goodsList_Ajax() {
 			
 			// 상품 목록이 들어갈 div 클래스 이름 - 초기화
 			$('.latest_product_inner').empty();
-			
 			$('.latest_product_inner').append(output);
 		},
 		error : function() {

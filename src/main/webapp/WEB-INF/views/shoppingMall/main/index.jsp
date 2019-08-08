@@ -483,7 +483,7 @@
                             </tr>
                 </table>
                 <br>
-                <input type="button" id="moredetails_btn" class="btn btn-info btn-block" disabled="true">추가사항 입력</button>
+                <input type="button" id="moredetails_btn" class="btn btn-info btn-block" value="추가 사항 입력" disabled="true"></button>
                
                 <br>
                 <input type="submit" class="btn btn-info btn-block" id="sign_btn" name="sign" value="회원가입" disabled="true" >

@@ -121,6 +121,8 @@ public class MyPageController {
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
+		pagingVO.setAmount(5); // 기본 생성자로 설정되는 10에서 5로 바꿔준다.
+		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
@@ -147,6 +149,8 @@ public class MyPageController {
 	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
+		pagingVO.setAmount(5);
+		
 		long total = 0;
 		long sum = 0;
 		long user_key = (long)session.getAttribute("member");
@@ -163,6 +167,8 @@ public class MyPageController {
 		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
 		sum += total;
 		
+		PageDTO pageMaker = new PageDTO(pagingVO, sum);
+			
 		for (int i = 0; i < qna_list.size(); i++) {
 			qna_list.get(i).setQna_num(sum--);
 		}
@@ -175,9 +181,7 @@ public class MyPageController {
 			review_list.get(i).setRv_num(sum--);
 		}
 		
-		PageDTO pageMaker = new PageDTO(pagingVO, total);
-		
-		System.out.println("mypost 而⑦듃濡ㅻ윭�쓽 pageMaker : " + pageMaker.toString());
+
 		
 		model.addAttribute("qna_list", qna_list);
 		model.addAttribute("onetoone_list", onetoone_list);
@@ -426,38 +430,40 @@ public class MyPageController {
 	public Map<String, Object> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
+		long total = 0;
 
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
-		long amount = (long)Integer.parseInt((String)map.get("amount"));
+		long amount = (long)Integer.parseInt((String)map.get("amount"));	
 		String category = (String)map.get("category");
 		
-		PagingVO pagingVO = new PagingVO(pageNum, amount);
+		Map<String, Object> listMap = new HashMap<>();
 		
-		long total = 0;
+		PagingVO pagingVO = new PagingVO(pageNum, amount);
 		
 		if (!category.equals("all")) {
 			
 			total = myPageService.getTotal(pagingVO, category); // �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		}
-		
-		Map<String, Object> listMap = new HashMap<>();
-		
+				
 		if (category.equals("review")) {
 			
 			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
+			listMap.put("total", total);
 			
 			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
 			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
-			
+			listMap.put("total", total);
+
 			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
 			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
-			
+			listMap.put("total", total);
+
 			return listMap;
 		
 		// �쟾泥� 寃뚯떆湲� 異쒕젰 肄붾뱶

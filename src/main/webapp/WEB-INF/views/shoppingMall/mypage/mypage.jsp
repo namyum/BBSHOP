@@ -231,10 +231,13 @@ a {
 	
 	// 페이지가 로드되면 불러와지는 적립금 리스트
 	$(document).ready(function() {
+		
+		var amount = actionForm.find("input[name='amount']").val();
+		var pageNum = actionForm.find("input[name='pageNum']").val();
 
 		var data = {
-			pageNum : 1,
-			amount : 5
+			pageNum : pageNum,
+			amount : amount
 		};
 
 		$.ajax({
@@ -297,7 +300,7 @@ a {
 
 		var data = {
 			pageNum : actionForm.find("input[name='pageNum']").val(),
-			amount : 5 // 기본값인 10이 이쁘지 않아서 일단 5로 고정시켜 놓았다.
+			amount : actionForm.find("input[name='amount']").val()
 		};
 
 		$.ajax({
@@ -328,7 +331,6 @@ a {
 				$('tbody').append(str);
 
 				// 페이징 버튼 AJAX 처리
-
 				for (var i = start; i <= end; i++) {
 					
 					paging += '<li class="page-item ';

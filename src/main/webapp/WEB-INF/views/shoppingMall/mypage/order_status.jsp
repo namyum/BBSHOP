@@ -90,73 +90,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="orderVO" items="${orders_list }" varStatus="status">
-					<tr>
-						<td style="text-align: center;">
-							<h5>
-								<c:out value="${orderVO.order_num }" default="null" />
-							</h5>
-						</td>
-						<td>
-							<h5>
-								<c:out value="${orderVO.or_date }" default="null" />
-							</h5>
-						</td>
-						<td><h5>
-								<a href="<c:out value='${orderVO.items }'/>" data-toggle="modal"
-									data-target="#modal_order_detail" style="color: #222222;"
-									onclick="showModal('${status.index}');"> <c:out
-										value='${orderVO.items }' /></a>
-							</h5></td>
-						<td>
-							<h5>
-								￦ <c:out value="${orderVO.pymntamnt }" default="null" />
-							</h5>
-						</td>
-						<td>
-							<h5>
-								<c:choose>
-									<c:when test="${orderVO.stts == 0 }">
-										결제완료
-			    					</c:when>
-									<c:when test="${orderVO.stts == 1 }">
-			       						배송준비중
-			   						</c:when>
-									<c:when test="${orderVO.stts == 2 }">
-										배송중
-								    </c:when>
-									<c:when test="${orderVO.stts == 3 }">
-										<span style="color: blue;">배송완료</span>
-								    </c:when>
-									<c:when test="${orderVO.stts == 4 }">
-										<span style="color: red;">주문취소</span>
-									</c:when>
-								</c:choose>
-							</h5>
-						</td>
-						<td>
-							<button type="button" id="see_order" class="genric-btn default radius">
-								<span>배송 조회</span>
-							</button>
-						</td>
-						<td>
-							<c:choose>
-								<c:when test="${orderVO.stts == 0}">
-									<button type="button" id="cancel_order" class="genric-btn danger radius"
-										onClick="fn_cancel_order('${orderVO.order_num}')">
-										<span>주문 취소</span>
-									</button>
-								</c:when>
-								<c:otherwise>
-									<button type="button" id="cancel_order" class="genric-btn danger radius"
-										style="visibility: hidden;">
-										<span>주문 취소</span>
-									</button>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</tr>
-				</c:forEach>
 			</tbody>
 		</table>
 		<div class="text-center">
@@ -356,14 +289,8 @@
 
 	});
 	
-	// 페이징 AJAX 처리
-	var actionForm = $("#actionForm");
-	
-	$(document).on("click", ".page-item a", function(e) {
-
-		e.preventDefault();
-		
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	// 페이지가 로드되면 주문/배송 리스트 불러오기
+	$(document).ready(function() {
 		
 		var data = {
 			pageNum: actionForm.find("input[name='pageNum']").val(), 
@@ -378,19 +305,13 @@
 			contentType: "application/json",
 			success : function(result) {
 				
-				var str = '';
 				var start = ${pageMaker.startPage};
 				var end = ${pageMaker.endPage};
-				var paging = '';
 				
-				console.log('start : ' + start);
-				console.log('end : ' + end);
+				var str = '';
+				var paging = '';
 								
 				$.each(result, function(index, value){
-					
-					var parse = parseInt(index);
-					
-					console.log(parse);
 										
 					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
 						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
@@ -421,14 +342,106 @@
 				$('tbody').append(str);
 				
 				// 페이징 버튼 AJAX 처리
-				$('.pagination').empty();
-				
 				for (var i = start; i <= end; i++) {
-					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
 				}
 				
+				$('.pagination').empty();
 				$('.pagination').append(paging);
-				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	})
+	
+	// 페이징 AJAX 처리
+	var actionForm = $("#actionForm");
+	
+	$(document).on("click", ".page-item a", function(e) {
+
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		
+		var data = {
+			pageNum: actionForm.find("input[name='pageNum']").val(), 
+			amount: actionForm.find("input[name='amount']").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/orderListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				
+				var str = '';
+				var paging = '';
+								
+				$.each(result, function(index, value){
+										
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
+						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '결제완료'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '<span style="color: blue;">배송완료</span>'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					
+					if (result[index].stts == 0) {
+						
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						+ '<span>주문 취소</span></button></td></tr>';
+						
+					} else {
+						
+						str += '</td></tr>';
+					}
+				});
+				
+				$('tbody').empty();
+				$('tbody').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 				
 			},
 			error : function() {

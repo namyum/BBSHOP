@@ -354,22 +354,21 @@
 				$('.latest_product_inner').empty();			
 				$('.latest_product_inner').append(output);
 
-				// 페이징 버튼 처리
-				var pagination = "";
+				// 페이징 버튼 처리 (PageDTO를 다시 받기가 좀 그래서 endPage 구하는 로직을 직접 씀)
 				var end = Math.ceil(pageNum / 10.0) * 10;
 				var start = end - 9;
 				var realEnd = Math.ceil( (goodsList.length * 1.0) / amount );
-				
-				console.log('goodsList.length : ' + goodsList.length);
-				console.log('end : ' + end);
-				console.log('start : ' + start);
-				console.log('realEnd : ' + realEnd);
 				
 				if (realEnd < end) {
 					end = realEnd;
 				}
 				
+				console.log('goodsList.length : ' + goodsList.length);
+				console.log('end : ' + end);
+				console.log('start : ' + start);
+				console.log('realEnd : ' + realEnd);
 				console.log('realEnd 적용 후의 end : ' + end);
+				
 				for (var i = start; i <= end; i++) {
 					
 					paging += '<li class="page-item ';
