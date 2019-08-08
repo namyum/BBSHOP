@@ -53,7 +53,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 		
-		total = myPageService.getTotal(pagingVO, "savings"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -126,7 +126,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
@@ -155,15 +155,15 @@ public class MyPageController {
 		long sum = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "qna");
+		total = myPageService.getTotal(pagingVO, "qna", user_key);
 		List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
 		sum += total;		
 		
-		total = myPageService.getTotal(pagingVO, "review");
+		total = myPageService.getTotal(pagingVO, "review", user_key);
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
 		sum += total;
 		
-		total = myPageService.getTotal(pagingVO, "onetoone");
+		total = myPageService.getTotal(pagingVO, "onetoone", user_key);
 		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
 		sum += total;
 		
@@ -353,7 +353,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "savings"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -389,7 +389,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
@@ -410,7 +410,7 @@ public class MyPageController {
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		if (stts == 5) {
 		
@@ -442,7 +442,7 @@ public class MyPageController {
 		
 		if (!category.equals("all")) {
 			
-			total = myPageService.getTotal(pagingVO, category); // �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+			total = myPageService.getTotal(pagingVO, category, user_key); // �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		}
 				
 		if (category.equals("review")) {
@@ -471,15 +471,15 @@ public class MyPageController {
 			
 			long sum = 0;
 			
-			total = myPageService.getTotal(pagingVO, "review");
+			total = myPageService.getTotal(pagingVO, "review", user_key);
 			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
 			sum += total;
 
-			total = myPageService.getTotal(pagingVO, "qna");
+			total = myPageService.getTotal(pagingVO, "qna", user_key);
 			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
 			sum += total;
 			
-			total = myPageService.getTotal(pagingVO, "onetoone");
+			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
 			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
 			sum += total;
 			

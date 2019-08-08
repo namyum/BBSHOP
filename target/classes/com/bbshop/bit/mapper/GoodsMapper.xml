@@ -27,21 +27,21 @@
 		<if test="pagingVO.type != null and !pagingVO.type.equals('')">
 			AND name like '%'||#{pagingVO.keyword}||'%'
 		</if>
-		<if test='positions.size != 0'>
+		<if test='positions != null and positions.size != 0'>
 			AND position IN
 			<foreach item="val" index="index" collection="positions"
 				open="(" separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
-		<if test='colors.size != 0'>
+		<if test='colors != null and colors.size != 0'>
 			AND color IN
 			<foreach item="val" index="index" collection="colors" open="("
 				separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
-		<if test='brands.size != 0'>
+		<if test='brands != null and brands.size != 0'>
 			AND brand IN
 			<foreach item="val" index="index" collection="brands"
 				open="(" separator="," close=")">

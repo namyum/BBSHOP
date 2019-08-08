@@ -24,6 +24,7 @@
 	<select id="getTotalCount" resultType="java.lang.Long">
 		SELECT count(*) 
 		FROM ${table}
+		WHERE user_key = #{user_key}
 	</select>
 
 	<select id="getSavingsList" resultMap="savingsVO">
@@ -187,7 +188,6 @@
 		SET
 			team = #{moreDetailsVO.TEAM},
 			position = #{moreDetailsVO.POSITION},
-			hand = #{moreDetailsVO.HAND},
 			brand1 = #{moreDetailsVO.BRAND1},
 			brand2 = #{moreDetailsVO.BRAND2},
 			brand3 = #{moreDetailsVO.BRAND3}

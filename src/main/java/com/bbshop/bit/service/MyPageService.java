@@ -15,7 +15,7 @@ import com.bbshop.bit.domain.SavingsVO;
 public interface MyPageService {
 	
 	// 테이블 안의 데이터 개수 구하기
-	public long getTotal(PagingVO pagingVO, String table);
+	public long getTotal(PagingVO pagingVO, String table, long user_key);
 	
 
 	// 적립금 내역 가지고 오기

@@ -58,13 +58,13 @@ function goodsList_Ajax() {
 	var data = {};
 	
 	data["pageNum"] = pageNum * 1;
-	data["amount"] = ${pageMaker.pagingVO.amount};
+	data["amount"] = 8;
 	data["category"] = ${categoryInt};
 	data["sorting"] = $('select.sorting option:selected').val();
 	data["min_amount"] = min_amount;
 	data["max_amount"] = max_amount;
 
-	console.log(data);
+	console.log($('select.sorting option:selected').val());
 	
 	$.ajax({
 		url : "/getGoodsList_Ajax.do",
