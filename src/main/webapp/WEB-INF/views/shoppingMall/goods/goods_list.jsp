@@ -74,8 +74,6 @@ function goodsList_Ajax() {
 		contentType : "application/json",
 		success : function(goodsList) {
 			
-			alert('goods_list / 상품 목록 불러오기 성공!');
-			
 			search_Modal.style.display = "none";
 			
 			console.log('반환 리스트 : ' + goodsList);
@@ -245,8 +243,6 @@ function goodsList_Ajax() {
 		var actionForm = $("#actionForm");
 		
 		$(".page-item").on("click", function(e) {
-			
-			alert('goods_list의 paging 작동');	
 			
 			e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
 			

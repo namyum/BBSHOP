@@ -16,24 +16,24 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor // ÀÚµ¿ÁÖÀÔ ¾î³ëÅ×ÀÌ¼Ç
+@AllArgsConstructor // ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½
 public class GoodsServiceImpl implements GoodsService {
 	
 	private GoodsMapper mapper;
 
-	// Ä«Å×°í¸® int > String
+	// Ä«ï¿½×°ï¿½ int > String
 	@Override
 	public String category(int category) {
 		switch(category) {
-			case 1: return "±Û·¯ºê";
-			case 2: return "¹èÆ®";
-			case 3: return "À¯´ÏÆû";
-			case 4: return "¾ß±¸È­";
-			default: return "¾ß±¸°ø";
+			case 1: return "ê¸€ëŸ¬ë¸Œ";
+			case 2: return "ï¿½ï¿½Æ®";
+			case 3: return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+			case 4: return "ï¿½ß±ï¿½È­";
+			default: return "ï¿½ß±ï¿½ï¿½ï¿½";
 		}
 	}
 	
-	/* ÆäÀÌÂ¡ O */
+	/* ï¿½ï¿½ï¿½ï¿½Â¡ O */
 	@Override
 	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
 			List<String> positions, List<String> colors, List<String> brands) {
@@ -51,7 +51,7 @@ public class GoodsServiceImpl implements GoodsService {
 			map.put("max_amount", Integer.parseInt(max_amount));
 		}
 		
-		// °Ë»ö ¸®½ºÆ® ¹è¿­¿¡ °ªÀÌ ´ã°Ü ÀÖÀ¸¸é, map¿¡ ´ã´Â´Ù.
+		// ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, mapï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 		if (positions != null) {
 		
 			map.put("positions", positions);
@@ -70,7 +70,7 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getGoodsList(map);
 	}
 	
-	/* Ä«Å×°í¸®º°  goods µ¥ÀÌÅÍ °³¼ö */
+	/* Ä«ï¿½×°ï¿½ï¿½ï¿½  goods ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 	@Override
 	public int getTotalCount(int category) {
 		log.info("get Total Count - " + category);
@@ -78,7 +78,7 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getTotalCount(category);
 	}
 	
-	/* »óÇ° Á¶È¸ */
+	/* ï¿½ï¿½Ç° ï¿½ï¿½È¸ */
 	@Override
 	public GoodsVO getGoodsInfo(Long goods_num) {
 		log.info("getGoodsInfo....goods_num : "+goods_num+"............");
@@ -86,7 +86,7 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getGoodsInfo(goods_num);
 	}
 	
-	/* »óÇ° QNA µî·Ï */
+	/* ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ */
 	@Override
 	public void insertGoodsQna(GoodsQnaVO qna) {
 		log.info("Service - insertGoodsQna");
@@ -94,7 +94,7 @@ public class GoodsServiceImpl implements GoodsService {
 		mapper.insertGoodsQnaSelectKey(qna);
 	}
 
-	/* »óÇ° QNA ¸ñ·Ï */
+	/* ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ */
 	@Override
 	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long goods_num) {
 		log.info("Service - getQnaList");
@@ -106,25 +106,25 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getQnaList(map);
 	}
 	
-	/* user_key¸¦ ÀÌ¿ëÇØ moredetailÀ» °¡Á®¿Â´Ù. */
+	/* user_keyï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ moredetailï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½. */
 	@Override
 	public MoreDetailsVO findDetail(long user_key) {
 		return mapper.findDetail(user_key);
 	}
 	
-	/* ÃßÃµ»óÇ° - È¸¿ø */
+	/* ï¿½ï¿½Ãµï¿½ï¿½Ç° - È¸ï¿½ï¿½ */
 	@Override
 	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail) {
 		return mapper.recommendGoodsList(moredetail);
 	}
 	
-	/* ÃßÃµ»óÇ° - ºñÈ¸¿ø */
+	/* ï¿½ï¿½Ãµï¿½ï¿½Ç° - ï¿½ï¿½È¸ï¿½ï¿½ */
 	@Override
 	public List<GoodsVO> recommendBestList() {
 		return mapper.recommendBestList();
 	}
 	
-	/* ajax·Î µ¥ÀÌÅÍ ºÒ·¯¿Ã ¶§ ÀüÃ¼ °³¼ö ±¸ÇÏ±â */	
+	/* ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ */	
 	@Override
 	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
 			List<String> positions, List<String> colors, List<String> brands) {
@@ -140,7 +140,7 @@ public class GoodsServiceImpl implements GoodsService {
 			map.put("max_amount", Integer.parseInt(max_amount));
 		}
 		
-		// °Ë»ö ¸®½ºÆ® ¹è¿­¿¡ °ªÀÌ ´ã°Ü ÀÖÀ¸¸é, map¿¡ ´ã´Â´Ù.
+		// ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, mapï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
 		if (positions != null) {
 		
 			map.put("positions", positions);
