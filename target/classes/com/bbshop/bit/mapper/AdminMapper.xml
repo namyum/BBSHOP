@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bbshop.bit.mapper.AdminMapper">
+
+<resultMap type="com.bbshop.bit.domain.GoodsVO" id="goodsResultMap">
+	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
+	<result property ="CATEGORY" column ="CATEGORY"/>
+	<result property ="NAME" column ="NAME"/>
+	<result property ="PRICE" column ="PRICE"/>
+	<result property ="DETAIL" column ="DETAIL"/>
+	<result property ="MAIN_IMG" column ="MAIN_IMG"/>
+	<result property ="DTL_IMG1" column ="DTL_IMG1"/>
+	<result property ="DTL_IMG2" column ="DTL_IMG2"/>
+	<result property ="BEST" column ="BEST"/>
+	<result property ="DISCOUNT" column ="DISCOUNT"/>
+	<result property ="SAILS" column ="SAILS"/>
+	<result property ="REGDATE" column ="REGDATE"/>
+	<result property ="BRAND" column ="BRAND"/>
+</resultMap>
+
+<select id="getGoodsList" resultMap="goodsResultMap">
+
+	select * from goods
+	
+</select>
+
+
+
+
+
+</mapper>

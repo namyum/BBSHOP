@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-
+<%@ page import="java.util.*"%>
+<%@ page import="com.bbshop.bit.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%
+List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
+%>
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/apple-icon.png">
@@ -111,6 +115,9 @@ th{
                         
                       </thead>
                       <tbody>
+                      <c:forEach var="goods" items="${goodsList}" varStatus="status">
+                      
+                      
                         <tr>
                         
                           <td  style="text-align: center">
@@ -119,37 +126,46 @@ th{
                         
                         
                           <td  style="text-align: center">
-                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">0000001</Button>
+                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.GOODS_NUM}</Button>
                           </td>
                           <td  style="text-align: center">
                               글러브
                           </td>
                           <td width=10% height=10% style='text-align:center'>
-                            <img src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/0.jpeg" width=60% >
+                            <img src="${goods.MAIN_IMG}" width=60% >
                           </td>
                           <td  style="text-align: center">
-                             <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'" >매우빠른공을 던질수있는 글러브</Button>
+                             <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'" >${goods.NAME }</Button>
                           </td>
                           <td class="text-primary"  style="text-align: center">
-                            36,738원
+                            ${goods.PRICE}원
                           </td>
                           <td  style="text-align: center">
                             99
                           </td>
                           <td  style="text-align: center">
-                            20
+                            ${goods.SALES}개
                           </td>
                           <td  style="text-align: center">
-                            (주)류현진
+                            ${goods.BRAND }
                           </td>
                           <td  style="text-align: center">
-                              19.07.05
+                              ${goods.REGDATE}
                             </td>
                             <td  style="text-align: center">
-                              O
+                              <c:choose>
+                              
+                              	<c:when test="${goods.BEST ==0 }">
+                              		일반
+                              	</c:when>
+                              	<c:when test="${goods.BEST ==1 }">
+                              		인기
+                              	</c:when>
+                              </c:choose>
+                              
                             </td>
                             <td  style="text-align: center">
-                                30
+                                ${goods.DISCOUNT}
                               </td>
                               <td  style="text-align: center">
                                 X
@@ -158,93 +174,8 @@ th{
                                 <button class="btn btn-danger btn-sm">삭제</button>
                               </td>
                         </tr>
-                        <tr>
-                          <td  style="text-align: center">
-                              <input type='checkbox' id='checkrow'>
-                          </td>
-                            <td style="text-align: center">
-                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">0000002</Button>
-                            </td>
-                            <td style="text-align: center">
-                                글러브
-                            </td>
-                            <td width=10% height=10% style='text-align:center'>
-                              <img src = "${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/1.jpg" width=60%>
-                            </td>
-                            <td style="text-align: center">
-                                <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">손에 상처가 안나게 해주는 강철가죽장갑</Button>
-                            </td>
-                            <td class="text-primary" style="text-align: center">
-                              999,999원
-                            </td>
-                            <td style="text-align: center">
-                              99
-                            </td >
-                            <td style="text-align:center">
-                              20
-                            </td>
-                            <td style="text-align: center">
-                              (주)류현진
-                            </td>
-                            <td style="text-align: center">
-                                19.07.05
-                              </td>
-                              <td style="text-align: center">
-                                O
-                              </td>
-                              <td style="text-align: center">
-                                  30
-                                </td>
-                                <td style="text-align: center">
-                                  X
-                                </td>
-                                <td style="text-align: center">
-                                  <button class="btn btn-danger btn-sm">삭제</button>
-                                </td>
-                          </tr><tr>
-                            <td  style="text-align: center">
-                              <input type='checkbox' id='checkrow'>
-                          </td>
-                              <td  style="text-align: center">
-                                  <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">0000003</Button>
-                              </td>
-                              <td  style="text-align: center">
-                                  배트
-                              </td>
-                              <td width=10% height=10% style='text-align:center'>
-                                <img src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/2.png" width=60% >
-                              </td>
-                              <td  style='text-align: center'>
-                                  <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">우는애도 그치게 하는 전설의 불빠따
-                                    </td></Button>
-                              <td class="text-primary"  style="text-align: center">
-                                100,000,000원
-                              </td>
-                              <td  style="text-align: center">
-                                1
-                              </td>
-                              <td  style="text-align: center">
-                                99
-                              </td>
-                              <td  style="text-align: center">
-                                (주)추신수
-                              </td>
-                              <td  style="text-align: center">
-                                  92.05.17
-                                </td>
-                                <td  style="text-align: center">
-                                  O
-                                </td>
-                                <td  style="text-align: center">
-                                    0
-                                  </td>
-                                  <td  style="text-align: center">
-                                    X
-                                  </td>
-                                  <td  style="text-align: center">
-                                    <button class="btn btn-danger btn-sm">삭제</button>
-                                  </td>
-                            </tr>
+                       </c:forEach>
+                       
                       </tbody>
                       <form>
                         <table id='table_footer'width="100%">

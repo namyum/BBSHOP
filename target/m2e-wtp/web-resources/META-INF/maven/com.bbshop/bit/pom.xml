@@ -48,7 +48,7 @@
          <version>${org.aspectj-version}</version>
       </dependency>
 
-      <!-- Logging -->
+         <!-- Logging -->
       <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>
@@ -90,7 +90,7 @@
          </exclusions>
          <scope>runtime</scope>
       </dependency>
-
+      
       <!-- @Inject -->
       <dependency>
          <groupId>javax.inject</groupId>
@@ -136,6 +136,15 @@
          <artifactId>mybatis</artifactId>
          <version>3.4.4</version>
       </dependency>
+
+		 <!-- lombok 추가 -->
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>1.18.0</version>
+         <scope>provided</scope>
+      </dependency>
+		
 
       <!-- mybatis-spring -->
       <dependency>
