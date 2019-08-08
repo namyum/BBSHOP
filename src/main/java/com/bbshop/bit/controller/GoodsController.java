@@ -33,15 +33,15 @@ public class GoodsController {
 	@Autowired
 	private GoodsService service;
 	
-	private HttpSession session; // ·Î±×ÀÎ ½Ã¿¡ session¿¡ id°ªÀÌ ´ã°ÜÀÖ´Ù.
+	private HttpSession session; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ sessionï¿½ï¿½ idï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½.
 	
-	// »óÇ° ¸ñ·Ï ÆäÀÌÁö
+	// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
 	public String goods_list(@RequestParam(required=false, defaultValue="1") int category, PagingVO pagingVO, Model model) {
 		
 		log.info("Controller...goods_list.jsp");
 		
-		System.out.println("ÄÁÆ®·Ñ·¯¿¡¼­ÀÇ category : " + category);
+		System.out.println("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ category : " + category);
 		
 		// String id = (String)session.getAttribute("id");
 		
@@ -57,21 +57,21 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_list";
 	}
 
-	// »óÇ° ¸ñ·Ï ÆäÀÌÁö - ajax µ¥ÀÌÅÍ »Ñ·ÁÁÖ±â 
+	// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ajax ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½ 
 	@RequestMapping(value="/getGoodsList_Ajax.do", consumes="application/json")
 	@ResponseBody
 	public List<GoodsVO> getGoodsList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...goods_list.jsp...goodsListAjax");
 		
-		System.out.println("ÄÁÆ®·Ñ·¯¿¡¼­ÀÇ map : " + map.toString());
+		System.out.println("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ map : " + map.toString());
 		
 		String sorting = "";
 		String min_amount = "";
 		String max_amount = "";
 		String search = "";
 		
-		// service¸Ş¼Òµå È£ÃâÇÏ¸ç.. Àü´ŞÇÒ map¿¡ µé¾î°¥ parameter..
-		// serviceÀÚÃ¼¸¦ ¸ÊÀ¸·Î ¹Ù²ãº¼±õ..
+		// serviceï¿½Ş¼Òµï¿½ È£ï¿½ï¿½ï¿½Ï¸ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ mapï¿½ï¿½ ï¿½ï¿½î°¥ parameter..
+		// serviceï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ãº¼ï¿½ï¿½..
 		int category = (int) map.get("category");
 		
 		PagingVO pagingVO = new PagingVO();
@@ -79,7 +79,7 @@ public class GoodsController {
 		pagingVO.setAmount((int) map.get("amount"));
 		
 		
-		// »óÇ° »ó¼¼ÀÎ °æ¿ì ÇØ´ç °ªµéÀÌ ÀüºÎ µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î null Ã¼Å©¸¦ ÇØÁØ´Ù.
+		// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ null Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 		if (map.get("sorting") != null) {
 			sorting = (String)map.get("sorting");
 		}
@@ -123,19 +123,19 @@ public class GoodsController {
 				positions_list, colors_list, brands_list);
 		
 		
-		// »ó¼¼ °Ë»öÀÌ ¾Æ´Ï¸é ºó ¹è¿­À» ³Ñ±ä´Ù.
+		// ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½.
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount, 
 				positions_list, colors_list, brands_list);
 		
 		for (GoodsVO goods : goodsList) {
 			
-			System.out.println("db¿¡¼­ ºÒ·¯¿Â goodsList : " + goods.toString());
+			System.out.println("dbï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ goodsList : " + goods.toString());
 		}
 
 		return goodsList;
 	}
 	
-	// »óÇ° Á¶È¸ ÆäÀÌÁö
+	// ï¿½ï¿½Ç° ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/goods_info.do", method=RequestMethod.GET)
 	public String getGoodsInfo(@RequestParam long goods_num, @RequestParam int category, Model model) {
 		log.info("Controller..getGoodsList..goods_num:" + goods_num + ".....");
@@ -148,32 +148,27 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_info";
 	}
 	
-	
-	
-	
-	
-	
-	/* »óÇ° QNA µî·Ï */
+	/* ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ */
 	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.GET)
 	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) {
 		log.info("Controller..insertGoodsQna...!");
 		
-		/* ¼¼¼Ç user_key °ª ¹Ş¾Æ¿À±â 
+		/* ï¿½ï¿½ï¿½ï¿½ user_key ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½ 
 		long user_key = (long)session.getAttribute("user_key");
 		String nickname = (String)session.getAttribute("nickname");
 		
-		// ºñÈ¸¿øÀÏ °æ¿ì, 
+		// ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, 
 		if(nickname.substring(0,9).equals("noAccount")) {
-			// alert("·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù") or ·Î±×ÀÎ¸ğ´Ş or ÀÎµ¦½º·Î ³¯·Á
+			// alert("ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½") or ï¿½Î±ï¿½ï¿½Î¸ï¿½ï¿½ or ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
-		// È¸¿øÀÏ °æ¿ì,.
+		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,.
 		else {
 			long user_key = (long)session.getAttribute("user_key");
 			qna.setUser_key(user_key);
 		}			
 		*/
 		
-		// ÇÕÄ¡±â Àü ÀÓ½Ã user_key
+		// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Ó½ï¿½ user_key
 		long user_key = 950131l;
 		qna.setUser_key(user_key);
 		
@@ -186,7 +181,7 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_info";
 	}
 	
-	// »óÇ°QNA ¸ñ·Ï ÆäÀÌÁö - ajax µ¥ÀÌÅÍ »Ñ·ÁÁÖ±â 
+	// ï¿½ï¿½Ç°QNA ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ajax ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½Ö±ï¿½ 
 	@RequestMapping(value="/getQnaList_Ajax.do", consumes="application/json")
 	@ResponseBody
 	public List<GoodsQnaVO> getQnaList_Ajax(@RequestBody Map<String, Object> map){
@@ -203,34 +198,53 @@ public class GoodsController {
 		return qnaList;
 	}
 	
-	
-	
-	
-	// ¼îÇÎ ¸ŞÀÎ - ÃßÃµ»óÇ°
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½Ãµï¿½ï¿½Ç°
 	@RequestMapping(value="/shopping_main.do", method=RequestMethod.GET)
 	public String shopping_main(HttpSession session, Model model) {
+		
 		log.info("Controller...shopping_main.jsp");
 		
-//		// ¼¼¼Ç user_key °ª ¹Ş¾Æ¿À±â 
+//		// ï¿½ï¿½ï¿½ï¿½ user_key ï¿½ï¿½ ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½ 
 //		String nickname = (String)session.getAttribute("nickname");
 //		
-//		// ºñÈ¸¿øÀÏ °æ¿ì, 
+//		// ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, 
 //		if(nickname.substring(0,9).equals("noAccount")) {
 //			List<GoodsVO> recommendList = service.recommendBestList();
 //		
 //			model.addAttribute("recommendList", recommendList);
 //		}
-//		// È¸¿øÀÏ °æ¿ì,.
+//		// È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,.
 //		else {
 //			long user_key = (long)session.getAttribute("user_key");
 		
-			// ÇÕÄ¡±â Àü ÀÓ½Ã user_key
-			long user_key = 950131l;
+			// ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½Ó½ï¿½ user_key
+			long user_key = 65;
 			
 			MoreDetailsVO moredetail = service.findDetail(user_key);
+			
+			System.out.println("moredetail ì¶”ê°€ ì‚¬í•­ ê°ì²´ ì •ë³´ : " + moredetail);
+			
 			List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
 			
+			if (recommendList != null) {
+				
+				System.out.println(recommendList.toString());
+				
+				for (int i = 0; i < recommendList.size(); i++) {
+					
+					System.out.println("ì¶”ì²œ ì œí’ˆ ëª©ë¡ : " + recommendList.get(i).toString());
+				}
+				
+			} else {
+				
+				System.out.println("recommendListëŠ” nullì…ë‹ˆë‹¤.");
+			}
+			
 			model.addAttribute("recommendList", recommendList);
+			
+
+			
+
 //		}			
 		
 		return "shoppingMall/main/shopping_main";

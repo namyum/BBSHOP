@@ -534,16 +534,16 @@
                                 <td>
                                     <select class="form-control" name="TEAM" id="team">
                                     	<option value="team">Team</option>
-                                        <option value="LG">LG</option>
-                                        <option value="Kiwoom">Kiwoom</option>
-                                        <option value="Kia">Kia</option>
-                                        <option value="Hanwha">Hanwha</option>
-                                        <option value="Lotte">Lotte</option>
-                                        <option value="Samsung">Samsung</option>
-                                        <option value="NC">NC</option>
-                                        <option value="Doosan">Doosan</option>
-                                        <option value="KT">KT</option>
-                                        <option value="SK">SK</option>
+                                        <option value="lg">LG</option>
+                                        <option value="kiwoom">Kiwoom</option>
+                                        <option value="kia">Kia</option>
+                                        <option value="hanwha">Hanwha</option>
+                                        <option value="lotte">Lotte</option>
+                                        <option value="samsung">Samsung</option>
+                                        <option value="nc">NC</option>
+                                        <option value="doosan">Doosan</option>
+                                        <option value="kt">KT</option>
+                                        <option value="sk">SK</option>
 
                                     </select>
                                 </td>
@@ -557,10 +557,7 @@
                                     <div class="position select">
                                     <select class="form-control" name="POSITION" id="position">
                                     	<option value="position">Position</option>
-                                        <option value="1루수">1루수</option>
-                                        <option value="2루수">2루수</option>
-                                        <option value="3루수">3루수</option>
-                                        <option value="유격수">유격수</option>
+                                        <option value="유격수">내야수</option>
                                         <option value="외야수">외야수</option>
                                         <option value="포수">포수</option>
                                         <option value="투수">투수</option>
@@ -571,39 +568,22 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="20%">     <br>
-                                    <label for="hand">좌/우</label>
-                                </td>
-                                <td>     <br>
-                                   <div class="hand-select">
-                                    <select class="form-control" name="HAND" id="hand">
-                                        <option value="hand">Hand</option>
-                                        <option value="0">좌투(오른손 착용)</option>
-                                        <option value="1">우투(왼손 착용)</option>
-                                    </select>
-                                    </div>
-                                </td>
-
-                            </tr>
-                       
-                       
-                            <tr>
                                 <td>     <br>
                                 <label for="brand">브랜드1</label></td>
                                 <td>     <br>
                                  <div>
                                    <select class="form-control" name="BRAND1" id="brand1">
-                                   		<option value="default">선택1</option>
-                                        <option value="Adidas">Adidas</option>
-                                        <option value="Asics">Asics</option>
-                                        <option value="Descente">Descente</option>
-                                        <option value="Diamond">Diamond</option>
-                                        <option value="FilaReebok">FILA/Reebok</option>
-                                        <option value="Mizuno">Mizuno</option>
-                                        <option value="Nike">Nike</option>
-                                        <option value="Morimoto">Morimoto</option>
-                                        <option value="UnderArmour">UnderArmour</option>
-                                        <option value="Wilson">Wilson</option>
+                                   		<option value="">선택1</option>
+                                        <option value="adidas">Adidas</option>
+                                        <option value="asics">Asics</option>
+                                        <option value="descente">Descente</option>
+                                        <option value="brett">Brett</option>
+                                        <option value="fila">Fila</option>
+                                        <option value="mizuno">Mizuno</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="morimoto">Morimoto</option>
+                                        <option value="underarmour">UnderArmour</option>
+                                        <option value="wilson">Wilson</option>
                                     </select>
                                 </div>
                                 </td>
@@ -611,43 +591,43 @@
                             </tr>
                             <tr>
                                 <td>
-                                     <br><label for="brand">브랜드2</label></td>
-                                <td>     <br>
+                                <br><label for="brand">브랜드2</label></td>
+                                <td> <br>
                                  <div>
                                    <select class="form-control" name="BRAND2" id="brand2">
-                                   			<option value="default">선택2</option>
-                                        <option value="Adidas">Adidas</option>
-                                        <option value="Asics">Asics</option>
-                                        <option value="Descente">Descente</option>
-                                        <option value="Diamond">Diamond</option>
-                                        <option value="FilaReebok">FILA/Reebok</option>
-                                        <option value="Mizuno">Mizuno</option>
-                                        <option value="Nike">Nike</option>
-                                        <option value="Morimoto">Morimoto</option>
-                                        <option value="UnderArmour">UnderArmour</option>
-                                        <option value="Wilson">Wilson</option>
+                                   		<option value="">선택2</option>
+                                        <option value="adidas">Adidas</option>
+                                        <option value="asics">Asics</option>
+                                        <option value="descente">Descente</option>
+                                        <option value="brett">Brett</option>
+                                        <option value="fila">Fila</option>
+                                        <option value="mizuno">Mizuno</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="morimoto">Morimoto</option>
+                                        <option value="underarmour">UnderArmour</option>
+                                        <option value="wilson">Wilson</option>
                                     </select>
                                 </div>
                                 </td>
                                
                             </tr>
                             <tr>
-                                <td>     <br>
+                                <td><br>
                                 <label for="brand">브랜드3</label></td>
-                                <td>     <br>
+                                <td><br>
                                  <div>
                                    <select class="form-control" name="BRAND3" id="brand3">
-                                   			<option value="default">선택2</option>
-                                        <option value="Adidas">Adidas</option>
-                                        <option value="Asics">Asics</option>
-                                        <option value="Descente">Descente</option>
-                                        <option value="Diamond">Diamond</option>
-                                        <option value="FilaReebok">FILA/Reebok</option>
-                                        <option value="Mizuno">Mizuno</option>
-                                        <option value="Nike">Nike</option>
-                                        <option value="Morimoto">Morimoto</option>
-                                        <option value="UnderArmour">UnderArmour</option>
-                                        <option value="Wilson">Wilson</option>
+                                   		<option value="">선택3</option>
+                                        <option value="adidas">Adidas</option>
+                                        <option value="asics">Asics</option>
+                                        <option value="descente">Descente</option>
+                                        <option value="brett">Brett</option>
+                                        <option value="fila">Fila</option>
+                                        <option value="mizuno">Mizuno</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="morimoto">Morimoto</option>
+                                        <option value="underarmour">UnderArmour</option>
+                                        <option value="wilson">Wilson</option>
                                     </select>
                                 </div>
                                 </td>

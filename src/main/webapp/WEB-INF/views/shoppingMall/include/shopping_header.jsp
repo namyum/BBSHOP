@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -579,9 +580,10 @@ body {
 						</a></li>
 						<li><a href="/cart"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
+						<c:set var="nickname" value="${nickname }"/> 
 						<c:choose>
-							<c:when test="${nickname eq 'noAccount' }">
-								<li><a href="/login"> 로그인 </a></li>
+							<c:when test="${fn:substring(nickname,0,9) eq 'noAccount'}">
+								<li><a href="/index.do"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="/logout"> 로그아웃 </a></li>

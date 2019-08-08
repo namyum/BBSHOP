@@ -33,12 +33,12 @@ public class MemberServiceImpl implements MemberService {
 		 }else {
 	        String encPassword = passwordEncoder.encode(vo.getMEMBER_PW());
 	        vo.setMEMBER_PW(encPassword);
-	        //System.out.println("��ȣȭ�� ��й�ȣ : "+user.getUserPassword());
-		System.out.println("��й�ȣ ��ȣȭ ����"+vo.toString());
+	        //System.out.println("占쏙옙호화占쏙옙 占쏙옙橘占싫� : "+user.getUserPassword());
+		System.out.println("占쏙옙橘占싫� 占쏙옙호화 占쏙옙占쏙옙"+vo.toString());
 		 }
 		sqlSession.getMapper(MemberMapper.class);
 		mapper.insertMember(vo);
-		System.out.println("insert ����!!!");
+		System.out.println("insert 占쏙옙占쏙옙!!!");
 	}
 	
 	public long getUser_key(MemberVO vo) {
@@ -46,13 +46,13 @@ public class MemberServiceImpl implements MemberService {
 		sqlSession.getMapper(MemberMapper.class);
 		System.out.println(vo.getMEMBER_ID());
 		long user_key =mapper.getUser_key(vo);
-		System.out.println("key �������� ����!::::"+user_key);
+		System.out.println("key 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙!::::"+user_key);
 		return user_key;
 	}
 	
 	public void moreDetailsRegister(MoreDetailsVO md) {
 		MemberMapper mapper= sqlSession.getMapper(MemberMapper.class);
-		System.out.println("�߰����� ȸ������");
+		System.out.println("占쌩곤옙占쏙옙占쏙옙 회占쏙옙占쏙옙占쏙옙");
 		System.out.println(md.toString());
 		sqlSession.getMapper(MemberMapper.class);
 		mapper.moreDetailsRegister(md);
@@ -68,13 +68,14 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("result="+result);
 		if(mapper.memberLogin(map)==1) {
 			
-			if(toPage.equals("goShop")) {
-			
-				return "shoppingMall/main/shopping_main";
-		}
-			else if(toPage.equals("goCommunity")){
-			
-			
+			if (toPage.equals("goShop")) {
+
+				System.out.println("toPage is 'goShop'");
+				
+				return "shopping_main.do";
+				
+			} else if(toPage.equals("goCommunity")) {
+				
 				return "shoppingMall/main/community_main";
 			}
 		}
@@ -95,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 	public int getId(MemberVO vo) {		// TODO Auto-generated method stub
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		sqlSession.getMapper(MemberMapper.class);
-		System.out.println("serviceImpl���� ������?"+vo.getMEMBER_ID());
+		System.out.println("serviceImpl占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙?"+vo.getMEMBER_ID());
 		int result=mapper.getId(vo);
 		
 		
@@ -104,7 +105,7 @@ public class MemberServiceImpl implements MemberService {
 	public int getNickname(MemberVO vo) {		// TODO Auto-generated method stub
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		sqlSession.getMapper(MemberMapper.class);
-		System.out.println("serviceImpl���� ������?"+vo.getNICKNAME());
+		System.out.println("serviceImpl占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙?"+vo.getNICKNAME());
 		int result=mapper.getNickname(vo);
 		
 		

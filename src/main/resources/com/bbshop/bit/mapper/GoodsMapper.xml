@@ -157,12 +157,12 @@
 	select distinct a.*
 	from goods a, gd_glove b, gd_uniform c
 	where
-		(a.brand in (#{brand1}, #{brand2}, #{brand3}) and b.position = #{position} and a.goods_num = b.goods_num) 
+		(a.brand in (#{BRAND1}, #{BRAND2}, #{BRAND3}) and b.position = #{POSITION} and a.goods_num = b.goods_num) 
 		
 		or
 		
-		(a.brand in (#{brand1}, #{brand2}, #{brand3}) and c.team = #{team} and a.goods_num = c.goods_num)
-	order by a.goods_num 
+		(a.brand in (#{BRAND1}, #{BRAND2}, #{BRAND3}) and c.team = #{TEAM} and a.goods_num = c.goods_num)
+	order by a.goods_num
 </select>
 
 <!-- 추천 상품 : 회원 -->
