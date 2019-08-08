@@ -1,7 +1,6 @@
 package com.bbshop.bit.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bbshop.bit.domain.Gd_gloveVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.AdminService;
 
@@ -40,9 +40,21 @@ public class AdminController {
 	public String goodsList(Model model) {
 		System.out.println("상품관리 페이지 입니다.");
 		List<GoodsVO> goodsList = adminService.getGoodsList();
-		
-		
+		//상품의 옵션별로 받아올 리스트이다.
+		List<Object> detailList = new ArrayList<Object>();
+		for(int i=0; i<goodsList.size();i++) {
+			//대표 상품 하나에 옵션들을 받아오는 리스트이다. 카테고리와 굿즈넘버를 넘겨줘서 그걸로 1개의 상품의 옵션을 다담아오는 리스트를 만듬.
+			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCATEGORY(),goodsList.get(i).getGOODS_NUM());
+			//그 리스트들을 다시 한 리스트에 addAll하여서 전체의 옵션 리스트를 하나 만들어준다.
+			detailList.addAll(tempList);
+		}
+		//전체 옵션리스트 확인.
+		for(int i = 0 ; i<detailList.size();i++) {
+		System.out.println("detailList"+i+":"+detailList.get(i));
+		}
+		model.addAttribute("detailList",detailList);
 		model.addAttribute("goodsList",goodsList);
+		
 				
 		return "shoppingMall/admin/goodsList";
 	}
