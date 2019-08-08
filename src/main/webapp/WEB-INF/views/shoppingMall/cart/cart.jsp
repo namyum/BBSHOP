@@ -85,7 +85,7 @@ body{font-family:NanumBarunpen, sans-serif}
 		<div class="container">
 			<div class="cart_inner">
 				<div class="table-responsive">
-				<form id="orderForm" action="/order.do" method="POST">
+				<form id="orderForm" action="/order_cart.do" method="POST">
 					<table class="table">
 						<thead>
 							<tr>
@@ -270,15 +270,7 @@ body{font-family:NanumBarunpen, sans-serif}
 					}
 				});
 		});
-		
-		// 체크박스가 제크된 상품의 총 가격만 불러오기
-		$(".check").click(function() {
-			if($(this).attr('id') != 'check_all'){
-			var num = $(this).attr('id').split('check');
-			alert(num[1]);
-			}
-		});
-		
+
 		function getProduct(){
 			var product = new Array();
 			
@@ -291,6 +283,35 @@ body{font-family:NanumBarunpen, sans-serif}
 		    $("#GOODS_NUM_LIST").val(product);
 		    $("#orderForm").submit();
 		}
+		/*
+		function checkOnclick(){
+			var listindex = [];
+
+			$('input:checkbox[type=checkbox]:checked').each(function () {
+				listindex.push($('.check').index(this));
+			
+				});
+			
+			alert(listindex);
+			var ajaxarr={"listindex":listindex}
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+     			url:"order_checked.do?listindex="+listindex,
+     			type:"GET",
+     			data:ajaxarr,
+     			dataType:"text",
+     			success : function(data) {
+     				var result = data.split(",");
+     				
+     				$("#allPrice").html(result[1]+"원");
+     				$("#shipping_fee").html(result[2]+"원");
+					}, error : function() {
+							console.log("실패");
+					}
+				});
+		    
+		}
+		*/
 		
 		
 		</script>

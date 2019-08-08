@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
    pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    
 <%@ include file="../include/shopping_header.jsp" %>
 
@@ -144,7 +145,7 @@ li, a {
                      </tr>
                   </thead>
                   <tbody>
-                  <c:forEach var="cart" items="${cartList}" varStatus="status">
+                  <c:forEach var="order" items="${orderList}" varStatus="status">
                      <tr>
                         <td>
                            <div class="media">
@@ -161,18 +162,113 @@ li, a {
                            </div>
                         </td>
                         <td>
-                          <h5 id=price${status.index}><c:out value="${cart.PRICE}원"/></h5>
+                          <h5 id=price${status.index}><c:out value="${order.PRICE}원"/></h5>
                         </td>
                         <td>
                            <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="<c:out value="${cart.QNTTY}"/>" title="Quantity:" class="input-text qty">
+                              <c:out value="${order.QNTTY}"/>
                            </div>
                         </td>
                         <td>
-                           <h5>${cart.SAVINGS}점</h5>
+                           <h5>${order.SAVINGS}점</h5>
                         </td>
-                        <td>재질: 우드</td>
+                    <!-- 옵션 설명 -->
+               <c:choose>
+                         <c:when test="${goodsList[status.index].CATEGORY eq 1 }">
+                            <td>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].HAND eq 0 }">
+                                	 좌/우 : 좌투<br>
+                              </c:when>
+                              <c:otherwise>
+                                	 좌/우 : 우투<br>
+                              </c:otherwise>
+                           </c:choose>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].TAMING eq 0 }">
+                                	 길들이기 : 없음
+                              </c:when>
+                              <c:otherwise>
+                                	길들이기 : 있음
+                              </c:otherwise>
+                           </c:choose>
+                           </td>
+                        </c:when>
+                        <c:when test="${goodsList[status.index].CATEGORY eq 2 }">
+                           <td>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 32 }">
+                                	 규격 : 32인치
+                              </c:when>
+                              <c:otherwise>
+                                	 규격 : 33인치
+                              </c:otherwise>
+                           </c:choose>
+                           </td>
+                        </c:when>
+                        <c:when test="${goodsList[status.index].CATEGORY eq 3 }">
+                           <td>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 85 }">
+                                	 사이즈 : 85
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 90 }">
+                                	 사이즈 : 90
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 95 }">
+                                	 사이즈 : 95
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 100 }">
+                                 	사이즈 : 100
+                              </c:when>
+                              <c:otherwise>
+                               	  사이즈 : 105
+                              </c:otherwise>
+                           </c:choose>
+                           </td>
+                        </c:when>
+                        <c:when test="${goodsList[status.index].CATEGORY eq 4 }">
+                           <td>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 230 }">
+                                 	사이즈 : 230<br>
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 240 }">
+                                 	사이즈 : 240<br>
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 250 }">
+                                 	사이즈 : 250<br>
+                              </c:when>
+                              <c:when test="${optionList[status.index].GD_SIZE eq 260 }">
+                                 	사이즈 : 260<br>
+                              </c:when>
+                              <c:otherwise>
+                                 	사이즈 : 270<br>
+                              </c:otherwise>
+                           </c:choose>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].SPIKE eq 0 }">
+                                 	스파이크 : 없음
+                              </c:when>
+                              <c:otherwise>
+                                	 스파이크 : 있음
+                              </c:otherwise>
+                           </c:choose>
+                           </td>
+                        </c:when>
+                        <c:otherwise>
+                           <td>
+                           <c:choose>
+                              <c:when test="${optionList[status.index].SALES_UNIT eq 0 }">
+                                 	판매단위 : 낱개
+                              </c:when>
+                              <c:otherwise>
+                                 	판매단위 : 12개(1박스)
+                              </c:otherwise>
+                           </c:choose>
+                           </td>
+                        </c:otherwise>
+                   </c:choose>
                         <td>
                            <h5>200,000 원</h5>
                         </td>

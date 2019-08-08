@@ -58,10 +58,10 @@ public class CartController {
 		}
 		
 		
-		for(int i = 0 ; i<cartList.size();i++) {
-			allPrice +=cartList.get(i).getTOTALPRICE(); 
+		//for(int i = 0 ; i<cartList.size();i++) {
+		//	allPrice +=cartList.get(i).getTOTALPRICE(); 
 			
-		}
+		//}
 		
 		shipping_fee=calcShipping_fee(allPrice);
 		model.addAttribute("shipping_fee", shipping_fee);

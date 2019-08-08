@@ -25,5 +25,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		#{goods_num}
 		</foreach> 
 	</select>
+	
+	<select id="getOptionListGlove" resultType = "com.bbshop.bit.domain.Gd_gloveVO">
+		SELECT *
+		FROM gd_glove
+		WHERE glove_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListBat">
+		SELECT *
+		FROM gd_bat
+		WHERE bat_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListUniform">
+		SELECT *
+		FROM gd_uniform
+		WHERE uniform_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListShoes">
+		SELECT *
+		FROM gd_shoes
+		WHERE shoes_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListBall">
+		SELECT *
+		FROM gd_ball
+		WHERE ball_num = #{GD_DETAILS}
+	</select>
 
 </mapper>

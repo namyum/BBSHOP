@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.Gd_gloveVO;
 import com.bbshop.bit.mapper.OrderMapper;
 
 @Service("orderService")
@@ -23,5 +24,52 @@ public class OrderServiceImpl implements OrderService{
 		
 		return cartList;
 	}
+	
+	@Override
+	public Gd_gloveVO getOptionListGlove(long gd_details) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		Gd_gloveVO glovevo = mapper.getOptionListGlove(gd_details); 
+		
+		return glovevo;
+	}
+	
+	/*
+	@Override
+	public Gd_batVO getOptionListBat(long gd_details) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		Gd_batVO batvo = mapper.getOptionListGlove(gd_details); 
+		
+		return batvo;
+	}
+	
+	@Override
+	public Gd_uniformVO getOptionListUniform(long gd_details) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		Gd_uniformVO uniformvo = mapper.getOptionListGlove(gd_details); 
+		
+		return uniformvo;
+	}
+	
+	@Override
+	public Gd_shoesVO getOptionListShoes(long gd_details) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		Gd_shoesVO shoesvo = mapper.getOptionListGlove(gd_details); 
+		
+		return shoesvo;
+	}
+	
+	@Override
+	public Gd_ballVO getOptionListBall(long gd_details) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		Gd_ballVO ballvo = mapper.getOptionListGlove(gd_details); 
+		
+		return ballvo;
+	}
+	*/
 
 }
