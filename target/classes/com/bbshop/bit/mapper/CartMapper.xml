@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace ="com.bbshop.bit.cart.mapper.CartMapper">
+<mapper namespace ="com.bbshop.bit.mapper.CartMapper">
 
- <resultMap type="com.bbshop.bit.cart.domain.Cart_PDVO" id="CartResultMap">
+ <resultMap type="com.bbshop.bit.domain.Cart_PDVO" id="CartResultMap">
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="PRICE" column ="PRICE"/>
 	<result property ="QNTTY" column ="QNTTY"/>
@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="USER_KEY" column ="USER_KEY"/>
 </resultMap>
 
-<resultMap type="com.bbshop.bit.cart.domain.GoodsVO" id="GoodsResultMap">
+<resultMap type="com.bbshop.bit.domain.GoodsVO" id="GoodsResultMap">
 	<result property = "GOODS_NUM" column ="GOODS_NUM"/>
 	<result property = "CATEGORY" column ="CATEGORY"/>
 	<result property = "NAME" column ="NAME"/>
@@ -31,12 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 </select>
 
 
-<select id ="getGoods" resultType ="com.bbshop.bit.cart.domain.GoodsVO">
+<select id ="getGoods" resultType ="com.bbshop.bit.domain.GoodsVO">
 	select goods_num,category,name,main_img,brand,sales,discount from goods where goods_num =#{goodsnum}
 
 </select>
 
-<update id="modify" parameterType="com.bbshop.bit.cart.domain.Cart_PDVO">
+<update id="modify" parameterType="com.bbshop.bit.domain.Cart_PDVO">
 	update cart_gd
 	set QNTTY =${QNTTY} ,PRICE=${PRICE}
 	where gd_ct_key=${GD_CT_KEY}

@@ -27,12 +27,12 @@
        <constructor-arg ref="sqlSessionFactory"/>
    </bean>
    
-   	<!-- 회원가입 메일 인증 -->
+   	<!-- 회원가입 메일 인증 이 메일에서 보내주는 것임-->
 	<bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" /><!-- 465 or 25 -->
-		<property name="username" value="mgkang0317@gmail.com" />
-		<property name="password" value="Kalsrn01`~" />
+		<property name="username" value="bbshopbit@gmail.com" />
+		<property name="password" value="bbshop123" />
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="javaMailProperties">
 			<props>

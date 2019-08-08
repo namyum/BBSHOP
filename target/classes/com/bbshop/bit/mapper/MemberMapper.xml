@@ -41,11 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		select user_seq.nextval FROM DUAL
 	</selectKey>
 		
-		INSERT INTO SH_USER (user_key,member_id, member_pw, name, birth,phone,
+		INSERT INTO sh_user (user_key,member_id, member_pw, name, birth,phone,
 		nickname,REGDATE,flag,grade,savings,caution,MODDATE)
 		VALUES
 		(#{USER_KEY},#{MEMBER_ID}, #{MEMBER_PW}, #{NAME}, #{BIRTH} , #{PHONE} ,
-		#{NICKNAME},SYSDATE,#{FLAG},#{GRADE},#{SAVINGS},#{CAUTION},SYSDATE)
+		#{NICKNAME},sysdate,#{FLAG},#{GRADE},#{SAVINGS},#{CAUTION},sysdate)
 	</insert>
 
 <select id="memberPw" parameterType="com.bbshop.bit.domain.MemberVO" resultType="String">

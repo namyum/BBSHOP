@@ -144,99 +144,40 @@ li, a {
                      </tr>
                   </thead>
                   <tbody>
+                  <c:forEach var="cart" items="${cartList}" varStatus="status">
                      <tr>
                         <td>
                            <div class="media">
                               <div class="d-flex">
                                  <img
-                                    src="resources/shoppingMall/img/product/single-product/example_bat.jpg"
+                                    src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>"
                                     alt="" width="145" height="98">
                                  <!-- 상품정보_img -->
                               </div>
                               <div class="media-body">
-                                 <p>드마리니 펑고델릭 메이플 우드 배트</p>
+                                 <p>${goodsList[status.index].NAME}</p>
                                  <!-- 상품정보_name -->
                               </div>
                            </div>
                         </td>
                         <td>
-                           <h5>100,000 원</h5>
+                          <h5 id=price${status.index}><c:out value="${cart.PRICE}원"/></h5>
                         </td>
                         <td>
                            <div class="product_count">
                               <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="2" title="Quantity:" class="input-text qty">
+                                 value="<c:out value="${cart.QNTTY}"/>" title="Quantity:" class="input-text qty">
                            </div>
                         </td>
                         <td>
-                           <h5>1000점</h5>
+                           <h5>${cart.SAVINGS}점</h5>
                         </td>
                         <td>재질: 우드</td>
                         <td>
                            <h5>200,000 원</h5>
                         </td>
                      </tr>
-                     <tr>
-                        <td>
-                           <div class="media">
-                              <div class="d-flex">
-                                 <img
-                                    src="resources/shoppingMall/img/product/single-product/example_glove.png"
-                                    alt="" width="145" height="98">
-                              </div>
-                              <div class="media-body">
-                                 <p>윌슨 2019 KOREA A2K GM 이대호 12.25" 1루수 미트</p>
-                              </div>
-                           </div>
-                        </td>
-                        <td>
-                           <h5>560,000 원</h5>
-                        </td>
-                        <td>
-                           <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="1" title="Quantity:" class="input-text qty">
-                           </div>
-                        </td>
-                        <td>
-                           <h5>5600점</h5>
-                        </td>
-                        <td>좌/우: 좌 <br>
-                        	색상: 블랙</td>
-                        <td>
-                           <h5>560,000 원</h5>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <div class="media">
-                              <div class="d-flex">
-                                 <img
-                                    src="resources/shoppingMall/img/product/single-product/example_helmet.png"
-                                    alt="" width="145" height="98">
-                              </div>
-                              <div class="media-body">
-                                 <p>이보쉴드 럭스 배팅 헬멧</p>
-                              </div>
-                           </div>
-                        </td>
-                        <td>
-                           <h5>75,000 원</h5>
-                        </td>
-                        <td>
-                           <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="1" title="Quantity:" class="input-text qty">
-                           </div>
-                        </td>
-                        <td>
-                           <h5>750점</h5>
-                        </td>
-                        <td>색상:블랙</td>
-                        <td>
-                           <h5>75,000 원</h5>
-                        </td>
-                     </tr>
+                     </c:forEach>
                      <tr>
                         <td></td>
                         <td></td>
@@ -246,7 +187,7 @@ li, a {
                            <h5>총 상품 금액</h5>
                         </td>
                         <td>
-                           <h5>835,000 원</h5>
+                           <h5></h5>
                         </td>
                      </tr>
                   </tbody>

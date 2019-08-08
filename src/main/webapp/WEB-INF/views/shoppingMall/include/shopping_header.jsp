@@ -544,7 +544,7 @@ body {
 		</div>
 		<!-- footer -->
 		<div class="miniCart_footer">
-			<a id="view_cart_btn" href="/cart"> V i e w &emsp; C a r t </a>
+			<a id="view_cart_btn" href="/cart.do"> V i e w &emsp; C a r t </a>
 		</div>
 	</div>
 
@@ -575,7 +575,7 @@ body {
 						</a></li>
 						<li><a href="/faq"> <!-- Contact Us --> 고객센터
 						</a></li>
-						<li><a href="/cart"> 장바구니 </a></li>
+						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
 						<c:choose>
 							<c:when test="${nickname eq 'noAccount' }">

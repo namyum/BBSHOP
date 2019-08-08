@@ -1,10 +1,10 @@
-package com.bbshop.bit.cart.service;
+package com.bbshop.bit.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.bbshop.bit.cart.domain.Cart_PDVO;
-import com.bbshop.bit.cart.domain.GoodsVO;
+import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.Cart_PDVO;
 
 public interface CartService {
 

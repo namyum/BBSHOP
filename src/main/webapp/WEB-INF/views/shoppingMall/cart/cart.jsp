@@ -2,7 +2,7 @@
     
 <%@ include file="../include/shopping_header.jsp" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.bbshop.bit.cart.domain.*"%>
+<%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%
@@ -85,6 +85,7 @@ body{font-family:NanumBarunpen, sans-serif}
 		<div class="container">
 			<div class="cart_inner">
 				<div class="table-responsive">
+				<form id="orderForm" action="/order.do" method="POST">
 					<table class="table">
 						<thead>
 							<tr>
@@ -99,18 +100,19 @@ body{font-family:NanumBarunpen, sans-serif}
 							</tr>
 						</thead>
 						<tbody>
-						
 						<c:forEach var="cart" items="${cartList}" varStatus="status">
 				
 							<tr>
 								<td>
-								<input type='checkbox' class='check' id='pd_check'>
+								<input type='checkbox' class='check' name='checking' id='pd_check${status.index}'>
 								</td>
 								
 								<td><h5>${goodsList[status.index].GOODS_NUM}</h5>
+								<input type="hidden" value="${goodsList[status.index].GOODS_NUM}" id="GOODS_NUM${status.index}"/>
+								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
 								</td>
 								<td>
-											<img src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>" style="width:100%; height:50%" alt="">
+											<img src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>" width="145" height="98" alt="">
 								</td>
 								<td>
 											<p><c:out value="${goodsList[status.index].NAME}"/></p>
@@ -137,6 +139,7 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								<td>
 									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}원"/></h5>
+									<input type="hidden" name="TOTALPRICE" value="${cart.TOTALPRICE}"/>
 								</td>
 							</tr>
  							<script>
@@ -197,6 +200,7 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>				
 								<td>
 									<h5 id="shipping_fee">${shipping_fee}원</h5>
+									<input type="hidden" name="SHIPPING_FEE" value="${shipping_fee}"/>
 								</td>
 							</tr>
 							<tr>
@@ -214,10 +218,12 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								<td>
 									<h5 id="allPrice">${allPrice}원</h5>
+									<input type="hidden" name="ALLPRICE" value="${allPrice}"/>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					</form>
 							
 							
 							
@@ -228,9 +234,9 @@ body{font-family:NanumBarunpen, sans-serif}
 							
 							
 							<div style="float:right" class="checkout_btn_inner">
-											<a class="main_btn" href="/order">결제하기</a>
+											<a class="main_btn" onclick="getProduct(${status.index})">결제하기</a>
 											
-											<a class="genric-btn default-border radius e-large" href="/goods_list">계속 쇼핑하기</a>
+											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
 										</div>
 											
 								
@@ -264,6 +270,27 @@ body{font-family:NanumBarunpen, sans-serif}
 					}
 				});
 		});
+		
+		// 체크박스가 제크된 상품의 총 가격만 불러오기
+		$(".check").click(function() {
+			if($(this).attr('id') != 'check_all'){
+			var num = $(this).attr('id').split('check');
+			alert(num[1]);
+			}
+		});
+		
+		function getProduct(){
+			var product = new Array();
+			
+		    $("input[name='checking']:checked").each(function() {
+		          var num = $(this).attr('id').split('check');
+		          var id = $("#GOODS_NUM"+num[1]).val();
+		          product.push(id);
+		    });
+		    
+		    $("#GOODS_NUM_LIST").val(product);
+		    $("#orderForm").submit();
+		}
 		
 		
 		</script>

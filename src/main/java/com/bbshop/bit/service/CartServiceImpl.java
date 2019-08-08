@@ -1,4 +1,4 @@
-package com.bbshop.bit.cart.service;
+package com.bbshop.bit.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,9 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbshop.bit.cart.domain.Cart_PDVO;
-import com.bbshop.bit.cart.domain.GoodsVO;
-import com.bbshop.bit.cart.mapper.CartMapper;
+import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.mapper.CartMapper;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService {
@@ -20,7 +20,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart_PDVO> getCartList(long user_key) {
 		
-		System.out.println("À¯ÀúÅ°°¡ ¿©±â±îÁö µé¾î¿À´Â°¡?"+user_key);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½?"+user_key);
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		List<Cart_PDVO> cartList = mapper.getCartList(user_key);
@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService {
 	}
 	@Override
 	public GoodsVO getGoods(long goodsnum){
-		System.out.println("GoodsNumÀÌ µé¾î¿À´Â°¡?"+goodsnum);
+		System.out.println("GoodsNumï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½?"+goodsnum);
 		
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
@@ -49,14 +49,14 @@ public class CartServiceImpl implements CartService {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.modify(qnt);
-		System.out.println("¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 	}
 	@Override
 	public void selectDelete(Map<String,Object> deleteMap) {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.selectDelete(deleteMap);
-		System.out.println("»èÁ¦ µÇ¾ú½À´Ï´Ù.");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		
 	}
 	@Override
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.deleteAll();
-		System.out.println("ÀüÃ¼»èÁ¦ µÇ¾ú½À´Ï´Ù.");
+		System.out.println("ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 	}
 
 }

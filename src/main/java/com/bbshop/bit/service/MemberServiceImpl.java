@@ -52,7 +52,6 @@ public class MemberServiceImpl implements MemberService {
 	
 	public void moreDetailsRegister(MoreDetailsVO md) {
 		MemberMapper mapper= sqlSession.getMapper(MemberMapper.class);
-		System.out.println("�߰����� ȸ������");
 		System.out.println(md.toString());
 		sqlSession.getMapper(MemberMapper.class);
 		mapper.moreDetailsRegister(md);

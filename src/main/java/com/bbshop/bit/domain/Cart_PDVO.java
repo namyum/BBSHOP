@@ -1,4 +1,4 @@
-package com.bbshop.bit.cart.domain;
+package com.bbshop.bit.domain;
 
 import lombok.Data;
 
