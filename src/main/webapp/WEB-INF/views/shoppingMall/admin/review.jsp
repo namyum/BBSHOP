@@ -362,7 +362,7 @@ body {
 									.ready(
 											function() {
 												
-												$(".sidebar-wrapper li").eq(5).addClass('active');
+												$(".sidebar-wrapper li").eq(4).addClass('active');
 												
 												$sidebar = $('.sidebar');
 
