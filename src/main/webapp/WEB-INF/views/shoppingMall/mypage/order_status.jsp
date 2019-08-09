@@ -146,7 +146,7 @@
 		}
 	}
 
-	// 주문 배송 상세 조회 모달
+	// 주문내역 클릭시 뜨는 모달 데이터 처리
 	function showModal(order_idx) {
 
 		var list = new Array();
@@ -173,6 +173,21 @@
 		receiver = list[5];
 	}
 	
+	// 주문 목록 모달 처리
+	$(document).ready(function() {
+
+		$('#modal_order_detail').on('show.bs.modal', function(event) {
+
+			$('#mdl_or_num').val(order_num);
+			$('#or_date').val(order_date);
+			$('#goods').html(order_item);
+			$('#orderer').val(order_name);
+			$('#order_notes').html(order_msg);
+			$('#receiver').val(receiver);
+		});
+
+	});
+	
 	// 주문 배송 상태에 따른 체크박스 함수
 	function showOrderList(checkbox) {
 		
@@ -194,8 +209,8 @@
 		
 		var pageNum = actionForm.find("input[name='pageNum']").val();
 		var amount = actionForm.find("input[name='amount']").val();
-		var data = {};
-		  
+		
+		var data = {};	  
 		data["stts"] = checkValues;
 		data["pageNum"] = pageNum;
 		data["amount"] = amount;
@@ -203,7 +218,6 @@
 		console.log(data);
 		
 		$.ajax({
-			    
 			type: "POST",	    
 			url : "/orderListCheck.do",
 			data : JSON.stringify(data),    
@@ -276,26 +290,11 @@
 			error: function(jqXHR, textStatus, errorThrown) {
 			
 				alert("error = " + errorThrown);
-			    
 			}
-			
 		});
 	}
 	
-	$(document).ready(function() {
 
-		// 주문 목록 모달 처리
-		$('#modal_order_detail').on('show.bs.modal', function(event) {
-
-			$('#mdl_or_num').val(order_num);
-			$('#or_date').val(order_date);
-			$('#goods').html(order_item);
-			$('#orderer').val(order_name);
-			$('#order_notes').html(order_msg);
-			$('#receiver').val(receiver);
-		});
-
-	});
 	
 	// 페이지가 로드되면 주문/배송 리스트 불러오기
 	$(document).ready(function() {
@@ -374,34 +373,54 @@
 		});
 	})
 	
-	// 페이징 AJAX 처리
-	
+	// 페이징 버튼 클릭시 페이징 함수
 	$(document).on("click", ".page-item a", function(e) {
 
 		e.preventDefault();
 		
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		
-		var data = {
-			pageNum: actionForm.find("input[name='pageNum']").val(), 
-			amount: actionForm.find("input[name='amount']").val()
-		};
+		if ($("input[name='stts']:checked").length == 0) {
+			
+			checkValues = '5'; // 체크된 버튼이 없을시에 전체 주문을 불러온다.
+			
+		} else {
+		
+			$("input[name='stts']:checked").each(function(){
+		    
+				checkValues = $(this).val();
+			});
+		}
+		
+		var pageNum = actionForm.find("input[name='pageNum']").val();
+		var amount = actionForm.find("input[name='amount']").val();
+		
+		var data = {};  
+		data["stts"] = checkValues;
+		data["pageNum"] = pageNum;
+		data["amount"] = amount;
 		
 		$.ajax({
-			type: "POST",
-			url: "/orderListPaging.do",
-			data : JSON.stringify(data),
-			dataType : "json",
-			contentType: "application/json",
-			success : function(result) {
-				
-				var start = ${pageMaker.startPage};
-				var end = ${pageMaker.endPage};
-				
+			type: "POST",	    
+			url : "/orderListCheck.do",
+			data : JSON.stringify(data),    
+			dataType: "json",			
+			contentType:"application/json",			
+			success : function(result, status, xhr) {
+			
 				var str = '';
+				var end = (Math.ceil(pageNum / 5.0)) * 5;
+				var start = end - 4;
 				var paging = '';
+				
+				console.log('start : ' + start);
+				console.log('end : ' + end);
 								
 				$.each(result, function(index, value){
+					
+					var parse = parseInt(index);
+					
+					console.log(parse);
 										
 					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
 						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
@@ -448,11 +467,12 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-				
+			    
 			},
-			error : function() {
-				
-				alert('AJAX 요청 실패!');
+			
+			error: function(jqXHR, textStatus, errorThrown) {
+			
+				alert("error = " + errorThrown);
 			}
 		});
 	});
