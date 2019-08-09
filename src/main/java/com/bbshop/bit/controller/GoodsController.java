@@ -33,15 +33,15 @@ public class GoodsController {
 	@Autowired
 	private GoodsService service;
 	
-	private HttpSession session; // �α��� �ÿ� session�� id���� ����ִ�.
+	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
 	
-	// ��ǰ ��� ������
+	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
 	public String goods_list(@RequestParam(required=false, defaultValue="1") int category, PagingVO pagingVO, Model model) {
 		
 		log.info("Controller...goods_list.jsp");
 		
-		System.out.println("��Ʈ�ѷ������� category : " + category);
+		System.out.println("컨트롤러에서의 category : " + category);
 		
 		// String id = (String)session.getAttribute("id");
 		
@@ -57,21 +57,21 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_list";
 	}
 
-	// ��ǰ ��� ������ - ajax ������ �ѷ��ֱ� 
+	// 상품 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getGoodsList_Ajax.do", consumes="application/json")
 	@ResponseBody
 	public List<GoodsVO> getGoodsList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...goods_list.jsp...goodsListAjax");
 		
-		System.out.println("��Ʈ�ѷ������� map : " + map.toString());
+		System.out.println("컨트롤러에서의 map : " + map.toString());
 		
 		String sorting = "";
 		String min_amount = "";
 		String max_amount = "";
 		String search = "";
 		
-		// service�޼ҵ� ȣ���ϸ�.. ������ map�� �� parameter..
-		// service��ü�� ������ �ٲ㺼��..
+		// service메소드 호출하며.. 전달할 map에 들어갈 parameter..
+		// service자체를 맵으로 바꿔볼깝..
 		int category = (int) map.get("category");
 		
 		PagingVO pagingVO = new PagingVO();
@@ -79,7 +79,7 @@ public class GoodsController {
 		pagingVO.setAmount((int) map.get("amount"));
 		
 		
-		// ��ǰ ���� ��� �ش� ������ ���� ������ �����Ƿ� null üũ�� ���ش�.
+		// 상품 상세인 경우 해당 값들이 전부 들어오지 않으므로 null 체크를 해준다.
 		if (map.get("sorting") != null) {
 			sorting = (String)map.get("sorting");
 		}
@@ -123,19 +123,19 @@ public class GoodsController {
 				positions_list, colors_list, brands_list);
 		
 		
-		// �� �˻��� �ƴϸ� �� �迭�� �ѱ��.
+		// 상세 검색이 아니면 빈 배열을 넘긴다.
 		List<GoodsVO> goodsList = service.getGoodsList(category, pagingVO, sorting, min_amount, max_amount, 
 				positions_list, colors_list, brands_list);
 		
 		for (GoodsVO goods : goodsList) {
 			
-			System.out.println("db���� �ҷ��� goodsList : " + goods.toString());
+			System.out.println("db에서 불러온 goodsList : " + goods.toString());
 		}
 
 		return goodsList;
 	}
 	
-	// ��ǰ ��ȸ ������
+	// 상품 조회 페이지
 	@RequestMapping(value="/goods_info.do", method=RequestMethod.GET)
 	public String getGoodsInfo(@RequestParam long goods_num, @RequestParam int category, Model model) {
 		log.info("Controller..getGoodsList..goods_num:" + goods_num + ".....");
@@ -148,27 +148,27 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_info";
 	}
 	
-	/* ��ǰ QNA ��� */
+	/* 상품 QNA 등록 */
 	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.GET)
 	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) {
 		log.info("Controller..insertGoodsQna...!");
 		
-		/* ���� user_key �� �޾ƿ��� 
+		/* 세션 user_key 값 받아오기 
 		long user_key = (long)session.getAttribute("user_key");
 		String nickname = (String)session.getAttribute("nickname");
 		
-		// ��ȸ���� ���, 
+		// 비회원일 경우, 
 		if(nickname.substring(0,9).equals("noAccount")) {
-			// alert("�α����� �ʿ��մϴ�") or �α��θ�� or �ε����� ����
+			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
 		}
-		// ȸ���� ���,.
+		// 회원일 경우,.
 		else {
 			long user_key = (long)session.getAttribute("user_key");
 			qna.setUser_key(user_key);
 		}			
 		*/
 		
-		// ��ġ�� �� �ӽ� user_key
+		// 합치기 전 임시 user_key
 		long user_key = 950131l;
 		qna.setUser_key(user_key);
 		
@@ -181,7 +181,7 @@ public class GoodsController {
 		return "shoppingMall/goods/goods_info";
 	}
 	
-	// ��ǰQNA ��� ������ - ajax ������ �ѷ��ֱ� 
+	// 상품QNA 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getQnaList_Ajax.do", consumes="application/json")
 	@ResponseBody
 	public List<GoodsQnaVO> getQnaList_Ajax(@RequestBody Map<String, Object> map){
@@ -198,56 +198,51 @@ public class GoodsController {
 		return qnaList;
 	}
 	
-	// ���� ���� - ��õ��ǰ
+	// 쇼핑 메인 - 추천상품
 	@RequestMapping(value="/shopping_main.do", method=RequestMethod.GET)
 	public String shopping_main(HttpSession session, Model model) {
-		
+
 		log.info("Controller...shopping_main.jsp");
-		
-//		// ���� user_key �� �޾ƿ��� 
-//		String nickname = (String)session.getAttribute("nickname");
-//		
-//		// ��ȸ���� ���, 
-//		if(nickname.substring(0,9).equals("noAccount")) {
-//			List<GoodsVO> recommendList = service.recommendBestList();
-//		
-//			model.addAttribute("recommendList", recommendList);
-//		}
-//		// ȸ���� ���,.
-//		else {
-//			long user_key = (long)session.getAttribute("user_key");
-		
-			// ��ġ�� �� �ӽ� user_key
-			long user_key = 65;
-			
-			MoreDetailsVO moredetail = service.findDetail(user_key);
-			
-			System.out.println("moredetail 추가 사항 객체 정보 : " + moredetail);
-			
-			List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
-			
-			if (recommendList != null) {
-				
-				System.out.println(recommendList.toString());
-				
-				for (int i = 0; i < recommendList.size(); i++) {
-					
-					System.out.println("추천 제품 목록 : " + recommendList.get(i).toString());
-				}
-				
-			} else {
-				
-				System.out.println("recommendList는 null입니다.");
+
+		//		// 세션 user_key 값 받아오기 
+		//		String nickname = (String)session.getAttribute("nickname");
+		//		
+		//		// 비회원일 경우, 
+		//		if(nickname.substring(0,9).equals("noAccount")) {
+		//			List<GoodsVO> recommendList = service.recommendBestList();
+		//		
+		//			model.addAttribute("recommendList", recommendList);
+		//		}
+		//		// 회원일 경우,.
+		//		else {
+		//			long user_key = (long)session.getAttribute("user_key");
+
+		// 합치기 전 임시 user_key
+		long user_key = 65;
+
+		MoreDetailsVO moredetail = service.findDetail(user_key);
+
+		System.out.println("moredetail 추가 사항 객체 정보 : " + moredetail);
+
+		List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
+
+		if (recommendList != null) {
+
+			System.out.println(recommendList.toString());
+
+			for (int i = 0; i < recommendList.size(); i++) {
+
+				System.out.println("추천 제품 목록 : " + recommendList.get(i).toString());
 			}
-			
-			model.addAttribute("recommendList", recommendList);
-			
 
-			
+		} else {
 
-//		}			
-		
+			System.out.println("recommendList는 null입니다.");
+		}
+
+		model.addAttribute("recommendList", recommendList);
+
 		return "shoppingMall/main/shopping_main";
 	}
-	
+
 }
