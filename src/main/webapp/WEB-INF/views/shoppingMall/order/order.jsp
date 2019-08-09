@@ -100,6 +100,10 @@ li, a {
   white-space: nowrap;
   width:20px; 
 }
+
+.check::before, .check::after{
+	z-index:1;
+}
 </style>
 <body>
    <!--================Home Banner Area =================-->
@@ -127,6 +131,7 @@ li, a {
                	주문 리스트
             </h3>
             <div class="table-responsive">
+             <form id="orderInfo" action="/kakaoPay.do" method="POST">
                <table class="table">
                   <thead>
                      <tr>
@@ -270,7 +275,7 @@ li, a {
                         </c:otherwise>
                    </c:choose>
                         <td>
-                           <h5>200,000 원</h5>
+                           <h5><c:out value="${order.TOTALPRICE}원"/></h5>
                         </td>
                      </tr>
                      </c:forEach>
@@ -283,11 +288,13 @@ li, a {
                            <h5>총 상품 금액</h5>
                         </td>
                         <td>
-                           <h5></h5>
+                           <h5>${allPrice}원</h5>
                         </td>
                      </tr>
+                 
                   </tbody>
                </table>
+               </form>
             </div>
          </div>
       </div>
@@ -403,9 +410,9 @@ li, a {
                      </div>
                      <div class="payment_item active">
                         <div class="radion_btn">
-                           <input type="radio" id="kakaoPay" name="selector" style="z-index:1;"> <label
+                           <input type="radio" id="kakaoPay" class="selector" style="z-index:1;"> <label
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
-                              src="resources/shoppingMall/img/product/single-product/kakaopay.png"
+                              src="resources/shoppingMall/img/product/single-product/kakaopay.jpg"
                               alt="" style="width:70px;height:30px;">
                            <div class="check"></div>
                         </div>
@@ -414,7 +421,7 @@ li, a {
                         <input type="checkbox" id="payAgree" name="selector"> <label
                            for="f-option4" style="font-size:17px; font-weight:bold;">구매 진행에 동의합니다.(필수)</label>
                      </div>
-                     <a class="main_btn" href="#none" onclick="goPay(this)">결제하기</a>
+                     <a class="main_btn" onclick="goPay(this)">결제하기</a>
                   </div>
                </div>
             </div>
@@ -602,6 +609,8 @@ li, a {
       function goPay(button) {
          if (payAgree.checked == false) {
             alert('구매 동의 체크박스가 선택되어야 합니다.');
+         } else{
+        	 location.href="/kakaoPay.do";
          }
       }
 

@@ -138,7 +138,7 @@ body{font-family:NanumBarunpen, sans-serif}
 									</div>
 								</td>
 								<td>
-									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}원"/></h5>
+									<h5 id="totalPrice${status.index}" class="totalPrice"><c:out value="${cart.TOTALPRICE}원"/></h5>
 									<input type="hidden" name="TOTALPRICE" value="${cart.TOTALPRICE}"/>
 								</td>
 							</tr>
@@ -218,7 +218,7 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								<td>
 									<h5 id="allPrice">${allPrice}원</h5>
-									<input type="hidden" name="ALLPRICE" value="${allPrice}"/>
+									<input type="hidden" name="ALLPRICE"/>
 								</td>
 							</tr>
 						</tbody>
@@ -283,6 +283,18 @@ body{font-family:NanumBarunpen, sans-serif}
 		    $("#GOODS_NUM_LIST").val(product);
 		    $("#orderForm").submit();
 		}
+		
+		// 상품 금액 * 수량을 계산한 totalPrice를 controller에 배열 형태로 보내준다.
+		var priceArr = new Array();
+		
+		$("input[name='checking']:checked").each(function () {
+		  	  var num = $(this).attr('id').split('check');
+		  	  var price = $("#totalPrice"+num[1])[0].innerHTML;
+		  	  price = price.substring(0,(price.length)-1);
+		  	  priceArr.push(price);
+	   	});
+		 $("input[name='TOTALPRICE']").val(priceArr);
+		
 		/*
 		function checkOnclick(){
 			var listindex = [];
