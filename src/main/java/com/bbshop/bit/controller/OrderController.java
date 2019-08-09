@@ -62,7 +62,7 @@ public class OrderController {
 		 
 		// 상품 옵션 불러오는 부분
 		for(int i=0; i<goodsList.size();i++) {
-			switch(goodsList.get(i).getCATEGORY()) {
+			switch(goodsList.get(i).getCategory()) {
 			
 			// 글러브
 			case 1 : 

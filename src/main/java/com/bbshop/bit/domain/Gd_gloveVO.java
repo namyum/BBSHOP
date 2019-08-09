@@ -3,13 +3,14 @@ package com.bbshop.bit.domain;
 import lombok.Data;
 
 @Data
-public class Gd_gloveVO {
-	
-	private long GLOVE_NUM; // 글러브 번호
-	private long GOODS_NUM; // 상품 번호
-	private int HAND; // (0 좌, 0 우) 글러브 좌우
-	private int TAMING; // 길들이기 (0 안함, 1 함)
-	private String POSITION; // 글러브 포지션
-	private long STOCK; // 글
+public class Gd_GloveVO {
+   
+   private long GLOVE_NUM;      // 글러브_번호
+   private long GOODS_NUM;      // 상품_번호
+   private int HAND;         // 옵션 > 좌/우 (0:좌, 1:우)
+   private int TAMING;         // 옵션 > 길들이기 (0:없음, 1:있음)
+   private String POSITION;   // 포지션
+   private String COLOR;      // 색상
+   private long STOCK;         // 재고
 
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.Cart_PDVO;
-import com.bbshop.bit.domain.Gd_gloveVO;
+import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.mapper.OrderMapper;
 
 @Service("orderService")
@@ -26,10 +26,10 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public Gd_gloveVO getOptionListGlove(long gd_details) {
+	public Gd_GloveVO getOptionListGlove(long gd_details) {
 		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
 		
-		Gd_gloveVO glovevo = mapper.getOptionListGlove(gd_details); 
+		Gd_GloveVO glovevo = mapper.getOptionListGlove(gd_details); 
 		
 		return glovevo;
 	}
