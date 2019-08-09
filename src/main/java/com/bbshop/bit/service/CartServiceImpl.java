@@ -7,9 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbshop.bit.cart.domain.Cart_PDVO;
-import com.bbshop.bit.cart.domain.GoodsVO;
-import com.bbshop.bit.cart.mapper.CartMapper;
+import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.mapper.CartMapper;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService {

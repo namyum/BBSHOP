@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbshop.bit.cart.domain.Cart_PDVO;
-import com.bbshop.bit.cart.domain.GoodsVO;
-import com.bbshop.bit.cart.service.CartService;
+import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.service.CartService;
 
 @Controller
 @RequestMapping("*.do")

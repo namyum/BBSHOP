@@ -2,7 +2,7 @@
     
 <%@ include file="../include/shopping_header.jsp" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.bbshop.bit.cart.domain.*"%>
+<%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%
