@@ -30,6 +30,9 @@ import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 public class MyPageController {
 
@@ -313,18 +316,18 @@ public class MyPageController {
 	}
 	
 	// 추가 사항 수정하기
-	@RequestMapping("/modify_detail.do")
+	@RequestMapping("modify_detail.do")
 	public String modify_detail(MoreDetailsVO moreDetailsVO) {
+		
+		System.out.println("modify_detail 컨트롤러 진입");
 		
 		long user_key = (long)session.getAttribute("member");
 
 		moreDetailsVO.setUSER_KEY(user_key);
 		
-		System.out.println("컨트롤러에서의 VO : " + moreDetailsVO.toString());
+		System.out.println("modify_detail 컨트롤러에서의 VO : " + moreDetailsVO.toString());
 		
 		myPageService.updateDetailInfo(moreDetailsVO, user_key);
-		
-		System.out.println("mapper 통과");
 		
 		return "redirect:/modify_info.do";
 	}

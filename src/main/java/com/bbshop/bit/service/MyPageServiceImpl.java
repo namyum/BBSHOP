@@ -134,7 +134,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 		System.out.println("service에서 VO : " + moreDetailsVO.toString());
 		
-		myPageMapper.updateDetailInfo(moreDetailsVO, 1);
+		myPageMapper.updateDetailInfo(moreDetailsVO, key);
 	}
 
 	@Override

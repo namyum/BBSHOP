@@ -198,7 +198,7 @@ h3, h4, h6 {
 											<c:if test="${member_detail.BRAND1 eq 'wilson' }">selected </c:if>>
 											WILSON</option>
 										<option value="nike"
-											<c:if test="${member_detail.BRAND1 eq 'NIKE' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND1 eq 'nike' }">selected </c:if>>
 											NIKE</option>
 										<option value="adidas"
 											<c:if test="${member_detail.BRAND1 eq 'adidas' }">selected </c:if>>
@@ -234,7 +234,7 @@ h3, h4, h6 {
 											<c:if test="${member_detail.BRAND2 eq 'wilson' }">selected </c:if>>
 											WILSON</option>
 										<option value="nike"
-											<c:if test="${member_detail.BRAND2 eq 'NIKE' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'nike' }">selected </c:if>>
 											NIKE</option>
 										<option value="adidas"
 											<c:if test="${member_detail.BRAND2 eq 'adidas' }">selected </c:if>>
@@ -270,7 +270,7 @@ h3, h4, h6 {
 											<c:if test="${member_detail.BRAND3 eq 'wilson' }">selected </c:if>>
 											WILSON</option>
 										<option value="nike"
-											<c:if test="${member_detail.BRAND3 eq 'NIKE' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'nike' }">selected </c:if>>
 											NIKE</option>
 										<option value="adidas"
 											<c:if test="${member_detail.BRAND3 eq 'adidas' }">selected </c:if>>
@@ -329,27 +329,34 @@ h3, h4, h6 {
 		}
 	}
 	
+	// 추가 정보 수정 함수
 	function update_detail() {
 				
 		alert('추가 정보가 수정되었습니다.');
 		
 		var team = $('#team option:selected').val();
 		var position = $('#position option:selected').val();
-		var hand = $('#hand option:selected').val();
 		var brand1 = $('#brand1 option:selected').val();
 		var brand2 = $('#brand2 option:selected').val();
 		var brand3 = $('#brand3 option:selected').val();
 
-		submit(team, position, hand, brand1, brand2, brand3);
+		submit(team, position, brand1, brand2, brand3);
 	}
 	
-	function submit(team, position, hand, brand1, brand2, brand3) {
+	function submit(team, position, brand1, brand2, brand3) {
+		
+		alert('submit 함수 진입');
+		
+		console.log(team);
+		console.log(position);
+		console.log(brand1);
+		console.log(brand2);
+		console.log(brand3);
 		
 		var formObj = document.createElement("form");
 		
 		var i_team = document.createElement("input");
 		var i_position = document.createElement("input");
-		var i_hand = document.createElement("input");
 		var i_brand1 = document.createElement("input");
 		var i_brand2 = document.createElement("input");
 		var i_brand3 = document.createElement("input");
@@ -359,9 +366,6 @@ h3, h4, h6 {
 		
 		i_position.name = "POSITION";
 		i_position.value = position;
-		
-		i_hand.name = "HAND";
-		i_hand.value = hand;
 		
 		i_brand1.name = "BRAND1";
 		i_brand1.value = brand1;
@@ -374,7 +378,6 @@ h3, h4, h6 {
 		
 	    formObj.appendChild(i_team);
 	    formObj.appendChild(i_position);
-	    formObj.appendChild(i_hand);
 	    formObj.appendChild(i_brand1);
 	    formObj.appendChild(i_brand2);
 	    formObj.appendChild(i_brand3);
@@ -382,7 +385,7 @@ h3, h4, h6 {
 	    document.body.appendChild(formObj);
 	    
 	    formObj.method = "post";
-	    formObj.action = "/modify_detail.do";
+	    formObj.action = "modify_detail.do";
 	    
 	    formObj.submit();
 	}
