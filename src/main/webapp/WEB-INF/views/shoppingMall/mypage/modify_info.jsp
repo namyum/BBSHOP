@@ -140,16 +140,16 @@ h3, h4, h6 {
 												<c:if test="${member_detail.TEAM eq 'lg' }">selected </c:if>>
 												LG 트윈스</option>
 											<option value="hanwha"
-												<c:if test="${member_detail.TEAM eq 'hw' }">selected </c:if>>
+												<c:if test="${member_detail.TEAM eq 'hanwha' }">selected </c:if>>
 												한화 이글스</option>
 											<option value="doosan"
-												<c:if test="${member_detail.TEAM eq 'ds' }">selected </c:if>>
+												<c:if test="${member_detail.TEAM eq 'doosan' }">selected </c:if>>
 												두산 베어스</option>
 											<option value="samsung"
-												<c:if test="${member_detail.TEAM eq 'sl' }">selected </c:if>>
+												<c:if test="${member_detail.TEAM eq 'samsung' }">selected </c:if>>
 												삼성 라이온즈</option>
 											<option value="kiwoom"
-												<c:if test="${member_detail.TEAM eq 'kw' }">selected </c:if>>
+												<c:if test="${member_detail.TEAM eq 'kiwoom' }">selected </c:if>>
 												키움 히어로즈</option>
 											<option value="kia"
 												<c:if test="${member_detail.TEAM eq 'kia' }">selected </c:if>>
@@ -161,7 +161,7 @@ h3, h4, h6 {
 												<c:if test="${member_detail.TEAM eq 'nc' }">selected </c:if>>
 												NC 다이노스</option>
 											<option value="lotte"
-												<c:if test="${member_detail.TEAM eq 'lt' }">selected </c:if>>
+												<c:if test="${member_detail.TEAM eq 'lotte' }">selected </c:if>>
 												롯데 자이언츠</option>
 									</select>
 								</div>
@@ -228,34 +228,34 @@ h3, h4, h6 {
 									<select class="sorting" id="brand2">
 										<option value="">브랜드 2</option>
 										<option value="mizuno"
-											<c:if test="${member_detail.BRAND1 eq 'mizuno' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'mizuno' }">selected </c:if>>
 											MIZUNO</option>
 										<option value="wilson"
-											<c:if test="${member_detail.BRAND1 eq 'wilson' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'wilson' }">selected </c:if>>
 											WILSON</option>
 										<option value="nike"
-											<c:if test="${member_detail.BRAND1 eq 'NIKE' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'NIKE' }">selected </c:if>>
 											NIKE</option>
 										<option value="adidas"
-											<c:if test="${member_detail.BRAND1 eq 'adidas' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'adidas' }">selected </c:if>>
 											ADIDAS</option>
 										<option value="asics"
-											<c:if test="${member_detail.BRAND1 eq 'asics' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'asics' }">selected </c:if>>
 											ASICS</option>
 										<option value="fila"
-											<c:if test="${member_detail.BRAND1 eq 'fila' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'fila' }">selected </c:if>>
 											FILA</option>
 										<option value="morimoto"
-											<c:if test="${member_detail.BRAND1 eq 'morimoto' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'morimoto' }">selected </c:if>>
 											MORIMOTO</option>
 										<option value="underarmour"
-											<c:if test="${member_detail.BRAND1 eq 'underarmour' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'underarmour' }">selected </c:if>>
 											UNDERARMOUR</option>
 										<option value="descente"
-											<c:if test="${member_detail.BRAND1 eq 'descente' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'descente' }">selected </c:if>>
 											DESCENTE</option>
 										<option value="brett"
-											<c:if test="${member_detail.BRAND1 eq 'brett' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND2 eq 'brett' }">selected </c:if>>
 											BRETT</option>
 									</select>
 								</div>
@@ -264,34 +264,34 @@ h3, h4, h6 {
 									<select class="sorting" id="brand3">
 										<option value="">브랜드 3</option>
 										<option value="mizuno"
-											<c:if test="${member_detail.BRAND1 eq 'mizuno' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'mizuno' }">selected </c:if>>
 											MIZUNO</option>
 										<option value="wilson"
-											<c:if test="${member_detail.BRAND1 eq 'wilson' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'wilson' }">selected </c:if>>
 											WILSON</option>
 										<option value="nike"
-											<c:if test="${member_detail.BRAND1 eq 'NIKE' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'NIKE' }">selected </c:if>>
 											NIKE</option>
 										<option value="adidas"
-											<c:if test="${member_detail.BRAND1 eq 'adidas' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'adidas' }">selected </c:if>>
 											ADIDAS</option>
 										<option value="asics"
-											<c:if test="${member_detail.BRAND1 eq 'asics' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'asics' }">selected </c:if>>
 											ASICS</option>
 										<option value="fila"
-											<c:if test="${member_detail.BRAND1 eq 'fila' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'fila' }">selected </c:if>>
 											FILA</option>
 										<option value="morimoto"
-											<c:if test="${member_detail.BRAND1 eq 'morimoto' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'morimoto' }">selected </c:if>>
 											MORIMOTO</option>
 										<option value="underarmour"
-											<c:if test="${member_detail.BRAND1 eq 'underarmour' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'underarmour' }">selected </c:if>>
 											UNDERARMOUR</option>
 										<option value="descente"
-											<c:if test="${member_detail.BRAND1 eq 'descente' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'descente' }">selected </c:if>>
 											DESCENTE</option>
 										<option value="brett"
-											<c:if test="${member_detail.BRAND1 eq 'brett' }">selected </c:if>>
+											<c:if test="${member_detail.BRAND3 eq 'brett' }">selected </c:if>>
 											BRETT</option>
 									</select>
 								</div>

@@ -228,7 +228,7 @@ public class GoodsController {
 
 		if (recommendList != null) {
 
-			System.out.println(recommendList.toString());
+			System.out.println("recommendList 객체 : " + recommendList.toString());
 
 			for (int i = 0; i < recommendList.size(); i++) {
 
