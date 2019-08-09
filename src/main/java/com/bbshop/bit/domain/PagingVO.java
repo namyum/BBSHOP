@@ -1,38 +1,22 @@
 package com.bbshop.bit.domain;
 
+import lombok.Data;
+
+@Data
 public class PagingVO {
 	
-	private int pageNum;
-	private int amount;
+	private long pageNum;
+	private long amount;
+	private String type;
+	private String keyword;
 	
 	public PagingVO() {
-		this(1, 8);
+		this(1, 10);
 	}
-
-	public PagingVO(int pageNum, int amount) {
+	
+	public PagingVO(long pageNum, long amount) {
+		
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
-
-	public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	@Override
-	public String toString() {
-		return "Criteria [pageNum=" + pageNum + ", amount=" + amount + "]";
-	}
-
 }

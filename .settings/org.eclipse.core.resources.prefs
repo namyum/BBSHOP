@@ -1,3 +1,9 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=cart
 eclipse.preferences.version=1
 encoding//src/main/java/com/bbshop/bit/HomeController.java=UTF-8
+encoding//src/main/java/com/bbshop/bit/controller/CartController.java=UTF-8
+encoding//src/main/java/com/bbshop/bit/controller/MemberController.java=UTF-8
+encoding//src/main/java/com/bbshop/bit/controller/MyPageController.java=UTF-8
 encoding//src/main/webapp/resources/shoppingMall/css/style.css=UTF-8

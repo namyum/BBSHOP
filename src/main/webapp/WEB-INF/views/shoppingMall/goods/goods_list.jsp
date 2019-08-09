@@ -43,57 +43,65 @@ function goodsList_Ajax() {
 	
 	var min_amount = $('#min_amount').val();
 	var max_amount = $('#max_amount').val();
-	 
+	var search = '';
+	
+	var pageNum = $('#actionForm input[name="pageNum"]').val();
+	
+	if(pageNum === undefined)
+		pageNum = 1;
+	
 	if(min_amount === "")
 		min_amount = "1000";
 	if(max_amount === "")
 		max_amount = "500000";
-
-
-	var s = $("#actionForm input[name='pageNum']").val();
-	
-
-	var pageNum = $('#actionForm input[name="pageNum"]').val();
-	if(pageNum === undefined)
-		pageNum = 1;
 	
 	var data = {};
+	
 	data["pageNum"] = pageNum * 1;
-	data["amount"] = ${pageMaker.pagingVO.amount};
+	data["amount"] = 8;
 	data["category"] = ${categoryInt};
 	data["sorting"] = $('select.sorting option:selected').val();
 	data["min_amount"] = min_amount;
 	data["max_amount"] = max_amount;
-	console.log(data);
 
-	
-	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
-	$('.latest_product_inner').empty();
+	console.log($('select.sorting option:selected').val());
 	
 	$.ajax({
-		type : "POST",
 		url : "/getGoodsList_Ajax.do",
+		type : 'POST',
 		data : JSON.stringify(data),
-		dataType: "json",
+		dataType: 'json',
 		contentType : "application/json",
-		success : function(data) {
-			$.each(data, function(index, goods) {
+		success : function(goodsList) {
+			
+			search_Modal.style.display = "none";
+			
+			console.log('반환 리스트 : ' + goodsList);
+			
+			var output = "";
+
+			$.each(goodsList, function(index, goods) {
 				
-				var output = "";
+				console.log('상품 목록 goods : ' + goods[index]);
 				
 				output += "<div class='col-lg-3 col-md-3 col-sm-6'>";
 				output += "<div class='f_p_item'>";
 				output += "<div class='f_p_img'>";
-				output += "<a href='goods_info.do?goods_num=" + data[index].goods_num + "&&category=" + data[index].category +"'>";
-				output += "<img class='img-fluid' src='" + data[index].main_img +"' alt=''></a></div>";
-				output += "<a href='#'><h4>" + data[index].name + "</h4></a>";
-				output += "<h5>" + data[index].price + "원</h5></div></div>";
-				console.log("output : " + output);
-				$('.latest_product_inner').append(output);
-
+				output += "<a href='goods_info.do?goods_num=" + goods.goods_num + "&category=" + goods.category + "'>"; // goods.category가 안 먹혀서 일단 페이지 내의 ${categoryInt}를 들고 옴. 
+				output += "<img class='img-fluid' src='" + goods.main_img +"' alt=''></a></div>";
+				output += "<a href='#'><h4>" + goods.name + "</h4></a>";
+				output += "<h5>" + goods.price + "원</h5></div></div>";
+				
 			});
+			
+			// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+			$('.latest_product_inner').empty();
+			$('.latest_product_inner').append(output);
 		},
-		error : function() {alert('ajax 통신 실패!');}
+		error : function() {
+			
+			alert('ajax 통신 실패!');
+		}
 	});
 }
 </script>
@@ -171,7 +179,7 @@ function goodsList_Ajax() {
 						<!-- end 상품 출력 -->
 						
 						<script>
-						goodsList_Ajax();
+						goodsList_Ajax();						
 						</script>
 						
 					</div>
@@ -235,6 +243,7 @@ function goodsList_Ajax() {
 		var actionForm = $("#actionForm");
 		
 		$(".page-item").on("click", function(e) {
+			
 			e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
 			
 			$('.page-item').removeClass("active");
