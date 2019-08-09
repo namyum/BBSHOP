@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 
 				System.out.println("toPage is 'goShop'");
 				
-				return "shopping_main.do";
+				return "/shopping_main.do";
 				
 			} else if(toPage.equals("goCommunity")) {
 				

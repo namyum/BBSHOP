@@ -197,7 +197,7 @@ public class GoodsController {
 
 		return qnaList;
 	}
-	
+	/*
 	// 쇼핑 메인 - 추천상품
 	@RequestMapping(value="/shopping_main.do", method=RequestMethod.GET)
 	public String shopping_main(HttpSession session, Model model) {
@@ -244,5 +244,6 @@ public class GoodsController {
 
 		return "shoppingMall/main/shopping_main";
 	}
+	*/
 
 }
