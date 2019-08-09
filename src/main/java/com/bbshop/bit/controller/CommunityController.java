@@ -9,7 +9,7 @@ public class CommunityController {
 
 	@RequestMapping(value="community_main.do",method=RequestMethod.GET)
 	public String commuMain() {
-		System.out.println("¿©±â±îÁö µé¾î¿À´À°¡?");
+		System.out.println("ë“¤ì–´ì˜¤ë‚˜?");
 		return "shoppingMall/main/community_main";
 	}
 }

@@ -18,7 +18,7 @@ public interface MyPageMapper {
 	
 	// 데이터 목록 가져오는 매퍼
 	
-	public long getTotalCount(@Param("pagingVO") PagingVO pagingVO, @Param("table") String table);
+	public long getTotalCount(@Param("pagingVO") PagingVO pagingVO, @Param("table") String table, @Param("user_key") long user_key);
 
 	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);	
 

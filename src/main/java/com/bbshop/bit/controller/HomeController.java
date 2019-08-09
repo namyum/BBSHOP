@@ -15,13 +15,13 @@ public class HomeController {
 
 	/* 쇼핑몰 */
 	// 쇼핑몰 - 메인
-	@RequestMapping("/shopping_main")
-	public String shopping_main() {
-		return "shoppingMall/main/shopping_main";
-	}
+//	@RequestMapping("/shopping_main")
+//	public String shopping_main() {
+//		return "shoppingMall/main/shopping_main";
+//	}
 
 	// 쇼핑몰 - 상품 리스트
-	@RequestMapping("/goods_list")
+	@RequestMapping("/goods_list.do")
 	public String goods_list() {
 		return "shoppingMall/goods/goods_list";
 	}

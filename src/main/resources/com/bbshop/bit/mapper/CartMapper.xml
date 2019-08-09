@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace ="com.bbshop.bit.mapper.CartMapper">
+<mapper namespace ="com.bbshop.bit.cart.mapper.CartMapper">
 
  <resultMap type="com.bbshop.bit.domain.Cart_PDVO" id="CartResultMap">
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>

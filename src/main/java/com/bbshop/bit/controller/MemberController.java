@@ -74,13 +74,13 @@ public class MemberController {
 		
 		//맵과 무슨 버튼을 눌렀는지 를 서비스를 통해서 넣어준다.
 		String resultUrl = memberService.memberLogin(map,toPage);
-		if(resultUrl.equals("shoppingMall/main/shopping_main") || resultUrl.equals("shoppingMall/main/community_main")) {
+		if(resultUrl.equals("shopping_main.do") || resultUrl.equals("shoppingMall/main/community_main")) {
 			
 			session.setAttribute("member", memberService.getUser_key(vo));
 			session.setAttribute("nickname", vo.getNICKNAME());
 		}
 		
-		return resultUrl;
+		return "redirect:/" + resultUrl;
 	}
 	
 	@RequestMapping(value="noAccount.do", method=RequestMethod.GET)
@@ -90,7 +90,7 @@ public class MemberController {
 		String result = "";
 		noAccountCount++;
 		if(toPage.equals("goShop")) {
-			result="redirect:/shopping_main.do";
+			result="redirect:/shopping_main_temp.do";
 		}
 		else {
 			result="redirect:/community_main.do";
@@ -165,9 +165,7 @@ public class MemberController {
 	
 	@RequestMapping(value="moredetails.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String moredetails(MemberVO vo, MoreDetailsVO md, HttpServletRequest request) {
-		
-		System.out.println("moredetails 컨트롤러 진입 성공");
-		
+				
 		vo.setGRADE("silver"); // 등급 설정
 		
 		System.out.println("moredetails 컨트롤러에서의 vo : " + vo.toString());

@@ -20,7 +20,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart_PDVO> getCartList(long user_key) {
 		
-		System.out.println("����Ű�� ������� �����°�?"+user_key);
+		System.out.println("유저키가 여기까지 들어오는가?"+user_key);
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		List<Cart_PDVO> cartList = mapper.getCartList(user_key);
@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService {
 	}
 	@Override
 	public GoodsVO getGoods(long goodsnum){
-		System.out.println("GoodsNum�� �����°�?"+goodsnum);
+		System.out.println("GoodsNum이 들어오는가?"+goodsnum);
 		
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
@@ -49,14 +49,14 @@ public class CartServiceImpl implements CartService {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.modify(qnt);
-		System.out.println("�����Ǿ����ϴ�.");
+		System.out.println("수정되었습니다.");
 	}
 	@Override
 	public void selectDelete(Map<String,Object> deleteMap) {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.selectDelete(deleteMap);
-		System.out.println("���� �Ǿ����ϴ�.");
+		System.out.println("삭제 되었습니다.");
 		
 	}
 	@Override
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
 		sqlSession.getMapper(CartMapper.class);
 		mapper.deleteAll();
-		System.out.println("��ü���� �Ǿ����ϴ�.");
+		System.out.println("전체삭제 되었습니다.");
 	}
 
 }

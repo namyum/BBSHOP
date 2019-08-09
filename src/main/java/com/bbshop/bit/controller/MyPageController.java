@@ -1,6 +1,5 @@
 package com.bbshop.bit.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,9 @@ import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.MyPageService;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 public class MyPageController {
 
@@ -46,12 +48,14 @@ public class MyPageController {
 	// 회원 정보 조회 -> 적립금 불러오기
 	@RequestMapping(value = "/savings.do")
 	public String getSavings(Model model, PagingVO pagingVO) {
+		
+		pagingVO.setAmount(5); // 기본 생성자로 설정되는 10에서 5로 바꿔준다.
 						
 		long sum = 0;
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 		
-		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -119,10 +123,12 @@ public class MyPageController {
 	@RequestMapping("/order_status.do")
 	public String getOrderStatus(Model model, PagingVO pagingVO) {
 				
+		pagingVO.setAmount(5); // 기본 생성자로 설정되는 10에서 5로 바꿔준다.
+		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
@@ -145,22 +151,26 @@ public class MyPageController {
 	@RequestMapping("/mypost.do")
 	public String getMyPost(Model model, PagingVO pagingVO) {
 		
+		pagingVO.setAmount(5);
+		
 		long total = 0;
 		long sum = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "qna");
+		total = myPageService.getTotal(pagingVO, "qna", user_key);
 		List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
 		sum += total;		
 		
-		total = myPageService.getTotal(pagingVO, "review");
+		total = myPageService.getTotal(pagingVO, "review", user_key);
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
 		sum += total;
 		
-		total = myPageService.getTotal(pagingVO, "onetoone");
+		total = myPageService.getTotal(pagingVO, "onetoone", user_key);
 		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
 		sum += total;
 		
+		PageDTO pageMaker = new PageDTO(pagingVO, sum);
+			
 		for (int i = 0; i < qna_list.size(); i++) {
 			qna_list.get(i).setQna_num(sum--);
 		}
@@ -173,10 +183,12 @@ public class MyPageController {
 			review_list.get(i).setRv_num(sum--);
 		}
 		
+
+		
 		model.addAttribute("qna_list", qna_list);
 		model.addAttribute("onetoone_list", onetoone_list);
 		model.addAttribute("review_list", review_list);
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		model.addAttribute("pageMaker", pageMaker);
 
 		return "shoppingMall/mypage/mypost";
 	}
@@ -304,18 +316,18 @@ public class MyPageController {
 	}
 	
 	// 추가 사항 수정하기
-	@RequestMapping("/modify_detail.do")
+	@RequestMapping("modify_detail.do")
 	public String modify_detail(MoreDetailsVO moreDetailsVO) {
+		
+		System.out.println("modify_detail 컨트롤러 진입");
 		
 		long user_key = (long)session.getAttribute("member");
 
 		moreDetailsVO.setUSER_KEY(user_key);
 		
-		System.out.println("컨트롤러에서의 VO : " + moreDetailsVO.toString());
+		System.out.println("modify_detail 컨트롤러에서의 VO : " + moreDetailsVO.toString());
 		
 		myPageService.updateDetailInfo(moreDetailsVO, user_key);
-		
-		System.out.println("mapper 통과");
 		
 		return "redirect:/modify_info.do";
 	}
@@ -343,7 +355,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "savings"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
 		
@@ -379,7 +391,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 		
@@ -400,7 +412,7 @@ public class MyPageController {
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
 
-		total = myPageService.getTotal(pagingVO, "shop_order"); // 주문 배송 테이블 데이터 개수 구하기.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 		
 		if (stts == 5) {
 		
@@ -420,38 +432,40 @@ public class MyPageController {
 	public Map<String, Object> getTableWithAjax(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
+		long total = 0;
 
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
-		long amount = (long)Integer.parseInt((String)map.get("amount"));
+		long amount = (long)Integer.parseInt((String)map.get("amount"));	
 		String category = (String)map.get("category");
-		
-		PagingVO pagingVO = new PagingVO(pageNum, amount);
-		
-		long total = 0;
-		
-		if (!category.equals("all")) {
-			
-			total = myPageService.getTotal(pagingVO, category); // 테이블 데이터 개수 구하기.
-		}
 		
 		Map<String, Object> listMap = new HashMap<>();
 		
+		PagingVO pagingVO = new PagingVO(pageNum, amount);
+		
+		if (!category.equals("all")) {
+			
+			total = myPageService.getTotal(pagingVO, category, user_key); // 테이블 데이터 개수 구하기
+		}
+				
 		if (category.equals("review")) {
 			
 			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
+			listMap.put("total", total);
 			
 			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
 			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
-			
+			listMap.put("total", total);
+
 			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
 			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
-			
+			listMap.put("total", total);
+
 			return listMap;
 		
 		// 전체 게시글 출력 코드
@@ -459,15 +473,15 @@ public class MyPageController {
 			
 			long sum = 0;
 			
-			total = myPageService.getTotal(pagingVO, "review");
+			total = myPageService.getTotal(pagingVO, "review", user_key);
 			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
 			sum += total;
 
-			total = myPageService.getTotal(pagingVO, "qna");
+			total = myPageService.getTotal(pagingVO, "qna", user_key);
 			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
 			sum += total;
 			
-			total = myPageService.getTotal(pagingVO, "onetoone");
+			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
 			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
 			sum += total;
 			

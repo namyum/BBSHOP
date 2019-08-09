@@ -3,8 +3,8 @@ package com.bbshop.bit.service;
 import java.util.List;
 import java.util.Map;
 
-import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.GoodsVO;
 
 public interface CartService {
 
