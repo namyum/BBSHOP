@@ -32,7 +32,7 @@ public class CartController {
 	
 	@RequestMapping("cart.do")
 	public String cart(HttpSession session, Model model) {
-		System.out.println("cart������");
+		System.out.println("cart페이지");
 		int allPrice=0;
 		int shipping_fee=0;
 		long user_key = 1;
@@ -53,8 +53,8 @@ public class CartController {
 		}
 
 		for(int i = 0 ; i<goodsList.size();i++) {
-			System.out.println("�����Ʈ �ٵ����°�?"+goodsList.get(i));
-			System.out.println("īƮ����Ʈ ��Ż�� �����Ǿ���?"+cartList.get(i));
+			System.out.println("굿즈리스트 다들어오는가?"+goodsList.get(i));
+			System.out.println("카트리스트 토탈이 수정되었낭?"+cartList.get(i));
 		}
 		
 		
@@ -141,12 +141,12 @@ public class CartController {
 			deleteList.add(i, Integer.parseInt(listindex[i]));
 			System.out.println(listindex[i]);
 		}
-		//üũ�ڽ����� ���� ������ �ε����� cartlist���� pk�� ������� �޾ƿ;��Ѵ�.
+		//체크박스에서 받은 인자의 인덱스가 cartlist에서 pk가 몇번인지 받아와야한다.
 		for(int i = 0; i<deleteList.size();i++) {
-			System.out.println("deletetemp�� �ִ°�:"+deleteList.get(i));
-			//cart����Ʈ�� 0 ���� �����ϰ� �޾ƿ°��� 1���� �����ϱ⶧���� -1�� �־����.
+			System.out.println("deletetemp에 있는값:"+deleteList.get(i));
+			//cart리스트는 0 부터 시작하고 받아온것은 1부터 시작하기때문에 -1을 넣어줬다.
 			deleteListResult.add(i,(int) cartList.get(deleteList.get(i)-1).GD_CT_KEY);
-			System.out.println("deleteResult�� �ִ°�:"+deleteListResult.get(i));
+			System.out.println("deleteResult에 있는값:"+deleteListResult.get(i));
 		}
 		deleteMap.put("deleteListResult", deleteListResult);
 		cartService.selectDelete(deleteMap);
