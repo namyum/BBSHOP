@@ -203,7 +203,7 @@
 		
 			$("input[name='stts']:checked").each(function(){
 		    
-				checkValues = $(this).val();
+				checkValues.push($(this).val());
 			});
 		}
 		
@@ -225,10 +225,19 @@
 			contentType:"application/json",			
 			success : function(result, status, xhr) {
 			
+				console.log('result.length : ' + result.length);
+				
 				var str = '';
-				var end = (Math.ceil(pageNum / 5.0)) * 5;
-				var start = end - 4;
+				var end = (Math.ceil(pageNum / 10.0)) * 10;
+				var start = end - 9;
+				var total = result.length;
 				var paging = '';
+				
+				var realEnd = (Math.ceil((total * 1.0) / amount));
+				
+				if (realEnd < end) {
+					end = realEnd;
+				}
 				
 				console.log('start : ' + start);
 				console.log('end : ' + end);

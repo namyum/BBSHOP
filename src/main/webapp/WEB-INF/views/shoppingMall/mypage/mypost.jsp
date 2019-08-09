@@ -28,7 +28,7 @@
 					<option value="qna">상품 QnA</option>
 					<option value="onetoone">1:1 문의</option>
 				</select>
-				<h5 align="right">총 게시글 : ${pageMaker.total }개</h5>
+				<h5 align="right"><span id="all_cnt">총 게시글 : ${pageMaker.total }개</span></h5>
 			</div>
 		</div>
 		<div class="table-responsive">
@@ -333,6 +333,12 @@ function getTableWithAjax(menu) {
 			
 			$('#table_content').empty();
 			$('#table_content').append(cate);
+			
+			var all_cnt = '';
+			all_cnt += '총 게시글 : ' + total + '개';
+			
+			$('#all_cnt').empty();
+			$('#all_cnt').append(all_cnt);
 			
 			// 페이징 버튼 AJAX 처리
 			var end = Math.ceil(pageNum / 10.0) * 10;
