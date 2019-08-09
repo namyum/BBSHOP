@@ -56,15 +56,17 @@
 	</select>
 	
 	<select id="getOrdersListStss" resultType="com.bbshop.bit.domain.OrderVO">
-		<![CDATA[	
-     		SELECT *
-     		FROM
-     			( SELECT *
-       			  FROM shop_order 
-       			  WHERE user_key = #{key}
-            	  		AND cancel = 0
-            	  		AND stts = #{stts}
+		<![CDATA[
+        SELECT *
+        FROM
+            ( SELECT rownum rn, order_num, or_date, items, pymntamnt, stts 
+              FROM shop_order 
+              WHERE user_key = #{key}
+            	  AND cancel = 0
+                  AND stts = #{stts}
        			  ORDER BY order_num desc )
+        WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
+            AND rn <= #{pagingVO.pageNum} * #{pagingVO.amount}     		
 		]]>	
 	</select>
 		
