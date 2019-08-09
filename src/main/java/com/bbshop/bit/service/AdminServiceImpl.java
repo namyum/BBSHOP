@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<GoodsVO> getGoodsList() {
-		System.out.println("»óÇ° ¸ñ·ÏÀ» ¹Ş¾Æ¿À°Ú½À´Ï´Ù.");
+		System.out.println("ìƒí’ˆ ëª©ë¡ì„ ë°›ì•„ì˜¤ê² ìŠµë‹ˆë‹¤.");
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		List<GoodsVO> goodsList = mapper.getGoodsList();
@@ -32,37 +32,37 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	
-	//´ëÇ¥»óÇ°ÀÇ ¿É¼ÇµéÀ» °¡Á®¿À´Â ¸Ş¼Òµå.
+	//ëŒ€í‘œìƒí’ˆì˜ ì˜µì…˜ë“¤ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œ.
 	@Override
 	public List<Object> getGdList(int category, long goods_num) {
 		// TODO Auto-generated method stub
-		System.out.println("»óÇ° ¿É¼Ç ¸ñ·ÏÀ» ¹Ş¾Æ¿À°Ú½À´Ï´Ù.");
+		System.out.println("ìƒí’ˆ ì˜µì…˜ ëª©ë¡ì„ ë°›ì•„ì˜¤ê² ìŠµë‹ˆë‹¤.");
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		List<Object> goodsList = new ArrayList<Object>();
-		//Ä«Å×°í¸®ÀÇ ¼ıÀÚ¿¡ µû¶ó mapper¿¡¼­ »ç¿ëµÇ´Â ¸Ş¼Òµå°¡ ´Ù¸£´Ù.
+		//ì¹´í…Œê³ ë¦¬ì˜ ìˆ«ìì— ë”°ë¼ mapperì—ì„œ ì‚¬ìš©ë˜ëŠ” ë©”ì†Œë“œê°€ ë‹¤ë¥´ë‹¤.
 		switch(category) {
-		//±Û·¯ºê
+		//ê¸€ëŸ¬ë¸Œ
 		case 1: {
 			goodsList = mapper.getGloveList(goods_num);	
 			System.out.println(goodsList);
 			break;
-		}//¹æ¸ÁÀÌ
+		}//ë°©ë§ì´
 		case 2: {
 			goodsList = mapper.getBatList(goods_num);	
 			System.out.println(goodsList);
 			break;
-		}//À¯´ÏÆû
+		}//ìœ ë‹ˆí¼
 		case 3: {
 			goodsList = mapper.getUniformList(goods_num);	
 			System.out.println(goodsList);
 			break;
-		}//¾ß±¸È­
+		}//ì•¼êµ¬í™”
 		case 4: {
 			goodsList = mapper.getShoesList(goods_num);	
 			System.out.println(goodsList);
 			break;
-		}//¾ß±¸°ø
+		}//ì•¼êµ¬ê³µ
 		case 5: {
 			goodsList = mapper.getBallList(goods_num);	
 			System.out.println(goodsList);
@@ -74,9 +74,3 @@ public class AdminServiceImpl implements AdminService {
 		return goodsList;
 	}
 }
-
-	
-	
-
-
-	

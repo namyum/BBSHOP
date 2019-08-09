@@ -4,9 +4,7 @@
 <%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
-<%
-List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
-%>
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/apple-icon.png">
@@ -185,14 +183,17 @@ th{
                    
                       	<td style='text-align:center'>
                       		<ul class="pagination">
+										<c:if test="${PageMaker.prev}">
 										<li class="page-item disabled"><a class="page-link"
 											href="#">이전</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">4</a></li>
-										<li class="page-item"><a class="page-link" href="#">5</a></li>
-										<li class="page-item"><a class="page-link" href="#">다음</a></li>
+										</c:if>
+										<c:forEach var="num" begin="${PageMaker.startPage}" end="${PageMaker.endPage}">
+										<li class="page-item"><a class="page-link" href="#">${num}</a></li>
+										</c:forEach>
+										<c:if test="${PageMaker.next}">
+										<li class="page-item"><a class="page-link"
+											href="#">다음</a></li>
+										</c:if>
 									</ul>
                       	</td>
                       		
@@ -234,7 +235,6 @@ th{
             </div>
           </div>
         </div>
-      </div>
       </div>
 
       <footer class="footer">
@@ -297,7 +297,7 @@ th{
         <li class="header-title">Images</li>
         <li class="active">
           <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/sidebar-1.jpg" alt="">
+            <img src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/admin_img2.jpg" alt="">
           </a>
         </li>
         <li>
@@ -406,6 +406,8 @@ th{
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
 
+        
+
         $full_page = $('.full-page');
 
         $sidebar_responsive = $('body > .navbar-collapse');
@@ -472,6 +474,7 @@ th{
 
 
           var new_image = $(this).find("img").attr('src');
+          alert(new_image);
 
           if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
             $sidebar_img_container.fadeOut('fast', function() {

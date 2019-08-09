@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/img/admin_img2.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -99,3 +99,5 @@
         </ul>
       </div>
     </div>
+   
+    

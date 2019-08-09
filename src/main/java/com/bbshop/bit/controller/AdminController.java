@@ -8,7 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bbshop.bit.domain.Gd_gloveVO;
+import com.bbshop.bit.domain.AdminPageDTO;
+import com.bbshop.bit.domain.Criteria;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.AdminService;
 
@@ -37,23 +38,29 @@ public class AdminController {
 	}
 
 	@RequestMapping("goodsList.do")
-	public String goodsList(Model model) {
-		System.out.println("»óÇ°°ü¸® ÆäÀÌÁö ÀÔ´Ï´Ù.");
+	public String goodsList(Model model , Criteria cri) {
+		System.out.println("ìƒí’ˆê´€ë¦¬ í˜ì´ì§€ ì…ë‹ˆë‹¤.");
 		List<GoodsVO> goodsList = adminService.getGoodsList();
-		//»óÇ°ÀÇ ¿É¼Çº°·Î ¹Ş¾Æ¿Ã ¸®½ºÆ®ÀÌ´Ù.
+		//ìƒí’ˆì˜ ì˜µì…˜ë³„ë¡œ ë°›ì•„ì˜¬ ë¦¬ìŠ¤íŠ¸ì´ë‹¤.
 		List<Object> detailList = new ArrayList<Object>();
 		for(int i=0; i<goodsList.size();i++) {
-			//´ëÇ¥ »óÇ° ÇÏ³ª¿¡ ¿É¼ÇµéÀ» ¹Ş¾Æ¿À´Â ¸®½ºÆ®ÀÌ´Ù. Ä«Å×°í¸®¿Í ±ÂÁî³Ñ¹ö¸¦ ³Ñ°ÜÁà¼­ ±×°É·Î 1°³ÀÇ »óÇ°ÀÇ ¿É¼ÇÀ» ´Ù´ã¾Æ¿À´Â ¸®½ºÆ®¸¦ ¸¸µë.
+			//ëŒ€í‘œ ìƒí’ˆ í•˜ë‚˜ì— ì˜µì…˜ë“¤ì„ ë°›ì•„ì˜¤ëŠ” ë¦¬ìŠ¤íŠ¸ì´ë‹¤. ì¹´í…Œê³ ë¦¬ì™€ êµ¿ì¦ˆë„˜ë²„ë¥¼ ë„˜ê²¨ì¤˜ì„œ ê·¸ê±¸ë¡œ 1ê°œì˜ ìƒí’ˆì˜ ì˜µì…˜ì„ ë‹¤ë‹´ì•„ì˜¤ëŠ” ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“¬.
 			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCATEGORY(),goodsList.get(i).getGOODS_NUM());
-			//±× ¸®½ºÆ®µéÀ» ´Ù½Ã ÇÑ ¸®½ºÆ®¿¡ addAllÇÏ¿©¼­ ÀüÃ¼ÀÇ ¿É¼Ç ¸®½ºÆ®¸¦ ÇÏ³ª ¸¸µé¾îÁØ´Ù.
+			//ê·¸ ë¦¬ìŠ¤íŠ¸ë“¤ì„ ë‹¤ì‹œ í•œ ë¦¬ìŠ¤íŠ¸ì— addAllí•˜ì—¬ì„œ ì „ì²´ì˜ ì˜µì…˜ ë¦¬ìŠ¤íŠ¸ë¥¼ í•˜ë‚˜ ë§Œë“¤ì–´ì¤€ë‹¤.
 			detailList.addAll(tempList);
 		}
-		//ÀüÃ¼ ¿É¼Ç¸®½ºÆ® È®ÀÎ.
+		//ì „ì²´ ì˜µì…˜ë¦¬ìŠ¤íŠ¸ í™•ì¸.
 		for(int i = 0 ; i<detailList.size();i++) {
 		System.out.println("detailList"+i+":"+detailList.get(i));
 		}
+		cri.setAmount(5);
+		cri.setPageNum(1);
+		AdminPageDTO temp = new AdminPageDTO(cri,goodsList.size());
+		System.out.println(temp);
+		System.out.println(cri);
 		model.addAttribute("detailList",detailList);
 		model.addAttribute("goodsList",goodsList);
+		model.addAttribute("PageMaker", temp);
 		
 				
 		return "shoppingMall/admin/goodsList";
