@@ -65,10 +65,10 @@
 		<h5 align="left">내 주문의 상태를 조회하고 취소할 수 있습니다.</h5>
 		<h5 align="right">내 주문 : ${pageMaker.total }건</h5>
 		<div class="col-md-6" style="margin-bottom: 10px; padding-left: 0px;">
-			<input type="checkbox" name="stts" value="5" id="all" onclick="showOrderList()">
-				<label for="all" class="addr_chk">전체</label>
 			<input type="checkbox" name="stts" value="0" id="paid" onclick="showOrderList()">
 				<label for="paid" class="addr_chk">결제완료</label>
+			<input type="checkbox" name="stts" value="1" id="deliverPre" onclick="showOrderList()">
+				<label for="deliverPre" class="addr_chk">배송준비중</label>
 			<input type="checkbox" name="stts" value="2" id="delivering" onclick="showOrderList()">
 				<label for="delivering" class="addr_chk">배송중</label>
 			<input type="checkbox" name="stts" value="3" id="deliverFin" onclick="showOrderList()">
@@ -111,6 +111,8 @@
 </div>
 
 <script>
+
+	var actionForm = $("#actionForm");
 
 	var order_num = '';
 	var order_item = '';
@@ -171,7 +173,7 @@
 		receiver = list[5];
 	}
 	
-	// 주문 배송 상세 조회 체크박스
+	// 주문 배송 상태에 따른 체크박스 함수
 	function showOrderList(checkbox) {
 		
 		var checkValues = '';
@@ -180,7 +182,7 @@
 		
 		if ($("input[name='stts']:checked").length == 0) {
 			
-			checkValues = '5';
+			checkValues = '5'; // 체크된 버튼이 없을시에 전체 주문을 불러온다.
 			
 		} else {
 		
@@ -252,16 +254,22 @@
 				$('tbody').append(str);
 				
 				// 페이징 버튼 AJAX 처리
-				$('.pagination').empty();
-				
 				for (var i = start; i <= end; i++) {
-					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
 				}
 				
+				$('.pagination').empty();
 				$('.pagination').append(paging);
 				
 				$('.page-item').removeClass("active");
-				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 			    
 			},
 			
@@ -358,7 +366,6 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-				
 			},
 			error : function() {
 				
@@ -368,7 +375,6 @@
 	})
 	
 	// 페이징 AJAX 처리
-	var actionForm = $("#actionForm");
 	
 	$(document).on("click", ".page-item a", function(e) {
 
