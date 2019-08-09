@@ -182,7 +182,7 @@
 		
 		if ($("input[name='stts']:checked").length == 0) {
 			
-			checkValues = '5';
+			checkValues = '5'; // 체크된 버튼이 없을시에 전체 주문을 불러온다.
 			
 		} else {
 		
@@ -254,16 +254,22 @@
 				$('tbody').append(str);
 				
 				// 페이징 버튼 AJAX 처리
-				$('.pagination').empty();
-				
 				for (var i = start; i <= end; i++) {
-					paging += '<li class="page-item ' + ${pageMaker.pagingVO.pageNum == i ? "active" : ''} + '" id="btn_' + i + '"><a href="' + i + '" class="page-link">' + i + '</a></li>';
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
 				}
 				
+				$('.pagination').empty();
 				$('.pagination').append(paging);
 				
 				$('.page-item').removeClass("active");
-				$('.NaN' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
 			    
 			},
 			
@@ -360,7 +366,6 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-				
 			},
 			error : function() {
 				
