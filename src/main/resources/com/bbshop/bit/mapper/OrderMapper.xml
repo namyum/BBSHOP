@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbshop.bit.mapper.OrderMapper">
+
+<select id="getGloveOption" resultType="com.bbshop.bit.domain.Gd_GloveVO">
+	SELECT *
+	FROM GD_GLOVE
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		HAND = #{hand} AND
+		TAMING = #{taming}
+</select>
+
+<select id="getBatOption" resultType="com.bbshop.bit.domain.Gd_BatVO">
+	SELECT *
+	FROM GD_BAT
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getUniformOption" resultType="com.bbshop.bit.domain.Gd_UniformVO">
+	SELECT *
+	FROM GD_UNIFORM
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getShoesOption" resultType="com.bbshop.bit.domain.Gd_ShoesVO">
+	SELECT *
+	FROM GD_SHOES
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SPIKE = #{spike} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getBallOption" resultType="com.bbshop.bit.domain.Gd_BallVO">
+	SELECT *
+	FROM GD_BALL
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SALES_UNIT = #{sales_unit}
+</select>
+
+</mapper>
+	

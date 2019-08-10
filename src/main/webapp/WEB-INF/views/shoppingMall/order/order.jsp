@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
    pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    
 <%@ include file="../include/shopping_header.jsp" %>
 
@@ -144,99 +145,139 @@ li, a {
                      </tr>
                   </thead>
                   <tbody>
+                  <c:forEach var="order" items="${orderList}" varStatus="status">
                      <tr>
                         <td>
                            <div class="media">
                               <div class="d-flex">
                                  <img
-                                    src="resources/shoppingMall/img/product/single-product/example_bat.jpg"
+                                   src="<c:out value='${goodsList[status.index].main_img}'/>"
                                     alt="" width="145" height="98">
                                  <!-- 상품정보_img -->
                               </div>
                               <div class="media-body">
-                                 <p>드마리니 펑고델릭 메이플 우드 배트</p>
+                                 <p>${goodsList[status.index].name}</p>
                                  <!-- 상품정보_name -->
                               </div>
                            </div>
                         </td>
                         <td>
-                           <h5>100,000 원</h5>
+                          	<h5 id=price${status.index}><c:out value="${order.PRICE}원"/></h5>
                         </td>
                         <td>
                            <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="2" title="Quantity:" class="input-text qty">
+                               <c:out value="${order.QNTTY}"/>
                            </div>
                         </td>
                         <td>
-                           <h5>1000점</h5>
+                           <h5>${order.SAVINGS}점</h5>
                         </td>
-                        <td>재질: 우드</td>
+					<c:choose>
+                   		<c:when test="${goodsList[status.index].category eq 1 }">
+                   			<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].HAND eq 0 }">
+                        			좌/우 : 좌투<br>
+                        		</c:when>
+                        		<c:otherwise>
+                        			좌/우 : 우투<br>
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].TAMING eq 0 }">
+                        			길들이기 : 없음
+                        		</c:when>
+                        		<c:otherwise>
+                        			길들이기 : 있음
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
+                        </c:when>
+
+                        <c:when test="${goodsList[status.index].category eq 2 }">
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 32 }">
+                        			규격 : 32인치
+                        		</c:when>
+                        		<c:otherwise>
+                        			규격 : 33인치
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
+                        </c:when>
+
+                        <c:when test="${goodsList[status.index].category eq 3 }">
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 85 }">
+                        			사이즈 : 85
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 90 }">
+                        			사이즈 : 90
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 95 }">
+                        			사이즈 : 95
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 100 }">
+                        			사이즈 : 100
+                        		</c:when>
+                        		<c:otherwise>
+                        			사이즈 : 105
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
+                        </c:when>
+
+                        <c:when test="${goodsList[status.index].category eq 4 }">
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 230 }">
+                        			사이즈 : 230<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 240 }">
+                        			사이즈 : 240<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 250 }">
+                        			사이즈 : 250<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 260 }">
+                        			사이즈 : 260<br>
+                        		</c:when>
+                        		<c:otherwise>
+                        			사이즈 : 270<br>
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].SPIKE eq 0 }">
+                        			스파이크 : 없음
+                        		</c:when>
+                        		<c:otherwise>
+                        			스파이크 : 있음
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
+                        </c:when>
+                        <c:otherwise>
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].SALES_UNIT eq 0 }">
+                        			판매단위 : 낱개
+                        		</c:when>
+                        		<c:otherwise>
+                        			판매단위 : 12개(1박스)
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
+                        </c:otherwise>
+                   </c:choose>
                         <td>
-                           <h5>200,000 원</h5>
+                           <h5><c:out value="${order.TOTALPRICE}"/></h5>
                         </td>
                      </tr>
-                     <tr>
-                        <td>
-                           <div class="media">
-                              <div class="d-flex">
-                                 <img
-                                    src="resources/shoppingMall/img/product/single-product/example_glove.png"
-                                    alt="" width="145" height="98">
-                              </div>
-                              <div class="media-body">
-                                 <p>윌슨 2019 KOREA A2K GM 이대호 12.25" 1루수 미트</p>
-                              </div>
-                           </div>
-                        </td>
-                        <td>
-                           <h5>560,000 원</h5>
-                        </td>
-                        <td>
-                           <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="1" title="Quantity:" class="input-text qty">
-                           </div>
-                        </td>
-                        <td>
-                           <h5>5600점</h5>
-                        </td>
-                        <td>좌/우: 좌 <br>
-                        	색상: 블랙</td>
-                        <td>
-                           <h5>560,000 원</h5>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>
-                           <div class="media">
-                              <div class="d-flex">
-                                 <img
-                                    src="resources/shoppingMall/img/product/single-product/example_helmet.png"
-                                    alt="" width="145" height="98">
-                              </div>
-                              <div class="media-body">
-                                 <p>이보쉴드 럭스 배팅 헬멧</p>
-                              </div>
-                           </div>
-                        </td>
-                        <td>
-                           <h5>75,000 원</h5>
-                        </td>
-                        <td>
-                           <div class="product_count">
-                              <input type="text" name="qty" id="sst" maxlength="12"
-                                 value="1" title="Quantity:" class="input-text qty">
-                           </div>
-                        </td>
-                        <td>
-                           <h5>750점</h5>
-                        </td>
-                        <td>색상:블랙</td>
-                        <td>
-                           <h5>75,000 원</h5>
-                        </td>
-                     </tr>
+                    
+                    
+                    </c:forEach>
                      <tr>
                         <td></td>
                         <td></td>
@@ -246,7 +287,7 @@ li, a {
                            <h5>총 상품 금액</h5>
                         </td>
                         <td>
-                           <h5>835,000 원</h5>
+                           <h5>${allPrice }원</h5>
                         </td>
                      </tr>
                   </tbody>
@@ -267,11 +308,13 @@ li, a {
                   <form class="row contact_form" action="#" method="post"
                      novalidate="novalidate">
                      <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="name" name="name"
+                        <input type="text" class="form-control" id="name" name="name" 
+                        value="<c:out value="${user.NAME}"/>"
                            placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="phone" name="phone"
+                           value="<c:out value="${user.PHONE}"/>"
                            placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
@@ -280,6 +323,7 @@ li, a {
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="id" name="id"
+                          value="<c:out value="${user.MEMBER_ID}"/>"
                            placeholder="이메일">
                      </div>
                      <div class="col-md-12 form-group" style="margin-bottom: 0px">
@@ -308,8 +352,8 @@ li, a {
                      <div class="col-md-12 form-group p_star">
                         <p>배송지 선택</p>
                         <label><input TYPE='radio' id="new_input"
-                           value='new_addr' />신규 입력</label> <label><input TYPE='radio'
-                           id="user_input" value='user_addr' />사용자 지정</label> <input
+                           name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
+                           id="user_input" name="addr_input" value='user_addr' />사용자 지정</label> <input
                            type="button" name="addressList" id="addressBtn" value="주소록 목록" />
                      </div>
                      <div class="col-md-12 form-group p_star">
@@ -341,22 +385,22 @@ li, a {
                <div class="col-lg-6">
                   <div class="order_box">
                      <h2>결제단계</h2>
+                     
                      <ul class="list">
-                        <li><p>상품 <span>총합</span>
-                        </p></li>
-                        <li><p class="product_name">드마리니 펑고델릭 메이플 우드 배트<span class="middle">x
-                                 02</span> <span class="last">200000원</span></p></li>
-                        <li><p class="product_name">윌슨 2019 KOREA A2K GM 이대호 12.25" 1루수 미트<span
-                              class="middle">x 01</span> <span class="last">560000원</span>
-                        </p></li>
-                        <li><p class="product_name">이보쉴드 럭스 배팅 헬멧<span class="middle">x
-                                 01</span> <span class="last">75000원</span>
-                        </p></li>
+                        <li><p>상품 <span>총합</span></p></li>
+                     <c:forEach var="order" items="${orderList}" varStatus="status">
+         				<li>
+         					<p class="product_name"><c:out value="${goodsList[status.index].name}" />
+         					<span class="middle"><c:out value="x${order.QNTTY }" /></span>
+         					<span class="last"><c:out value="${order.TOTALPRICE }" /></span></p>
+         				</li>
+                     </c:forEach>
                      </ul>
+                     
                      <ul class="list list_2">
-                        <li><p>가격 합계 <span>835,000 원</span>
+                        <li><p>가격 합계 <span>${allPrice }</span>
                         </p></li>
-                        <li><p>배송비 <span>0원</span>
+                        <li><p>배송비 <span><c:out value="${shipping_fee}원" /></span>
                         </p></li>
                         <li><p>총 결제금액 <span>835,000원</span>
                         </p></li>
@@ -404,17 +448,18 @@ li, a {
 
             <!-- form태그로 한 번에 묶어버리면 모든 주소의 값이 넘어갈 것 같아서 따로 했습니다 -->
             <!-- 주소 1 -->
-            <table>
+
+				<table>
                <tr>
-                  <td><p>주소 1</p></td>
+                  <td><p>주소 1 : <c:out value="${userAddr[0].name}"/></p></td>
                </tr>
                <tr>
-                  <td><p id="modal_zipcode" class="modal_addr1">123-456</p></td>
+                  <td><p id="modal_zipcode" class="modal_addr1"><c:out value="${userAddr[0].zc_key}"/></p></td>
                </tr>
                <tr>
                   <td><p id="modal_addr" class="modal_addr1"
-                        style="margin-right: 10px;">주소시 주소구 주소동 230</p></td>
-                  <td><p id="modal_detailaddr" class="modal_addr1">904호</p></td>
+                        style="margin-right: 10px;"><c:out value="${userAddr[0].roadAddress}"/></p></td>
+                  <td><p id="modal_detailaddr" class="modal_addr1"><c:out value="${userAddr[0].addr}"/></p></td>
                   <td><input type="button" value="선택" id="button1"
                      onclick="putAddress(id)" /></td>
                </tr>
@@ -423,15 +468,15 @@ li, a {
             <!-- 주소 2 -->
             <table>
                <tr>
-                  <td><p>주소 2</p></td>
+                  <td><p>주소 2 : <c:out value="${userAddr[1].name}"/></p></td>
                </tr>
                <tr>
-                  <td><p id="modal_zipcode" class="modal_addr2">678-901</p></td>
+                  <td><p id="modal_zipcode" class="modal_addr2"><c:out value="${userAddr[1].zc_key}"/></p></td>
                </tr>
                <tr>
                   <td><p id="modal_addr" class="modal_addr2"
-                        style="margin-right: 10px;">주소시 주소구 주소동 123</p></td>
-                  <td><p id="modal_detailaddr" class="modal_addr2">1234호</p></td>
+                        style="margin-right: 10px;"><c:out value="${userAddr[1].roadAddress}"/></p></td>
+                  <td><p id="modal_detailaddr" class="modal_addr2"><c:out value="${userAddr[1].addr}"/></p></td>
                   <td><input type="button" value="선택" id="button2"
                      onclick="putAddress(id)" /></td>
                </tr>
@@ -440,15 +485,15 @@ li, a {
             <!-- 주소 3 -->
             <table>
                <tr>
-                  <td><p>주소 3</p></td>
+                  <td><p>주소 3 : <c:out value="${userAddr[2].name}"/></p></td>
                </tr>
                <tr>
-                  <td><p id="modal_zipcode" class="modal_addr3">111-222</p></td>
+                  <td><p id="modal_zipcode" class="modal_addr3"><c:out value="${userAddr[2].zc_key}"/></p></td>
                </tr>
                <tr>
                   <td><p id="modal_addr" class="modal_addr3"
-                        style="margin-right: 10px;">주소시 주소구 주소동 098</p></td>
-                  <td><p id="modal_detailaddr" class="modal_addr3">0987호</p></td>
+                        style="margin-right: 10px;"><c:out value="${userAddr[2].roadAddress}"/></p></td>
+                  <td><p id="modal_detailaddr" class="modal_addr3"><c:out value="${userAddr[2].addr}"/></p></td>
                   <td><input type="button" value="선택" id="button3"
                      onclick="putAddress(id)" /></td>
                </tr>
@@ -570,7 +615,7 @@ li, a {
 
       // 우편주소검색 창 띄우기
       function openZipcode(joinform) {
-         var url = "./zipcode.jsp"
+         var url = "/zipcode"
          // 새로운 창을 띄워주는 것
          open(url, "confirm", "toolbar=no,location=no,"
                + "status=no,menubar=no," + "scrollbars=yes,resizable=no,"
