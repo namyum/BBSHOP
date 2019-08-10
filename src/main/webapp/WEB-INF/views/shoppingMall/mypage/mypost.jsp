@@ -75,11 +75,7 @@ $(document).ready(function() {
 	
 	var amount = actionForm.find("input[name='amount']").val();
 	var pageNum = actionForm.find("input[name='pageNum']").val();
-	var category = actionForm.find("input[name='category']").val()
-	
-	console.log('amount : ' + amount);
-	console.log('pageNum : ' + pageNum);
-	console.log('category : ' + category);
+	var category = actionForm.find("input[name='category']").val();
 	
 	var data = {};
 	
@@ -102,9 +98,6 @@ $(document).ready(function() {
 			var str = '';
 			var paging = '';
 			
-			console.log(start);
-			console.log(end);
-			
 			if (category == 'review') {
 				
 				category = '상품 후기';
@@ -126,8 +119,6 @@ $(document).ready(function() {
 								
 				if (category == '상품 후기') {
 					
-					console.log(values[index].re_hit);
-					
 					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
 						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
 				
@@ -147,6 +138,7 @@ $(document).ready(function() {
 			$('tbody').empty();
 			$('tbody').append(str);
 			
+			// 게시판 종류 표시를 바꿔준다
 			$('#table_content').empty();
 			$('#table_content').append(category);
 			
@@ -209,8 +201,6 @@ function getTableWithAjax(menu) {
 			var cnt = 0;
 			var total = result.total;
 			
-			console.log('category : ' + category)
-			
 			if (category == 'review') {
 				
 				cate = '상품 후기';
@@ -275,11 +265,6 @@ function getTableWithAjax(menu) {
 			if (realEnd < end) {
 				end = realEnd;
 			}
-			
-			console.log('end : ' + end);
-			console.log('start : ' + start);
-			console.log('realEnd : ' + realEnd);
-			console.log('total : ' + total);
 			
 			for (var i = start; i <= end; i++) {
 				
@@ -336,10 +321,7 @@ $(document).on("click", ".page-item a", function(e) {
 			var cate = '';
 			var str = '';
 			var paging = '';
-			var cnt = 0;
 			var total = result.total;
-			
-			console.log('category : ' + category)
 			
 			if (category == 'review') {
 				
@@ -364,23 +346,16 @@ $(document).on("click", ".page-item a", function(e) {
 					
 					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
 						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
-					
-					cnt++;
-				
+									
 				} else if (cate == '상품 QnA') {
 					
 					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
 						+ values[index].regdate + '</h5></td><td><h5>0</h5></td></tr>';
 				
-					cnt++;
-
 				} else if (cate == '1:1 문의') {
 					
 					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
 						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
-				
-					cnt++;
-
 				}
 				
 			});
@@ -391,6 +366,7 @@ $(document).on("click", ".page-item a", function(e) {
 			$('#table_content').empty();
 			$('#table_content').append(cate);
 			
+			// 게시판 종류별 총 게시글 출력
 			var all_cnt = '';
 			all_cnt += '총 게시글 : ' + total + '개';
 			
@@ -405,11 +381,6 @@ $(document).on("click", ".page-item a", function(e) {
 			if (realEnd < end) {
 				end = realEnd;
 			}
-			
-			console.log('end : ' + end);
-			console.log('start : ' + start);
-			console.log('realEnd : ' + realEnd);
-			console.log('total : ' + total);
 			
 			for (var i = start; i <= end; i++) {
 				
