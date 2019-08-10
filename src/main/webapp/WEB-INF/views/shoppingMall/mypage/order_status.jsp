@@ -202,8 +202,6 @@
 		} else {
 		
 			$("input[name='stts']:checked").each(function(){
-		    
-				console.log('$(this).val() : ' + $(this).val());
 				
 				checkValues.push($(this).val());
 			});
@@ -226,9 +224,7 @@
 			dataType: "json",			
 			contentType:"application/json",			
 			success : function(result) {
-			
-				console.log('result.length : ' + result.length);
-				
+							
 				var str = '';
 				var end = (Math.ceil(pageNum / 10.0)) * 10;
 				var start = end - 9;
@@ -240,14 +236,8 @@
 				if (realEnd < end) {
 					end = realEnd;
 				}
-				
-				console.log('start : ' + start);
-				console.log('end : ' + end);
 																		
 				var values = result.orders_list;
-					
-				console.log('values : ' + values);
-				console.log('OrderVO 개수 : ' + values.length);
 					
 				$.each(values, function(index, value) {
 										
@@ -280,6 +270,7 @@
 				$('tbody').empty();
 				$('tbody').append(str);
 				
+				// 전체 주문 수 표시 AJAX 처리
 				var all_cnt = '';
 				all_cnt += '내 주문 : ' + result.total + '건';
 				
@@ -406,8 +397,8 @@
 		} else {
 		
 			$("input[name='stts']:checked").each(function(){
-		    
-				checkValues.push($("input[name='stts']:checked").val());
+		    				
+				checkValues.push($(this).val());
 			});
 		}
 		
@@ -426,9 +417,7 @@
 			dataType: "json",			
 			contentType:"application/json",			
 			success : function(result) {
-			
-				console.log('result.length : ' + result.length);
-				
+							
 				var str = '';
 				var end = (Math.ceil(pageNum / 10.0)) * 10;
 				var start = end - 9;
@@ -440,14 +429,8 @@
 				if (realEnd < end) {
 					end = realEnd;
 				}
-				
-				console.log('start : ' + start);
-				console.log('end : ' + end);
 																		
 				var values = result.orders_list;
-					
-				console.log('values : ' + values);
-				console.log('OrderVO 개수 : ' + values.length);
 					
 				$.each(values, function(index, value) {
 										
@@ -480,6 +463,7 @@
 				$('tbody').empty();
 				$('tbody').append(str);
 				
+				// 전체 주문 수 AJAX 처리
 				var all_cnt = '';
 				all_cnt += '내 주문 : ' + result.total + '건';
 				
