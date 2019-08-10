@@ -19,4 +19,6 @@ public interface MemberService {
 	public boolean deleteMemberInfo(String id, String pw);
 	public void modify(MemberVO member);
 	public String memberPw(MemberVO member);
+	
+	public MemberVO getMemberInfo(long user_key);
 }

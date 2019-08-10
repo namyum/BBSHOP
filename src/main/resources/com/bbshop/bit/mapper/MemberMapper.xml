@@ -63,4 +63,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <select id="getNickname" parameterType="com.bbshop.bit.domain.MemberVO" resultType="int">
 	select count(*) from sh_user where nickname=#{NICKNAME}
 </select>
+
+<select id="getMemberInfo" resultType="com.bbshop.bit.domain.MemberVO">
+	select *
+	from sh_user
+	where user_key = #{user_key}
+</select>
 </mapper>

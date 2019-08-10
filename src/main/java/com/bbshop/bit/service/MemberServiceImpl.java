@@ -136,4 +136,13 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public MemberVO getMemberInfo(long user_key) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		sqlSession.getMapper(MemberMapper.class);
+		System.out.println("serviceImpl....user_key : "+ user_key);
+		
+		return mapper.getMemberInfo(user_key);
+	}
+
 }
