@@ -77,42 +77,48 @@
 	</select>
 		
 	<select id="getReviewList" resultMap="reviewVO">
-		<![CDATA[
 		    SELECT rownum rn, rv_num, title, re_date, re_hit
      		FROM	
 				( SELECT rv_num, title, re_date, re_hit
 			  	  FROM review
 			   	  WHERE user_key = #{key}
        		  	  ORDER BY rv_num desc )
-     		 WHERE rv_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
-     		 	AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
-		]]>
+       		<if test='pagingVO.pageNum != 0'>
+			<![CDATA[	       	
+	     		WHERE rv_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     			AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
+			]]>
+			</if>
 	</select>
 	
 	<select id="getOnetooneList" resultType="com.bbshop.bit.domain.OnetooneVO">
-		<![CDATA[	
      		SELECT *
      		FROM
      			( SELECT *
        			  FROM onetoone 
        			  WHERE user_key = #{key}
        			  ORDER BY one_one_num desc )
-     		WHERE one_one_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
-     			AND one_one_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
-		]]>
+       		<if test='pagingVO.pageNum != 0'>
+			<![CDATA[	       	
+	     		WHERE one_one_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     			AND one_one_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
+			]]>
+			</if>
 	</select>
 	
 	<select id="getQnaList" resultType="com.bbshop.bit.domain.GoodsQnaVO">
-		<![CDATA[	
      		SELECT *
      		FROM
      			( SELECT *
        			  FROM qna 
        			  WHERE user_key = #{key}
        			  ORDER BY qna_num desc )
-     		WHERE qna_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
-     			AND qna_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
-		]]>
+       		<if test='pagingVO.pageNum != 0'>
+			<![CDATA[	       	
+	     		WHERE qna_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     			AND qna_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
+			]]>
+			</if>
 	</select>
 	
 	<!-- 전체 주문 리스트 -->

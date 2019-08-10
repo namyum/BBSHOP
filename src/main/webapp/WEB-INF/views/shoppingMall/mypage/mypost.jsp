@@ -78,8 +78,9 @@ $(document).ready(function() {
 	var pageNum = actionForm.find("input[name='pageNum']").val();
 	var category = actionForm.find("input[name='category']").val()
 	
-	console.log(amount);
-	console.log(pageNum);
+	console.log('amount : ' + amount);
+	console.log('pageNum : ' + pageNum);
+	console.log('category : ' + category);
 	
 	var data = {};
 	

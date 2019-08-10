@@ -188,7 +188,7 @@
 
 	});
 	
-	// 주문 배송 상태에 따른 체크박스 함수
+	// 주문 배송 상태에 따른 체크박스 클릭시의 함수
 	function showOrderList(checkbox) {
 		
 		var checkValues = new Array();
@@ -304,7 +304,7 @@
 		});
 	}
 	
-	// 페이지가 로드되면 주문/배송 리스트 불러오기
+	// 페이지가 로드되면 주문/배송 전체 리스트 불러오기
 	$(document).ready(function() {
 		
 		var data = {

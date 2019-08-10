@@ -515,6 +515,7 @@ public class MyPageController {
 		} else {
 			
 			long sum = 0;
+			pagingVO.setPageNum(0); // 전체 게시글을 출력하기 위해 pageNum을 0으로 설정한다.
 			
 			total = myPageService.getTotal(pagingVO, "review", user_key);
 			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
@@ -525,25 +526,43 @@ public class MyPageController {
 			sum += total;
 			
 			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
+			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
 			sum += total;
+			
+			List<Object> total_list = new ArrayList<Object>();
 			
 			for (int i = 0; i < qna_list.size(); i++) {
 				qna_list.get(i).setQna_num(sum--);
+				total_list.add(qna_list.get(i));
 			}
 			
 			for (int i = 0; i < onetoone_list.size(); i++) {
 				onetoone_list.get(i).setOne_one_num(sum--);
+				total_list.add(onetoone_list.get(i));
 			}
 			
 			for (int i = 0; i < review_list.size(); i++) {
 				review_list.get(i).setRv_num(sum--);
+				total_list.add(review_list.get(i));				
 			}
 			
-			listMap.put("qna", qna_list);		
-			listMap.put("onetoone", onetoone_list);
-			listMap.put("review", review_list);
+//			listMap.put("qna", qna_list);		
+//			listMap.put("onetoone", onetoone_list);
+//			listMap.put("review", review_list);
+
+			for (int i = 0; i < total_list.size(); i++) {
+				
+				System.out.println(total_list.get(i).toString());
+			}
 			
+			System.out.println("전체 리스트 크기 : " + total_list.size());
+			
+			// pageNum : 1, amount : 5 -> 0 ~ 4
+			// pageNum : 2, amount : 5 -> 5 ~ 9
+			// pageNum : 3, amount : 5 -> 10 ~ 14
+			// pageNum : x, amount : y -> amount * (pageNum - 1) ~ amount * pageNum - 1
+			
+			listMap.put("total_list", total_list);
 			return listMap;
 		}
 	}
