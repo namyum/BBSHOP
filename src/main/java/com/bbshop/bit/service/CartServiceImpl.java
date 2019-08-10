@@ -66,5 +66,19 @@ public class CartServiceImpl implements CartService {
 		mapper.deleteAll();
 		System.out.println("전체삭제 되었습니다.");
 	}
+	
+	
+	@Override
+	public int calcShipping_fee(int allPrice) {
+		int shipping_fee=0;
+		if(allPrice>=2000000) {
+			shipping_fee=0;
+		}
+		else {
+			shipping_fee=2500;
+			allPrice+=2500;
+		}
+		return shipping_fee;
+	}
 
 }

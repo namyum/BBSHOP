@@ -13,4 +13,6 @@ public interface CartService {
 	public void modify(Cart_PDVO qnt);
 	public void selectDelete(Map<String,Object> deleteMap);
 	public void deleteAll();
+
+	public int calcShipping_fee(int allPrice);
 }
