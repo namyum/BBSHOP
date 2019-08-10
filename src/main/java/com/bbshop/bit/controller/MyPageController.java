@@ -205,12 +205,19 @@ public class MyPageController {
 		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
 		
 		System.out.println("modify_info 컨트롤러의 회원 정보 : " + member.toString());
-		System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
-		System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
 				
 		model.addAttribute("memberInfo", member);
-		model.addAttribute("addr_list", addr_list);
-		model.addAttribute("member_detail", member_detail);
+		
+		if (addr_list != null) {
+			
+			model.addAttribute("addr_list", addr_list);
+			System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
+		}
+		if (member_detail != null) {
+			
+			model.addAttribute("member_detail", member_detail);
+			System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
+		}
 		
 		return "shoppingMall/mypage/modify_info";
 	}

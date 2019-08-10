@@ -204,28 +204,36 @@ public class GoodsController {
 
 		log.info("Controller...shopping_main.jsp");
 
-		//		// 세션 user_key 값 받아오기 
-		//		String nickname = (String)session.getAttribute("nickname");
-		//		
-		//		// 비회원일 경우, 
-		//		if(nickname.substring(0,9).equals("noAccount")) {
-		//			List<GoodsVO> recommendList = service.recommendBestList();
-		//		
-		//			model.addAttribute("recommendList", recommendList);
-		//		}
-		//		// 회원일 경우,.
-		//		else {
-		//			long user_key = (long)session.getAttribute("user_key");
-
-		// 합치기 전 임시 user_key
-		long user_key = 65;
+		long user_key = 0;
+		List<GoodsVO> recommendList = new ArrayList<GoodsVO>();
+		
+		// 세션 user_key 값 받아오기 
+		String nickname = (String)session.getAttribute("nickname");
+				
+		// 비회원일 경우, 
+		if (nickname != null && nickname.substring(0,9).equals("noAccount")) {
+			
+			recommendList = service.recommendBestList();
+				
+			model.addAttribute("recommendList", recommendList);
+			
+			return "shoppingMall/main/shopping_main";
+			
+		// 회원일 경우...
+		} else {
+			user_key = (long)session.getAttribute("member");
+		}
 
 		MoreDetailsVO moredetail = service.findDetail(user_key);
 
 		System.out.println("moredetail 추가 사항 객체 정보 : " + moredetail);
 
-		List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
-
+		// 추가사항이 없을 경우 moredetail이 null이 되므로 null 체크 로직 추가.
+		if (moredetail != null) {
+		
+			recommendList = service.recommendGoodsList(moredetail);
+		}
+		
 		if (recommendList != null) {
 
 			System.out.println("recommendList 객체 : " + recommendList.toString());
