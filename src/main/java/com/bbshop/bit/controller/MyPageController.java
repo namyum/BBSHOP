@@ -156,36 +156,17 @@ public class MyPageController {
 		
 		long total = 0;
 		long sum = 0;
-		long user_key = (long)session.getAttribute("member");
-
-		total = myPageService.getTotal(pagingVO, "qna", user_key);
-		List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
-		sum += total;		
+		long user_key = (long)session.getAttribute("member");	
 		
 		total = myPageService.getTotal(pagingVO, "review", user_key);
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
-		sum += total;
 		
-		total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
-		sum += total;
-		
-		PageDTO pageMaker = new PageDTO(pagingVO, sum);
-			
-		for (int i = 0; i < qna_list.size(); i++) {
-			qna_list.get(i).setQna_num(sum--);
-		}
-		
-		for (int i = 0; i < onetoone_list.size(); i++) {
-			onetoone_list.get(i).setOne_one_num(sum--);
-		}
+		PageDTO pageMaker = new PageDTO(pagingVO, total);
 		
 		for (int i = 0; i < review_list.size(); i++) {
 			review_list.get(i).setRv_num(sum--);
 		}
 		
-		model.addAttribute("qna_list", qna_list);
-		model.addAttribute("onetoone_list", onetoone_list);
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -531,6 +512,7 @@ public class MyPageController {
 			
 			List<Object> total_list = new ArrayList<Object>();
 			
+			// 전체 게시글 목록의 번호를 가지도록 VO상의 번호를 재설정한다.
 			for (int i = 0; i < qna_list.size(); i++) {
 				qna_list.get(i).setQna_num(sum--);
 				total_list.add(qna_list.get(i));
@@ -549,20 +531,40 @@ public class MyPageController {
 //			listMap.put("qna", qna_list);		
 //			listMap.put("onetoone", onetoone_list);
 //			listMap.put("review", review_list);
-
-			for (int i = 0; i < total_list.size(); i++) {
-				
-				System.out.println(total_list.get(i).toString());
-			}
 			
-			System.out.println("전체 리스트 크기 : " + total_list.size());
+//			pagingVO.setPageNum(pageNum); // pagingVO의 pageNum을 다시 원래대로 맞춘다.
+//			
+//			// startPage와 endPage를 구하는 로직
+//			int endPage = (int)(Math.ceil(pagingVO.getPageNum() / 10.0)) * 10;
+//			int startPage = endPage - 9;
+//			
+//			int realEnd = (int)(Math.ceil((total_list.size() * 1.0) / pagingVO.getAmount()));
+//			
+//			if (realEnd < endPage) {
+//				endPage = realEnd;
+//			}
+			
+			int start = (int)((pageNum - 1) * amount);
+			int end = (int)(amount * pageNum - 1);
+			
+			List<Object> output_list = new ArrayList<Object>();
+			
+			for (int i = start; i <= end; i++) {
+				
+				output_list.add(total_list.get(i));
+			}
 			
 			// pageNum : 1, amount : 5 -> 0 ~ 4
 			// pageNum : 2, amount : 5 -> 5 ~ 9
 			// pageNum : 3, amount : 5 -> 10 ~ 14
 			// pageNum : x, amount : y -> amount * (pageNum - 1) ~ amount * pageNum - 1
 			
-			listMap.put("total_list", total_list);
+			System.out.println("output_list : " + output_list);
+			System.out.println("total_list.size() : " + total_list.size());
+			
+			listMap.put("output_list", output_list);
+			listMap.put("total", total_list.size());
+			
 			return listMap;
 		}
 	}
