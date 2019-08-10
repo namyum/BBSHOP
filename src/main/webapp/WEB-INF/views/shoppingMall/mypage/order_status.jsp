@@ -193,7 +193,7 @@
 		
 		var checkValues = new Array();
 		
-		actionForm.find("input[name='pageNum']").val($('.page-item.active a').attr("href"));
+		actionForm.find("input[name='pageNum']").val(1); // 어떠한 카테고리든 선택시에는 1페이지부터 보이게 고정한다.
 		
 		if ($("input[name='stts']:checked").length == 0) {
 			
