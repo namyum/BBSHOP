@@ -185,16 +185,21 @@ th{
                       		<ul class="pagination">
 										<c:if test="${PageMaker.prev}">
 										<li class="page-item disabled"><a class="page-link"
-											href="#">이전</a></li>
+											href="${PageMaker.startPage -1 }">이전</a></li>
 										</c:if>
 										<c:forEach var="num" begin="${PageMaker.startPage}" end="${PageMaker.endPage}">
-										<li class="page-item"><a class="page-link" href="#">${num}</a></li>
+										<li class="page-item ${PageMaker.cri.pageNum==num?"active":"" }">
+										<a class="page-link" href="<c:out value="${num}"/>"><c:out value="${num}"/></a></li>
 										</c:forEach>
 										<c:if test="${PageMaker.next}">
 										<li class="page-item"><a class="page-link"
-											href="#">다음</a></li>
+											href="${PageMaker.endPage+1 }">다음</a></li>
 										</c:if>
 									</ul>
+							<form id='pageForm' action='pageList.do' method='get'>
+								<input type='hidden' name='pageNum' value='${PageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${PageMaker.cri.amount}'>
+							</form>
                       	</td>
                       		
                       	<td style='text-align:right;' width=30%>
@@ -397,6 +402,18 @@ th{
   <script>
     $(document).ready(function() {
       $().ready(function() {
+    	  
+    	  //페이지 이동부분
+    	  var actionForm =$("#pageForm");
+    	  
+    	  $(".paginate_button a").on("click",function(e){
+    		e.preventDefault();
+    		console.log("click");
+    		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+    		actionForm.submit();
+    	  });
+    	  
+    	  
     	  
     	  $(".sidebar-wrapper li").eq(2).addClass('active');
     	 
