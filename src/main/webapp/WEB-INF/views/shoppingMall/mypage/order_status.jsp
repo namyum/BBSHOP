@@ -197,12 +197,14 @@
 		
 		if ($("input[name='stts']:checked").length == 0) {
 			
-			checkValues = '5'; // 체크된 버튼이 없을시에 전체 주문을 불러온다.
+			checkValues.push('5'); // 체크된 버튼이 없을시에 전체 주문을 불러온다.
 			
 		} else {
 		
 			$("input[name='stts']:checked").each(function(){
 		    
+				console.log('$(this).val() : ' + $(this).val());
+				
 				checkValues.push($(this).val());
 			});
 		}
@@ -306,7 +308,7 @@
 			
 			error: function() {
 			
-				alert("error = " + errorThrown);
+				alert('ajax 에러!');
 			}
 		});
 	}
@@ -399,13 +401,13 @@
 		
 		if ($("input[name='stts']:checked").length == 0) {
 			
-			checkValues = '5'; // 체크된 버튼이 없을시에 전체 주문을 불러온다.
+			checkValues.push('5'); // 체크된 버튼이 없을시에 전체 주문을 불러온다.
 			
 		} else {
 		
 			$("input[name='stts']:checked").each(function(){
 		    
-				checkValues.push((this).val());
+				checkValues.push($("input[name='stts']:checked").val());
 			});
 		}
 		
@@ -465,7 +467,7 @@
 					
 					if (values[index].stts == 0) {
 							
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + values[index].order_num + ')">'
 						+ '<span>주문 취소</span></button></td></tr>';
 							
 					} else {
