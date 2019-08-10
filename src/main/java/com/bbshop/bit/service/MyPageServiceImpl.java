@@ -178,11 +178,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, long stts) {
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, List<String> stts_list) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getOrdersListStss(pagingVO, total, key, stts);
+		return myPageMapper.getOrdersListStss(pagingVO, total, key, stts_list);
 	}
 
 }

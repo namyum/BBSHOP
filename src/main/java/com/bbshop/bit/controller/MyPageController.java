@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,8 +183,6 @@ public class MyPageController {
 		for (int i = 0; i < review_list.size(); i++) {
 			review_list.get(i).setRv_num(sum--);
 		}
-		
-
 		
 		model.addAttribute("qna_list", qna_list);
 		model.addAttribute("onetoone_list", onetoone_list);
@@ -401,29 +400,66 @@ public class MyPageController {
 	// ajax로 체크박스 배송 목록 가져 오기
 	@RequestMapping(value = "/orderListCheck.do", consumes = "application/json")
 	@ResponseBody
-	public List<OrderVO> getOrderListCheck(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> getOrderListCheck(@RequestBody Map<String, Object> map) {
 		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
-		long stts = (long)Integer.parseInt((String)map.get("stts"));
+		
+		List<String> stts_list = new ArrayList<String>();
+		
+		System.out.println("map.get(\"stts\") : " + map.get("stts"));
+		
+		stts_list = (List<String>) map.get("stts");
+		
+		for (String item : stts_list) {
+			
+			System.out.println("item : " + item);
+		}
+		
+		Map<String, Object> listMap = new HashMap<>();
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
-
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 		
-		if (stts == 5) {
+		// 체크가 안되어있는 경우 (전체 주문 출력)
+		if (stts_list.size() == 1 && Integer.parseInt(stts_list.get(0)) == 5) {
 		
+			total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
+			
 			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 			
-			return orders_list;
+			listMap.put("orders_list", orders_list);
+			listMap.put("total", total);
+			
+			return listMap;
 		}
 
-		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts);
+		// 특정 주문 체크박스에 체크가 되어 있는 경우
+		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts_list);
 		
-		return orders_list;
+		List<OrderVO> all_list = new ArrayList<OrderVO>();
+				
+		all_list = myPageService.getAllOrdersList(user_key);
+		
+		// 주문배송 상태와 숫자가 같으면 total 값을 1씩 증가시킨다.
+		for (OrderVO item : all_list) {
+			
+			for (int i = 0; i < stts_list.size(); i++) {
+				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) ) {
+					total++;
+				}
+			}
+		}
+		
+		System.out.println("orders_list : " + orders_list);
+		System.out.println("total : " + total);
+		
+		listMap.put("orders_list", orders_list);
+		listMap.put("total", total);
+		
+		return listMap;
 	}
 	
 	// ajax로 내가 남긴 글 가져 오기
