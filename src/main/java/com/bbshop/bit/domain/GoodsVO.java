@@ -2,116 +2,23 @@ package com.bbshop.bit.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class GoodsVO {
 	
-	private long goods_num;		// »óÇ° ¹øÈ£
-	private int category;		// Ä«Å×°í¸® (1:±Û·¯ºê, 2:¹èÆ®, 3:À¯´ÏÆû, 4:¾ß±¸È­, 5:¾ß±¸°ø)
-	private String name;		// »óÇ°¸í
-	private long stock;			// Àç°í ¼ö (ÀÇÁ¤ - default:100)
-	private long price;			// °¡°Ý
-	private String brand;		// ºê·£µå (10°³)
-	private String main_img;	// ¸ÞÀÎ »çÁø(goodsList)
-	private String dtl_img1;	// »ó¼¼ »çÁø1(goodsInfo - ´ëÇ¥)
-	private String dtl_img2;	// »ó¼¼ »çÁø2(goodsInfo - »ó¼¼¼³¸í »çÁø ±ä°Å)
-	private int best;			// ÀÎ±â»óÇ° (0:ÀÏ¹Ý, 1:ÀÎ±â»óÇ°)
-	private long discount;		// ÇÒÀÎÀ²
-	private int soldout;		// Ç°Àý¿©ºÎ (0:Ç°Àý¾Æ´Ô, 1:Ç°Àý)
-	private long sales;			// ÆÇ¸Å ¼ö·®
-	private Date regdate;		// µî·ÏÀÏ
-	
-	
-	public long getGoods_num() {
-		return goods_num;
-	}
-	public void setGoods_num(long goods_num) {
-		this.goods_num = goods_num;
-	}
-	public int getCategory() {
-		return category;
-	}
-	public void setCategory(int category) {
-		this.category = category;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public long getStock() {
-		return stock;
-	}
-	public void setStock(long stock) {
-		this.stock = stock;
-	}
-	public long getPrice() {
-		return price;
-	}
-	public void setPrice(long price) {
-		this.price = price;
-	}
-	public String getBrand() {
-		return brand;
-	}
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	public String getMain_img() {
-		return main_img;
-	}
-	public void setMain_img(String main_img) {
-		this.main_img = main_img;
-	}
-	public String getDtl_img1() {
-		return dtl_img1;
-	}
-	public void setDtl_img1(String dtl_img1) {
-		this.dtl_img1 = dtl_img1;
-	}
-	public String getDtl_img2() {
-		return dtl_img2;
-	}
-	public void setDtl_img2(String dtl_img2) {
-		this.dtl_img2 = dtl_img2;
-	}
-	public int getBest() {
-		return best;
-	}
-	public void setBest(int best) {
-		this.best = best;
-	}
-	public long getDiscount() {
-		return discount;
-	}
-	public void setDiscount(long discount) {
-		this.discount = discount;
-	}
-	public int getSoldout() {
-		return soldout;
-	}
-	public void setSoldout(int soldout) {
-		this.soldout = soldout;
-	}
-	public long getSales() {
-		return sales;
-	}
-	public void setSales(long sales) {
-		this.sales = sales;
-	}
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
-	
-	@Override
-	public String toString() {
-		return "GoodsVO [goods_num=" + goods_num + ", category=" + category + ", name=" + name + ", stock=" + stock
-				+ ", price=" + price + ", brand=" + brand + ", main_img=" + main_img + ", dtl_img1=" + dtl_img1
-				+ ", dtl_img2=" + dtl_img2 + ", best=" + best + ", discount=" + discount + ", soldout=" + soldout
-				+ ", sales=" + sales + ", regdate=" + regdate + "]";
-	}
-	
+	private long goods_num;		// ï¿½ï¿½Ç° ï¿½ï¿½È£
+	private int category;		// Ä«ï¿½×°ï¿½ (1:ï¿½Û·ï¿½ï¿½ï¿½, 2:ï¿½ï¿½Æ®, 3:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 4:ï¿½ß±ï¿½È­, 5:ï¿½ß±ï¿½ï¿½ï¿½)
+	private String name;		// ï¿½ï¿½Ç°ï¿½ï¿½
+	private long price;			// ï¿½ï¿½ï¿½ï¿½
+	private String detail;
+	private String brand;		// ï¿½ê·£ï¿½ï¿½ (10ï¿½ï¿½)
+	private String main_img;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(goodsList)
+	private String dtl_img1;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1(goodsInfo - ï¿½ï¿½Ç¥)
+	private String dtl_img2;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½2(goodsInfo - ï¿½ó¼¼¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+	private int best;			// ï¿½Î±ï¿½ï¿½Ç° (0:ï¿½Ï¹ï¿½, 1:ï¿½Î±ï¿½ï¿½Ç°)
+	private long discount;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private long sales;			// ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private Date regdate;		// ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 }

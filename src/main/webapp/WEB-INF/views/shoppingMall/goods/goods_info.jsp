@@ -139,9 +139,9 @@ function qnaList_Ajax() {
 				var output = "";
 				
 				if(data[index].re_lev == 1) 
-					output += "<tr class='qna_item reply'>";
+					output += "<tr class='table_item reply'>";
 				else
-					output += "<tr class='qna_item'>";
+					output += "<tr class='table_item'>";
 					
 				
 					
@@ -150,15 +150,66 @@ function qnaList_Ajax() {
 				output += "<td>" + data[index].user_key + "</td>";
 				output += "<td>" + data[index].regdate + "</td></tr>";
 				
-				output += "<tr class='qna_content' style='display:none;'>";
+				output += "<tr class='table_content' style='display:none;'>";
 				output += "<td colspan='4'><div class='view'><p>" + data[index].content + "</p></div></td></tr>";
 				
-				console.log("output : " + output);
 				$('#qna_list').append(output);
 
 			});
 		},
 		error : function() {alert('qna ajax 통신 실패!');}
+	});
+}
+
+function reviewList_Ajax() {
+//	var s = $("#actionForm input[name='pageNum']").val();
+	
+//	var qnaPageNum = $('#actionForm input[name="pageNum"]').val();
+//	if(qnaPageNum === undefined)
+//		qnaPageNum = 1;
+	var reviewPageNum = 1;
+	var reviewAmount = 20;
+	var goods_num = ${goods.goods_num};
+	
+	var data = {};
+	data["pageNum"] = reviewPageNum * 1;
+	data["amount"] = reviewAmount;
+	data["goods_num"] = goods_num;
+	console.log(data);
+	
+	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
+	$('#review_list').empty();
+	
+	$.ajax({
+		type : "POST",
+		url : "/getReviewList_Ajax.do",
+		data : JSON.stringify(data),
+		dataType: "json",
+		contentType : "application/json",
+		success : function(data) {
+			$.each(data, function(index, review) {
+				var output = "";
+				
+				output += "<tr class='table_item'>";
+				output += "<td>" + data[index].rv_num + "</td>";
+				output += "<td>" + data[index].title + "</td>";
+				
+				output += "<td>";
+				// 별점
+				for(i=0; i<data[index].score; i++) {
+					output += "<i class='fa fa-star'></i>"
+				}
+				output += "</td>";
+				output += "<td>" + data[index].user_key + "</td>";
+				output += "<td>" + data[index].re_date + "</td></tr>";
+				
+				output += "<tr class='table_content' style='display:none;'>";
+				output += "<td colspan='5'><div class='view'><p>" + data[index].contents + "</p></div></td></tr>";
+				
+				$('#review_list').append(output);
+			});
+		},
+		error : function() {alert('review ajax 통신 실패!');}
 	});
 }
 </script>
@@ -214,7 +265,7 @@ function qnaList_Ajax() {
 								 <a class="default-select glove" id="default-select" href="#none">
 									<!-- 옵션1 -->
 									<label for="glove_hand"><span class="option">좌 / 우</span></label>
-									<select id="glove_hand">
+									<select id="glove_hand" class="glove">
 										<option value="0">좌투(오른손착용)</option>
 										<option value="1">우투(왼손착용)</option>
 									</select>
@@ -223,8 +274,8 @@ function qnaList_Ajax() {
 							<li>
 								<a class="default-select glove" id="default-select" href="#none">
 									<!-- 옵션2 -->
-									<label for="glove_tame"><span class="option">길들이기</span></label>
-									<select id="glove_tame">
+									<label for="glove_taming"><span class="option">길들이기</span></label>
+									<select id="glove_taming" class="glove">
 										<option value="0">선택안함</option>
 										<option value="1">볼집+각잡기(+15000)</option>
 									</select>
@@ -235,7 +286,7 @@ function qnaList_Ajax() {
 							<li>	<!-- 배트 옵션 -->
 								<a class="default-select bat" id="default-select" href="#none">
 									<label for="bat_size"><span class="option">규격</span></label>
-									<select id="bat_size">
+									<select id="bat_size" class="bat">
 										<option value="33">33인치</option>
 										<option value="32">32인치</option>
 									</select>
@@ -246,7 +297,7 @@ function qnaList_Ajax() {
 							<li>	<!-- 유니폼 옵션 -->
 								<a class="default-select uniform" id="default-select" href="#none">
 									<label for="uniform_size"><span class="option">사이즈</span></label>
-									<select id="uniform_size">
+									<select id="uniform_size" class="uniform">
 										<option value="85">85</option>
 										<option value="90">90</option>
 										<option value="95">95</option>
@@ -260,17 +311,19 @@ function qnaList_Ajax() {
 							<li>	<!-- 야구화 옵션 -->
 								<a class="default-select shoes" id="default-select" href="#none">
 									<label for="shoes_size"><span class="option">사이즈</span></label>
-									<select id="shoes_size">
+									<select id="shoes_size" class="shoes">
+										<option value="230">230</option>
+										<option value="240">240</option>
+										<option value="250">250</option>
 										<option value="260">260</option>
 										<option value="270">270</option>
-										<option value="280">280</option>
 									</select>
 								</a>
 							</li>
 							<li>
 								<a class="default-select shoes" id="default-select" href="#none">
 									<label for="shoes_spike"><span class="option">사이즈</span></label>
-									<select id="shoes_spike">
+									<select id="shoes_spike" class="shoes">
 										<option value="0">선택안함</option>
 										<option value="1">스파이크(+5000)</option>
 									</select>
@@ -280,8 +333,8 @@ function qnaList_Ajax() {
 					<!-- 야구공 옵션 ---------------->
 							<li>	<!-- 야구공 옵션 -->
 								<a class="default-select ball" id="default-select" href="#none">
-									<label for="ball_count"><span class="option">판매단위</span></label>
-									<select id="ball_count">
+									<label for="ball_unit"><span class="option">판매단위</span></label>
+									<select id="ball_unit" class="ball"> 
 										<option value="0">낱개</option>
 										<option value="1">12개(1타스)</option>
 									</select>
@@ -307,8 +360,28 @@ function qnaList_Ajax() {
 							</button>
 						</div>
 						<div class="card_area" style="width:400px;">
-							<a class="main_btn" href="/order">구매하기</a>
-							<a class="main_btn" id="info_cart_btn" href="#none">장바구니</a>
+							<form id="option" action="/order_good.do" method="get" style="display:inline-block;" onsubmit='return setOption();'>
+								<input type="hidden" name="category" value=${goods.category }>
+								<input type="hidden" name="goods_num" value=${goods.goods_num }>
+								<input type="hidden" name="option1" value="">
+								<input type="hidden" name="option2" value="">
+								<input type="hidden" name="qty" value="">
+								<input type="submit" class="main_btn" value="구매하기">
+							</form>
+							
+							<form id="option" action="/insert_cart.do" method="get" style="display:inline-block;" onsubmit='return ???();'>
+								<input type="hidden" name="category" value=${goods.category }>
+								<input type="hidden" name="goods_num" value=${goods.goods_num }>
+								<input type="hidden" name="option1" value="">
+								<input type="hidden" name="option2" value="">
+								<input type="hidden" name="qty" value="">
+								<input type="submit" class="main_btn" id="info_cart_btn" value="장바구니">
+							</form>	
+							
+							
+							
+<!--							<a class="main_btn" href="/order_good.do">구매하기</a> -->
+<!-- 							<a class="main_btn" id="info_cart_btn" href="#none">장바구니</a> -->
 							
 						</div>
 					</div>
@@ -417,14 +490,14 @@ function qnaList_Ajax() {
 									</script>
 							
 <!-- 										번호,제목,닉네임,날짜 -->
-<!-- 										<tr class="qna_item"> -->
+<!-- 										<tr class="table_item"> -->
 <!-- 											<td style="padding:20px, 0;">3</td> -->
 <!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
 <!-- 											<td style="padding:20px, 0;">왕왕</td> -->
 <!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
 <!-- 										</tr> -->
 <!-- 										내용 -->
-<!-- 										<tr class="qna_content" style="display:none;"> -->
+<!-- 										<tr class="table_content" style="display:none;"> -->
 <!-- 											<td colspan="4"> -->
 <!-- 												<div class="view"> -->
 <!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
@@ -496,11 +569,12 @@ function qnaList_Ajax() {
 									<h3 class="mb-30 title_color" style="padding-left:30px;">별점 별 보기</h3>
 									<div class="default-select" id="default-select">
 										<select>
-											<option value="star5">★★★★★</option>
-											<option value="star4">★★★★☆</option>
-											<option value="star3">★★★☆☆</option>
-											<option value="star2">★★☆☆☆</option>
-											<option value="star1">★☆☆☆☆</option>
+											<option value="0">전체</option>
+											<option value="5">★★★★★</option>
+											<option value="4">★★★★☆</option>
+											<option value="3">★★★☆☆</option>
+											<option value="2">★★☆☆☆</option>
+											<option value="1">★☆☆☆☆</option>
 										</select>
 									</div>
 								</div>
@@ -547,61 +621,48 @@ function qnaList_Ajax() {
 								</div>
 							</div>
 						</div>
-						<div class="review_list">
-								<div class="review_item">
-									<div class="media">
-								<!--		<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-1.png" alt="">
-										</div> -->
-										<div class="media-body">
-											<h4>제목1</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>&emsp;닉네임1
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-								<!--		<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-2.png" alt="">
-										</div> -->
-										<div class="media-body">
-											<h4>제목2</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>&emsp;닉네임2
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-							<!--			<div class="d-flex">
-											<img src="resources/shoppingMall/img/product/single-product/review-3.png" alt="">
-										</div>  -->
-										<div class="media-body">
-											<h4>제목3</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>&emsp;닉네임3
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-								</div>
+						<div class="comment_list">
+							<table border="0" style="width : -webkit-fill-available;">
+									<thead>
+										<tr>
+											<th scope="col" class="review_number">번호</th>
+											<th scope="col" class="review_title" style="width:50%;">제목</th>
+											<th scope="col" class="review_score">별점</th>
+											<th scope="col" class="review_nickname">닉네임</th>
+											<th scope="col" class="review_date">날짜</th>
+										</tr>
+									</thead>
+									<tbody id="review_list">
+
+									<script>
+										reviewList_Ajax();
+									</script>
+
+<!-- 										번호,제목,닉네임,날짜 -->
+<!-- 										<tr class="table_item"> -->
+<!-- 											<td style="padding:20px, 0;">3</td> -->
+<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
+<!-- 											<td style="padding:20px, 0;">별점</td> -->
+<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
+<!-- 											<td style="padding:20px, 0;">조회수</td> -->
+<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
+<!-- 										</tr> -->
+<!-- 										내용 -->
+<!-- 										<tr class="table_content" style="display:none;"> -->
+<!-- 											<td colspan="6"> -->
+<!-- 												<div class="view"> -->
+<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
+<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+
+									</tbody>
+								</table>
+
 								
 								<!-- Q&A 작성버튼 -->
-								<div class="col-md-12 text-right">
+								<div class="col-md-12 text-right" style="padding:20px 0 0 0;">
 									<button class="btn submit_btn" id="review_btn">상품 후기 등록</button>
 								</div>
 							</div>
@@ -674,14 +735,50 @@ function qnaList_Ajax() {
 	<!--================End Product Description Area =================-->
 
 <script>
+//setOption
+function setOption() {
+	var form = document.forms["option"];
+	
+	var category = form['category'].value;
+	var qty = $('.product_count .qty');
+	
+	if(category == 1) {
+		var option = $('select.glove option:selected');
+		form['option1'].value = option[0].value;
+		form['option2'].value = option[1].value;
+	}
+	else if(category == 2) {
+		var option = $('select.bat option:selected');
+		form['option1'].value = option[0].value;
+	}
+	else if(category == 3) {
+		var option = $('select.uniform option:selected');
+		form['option1'].value = option[0].value;
+	}
+	else if(category == 4) {
+		var option = $('select.shoes option:selected');
+		form['option1'].value = option[0].value;
+		form['option2'].value = option[1].value;
+	}
+	else if(category == 5) {
+		var option = $('select.ball option:selected');
+		form['option1'].value = option[0].value;
+	}
+	
+	form['qty'].value = qty[0].value;
+	
+	return true;
+}
+</script>
+<script>
 	// table(qna, review) - 제목 클릭시, 내용 보여주는 이벤트
-	var qna_item = document.getElementsByClassName("qna_item");
-	var qna_content = document.getElementsByClassName("qna_content");
+	var table_item = document.getElementsByClassName("table_item");
+	var table_content = document.getElementsByClassName("table_content");
 	
 	// ajax로 동적으로 데이터 뿌려준 후, 그 데이터에 대한 click event처리
-	$(document).on("click", ".qna_item", function() {
-		var index =  $('.qna_item').index(this);
-		$(".qna_content:eq(" + index + ")").toggle();
+	$(document).on("click", ".table_item", function() {
+		var index =  $('.table_item').index(this);
+		$(".table_content:eq(" + index + ")").toggle();
 	});
 </script>
 
