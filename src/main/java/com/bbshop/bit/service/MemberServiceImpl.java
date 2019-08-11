@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
 				
 			} else if(toPage.equals("goCommunity")) {
 				
-				return "shoppingMall/main/community_main";
+				return "community_main.do";
 			}
 		}
 		else {

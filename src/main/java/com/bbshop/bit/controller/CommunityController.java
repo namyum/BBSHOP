@@ -29,6 +29,7 @@ import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.CommunityService;
 
 @Controller
+@RequestMapping("*.do")
 public class CommunityController {
 	
 	@Autowired
