@@ -407,8 +407,10 @@ th{
   $(".page-item a").on("click",function(e){
 	e.preventDefault(); //페이지 이동이없도록 처리한다.
 	console.log("click");
+	//FORM에 있는 pageNum값을 클릭한 페이지의 숫자로 바꿔주기 위한 코드.
 	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 	var data = {
+			//form의 페이지 넘과 어마운트를 받아온다(amount는 없어도 상관없다.)
 			pageNum: actionForm.find("input[name='pageNum']").val(), 
 			amount: actionForm.find("input[name='amount']").val()
 		};
@@ -416,12 +418,8 @@ th{
 	var str = '';
 	var end = (Math.ceil(data.pageNum / 10.0)) * 10;
 	var start = end - 9;
-	
 	var paging = '';
 	
-	
-	
-	//actionForm.submit();
 	$.ajax({
 		url:"goodsListPaging.do",
 		type:"GET",
@@ -430,12 +428,12 @@ th{
 		contentType:"application/json",
 		success:function(data){
 			console.log("성공!");
-			var values=data.goodsList;
+			//여러가지 데이터 타입을 받아옴.
 			console.log(data);
 			console.log(data.goodsList);
 			console.log(data.goodsList[0]);
 			console.log(data.PageMaker.cri.pageNum);
-			
+			//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
 			for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
 				var values=data.goodsList[i];
 				console.log(values);
@@ -459,7 +457,7 @@ th{
                	 +"<td  style='text-align: center'>"+values.DISCOUNT+"</td>"
                  +"<td  style='text-align: center'>X</td>"
                  +"<td  style='text-align: center'><button class='btn btn-danger btn-sm'>삭제</button></td></tr>";
-				
+				//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
 				if(data.goodsList[i+1]==null)
 					break;
 					
@@ -473,7 +471,7 @@ th{
 			
 				paging += '<li class="page-item ';
 				
-				if (${PageMaker.cri.pageNum} == i)
+				if (data.PageMaker.cri.pageNum == i)
 					paging += 'active';
 				
 				paging += '" id="btn_' + i + '">';

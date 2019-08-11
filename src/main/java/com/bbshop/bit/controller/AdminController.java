@@ -79,6 +79,7 @@ public class AdminController {
 				
 		return "shoppingMall/admin/goodsList";
 	}
+	//goodsList.do와 같은 코드이지만 ajax로 실행될경우 ResponseBody가 예상치 못하게 전개되기에 새로 매핑을 받아왔다.
 	@ResponseBody
 	@RequestMapping(value="goodsListPaging.do", consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
 	public Map<String,Object> goodsListPaging(Model model , Criteria cri,HttpServletRequest request) {
@@ -92,26 +93,16 @@ public class AdminController {
 			//그 리스트들을 다시 한 리스트에 addAll하여서 전체의 옵션 리스트를 하나 만들어준다.
 			detailList.addAll(tempList);
 		}
-		//전체 옵션리스트 확인.
-//		for(int i = 0 ; i<detailList.size();i++) {
-//		System.out.println("detailList"+i+":"+detailList.get(i));
-//		}
-		if(request.getParameter("pageNum")==null) {
-			cri.setAmount(5);
-			cri.setPageNum(1);
-		}
-		else if(Integer.parseInt(request.getParameter("pageNum"))>1) {
+		//post방식으로 넘어온 pageNum을 출력하고 그값을 criteria객체에 넣어준다.
 			System.out.println("pageNum:"+request.getParameter("pageNum"));
 			cri.setAmount(5);
 			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
-		}
+	
 		
 		AdminPageDTO temp = new AdminPageDTO(cri,goodsList.size());
 		System.out.println(temp);
 		System.out.println(cri);
-		model.addAttribute("detailList",detailList);
-		model.addAttribute("goodsList",goodsList);
-		model.addAttribute("PageMaker", temp);
+		//json으로 전달하기 위해 맵형식으로 바꿔준다.
 		Map<String,Object> pagingList = new HashMap<String,Object>();
 		pagingList.put("goodsList", goodsList);
 		pagingList.put("detailList", detailList);
