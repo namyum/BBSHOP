@@ -1,8 +1,6 @@
 package com.bbshop.bit.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.CommunityService;
+import com.bbshop.bit.service.ReplyService;
 
 @Controller
 @RequestMapping("*.do")
@@ -143,6 +140,8 @@ public class CommunityController {
 	
 	@RequestMapping("/communityUpdateAction.do")
 	public String communityUpdateAction(CommunityVO community, Model model) {
+		
+		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
 		
 		int res = communityService.updatePost(community);
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
