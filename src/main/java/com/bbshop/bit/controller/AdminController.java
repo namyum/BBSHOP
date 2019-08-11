@@ -1,14 +1,17 @@
 package com.bbshop.bit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.AdminPageDTO;
@@ -40,8 +43,8 @@ public class AdminController {
 		return "shoppingMall/admin/withdrawal";
 	}
 	
-	@RequestMapping(value="goodsList.do", method=RequestMethod.GET)
-	public String goodsList(Model model , Criteria cri , @RequestParam(value="pageNum",defaultValue="1") String pageNum, @RequestParam(value="amount",defaultValue="5") String amount) {
+	@RequestMapping(value="goodsList.do", method= {RequestMethod.POST,RequestMethod.GET})
+	public String goodsList(Model model , Criteria cri,HttpServletRequest request) {
 		System.out.println("상품관리 페이지 입니다.");
 		List<GoodsVO> goodsList = adminService.getGoodsList();
 		//상품의 옵션별로 받아올 리스트이다.
@@ -56,15 +59,16 @@ public class AdminController {
 //		for(int i = 0 ; i<detailList.size();i++) {
 //		System.out.println("detailList"+i+":"+detailList.get(i));
 //		}
-		if(Integer.parseInt(pageNum)>1) {
-			System.out.println("pageNum:"+pageNum+",amount:"+amount);
-		cri.setAmount(Integer.parseInt(amount));
-		cri.setPageNum(Integer.parseInt(pageNum));
-		}
-		else {
+		if(request.getParameter("pageNum")==null) {
 			cri.setAmount(5);
 			cri.setPageNum(1);
 		}
+		else if(Integer.parseInt(request.getParameter("pageNum"))>1) {
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+		}
+		
 		AdminPageDTO temp = new AdminPageDTO(cri,goodsList.size());
 		System.out.println(temp);
 		System.out.println(cri);
@@ -75,7 +79,48 @@ public class AdminController {
 				
 		return "shoppingMall/admin/goodsList";
 	}
-
+	@ResponseBody
+	@RequestMapping(value="goodsListPaging.do", consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
+	public Map<String,Object> goodsListPaging(Model model , Criteria cri,HttpServletRequest request) {
+		System.out.println("상품관리 페이지 입니다.");
+		List<GoodsVO> goodsList = adminService.getGoodsList();
+		//상품의 옵션별로 받아올 리스트이다.
+		List<Object> detailList = new ArrayList<Object>();
+		for(int i=0; i<goodsList.size();i++) {
+			//대표 상품 하나에 옵션들을 받아오는 리스트이다. 카테고리와 굿즈넘버를 넘겨줘서 그걸로 1개의 상품의 옵션을 다담아오는 리스트를 만듬.
+			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCATEGORY(),goodsList.get(i).getGOODS_NUM());
+			//그 리스트들을 다시 한 리스트에 addAll하여서 전체의 옵션 리스트를 하나 만들어준다.
+			detailList.addAll(tempList);
+		}
+		//전체 옵션리스트 확인.
+//		for(int i = 0 ; i<detailList.size();i++) {
+//		System.out.println("detailList"+i+":"+detailList.get(i));
+//		}
+		if(request.getParameter("pageNum")==null) {
+			cri.setAmount(5);
+			cri.setPageNum(1);
+		}
+		else if(Integer.parseInt(request.getParameter("pageNum"))>1) {
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+		}
+		
+		AdminPageDTO temp = new AdminPageDTO(cri,goodsList.size());
+		System.out.println(temp);
+		System.out.println(cri);
+		model.addAttribute("detailList",detailList);
+		model.addAttribute("goodsList",goodsList);
+		model.addAttribute("PageMaker", temp);
+		Map<String,Object> pagingList = new HashMap<String,Object>();
+		pagingList.put("goodsList", goodsList);
+		pagingList.put("detailList", detailList);
+		pagingList.put("PageMaker", temp);
+				
+		System.out.println(pagingList);
+		return pagingList;
+	}
+	
 	@RequestMapping("order.do")
 	public String order() {
 		return "shoppingMall/admin/order";

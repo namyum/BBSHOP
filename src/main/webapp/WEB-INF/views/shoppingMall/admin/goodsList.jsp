@@ -176,7 +176,7 @@ th{
                        </c:forEach>
                        
                       </tbody>
-                      <form>
+                      
                         <table id='table_footer'width="100%">
                       	<tr>
                       	 	<td align=left><button class='btn btn-dark btn-sm'>선택 삭제</button></td>
@@ -197,7 +197,7 @@ th{
 											href="${PageMaker.endPage+1 }">다음</a></li>
 										</c:if>
 									</ul>
-							<form id='pageForm' method='get'>
+							<form id='pageForm' action="goodsList.do" method='POST'>
 								<input type='hidden' name='pageNum' value='${PageMaker.cri.pageNum}'>
 								<input type='hidden' name='amount' value='${PageMaker.cri.amount}'>
 							</form>
@@ -230,7 +230,7 @@ th{
                       	 
                       	</tr>
                       </table>
-                      	</form>
+                      	
                     </table>
                   </div>
                 </div>
@@ -401,84 +401,94 @@ th{
   
   </script>
   <script>
+//페이지 이동부분
+  var actionForm =$("#pageForm");
+  
+  $(".page-item a").on("click",function(e){
+	e.preventDefault(); //페이지 이동이없도록 처리한다.
+	console.log("click");
+	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+	var data = {
+			pageNum: actionForm.find("input[name='pageNum']").val(), 
+			amount: actionForm.find("input[name='amount']").val()
+		};
+	console.log("pageNum="+data.pageNum);
+	var str = '';
+	var end = (Math.ceil(data.pageNum / 10.0)) * 10;
+	var start = end - 9;
+	
+	var paging = '';
+	
+	
+	
+	//actionForm.submit();
+	$.ajax({
+		url:"goodsListPaging.do",
+		type:"GET",
+		data:data,
+		dataType:"json",
+		contentType:"application/json",
+		success:function(data){
+			console.log("성공!");
+			var values=data.goodsList;
+			console.log(data);
+			console.log(data.goodsList);
+			console.log(data.goodsList[0]);
+			console.log(data.PageMaker.cri.pageNum);
+			
+			for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5-1;i++){
+				var values=data.goodsList[i];
+				console.log(values);
+				str+="<tr><td  style='text-align: center'>"
+				
+                 +"<input type='checkbox' id='checkrow'></td>"
+                 +"<td  style='text-align: center'>"
+                 +"<Button id='modifygoods_btn"+i+" type='button' class='btn btn-link' onclick="+"location.href='modifyGoods'>"+values.GOODS_NUM+"</Button></td>"
+             	 +"<td  style='text-align: center'>글러브</td>"
+             	 +"<td width=10% height=10% style='text-align:center'>"
+               	 +"<img src="+values.MAIN_IMG+" width=60% ></td>"
+             	 +"<td  style='text-align: center'>"
+                 +"<Button id='modifygoods_btn'"+i+" type='button' class='btn btn-link' onclick="+"'location.href='modifyGoods'"+values.NAME+"</Button></td>"
+             	 +"<td class='text-primary'  style='text-align: center'>"
+               	 +values.PRICE+"원</td>"
+             	 +"<td  style='text-align: center'>99</td>"
+             	 +"<td  style='text-align: center'>"+values.SALES+"개</td>"
+             	 +"<td  style='text-align: center'>"+values.BRAND+"</td>"
+             	 +"<td  style='text-align: center'>"+values.REGDATE+"</td>"
+               	 +"<td  style='text-align: center'>일반</td>"
+               	 +"<td  style='text-align: center'>"+values.DISCOUNT+"</td>"
+                 +"<td  style='text-align: center'>X</td>"
+                 +"<td  style='text-align: center'><button class='btn btn-danger btn-sm'>삭제</button></td></tr>";
+				
+				
+			}
+			$('#goodsListTable').empty();
+			$('#goodsListTable').append(str);
+			
+			// 페이징 버튼 AJAX 처리
+			for (var i = start; i <= end; i++) {
+			
+				paging += '<li class="page-item ';
+				
+				if (${PageMaker.cri.pageNum} == i)
+					paging += 'active';
+				
+				paging += '" id="btn_' + i + '">';
+				paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+			}
+		},
+		error:function(){
+			console.log("실패");
+		}
+		});
+	
+  });
+ 
+  
     $(document).ready(function() {
       $().ready(function() {
     	  
-    	  //페이지 이동부분
-    	  var actionForm =$("#pageForm");
-    	  
-    	  $(".page-item a").on("click",function(e){
-    		e.preventDefault(); //페이지 이동이없도록 처리한다.
-    		console.log("click");
-    		actionForm.find("input[name='pageNum']").val($(this));
-    		var pageNum=actionForm.find("input[name='pageNum']").val();
-    		
-    		var str = '';
-			var end = (Math.ceil(pageNum / 10.0)) * 10;
-			var start = end - 9;
-			
-			var paging = '';
-    		
-    		var data ={};
-    		data["pageNum"]=pageNum;
-    		console.log(pageNum);
-    		//actionForm.submit();
-    		$.ajax({
-    			url:"goodsList.do?pageNum="+2,
-    			type:"GET",
-    			dataType:"text",
-    			contentType:"application/json",
-    			success:function(data){
-    				
-					var values=data.goodsList;
-					alert(data.goodsList);
-					
-    				for( var i = ${PageMaker.cri.pageNum*5-5};i<${PageMaker.cri.pageNum*5-1};i++){
-    					str+="<tr><td  style='text-align: center'>"
-    					
-                         +"<input type='checkbox' id='checkrow'></td>"
-                         +"<td  style='text-align: center'>"
-                         +"<Button id='modifygoods_btn"+i+" type='button' class='btn btn-link' onclick="+"location.href='modifyGoods'>"+values[i].goods_num+"</Button></td>"
-                     	 +"<td  style='text-align: center'>글러브</td>"
-                     	 +"<td width=10% height=10% style='text-align:center'>"
-                       	 +"<img src='${goods.MAIN_IMG}' width=60% ></td>"
-                     	 +"<td  style='text-align: center'>"
-                         +"<Button id='modifygoods_btn'"+i+" type='button' class='btn btn-link' onclick="+"'location.href='modifyGoods'"+" >${goods.NAME }</Button></td>"
-                     	 +"<td class='text-primary'  style='text-align: center'>"
-                       	 +"${goods.PRICE}원</td>"
-                     	 +"<td  style='text-align: center'>99</td>"
-                     	 +"<td  style='text-align: center'>${goods.SALES}개</td>"
-                     	 +"<td  style='text-align: center'>${goods.BRAND }</td>"
-                     	 +"<td  style='text-align: center'>${goods.REGDATE}</td>"
-                       	 +"<td  style='text-align: center'>일반</td>"
-                       	 +"<td  style='text-align: center'>${goods.DISCOUNT}</td>"
-                         +"<td  style='text-align: center'>X</td>"
-                         +"<td  style='text-align: center'><button class='btn btn-danger btn-sm'>삭제</button></td></tr>";
- 					
-    					
-    				}
-    				$('#goodsListTable').empty();
-    				$('#goodsListTable').append(str);
-    				
-    				// 페이징 버튼 AJAX 처리
-    				for (var i = start; i <= end; i++) {
-    				
-    					paging += '<li class="page-item ';
-    					
-    					if (${PageMaker.cri.pageNum} == i)
-    						paging += 'active';
-    					
-    					paging += '" id="btn_' + i + '">';
-    					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
-    				}
-    			},
-    			error:function(){
-    				console.log("실패");
-    			}
-    			});
-    		
-    	  });
-    	  
+    	   
     	  
     	  
     	  $(".sidebar-wrapper li").eq(2).addClass('active');

@@ -35,7 +35,7 @@
         </div>
         
           <li class="nav-item" data-value="111">
-            <a class="nav-link" href="goodsList.do" id="goodslist" >
+            <a class="nav-link" href="goodsList.do" id="goodslist">
               <i class="material-icons">content_paste</i>
               <p>상품 관리</p>
             </a>

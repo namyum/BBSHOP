@@ -26,7 +26,7 @@ public class AdminServiceImpl implements AdminService {
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		List<GoodsVO> goodsList = mapper.getGoodsList();
-		System.out.println(goodsList);
+		//System.out.println(goodsList);
 		
 		return goodsList;
 	}
@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Object> getGdList(int category, long goods_num) {
 		// TODO Auto-generated method stub
-		System.out.println("상품 옵션 목록을 받아오겠습니다.");
+		//System.out.println("상품 옵션 목록을 받아오겠습니다.");
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		List<Object> goodsList = new ArrayList<Object>();
@@ -45,27 +45,27 @@ public class AdminServiceImpl implements AdminService {
 		//글러브
 		case 1: {
 			goodsList = mapper.getGloveList(goods_num);	
-			System.out.println(goodsList);
+		//	System.out.println(goodsList);
 			break;
 		}//방망이
 		case 2: {
 			goodsList = mapper.getBatList(goods_num);	
-			System.out.println(goodsList);
+	//		System.out.println(goodsList);
 			break;
 		}//유니폼
 		case 3: {
 			goodsList = mapper.getUniformList(goods_num);	
-			System.out.println(goodsList);
+			//System.out.println(goodsList);
 			break;
 		}//야구화
 		case 4: {
 			goodsList = mapper.getShoesList(goods_num);	
-			System.out.println(goodsList);
+		//	System.out.println(goodsList);
 			break;
 		}//야구공
 		case 5: {
 			goodsList = mapper.getBallList(goods_num);	
-			System.out.println(goodsList);
+	//		System.out.println(goodsList);
 			break;
 		}
 		}
