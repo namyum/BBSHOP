@@ -403,7 +403,7 @@ th{
   <script>
 //페이지 이동부분
   var actionForm =$("#pageForm");
-  
+  //
   $(".page-item a").on("click",function(e){
 	e.preventDefault(); //페이지 이동이없도록 처리한다.
 	console.log("click");
@@ -436,7 +436,7 @@ th{
 			console.log(data.goodsList[0]);
 			console.log(data.PageMaker.cri.pageNum);
 			
-			for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5-1;i++){
+			for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
 				var values=data.goodsList[i];
 				console.log(values);
 				str+="<tr><td  style='text-align: center'>"
@@ -448,7 +448,7 @@ th{
              	 +"<td width=10% height=10% style='text-align:center'>"
                	 +"<img src="+values.MAIN_IMG+" width=60% ></td>"
              	 +"<td  style='text-align: center'>"
-                 +"<Button id='modifygoods_btn'"+i+" type='button' class='btn btn-link' onclick="+"'location.href='modifyGoods'"+values.NAME+"</Button></td>"
+                 +"<Button id='modifygoods_btn'"+i+" type='button' class='btn btn-link' onclick="+"'location.href='modifyGoods'>"+values.NAME+"</Button></td>"
              	 +"<td class='text-primary'  style='text-align: center'>"
                	 +values.PRICE+"원</td>"
              	 +"<td  style='text-align: center'>99</td>"
@@ -460,6 +460,9 @@ th{
                  +"<td  style='text-align: center'>X</td>"
                  +"<td  style='text-align: center'><button class='btn btn-danger btn-sm'>삭제</button></td></tr>";
 				
+				if(data.goodsList[i+1]==null)
+					break;
+					
 				
 			}
 			$('#goodsListTable').empty();
