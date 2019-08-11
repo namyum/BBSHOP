@@ -127,6 +127,7 @@ li, a {
                	주문 리스트
             </h3>
             <div class="table-responsive">
+               <form id="orderInfo" action="/kakaoPay.do" method="POST">
                <table class="table">
                   <thead>
                      <tr>
@@ -292,6 +293,7 @@ li, a {
                      </tr>
                   </tbody>
                </table>
+               </form>
             </div>
          </div>
       </div>
@@ -304,7 +306,7 @@ li, a {
          <div class="billing_details">
             <div class="row">
                <div class="col-lg-6">
-                  <h3>주문자 정보</h3>
+                  <h3 style="font-weight:bold;">주문자 정보</h3>
                   <form class="row contact_form" action="#" method="post"
                      novalidate="novalidate">
                      <div class="col-md-12 form-group">
@@ -331,7 +333,7 @@ li, a {
                            <input type="checkbox" id="same_above" onClick="check(this)">
                            <label for="same_above" style="margin-bottom:30px;">위 정보와 같음</label>
                         </div>
-                        <h3>배송정보</h3>
+                        <h3 style="font-weight:bold;">배송정보</h3>
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="deli_name"
@@ -350,41 +352,41 @@ li, a {
                            name="order_id" placeholder="이메일">
                      </div>
                      <div class="col-md-12 form-group p_star">
-                        <p>배송지 선택</p>
+                        <p style="font-weight:bold; color:black;">배송지 선택</p>
                         <label><input TYPE='radio' id="new_input"
-                           name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
+                          name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
                            id="user_input" name="addr_input" value='user_addr' />사용자 지정</label> <input
                            type="button" name="addressList" id="addressBtn" value="주소록 목록" />
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <table>
                            <tr>
-                              <td><p>주소</p></td>
+                              <td><p style="font-weight:bold; color:black;">주소</p></td>
                            </tr>
                            <tr>
                               <td><input type="text" class="form-control"
                                  id="zipcode_input" name="zipcode_input" style="width: 100px;"></td>
-                              <td><input type="button" name="zipcode" value="우편번호"
-                                 onclick="openZipcode(this.form)" /></td>
+                              <td><a href="javascript:execDaumPostcode()"
+							class="genric-btn default radius"> <span
+							style="font-weight: bold;">우편번호 검색</span>
+						</a></td>
                            </tr>
                         </table>
                      </div>
-                     <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr1" name="addr1">
+                     <div class="col-md-7 form-group p_star">
+                        <input type="text" class="form-control" id="addr1" name="addr1" placeholder="도로명 주소">
                      </div>
-                     <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr2" name="addr2"
-                           placeholder="상세 주소">
+                     <div class="col-md-5 form-group p_star">
+                        <input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세 주소">
                      </div>
                      <div class="col-md-12 form-group">
-                        <textarea class="form-control" name="msg" id="msg" rows="1"
-                           placeholder="주문메세지"></textarea>
+                        <textarea class="form-control" name="msg" id="msg" rows="1" placeholder="주문메세지"></textarea>
                      </div>
                   </form>
                </div>
                <div class="col-lg-6">
                   <div class="order_box">
-                     <h2>결제단계</h2>
+                     <h2 style="font-weight:bold;">결제단계</h2>
                      
                      <ul class="list">
                         <li><p>상품 <span>총합</span></p></li>
@@ -509,7 +511,61 @@ li, a {
          </div>
       </div>
    </div>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+	function execDaumPostcode() {
 
+		new daum.Postcode({
+
+					oncomplete : function(data) {
+						
+						var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+						var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraRoadAddr += data.bname;
+						}
+
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraRoadAddr += (extraRoadAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+
+						if (extraRoadAddr !== '') {
+							extraRoadAddr = ' (' + extraRoadAddr + ')';
+						}
+
+						if (fullRoadAddr !== '') {
+							fullRoadAddr += extraRoadAddr;
+						}
+				
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('zipcode_input').value = data.zonecode;		
+						document.getElementById('addr1').value = fullRoadAddr;
+			//			document.getElementById('addr1').value = data.jibunAddress;
+
+						/*
+						if (data.autoRoadAddress) {
+							var expRoadAddr = data.autoRoadAddress
+									+ extraRoadAddr;
+							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
+									+ expRoadAddr + ')';
+
+						} else if (data.autoJibunAddress) {
+							var expJibunAddr = data.autoJibunAddress;
+							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
+									+ expJibunAddr + ')';
+						} else {
+							document.getElementById('guide').innerHTML = '';
+						}
+						*/
+						
+						// 커서를 상세 주소 필드로 이동한다.
+						document.getElementById('addr2').focus();
+					}
+				}).open();
+	}
+</script>
    <script>
       var modal = document.getElementById('addressModal');
 
