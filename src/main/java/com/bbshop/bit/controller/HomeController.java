@@ -1,4 +1,4 @@
-package com.bbshop.bit;
+package com.bbshop.bit.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,7 +18,9 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index() {
 
-		return "shoppingMall/main/index";
+		System.out.println("테스트!!!");
+		
+		return "shoppingMall/customerService/one_to_one_list";
 	}
 
 	/* 쇼핑몰 */
