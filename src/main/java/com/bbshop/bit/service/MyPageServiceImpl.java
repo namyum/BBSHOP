@@ -10,7 +10,7 @@ import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
-import com.bbshop.bit.domain.OnetooneVO_tmp;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.SavingsVO;
@@ -162,7 +162,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<OnetooneVO_tmp> getOnetooneList(PagingVO pagingVO, long total, long key) {
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 

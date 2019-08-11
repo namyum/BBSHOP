@@ -102,7 +102,6 @@
 			<version>1.18.0</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<!-- hikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
@@ -122,7 +121,11 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.4.4</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
 		<!-- mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -268,7 +271,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
 	<build>
 		<plugins>
 			<plugin>

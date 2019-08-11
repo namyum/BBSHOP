@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybats.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.bbshop.bit.mapper.OnetoOneMapper">
+	
+	<sql id="PagingVO">
+	
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach item='type' collection="typeArr">
+					<trim prefix="OR">
+						<choose>
+						
+						<when test="type == 'T'.toString()" >
+							ONE_TITLE like '%'||#{keyword, jdbcType = VARCHAR}||'%'
+						</when>
+						
+						<when test="type == 'C'.toString()">
+							ONE_CONTENTS like '%'||#{keyword, jdbcType = VARCHAR}||'%'
+						</when>
+						
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</sql>
+	
+	<select id="OnetoOne_getList" resultType="com.bbshop.bit.domain.OnetoOneVO">
+	<![CDATA[
+	select * from ONETOONE where ONE_ONE_NUM > 0 ]]>
+	</select>
+	
+
+	<!-- <insert id="OnetoOne_insert">
+		insert into ONETOONE (ONE_ONE_NUM,ONE_CATEGORY,ONE_TITLE,ONE_CONTENTS,ONE_FILE,REGDATE,USER_KEY,SEQ,LEV,DEP)
+		values (#{ONE_ONE_NUM}, #{ONE_CATEGORY}, #{ONE_TITLE}, #{ONE_CONTENTS}, #{ONE_FILE}, #{REGDATE}, #{USER_KEY}, #{SEQ}, #{LEV}, #{DEP})
+	</insert>  -->
+	
+	<insert id="OnetoOne_insert">
+	
+	<selectKey keyProperty="ONE_ONE_NUM" order="BEFORE" resultType="long">
+			select seq_board.nextval from dual	<!--  시퀀스생성-->
+		</selectKey>
+		
+		insert into ONETOTONE (ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_FILE, REGDATE, SEQ, LEV, DEP)
+		values (seq_board.nextval, #{ONE_ONE_NUM},#{ONE_CATEGORY},#{ONE_TITLE},#{ONE_FILE},#{REGDATE},#{SEQ},#{LEV},#{DEP})
+	
+	</insert>
+	
+	<select id="getListWithPaging" resultType="com.bbshop.bit.domain.OnetoOneVO">
+	
+		<![CDATA[
+			select
+				ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_CONTENTS, ONE_FILE, REGDATE, USER_KEY, SEQ, LEV, DEP
+			from
+				(
+				select
+			 		rownum rn, ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_CONTENTS, ONE_FILE, REGDATE, USER_KEY, SEQ, LEV, DEP
+				from ONETOONE
+				where
+	]]>			
+			
+ 		<include refid="PagingVO"></include>	
+			
+		<![CDATA[
+					rownum <= #{pageNum} * #{amount}
+					ORDER BY ONE_ONE_NUM desc
+				)
+			where rn > (#{pageNum} -1) * #{amount}
+			
+		]]>
+	</select>
+	
+	<insert id="OnetoOne_insertSelectKey">
+	
+		<selectKey keyProperty="ONE_ONE_NUM" order="BEFORE"
+			resultType="long">
+			select seq_board.nextval from dual	<!--  시퀀스생성-->
+		</selectKey>
+	
+		insert into ONETOONE (ONE_ONE_NUM,ONE_CATEGORY,ONE_TITLE,ONE_CONTENTS,ONE_FILE,REGDATE,USER_KEY,SEQ,LEV,DEP)
+		values (#{ONE_ONE_NUM}, #{ONE_CATEGORY}, #{ONE_TITLE}, #{ONE_CONTENTS}, #{ONE_FILE},SYSDATE, #{USER_KEY}, #{SEQ}, #{LEV}, #{DEP})
+	</insert>
+	
+		<select id="OnetoOne_read" resultType="com.bbshop.bit.domain.OnetoOneVO"> 
+	select * from ONETOONE where ONE_ONE_NUM = #{ONE_ONE_NUM}	
+	</select>
+	
+	<delete id="OnetoOne_delete"> 
+		DELETE onetoone 
+		WHERE one_one_num = #{one_one_num}
+	</delete>
+	
+	<update id="OnetoOne_update"> 
+		UPDATE ONETOONE
+		SET 
+			ONE_CATEGORY= #{ONE_CATEGORY},
+			ONE_TITLE = #{ONE_TITLE},
+			ONE_CONTENTS = #{ONE_CONTENTS},
+			ONE_FILE = #{ONE_FILE}
+		WHERE ONE_ONE_NUM = #{ONE_ONE_NUM}
+	</update>
+	
+			<select id="getTotalCount" resultType="int">
+		select count(*) from ONETOONE where
+		
+		<include refid="PagingVO"></include>
+		
+		ONE_ONE_NUM > 0
+		
+	</select>
+	</mapper>
+	
