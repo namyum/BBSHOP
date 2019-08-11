@@ -108,7 +108,7 @@ $(document).ready(function() {
 										<table style="margin-left:auto;margin-right:auto;">
 											<tr>
 												<td>
-													<c:out value="${board.ONE_TITLE}" />
+													<c:out value="${board.one_title}" />
 												</td>
 											</tr>
 										</table>
@@ -119,7 +119,7 @@ $(document).ready(function() {
 											<tr>
 												<td><p class="bno" style="margin-right: 10px;">글
 														번호 : 
-														<c:out value="${board.ONE_ONE_NUM}" />
+														<c:out value="${board.one_one_num}" />
 														</p></td>
 												<td><p class="title" style="margin-right: 10px;">
 														<i class="lnr lnr-user"></i>
@@ -128,7 +128,7 @@ $(document).ready(function() {
 												<td>
 													<p class="regdate" style="margin-right: 10px;">
 														<i class="lnr lnr-calendar-full"></i>
-														<fmt:formatDate value="${board.REGDATE}" pattern="yyyy.MM.dd"/>
+														<c:out value="${board.regdate}" />
 													</p>
 												</td>
 											</tr>
@@ -141,7 +141,7 @@ $(document).ready(function() {
 						<div class="col-lg-9 col-md-9 blog_details"
 							style="min-width: 100%;">
 							<p>
-							<c:out value="${board.ONE_CONTENTS}" />
+							<c:out value="${board.one_contents}" />
 							</p>
 
 						</div>
@@ -151,18 +151,18 @@ $(document).ready(function() {
 						<table style="width: 100%; margin-top: 15px;">
 							<tr>
 								<td><p>
-										첨부파일: <a href="#"><c:out value="${board.ONE_FILE}" /></a>
+										첨부파일: <a href="#"><c:out value="${board.one_file}" /></a>
 									</p></td>
 							</tr>
 						</table>
 					</div>
 					
 					<form id='operForm' action="/onetoone_get.do" method="post">
-						<input type='hidden' id='ONE_ONE_NUM' name='ONE_ONE_NUM' value='<c:out value="${board.ONE_ONE_NUM}"/>'>
-						<input type='hidden' name='pageNum' value='<c:out value="${pag.pageNum}"/>'>
-						<input type='hidden' name='amount' value='<c:out value="${pag.amount}"/>'>
-          				<input type='hidden' name='keyword' value ='<c:out value="${pag.keyword}"/>'>
-						<input type='hidden' name='type' value ='<c:out value="${pag.type}"/>'>
+						<input type='hidden' id='ONE_ONE_NUM' name='ONE_ONE_NUM' value='<c:out value="${board.one_one_num}"/>'>
+						<input type='hidden' name='pageNum' value='<c:out value="${pagingVO.pageNum}"/>'>
+						<input type='hidden' name='amount' value='<c:out value="${pagingVO.amount}"/>'>
+          				<input type='hidden' name='keyword' value ='<c:out value="${pagingVO.keyword}"/>'>
+						<input type='hidden' name='type' value ='<c:out value="${pagingVO.type}"/>'>
 						<!-- <input type='hidden' name='one_to_one_category' value ='<c:out value="${category}"/>'> -->
 					</form> 
 														<!-- 이전글 다음글 버튼 
@@ -189,7 +189,7 @@ $(document).ready(function() {
 						<div class="button-group-area mt-40">
 							<a href="#"  onclick='history.back(-1); return false;' id="go_list" class="genric-btn primary radius" style="margin-left: 42%;">목록보기</a>
 							
-							<a id="modify_post" href="/onetoone_modify.do?One_One_NUM=${board.ONE_ONE_NUM}" class="genric-btn primary radius">수정</a>
+							<a id="modify_post" href="/onetoone_modify.do?One_One_NUM=${board.one_one_num}" class="genric-btn primary radius">수정</a>
 							
 							<button type="submit" data-oper='remove' id="delete_post" class="genric-btn primary radius" style="float: right;">삭제</button>
 						</div>

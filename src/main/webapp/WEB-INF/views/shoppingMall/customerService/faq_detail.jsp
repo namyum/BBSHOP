@@ -160,10 +160,10 @@ $(document).ready(function(){
 					</div>
 		 		<form id='operForm' action="/faq_get.do" method="post">
 						<input type='hidden' id='FAQ_BNO' name='FAQ_BNO' value='<c:out value="${board.FAQ_NUM}"/>'>
-						<input type='hidden' name='pageNum' value='<c:out value="${pag.pageNum}"/>'>
-						<input type='hidden' name='amount' value='<c:out value="${pag.amount}"/>'>
-          				<input type='hidden' name='keyword' value ='<c:out value="${pag.keyword}"/>'>
-						<input type='hidden' name='type' value ='<c:out value="${pag.type}"/>'>
+						<input type='hidden' name='pageNum' value='<c:out value="${pagingVO.pageNum}"/>'>
+						<input type='hidden' name='amount' value='<c:out value="${pagingVO.amount}"/>'>
+          				<input type='hidden' name='keyword' value ='<c:out value="${pagingVO.keyword}"/>'>
+						<input type='hidden' name='type' value ='<c:out value="${pagingVO.type}"/>'>
 				</form> 
 
 					<!-- 이전글 다음글 버튼 

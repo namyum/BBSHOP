@@ -23,7 +23,7 @@
 						<input type="text" name="writer" value="${nickname}" required class="single-input" readonly>
 					</div>
 					<div class="mt-10">
-						<input type="text" name="subject" value="${board.ONE_TITLE}" required class="single-input">
+						<input type="text" name="subject" value="${board.one_title}" required class="single-input">
 					</div>
 					<div class="input-group-icon mt-10">
 						<div class="icon">
@@ -45,8 +45,8 @@
 						<textarea name="ir1" id="ir1" rows="10" cols="100" style="width:100%; height:412px; min-width:610px; display:none;">
 						</textarea>
 					</div>
-					<input type='hidden' name='pageNum' value='<c:out value="${pag.pageNum}"/>'>
-					<input type='hidden' name='amount' value='<c:out value="${pag.amount}"/>'>
+					<input type='hidden' name='pageNum' value='<c:out value="${pagingVO.pageNum}"/>'>
+					<input type='hidden' name='amount' value='<c:out value="${pagingVO.amount}"/>'>
 				
 					<div class="mt-10">
 						<table style="width:100%;">
