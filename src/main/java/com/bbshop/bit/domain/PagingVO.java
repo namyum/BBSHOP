@@ -19,4 +19,10 @@ public class PagingVO {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
+
+	public String[]  getTypeArr() {
+		      
+		return type == null ? new String[] {} : type.split("");
+	}
+	
 }

@@ -49,18 +49,18 @@
 			WHERE team_name= #{teamName} and regdate > '19/01/01' and ]]>
 
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
-			<foreach item="type" collection="pagingvo.typeArr">
+			<foreach item="type" collection="pagingVO.typeArr">
 
 				<trim prefix="OR">
 					<choose>
 						<when test="type=='T'.toString()">
-							title like '%'||#{pagingvo.KEYWORD}||'%'
+							title like '%'||#{pagingVO.KEYWORD}||'%'
 						</when>
 						<when test="type=='C'.toString()">
-							board_content like '%'||#{pagingvo.KEYWORD}||'%'
+							board_content like '%'||#{pagingVO.KEYWORD}||'%'
 						</when>
 						<when test="type=='N'.toString()">
-							writer like '%'||#{pagingvo.KEYWORD}||'%'
+							writer like '%'||#{pagingVO.KEYWORD}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -68,8 +68,8 @@
 		</trim>
 
 			<![CDATA[
-			 rownum <= #{pagingvo.PAGENUM} * #{pagingvo.AMOUNT})
-	where rn > (#{pagingvo.PAGENUM} -1) * #{pagingvo.AMOUNT}
+			 rownum <= #{pagingVO.PAGENUM} * #{pagingVO.AMOUNT})
+	where rn > (#{pagingVO.PAGENUM} -1) * #{pagingVO.AMOUNT}
 	]]>
 
 	</select>
