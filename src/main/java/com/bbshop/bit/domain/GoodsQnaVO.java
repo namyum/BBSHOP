@@ -5,15 +5,17 @@ import lombok.Data;
 @Data
 public class GoodsQnaVO {
 
-	private long qna_num;	// ½ÃÄö½º°ª
-	private String title;
-	private String content;
-	private String attached_file;
-	private String regdate;
-	private long goods_num;
-	private long user_key;
-	private long re_ref;		// ¿ø±Û ÂüÁ¶ ¹øÈ£ (qna_num°ú Ç×»ó °°Àº ¹øÈ£)
-	private int re_lev;			// ´ä±Û °èÃş (»ç¿ëÀÚ:¿ø±Û:0, °ü¸®ÀÚ:´ä±Û:1)
-	private int re_seq;			// ´ä±Û ¼ø¼­ (»ç¿ëÀÚ:¿ø±Û:0, °ü¸®ÀÚ:´ä±Û:1)
+	private long qna_num;			// qna_ê¸€ë²ˆí˜¸
+	private String title;			// qna_ê¸€ì œëª©
+	private String content;			// qna_ê¸€ë‚´ìš©
+	private String attached_file;	// qna_ì²¨ë¶€íŒŒì¼
+	private String regdate;			// qna_ë‚ ì§œ
+	private long goods_num;			// ìƒí’ˆ ë²ˆí˜¸
+	private long user_key;			// íšŒì› ì‹ë³„ì
+	private long re_ref;		// ì›ê¸€:PK(qna_num)ê³¼ ê°™ê²Œ, ë‹µê¸€:ì°¸ì¡°í•˜ëŠ” ì›ê¸€ ë²ˆí˜¸
+	private int re_lev;			// ë‹µê¸€ ê³„ì¸µ (0:ì›ê¸€(ì‚¬ìš©ì), 1:ë‹µê¸€(ê´€ë¦¬ì))
+	private int re_seq;			// ë‹µê¸€ ìˆœì„œ (0:ì›ê¸€(ì‚¬ìš©ì), 1:ë‹µê¸€(ê´€ë¦¬ì))
+	
+	private String nickname;	// ë·°ì— ì¶œë ¥í•˜ê¸° ìœ„í•œ ë‹‰ë„¤ì„ë³€ìˆ˜, í…Œì´ë¸”ì—ëŠ” ì—†ëŠ” ì»¬ëŸ¼.
 	
 }

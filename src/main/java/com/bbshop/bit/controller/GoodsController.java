@@ -20,6 +20,7 @@ import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.GoodsService;
 
 import lombok.AllArgsConstructor;
@@ -149,7 +150,7 @@ public class GoodsController {
 	}
 	
 	/* 상품 QNA 등록 */
-	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.GET)
+	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.POST)
 	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) {
 		log.info("Controller..insertGoodsQna...!");
 		
@@ -172,14 +173,15 @@ public class GoodsController {
 		long user_key = 950131l;
 		qna.setUser_key(user_key);
 		
+		// qna insert
 		service.insertGoodsQna(qna);
 		
-		model.addAttribute("goods", service.getGoodsInfo(qna.getGoods_num()));
-		model.addAttribute("categoryInt", category);
-		model.addAttribute("categoryString", service.category(category));
+		model.addAttribute("goods_num", qna.getGoods_num());
+		model.addAttribute("category", category);
 		
-		return "shoppingMall/goods/goods_info";
+		return "redirect:goods_info.do";
 	}
+	
 	
 	// 상품QNA 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getQnaList_Ajax.do", consumes="application/json")
@@ -196,6 +198,24 @@ public class GoodsController {
 		List<GoodsQnaVO> qnaList = service.getQnaList(pagingVO, goods_num);
 
 		return qnaList;
+	}
+
+	
+	// 상품REVIEW 목록 페이지 - ajax 데이터 뿌려주기 
+	@RequestMapping(value="/getReviewList_Ajax.do", consumes="application/json")
+	@ResponseBody
+	public List<ReviewVO> getReviewList_Ajax(@RequestBody Map<String, Object> map){
+		log.info("Controller...Review_list.jsp...reviewListAjax");
+		
+		PagingVO pagingVO = new PagingVO();
+		pagingVO.setPageNum((int) map.get("pageNum"));
+		pagingVO.setAmount((int) map.get("amount"));
+		
+		long goods_num = (long) ((int)map.get("goods_num") * 1.0);
+		
+		List<ReviewVO> reviewList = service.getReviewList(pagingVO, goods_num);
+
+		return reviewList;
 	}
 	
 	// 쇼핑 메인 - 추천상품

@@ -6,24 +6,25 @@ import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewVO;
 
 public interface GoodsService {
 	
-	// Ä«Å×°í¸® int > String
+	// Ä«ï¿½×°ï¿½ int > String
 	public String category(int category);
 	
-	/* ÆäÀÌÂ¡ O, »óÇ° ¸ñ·Ï */
+	/* ï¿½ï¿½ï¿½ï¿½Â¡ O, ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ */
 	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
 			List<String> positions, List<String> colors_list, List<String> brands);
 
-	/* Ä«Å×°í¸®º°  goods µ¥ÀÌÅÍ °³¼ö */
+	/* Ä«ï¿½×°ï¿½ï¿½ï¿½  goods ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 	public int getTotalCount(int category);
 	
-	/* ajax·Î µ¥ÀÌÅÍ ºÒ·¯¿Ã ¶§ ÀüÃ¼ °³¼ö ±¸ÇÏ±â */
+	/* ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ */
 	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
 			List<String> positions, List<String> colors_list, List<String> brands);
 	
-	/* »óÇ° Á¶È¸ */
+	/* ï¿½ï¿½Ç° ï¿½ï¿½È¸ */
 	public GoodsVO getGoodsInfo(Long goods_num);
 	
 	
@@ -31,24 +32,27 @@ public interface GoodsService {
 	
 	
 	
-	/* »óÇ° QNA µî·Ï */
+	/* ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ */
 	public void insertGoodsQna(GoodsQnaVO qna);
 	
-	/* »óÇ° QNA ¸ñ·Ï */
+	/* ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ */
 	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long goods_num);
+	
+	/* ìƒí’ˆ REVIEW ì¶œë ¥ */
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long goods_num);
 
 
 	
 
 	
 	
-	/* user_key¸¦ ÀÌ¿ëÇØ moredetailÀ» °¡Á®¿Â´Ù.*/
+	/* user_keyï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ moredetailï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.*/
 	public MoreDetailsVO findDetail(long user_key);
 	
-	/* ÃßÃµ»óÇ° - È¸¿ø */
+	/* ï¿½ï¿½Ãµï¿½ï¿½Ç° - È¸ï¿½ï¿½ */
 	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail); 
 	
-	/* ÃßÃµ»óÇ° - ºñÈ¸¿ø */
+	/* ï¿½ï¿½Ãµï¿½ï¿½Ç° - ï¿½ï¿½È¸ï¿½ï¿½ */
 	public List<GoodsVO> recommendBestList();
 
 	

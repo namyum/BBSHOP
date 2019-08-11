@@ -83,7 +83,7 @@
 </select>
 
 <!-- 카테고리 별, goods 데이터 개수 */ -->
-<select id="getTotalCount" parameterType="hashmap" resultType="int">
+<select id="getTotalCount" resultType="int">
 	SELECT count(*) 
 	FROM goods 
 	WHERE category = #{category, jdbcType=INTEGER}
@@ -122,7 +122,7 @@
 </insert>
 
 
-<!-- 상품 QNA 목록 (goods_num이 카테고리) -->
+<!-- 상품 QNA 목록 (goods_num이 상품 카테고리) -->
 <!-- hashmap[pagingVO(pageNum, amount), goods_num] -->
 <select id="getQnaList" parameterType="hashmap" resultType="com.bbshop.bit.domain.GoodsQnaVO">
 	select *
@@ -139,6 +139,33 @@
 	)
 	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
 ]]>	
+</select>
+
+
+<!-- 상품  REVIEW 목록 (goods_num이 상품 카테고리) -->
+<!-- hashmap[pagingVO(pageNum, amount), goods_num] -->
+<select id="getReviewList" parameterType="hashmap" resultType="com.bbshop.bit.domain.ReviewVO">
+	select *
+	from (
+		select /*+INDEX_DESC(review idx_review_regdate) */
+			rownum rn, review.*
+		from review
+<![CDATA[
+		where rownum <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER} 
+]]>	
+			and goods_num = #{goods_num, jdbcType=INTEGER}
+<![CDATA[	
+			and re_date > '19/01/01'
+	)
+	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+]]>	
+</select>
+
+
+<select id="getNickName" resultType="String">
+	select nickname
+	from sh_user
+	where user_key = #{user_key}
 </select>
 
 

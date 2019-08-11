@@ -1,5 +1,6 @@
 package com.bbshop.bit.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.mapper.GoodsMapper;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import lombok.extern.log4j.Log4j;
 public class GoodsServiceImpl implements GoodsService {
 	
 	private GoodsMapper mapper;
+	
 
 	// ī�װ� int > String
 	@Override
@@ -102,9 +105,40 @@ public class GoodsServiceImpl implements GoodsService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);
 		map.put("goods_num", goods_num);
+		
+		List<GoodsQnaVO> qnaList = mapper.getQnaList(map);
+		
+		for(int i=0; i<qnaList.size(); i++) {
+			qnaList.get(i).setNickname(mapper.getNickName(qnaList.get(i).getUser_key()));
+			String regdate = qnaList.get(i).getRegdate().substring(0,10);
+			qnaList.get(i).setRegdate(regdate);
+		}
 
-		return mapper.getQnaList(map);
+		return qnaList;
 	}
+	
+	/* 상품 REVIEW 출력 */
+	@Override
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long goods_num) {
+		log.info("Service - getReviewList");
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pagingVO", pagingVO);
+		map.put("goods_num", goods_num);
+
+		List<ReviewVO> reviewList = mapper.getReviewList(map);
+		
+		for(int i=0; i<reviewList.size(); i++) {
+			reviewList.get(i).setNickname(mapper.getNickName(reviewList.get(i).getUser_key()));
+			String regdate = reviewList.get(i).getRe_date().substring(0,10);
+			reviewList.get(i).setRe_date(regdate);
+		}
+
+		return reviewList;
+	}
+	
+	
+	
 	
 	/* user_key�� �̿��� moredetail�� �����´�. */
 	@Override
@@ -158,6 +192,8 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		return mapper.getTotalCountAjax(map);
 	}
+
+	
 
 
 	
