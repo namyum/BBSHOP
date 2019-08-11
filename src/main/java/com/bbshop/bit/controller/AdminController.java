@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.AdminPageDTO;
 import com.bbshop.bit.domain.Criteria;
@@ -36,9 +39,9 @@ public class AdminController {
 	public String withdrawal() {
 		return "shoppingMall/admin/withdrawal";
 	}
-
-	@RequestMapping("goodsList.do")
-	public String goodsList(Model model , Criteria cri) {
+	
+	@RequestMapping(value="goodsList.do", method=RequestMethod.GET)
+	public String goodsList(Model model , Criteria cri , @RequestParam(value="pageNum",defaultValue="1") String pageNum, @RequestParam(value="amount",defaultValue="5") String amount) {
 		System.out.println("상품관리 페이지 입니다.");
 		List<GoodsVO> goodsList = adminService.getGoodsList();
 		//상품의 옵션별로 받아올 리스트이다.
@@ -50,11 +53,18 @@ public class AdminController {
 			detailList.addAll(tempList);
 		}
 		//전체 옵션리스트 확인.
-		for(int i = 0 ; i<detailList.size();i++) {
-		System.out.println("detailList"+i+":"+detailList.get(i));
+//		for(int i = 0 ; i<detailList.size();i++) {
+//		System.out.println("detailList"+i+":"+detailList.get(i));
+//		}
+		if(Integer.parseInt(pageNum)>1) {
+			System.out.println("pageNum:"+pageNum+",amount:"+amount);
+		cri.setAmount(Integer.parseInt(amount));
+		cri.setPageNum(Integer.parseInt(pageNum));
 		}
-		cri.setAmount(5);
-		cri.setPageNum(1);
+		else {
+			cri.setAmount(5);
+			cri.setPageNum(1);
+		}
 		AdminPageDTO temp = new AdminPageDTO(cri,goodsList.size());
 		System.out.println(temp);
 		System.out.println(cri);
