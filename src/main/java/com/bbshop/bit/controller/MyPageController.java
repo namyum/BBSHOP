@@ -23,7 +23,7 @@ import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
-import com.bbshop.bit.domain.OnetooneVO;
+import com.bbshop.bit.domain.OnetooneVO_tmp;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
@@ -507,7 +507,7 @@ public class MyPageController {
 			sum += total;
 			
 			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
+			List<OnetooneVO_tmp> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
 			sum += total;
 			
 			List<Object> total_list = new ArrayList<Object>();

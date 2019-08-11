@@ -6,7 +6,7 @@ import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
-import com.bbshop.bit.domain.OnetooneVO;
+import com.bbshop.bit.domain.OnetooneVO_tmp;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -31,7 +31,7 @@ public interface MyPageService {
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
 	
 	// 1:1 문의 내역 가지고 오기
-	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key);
+	public List<OnetooneVO_tmp> getOnetooneList(PagingVO pagingVO, long total, long key);
 
 	
 	// 주문 전체 불러 오기

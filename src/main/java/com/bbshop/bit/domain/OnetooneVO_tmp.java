@@ -3,7 +3,7 @@ package com.bbshop.bit.domain;
 import lombok.Data;
 
 @Data
-public class OnetooneVO {
+public class OnetooneVO_tmp {
 
 	private long one_one_num;
 	private String one_category;

@@ -8,7 +8,7 @@ import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
-import com.bbshop.bit.domain.OnetooneVO;
+import com.bbshop.bit.domain.OnetooneVO_tmp;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReviewVO;
@@ -28,7 +28,7 @@ public interface MyPageMapper {
 	
 	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 
-	public List<OnetooneVO> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
+	public List<OnetooneVO_tmp> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 	
 	public List<GoodsQnaVO> getQnaList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
 	
