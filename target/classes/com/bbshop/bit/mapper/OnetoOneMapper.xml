@@ -25,7 +25,7 @@
 			</trim>
 		</sql>
 	
-	<select id="OnetoOne_getList" resultType="com.bbshop.bit.domain.OnetoOneVO">
+	<select id="OnetoOne_getList" resultType="com.bbshop.bit.domain.OnetooneVO">
 	<![CDATA[
 	select * from ONETOONE where ONE_ONE_NUM > 0 ]]>
 	</select>
@@ -42,12 +42,12 @@
 			select seq_board.nextval from dual	<!--  시퀀스생성-->
 		</selectKey>
 		
-		insert into ONETOTONE (ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_FILE, REGDATE, SEQ, LEV, DEP)
+		insert into ONETOONE (ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_FILE, REGDATE, SEQ, LEV, DEP)
 		values (seq_board.nextval, #{ONE_ONE_NUM},#{ONE_CATEGORY},#{ONE_TITLE},#{ONE_FILE},#{REGDATE},#{SEQ},#{LEV},#{DEP})
 	
 	</insert>
 	
-	<select id="getListWithPaging" resultType="com.bbshop.bit.domain.OnetoOneVO">
+	<select id="getListWithPaging" resultType="com.bbshop.bit.domain.OnetooneVO">
 	
 		<![CDATA[
 			select
@@ -58,7 +58,7 @@
 			 		rownum rn, ONE_ONE_NUM, ONE_CATEGORY, ONE_TITLE, ONE_CONTENTS, ONE_FILE, REGDATE, USER_KEY, SEQ, LEV, DEP
 				from ONETOONE
 				where
-	]]>			
+		]]>			
 			
  		<include refid="PagingVO"></include>	
 			
@@ -82,8 +82,8 @@
 		values (#{ONE_ONE_NUM}, #{ONE_CATEGORY}, #{ONE_TITLE}, #{ONE_CONTENTS}, #{ONE_FILE},SYSDATE, #{USER_KEY}, #{SEQ}, #{LEV}, #{DEP})
 	</insert>
 	
-		<select id="OnetoOne_read" resultType="com.bbshop.bit.domain.OnetoOneVO"> 
-	select * from ONETOONE where ONE_ONE_NUM = #{ONE_ONE_NUM}	
+	<select id="OnetoOne_read" resultType="com.bbshop.bit.domain.OnetooneVO"> 
+		select * from ONETOONE where ONE_ONE_NUM = #{one_one_num}	
 	</select>
 	
 	<delete id="OnetoOne_delete"> 
@@ -101,7 +101,7 @@
 		WHERE ONE_ONE_NUM = #{ONE_ONE_NUM}
 	</update>
 	
-			<select id="getTotalCount" resultType="int">
+	<select id="getTotalCount" resultType="int">
 		select count(*) from ONETOONE where
 		
 		<include refid="PagingVO"></include>

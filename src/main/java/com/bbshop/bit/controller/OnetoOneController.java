@@ -34,13 +34,17 @@ public class OnetoOneController {
 	@RequestMapping("/onetoonelist.do")
 	public String list(PagingVO pag ,Model model) {
 		
-		session.setAttribute("nickname", "슈퍼맨");
+		System.out.println("onetoonelist.do 컨트롤러 진입");
 
 		String nickname = (String)session.getAttribute("nickname");
 		
 		model.addAttribute("list", onetooneservice.OnetoOne_getList(pag));
 		
+		System.out.println("onetoone_getList 메소드 통과");
+		
 		int total = onetooneservice.getTotal(pag);
+		
+		System.out.println("getTotal 메소드 통과");
 		
 		model.addAttribute("pageMaker", new PageDTO(pag, total));
 		model.addAttribute("nickname", nickname);

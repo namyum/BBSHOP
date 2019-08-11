@@ -152,12 +152,12 @@ a {
 					
 				  	<c:forEach items="${list}" var="OnetoOne">
 						<tr>
-							<td><c:out value="${OnetoOne.ONE_ONE_NUM}" /></td>
-							<td><c:out value="${OnetoOne.ONE_CATEGORY}" /></td>
-							<td><a class='move' href='${OnetoOne.ONE_ONE_NUM}'>
-									<c:out value="${OnetoOne.ONE_TITLE}" />
+							<td><c:out value="${OnetoOne.one_one_num}" /></td>
+							<td><c:out value="${OnetoOne.one_category}" /></td>
+							<td><a class='move' href='${OnetoOne.one_one_num}'>
+									<c:out value="${OnetoOne.one_title}" />
 							</a></td>
-							<td><fmt:formatDate value="${OnetoOne.REGDATE}" pattern="yyyy.MM.dd"/></td>
+							<td><c:out value="${OnetoOne.regdate}" /></td>
 						</tr>
 
 					</c:forEach>
@@ -185,7 +185,7 @@ a {
 						</c:if>
 
 						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-							<li class="page-item ${pageMaker.pag.pageNum == num ? "active":""} ">
+							<li class="page-item ${pageMaker.pagingVO.pageNum == num ? active : ''}">
 								<a class="page-link" href="${num}">${num}</a>
 							</li>
 						</c:forEach>
@@ -199,10 +199,10 @@ a {
 				</nav>
 				
 				<form id='actionForm' action="/onetoonelist.do" method='get'>
-					<input type='hidden' name='pageNum' value='${pageMaker.pag.pageNum}'>
-					<input type='hidden' name='amount' value='${pageMaker.pag.amount}'>
-					<input type='hidden' name='type' value='<c:out value="${pageMaker.pag.type}"/>'>
-					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.pag.keyword}"/>'>
+					<input type='hidden' name='pageNum' value='${pageMaker.pagingVO.pageNum}'>
+					<input type='hidden' name='amount' value='${pageMaker.pagingVO.amount}'>
+					<input type='hidden' name='type' value='<c:out value="${pageMaker.pagingVO.type}"/>'>
+					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.pagingVO.keyword}"/>'>
 					<!--   <input type='hidden' name='one_to_one_category'>-->
 				</form>
 				</td>
@@ -217,26 +217,26 @@ a {
 						<select name='type' style="width: 110px;">
 
 							<option value=""
-								<c:out value="${pageMaker.pag.type == null?'selected':''}" />>--</option>
+								<c:out value="${pageMaker.pagingVO.type == null?'selected':''}" />>--</option>
 
 							<option value="T"
-								<c:out value="${pageMaker.pag.type eq 'T'?'selected':''}" />>제목</option>
+								<c:out value="${pageMaker.pagingVO.type eq 'T'?'selected':''}" />>제목</option>
 
 							<option value="C"
-								<c:out value="${pageMaker.pag.type eq 'C'?'selected':''}" />>내용</option>
+								<c:out value="${pageMaker.pagingVO.type eq 'C'?'selected':''}" />>내용</option>
 
 							<option value="TC"
-								<c:out value="${pageMaker.pag.type eq 'TC'?'selected':''}" />>제목
+								<c:out value="${pageMaker.pagingVO.type eq 'TC'?'selected':''}" />>제목
 								or 내용</option>
 
 						</select>
 						
-						<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.pag.pageNum}"/>' />
+						<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.pagingVO.pageNum}"/>' />
 						
-						<input type='hidden' name='amount' value='<c:out value="${pageMaker.pag.amount}"/>' />
+						<input type='hidden' name='amount' value='<c:out value="${pageMaker.pagingVO.amount}"/>' />
 						
 						<input type="text" name='keyword' class="form-control" placeholder="글 검색" style="display: inline; 
-						width: 148px; padding-top: 0; padding-bottom: 5px" value='<c:out value="${pageMaker.pag.keyword}"/>' />
+						width: 148px; padding-top: 0; padding-bottom: 5px" value='<c:out value="${pageMaker.pagingVO.keyword}"/>' />
 						
 						<span class="input-group-btn">
 							<button class="btn btn-default" type="button" style="width: 50px; display: inline;">
