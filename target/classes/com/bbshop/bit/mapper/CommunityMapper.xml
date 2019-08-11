@@ -54,13 +54,13 @@
 				<trim prefix="OR">
 					<choose>
 						<when test="type=='T'.toString()">
-							title like '%'||#{pagingVO.KEYWORD}||'%'
+							title like '%'||#{pagingVO.keyword}||'%'
 						</when>
 						<when test="type=='C'.toString()">
-							board_content like '%'||#{pagingVO.KEYWORD}||'%'
+							board_content like '%'||#{pagingVO.keyword}||'%'
 						</when>
 						<when test="type=='N'.toString()">
-							writer like '%'||#{pagingVO.KEYWORD}||'%'
+							writer like '%'||#{pagingVO.keyword}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -68,8 +68,8 @@
 		</trim>
 
 			<![CDATA[
-			 rownum <= #{pagingVO.PAGENUM} * #{pagingVO.AMOUNT})
-	where rn > (#{pagingVO.PAGENUM} -1) * #{pagingVO.AMOUNT}
+			 rownum <= #{pagingVO.pageNum} * #{pagingVO.amount})
+	where rn > (#{pagingVO.pageNum} -1) * #{pagingVO.amount}
 	]]>
 
 	</select>

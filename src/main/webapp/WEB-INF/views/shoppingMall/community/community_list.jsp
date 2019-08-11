@@ -4,8 +4,6 @@
 <%@ include file="../include/community_header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 
 <style>
 body {
@@ -142,7 +140,7 @@ a {
 									<c:forEach var="num" begin="${pageMaker.startPage}"
 										end="${pageMaker.endPage}">
 										<li
-											class="page-item ${pageMaker.pagingvo.PAGENUM == num ? 'active':''}"><a
+											class="page-item ${pageMaker.pagingVO.pageNum == num ? 'active':''}"><a
 											class="page-link" href="${num}">${num}</a></li>
 									</c:forEach>
 
@@ -159,23 +157,23 @@ a {
 						<div class="single-element-widget">
 							<div class="default-select" id="default-select">
 								<form id="searchForm" action="/community_list.do">
-									<select name="TYPE">
+									<select name="type">
 										<option value=""
-											<c:out value="${pageMaker.pagingvo.TYPE == null? 'selected':''}"/>>--</option>
+											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>--</option>
 										<option value="T"
-											<c:out value="${pageMaker.pagingvo.TYPE == null? 'selected':''}"/>>제목</option>
+											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>제목</option>
 										<option value="C"
-											<c:out value="${pageMaker.pagingvo.TYPE == null? 'selected':''}"/>>내용</option>
+											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>내용</option>
 										<option value="N"
-											<c:out value="${pageMaker.pagingvo.TYPE == null? 'selected':''}"/>>닉네임</option>
+											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>닉네임</option>
 										<option value="TC"
-											<c:out value="${pageMaker.pagingvo.TYPE == null? 'selected':''}"/>>제목or내용</option>
-									</select> <input type="text" name="KEYWORD"
-										value='<c:out value="${pageMaker.pagingvo.KEYWORD}"/>' /> <input
-										type="hidden" name="PAGENUM"
-										value='<c:out value="${pageMaker.pagingvo.PAGENUM}"/>' /> <input
-										type="hidden" name="AMOUNT"
-										value='<c:out value="${pageMaker.pagingvo.AMOUNT}"/>' />
+											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>제목or내용</option>
+									</select> <input type="text" name="keyword"
+										value='<c:out value="${pageMaker.pagingVO.keyword}"/>' /> <input
+										type="hidden" name="pageNum"
+										value='<c:out value="${pageMaker.pagingVO.pageNum}"/>' /> <input
+										type="hidden" name="amount"
+										value='<c:out value="${pageMaker.pagingVO.amount}"/>' />
 										<input type='hidden' name="TEAM_NAME" value=${teamName}>
 									<button class="btn btn-default">검색</button>
 								</form>
@@ -190,13 +188,13 @@ a {
 
 <!-- 페이징 처리 -->
 <form id='actionForm' action="/community_list.do">
-	<input type='hidden' name='PAGENUM'
-		value='${pageMaker.pagingvo.PAGENUM }'> <input type='hidden'
-		name='AMOUNT' value='${pageMaker.pagingvo.AMOUNT }'> <input
-		type='hidden' name='TYPE'
-		value='<c:out value="${pageMaker.pagingvo.TYPE }"/>'> <input
-		type='hidden' name='KEYWORD'
-		value='<c:out value="${pageMaker.pagingvo.KEYWORD }"/>'>
+	<input type='hidden' name='pageNum'
+		value='${pageMaker.pagingVO.pageNum }'> <input type='hidden'
+		name='amount' value='${pageMaker.pagingVO.amount }'> <input
+		type='hidden' name='type'
+		value='<c:out value="${pageMaker.pagingVO.type }"/>'> <input
+		type='hidden' name='keyword'
+		value='<c:out value="${pageMaker.pagingVO.keyword }"/>'>
 		<input type='hidden' name="TEAM_NAME" value=${teamName}>
 </form>
 
@@ -218,7 +216,7 @@ a {
 			
 			console.log('click');
 			
-			actionForm.find("input[name='PAGENUM']").val($(this).attr("href"));
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			
 			actionForm.submit();
 		});
@@ -230,11 +228,11 @@ a {
 				alert("검색종류를 선택하세요");
 				return false;
 			}
-			if (!searchForm.find("input[name='KEYWORD']").val()) {
+			if (!searchForm.find("input[name='keyword']").val()) {
 				alert("키워드를 선택하세요");
 				return false;
 			}
-			searchForm.find("input[name='PAGENUM']").val("1");
+			searchForm.find("input[name='pageNum']").val("1");
 			e.preventDefault();
 			searchForm.submit();
 		});

@@ -24,6 +24,8 @@
 	<link rel="stylesheet" href="resources/shoppingMall/css/style.css">
 	<link rel="stylesheet" href="resources/shoppingMall/css/responsive.css">
 	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	
 	<!-- basic bootstrap config -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

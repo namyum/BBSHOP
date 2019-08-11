@@ -42,8 +42,8 @@
 				FROM cm_comment
 				WHERE board_num = #{BOARD_NUM}
 				AND reply_num > 0
-				AND rownum <= #{pagingvo.PAGENUM} * #{pagingvo.AMOUNT}
-			) WHERE rn > (#{pagingvo.PAGENUM} -1 ) * #{pagingvo.AMOUNT}
+				AND rownum <= #{pagingvo.pageNum} * #{pagingvo.amount}
+			) WHERE rn > (#{pagingvo.pageNum} -1 ) * #{pagingvo.amount}
 		]]>
 		
 	</select>

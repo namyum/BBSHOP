@@ -90,12 +90,20 @@ public class CommunityController {
 	public String list(PagingVO pagingvo, Model model, @RequestParam("TEAM_NAME") String teamName) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pagingvo", pagingvo);
+		map.put("pagingVO", pagingvo);
 		map.put("teamName", teamName);
 		int total = communityService.getTotal(map);
 		
 		model.addAttribute("teamName", teamName);
 		model.addAttribute("list", communityService.getList(map));
+		
+		System.out.println("null check : " + communityService.getList(map).toString());
+		
+		for (CommunityVO vo : communityService.getList(map)) {
+			
+			System.out.println("vo : " + vo.toString());
+		}
+		
 		model.addAttribute("pageMaker", new PageDTO(pagingvo, total));
 		
 		return "shoppingMall/community/community_list";
