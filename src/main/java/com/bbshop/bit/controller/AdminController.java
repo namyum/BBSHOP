@@ -112,6 +112,11 @@ public class AdminController {
 		return pagingList;
 	}
 	
+	@RequestMapping(value="addGoods.do")
+	public String addGoods() {
+		return "shoppingMall/admin/addGoods";
+	}
+	
 	@RequestMapping("order.do")
 	public String order() {
 		return "shoppingMall/admin/order";

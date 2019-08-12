@@ -50,6 +50,7 @@ th{
 <%@include file="sidebar.jsp" %>
 
     <div class="main-panel">
+    <!-- Navbar -->
      <%@include file='top_nav.jsp' %>
       <!-- End Navbar -->
       <div class="content">
@@ -60,7 +61,7 @@ th{
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">상품 목록</h4>
                   <div style='float:right'>
-                   <a href="addGoods">
+                   <a href="addGoods.do">
           			    <i class="material-icons" style='color:white'>add</i></a></div>
                 </div>
                 <div class="card-body">
@@ -69,7 +70,17 @@ th{
                     <table class="table" style="background-color: rgba(230, 236, 236, 0.4)">
                       <thead class=" text-primary">
                           <th style="text-align: center">
-                          <input type='checkbox' id='all_check'>
+                          <!-- 
+                          <div class="form-check">
+                          	<label class="form-check-label">
+                            <input class="form-check-input" id='check_all' type="checkbox" value="">
+                                  <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                  </label>
+                                  </div> -->
+                         <input type='checkbox' id='check_all' class="form-check-input">
+                          
                         </th>
                                <th style="text-align: center">
                           상품번호
@@ -120,7 +131,7 @@ th{
                         <tr>
                         
                           <td  style="text-align: center">
-                              <input type='checkbox' id='checkrow'>
+                              <input type='checkbox' class='check'>
                           </td>
                         
                         
@@ -381,7 +392,8 @@ th{
   <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   <!-- Library for adding dinamically elements -->
   <script src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/js/plugins/arrive.min.js"></script>
- 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
   <script type="text/javascript">
     var modifyForm = document.getElementById('modifygoods');
     var span = document.getElementsByClassName('close')[0];
@@ -398,10 +410,36 @@ th{
 
   </script>
  
-  <script>
+  <script>	
+
+  //선택체크 부분 
+  //전체체크를 누르면 하위에 모든 체크박스가 체크된다.
+	$(document).on("click","#check_all",function(){
+		if($('#check_all').is(':checked')){
+			$('.check').prop('checked' , true);
+		}
+		else{
+			$('.check').prop('checked', false);
+			
+		}	
+	});
+	
+	//하위 항목중 하나라도 체크가 풀릴시 전체 체크도 풀려야한다.
+	 $(document).on('click','.check',function(){
+		if($("input[class='check']:checked").length<=${PageMaker.cri.amount}){
+			$("#check_all").prop("checked",false);
+			
+		}else{
+			$("#check_all").prop("checked",true);
+		}
+	
+	
+	});
   
     $(document).ready(function() {
+    
       $().ready(function() {
+    	 
 		//페이지 이동부분
  		 var actionForm =$("#pageForm");
 	
@@ -439,8 +477,14 @@ th{
 							var values=data.goodsList[i];
 							console.log(values);
 							str+="<tr><td  style='text-align: center'>"
-							
-			                 +"<input type='checkbox' id='checkrow'></td>"
+							//	 +"<div class='form-check'>"
+                          	//	 +"<label class='form-check-label'> "                         
+                            //	 +"<input class='form-check-input' type='checkbox'>"
+                            //    +"<span class='form-check-sign'>"
+                            //   +"<span class='check'></span>"
+                            //  +"</span></label></div>"
+                            +"<input type='checkbox' class='check'>"
+			                 +"</td>"
 			                 +"<td  style='text-align: center'>"
 			                 +"<Button id='modifygoods_btn"+i+" type='button' class='btn btn-link' onclick="+"location.href='modifyGoods'>"+values.GOODS_NUM+"</Button></td>"
 			             	 +"<td  style='text-align: center'>글러브</td>"

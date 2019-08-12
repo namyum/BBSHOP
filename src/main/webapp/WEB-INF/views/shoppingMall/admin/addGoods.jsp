@@ -80,6 +80,13 @@ body {
 	font-family: NanumBarunpen, sans-serif
 }
 
+label{
+	font-weight:bold;
+	font-size:large;
+	color:#50bcdf;
+	
+}
+
 @media ( min-width : 768px) {
 	.filebox .upload-display {
 		display: inline-block;
@@ -90,7 +97,271 @@ body {
 
 
 </style>
- <script>
+
+</head>
+
+<body class="">
+<%@include file='sidebar.jsp' %>
+  
+		<div class="main-panel">
+			<!-- Navbar -->
+			<%@include file='top_nav.jsp' %>
+			<!-- End Navbar -->
+			<div class="content">
+				 <div class="container-fluid" style='padding-left:5%; padding-right:5%'>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header card-header-primary">
+									<h4 class="card-title ">상품 등록</h4>
+									<p class="card-category">상품을 등록할수 있습니다.</p>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<form enctype="multipart/form-data">
+										<table class="table" style="background-color: rgba(230, 236, 236, 0.4); margin-top: 10px">
+											<thead class=" text-primary">
+													<table width=100% cellspacing=0 cellpadding=0 align=center>
+														<div class=modifyForm>
+															<tr>
+																<td><label for="category">카테고리</label> &nbsp; &nbsp;
+																 <select name="selectCategory" id="selectCategory">
+																 		<option value="default">선택</option>
+																		<option value="glove">글러브</option>
+																		<option value="bat">배트</option>
+																		<option value="uniform">유니폼</option>
+																		<option value="shoes">야구화</option>
+																		<option value="ball">야구공</option>
+																</select>
+																<br></td>
+															</tr>
+															
+															<tr>
+																<td><label for="goodsName">상품명</label> <input
+																	text="text" class="form-control" id="goodsName"
+																	name="goodsName" placeholder="상품명을 적으세요"> <br></td>
+															</tr>
+
+															<tr>
+																<td><label for="goodsPrice">가격</label> <input
+																	text="text" class="form-control" id="goodsPrice"
+																	name="goodsPrice" placeholder="가격을 적으세요"> <br></td>
+															</tr>
+
+															<tr>
+																<td><label for="goodsContents">상세내용</label> <input
+																	text="text" class="form-control" id="goodsContents"
+																	name="goodsContents" placeholder="상세 내용을 적으세요">
+
+																<br></td>
+															</tr>
+																		
+
+															<tr>
+															<div id="imageInsert">
+																<table width=100% colspan=2>
+																	<tr>
+																	
+																	<td width =33% height=33%>
+																		<label for ="goodsImage">상품 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																		<img style="width:34%; height:34%;" id="image_section" style='text-align:center'> <input type="file" id="imgInput">
+																		
+																		<br></td>
+																		
+																		<td width =33% height=33%>
+																		<label for ="goodsImage2">추가 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																		<img style="width:33%; height:33%;" id="image_section2" style='text-align:center'> <input type="file" id="imgInput2">
+																		
+																		<br></td>
+																		
+																		<td width =33% height=33%>
+																		<label for ="goodsImage3">추가 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
+																		<img style="width:33%; height:33%;" id="image_section3" style='text-align:center'> <input type="file" id="imgInput3">
+																		<br></td>
+																	
+																		</tr>	
+																</table>
+																</div>
+														<tr><br><br>
+																<td><label for="goodsContents">제조사</label> <input
+																	text="text" class="form-control" id="goodsBrand"
+																	name="goodsBrand" placeholder="제조사를 적으세요">
+
+																<br></td>
+															</tr>
+															<tr>
+																<td><label for="goodsAmount">재고 수량</label> <input
+																	text="text" class="form-control" id="goodsAmount"
+																	name="goodsAmount" placeholder="수량을 적으세요">
+
+																<br></td>
+															</tr>
+																<tr>
+																<td><label for="goodsPopular">인기 상품</label> <input
+																	type="checkbox" id="goodsPopular"
+																	name="goodsPopular">
+
+																<br></td>
+															</tr>
+															<tr>
+																<td><label for="goodsDiscouint">할인율</label> <input
+																	type="text" class="form-control" id="goodsDiscount"
+																	name="goodsDiscount" placeholder="할인율을 적으세요 %">
+
+																<br></td>
+															</tr>
+															<tr>																												<tr>
+																<td><label for="goodsSoldout">품절 여부</label> <input
+																	type="checkbox"  id="goodsSoldout"
+																	name="goodsSoldout">
+
+																<br></td>
+															</tr>
+															<tr>
+																<td><label for="goodsSellTotal">누적 판매 수</label> <input
+																	text="text" class="form-control" id="goodsSellTotal"
+																	name="goodsSellTotal" readonly>
+
+																<br></td>
+															</tr>
+															
+														 	<div id="appendMoreDetail">
+														 	
+														 	</div>
+														 	<tr>
+														 	<table align=center>
+														 	<tr>
+														 	<td ><input type='submit' class="btn btn-info" id=goodsModifysubmit name=goodsModifysubmit value="상품등록">
+															</td>
+															</tr>
+															</table>
+															</tr>
+														</div>
+													</table>
+
+
+
+											</tbody>
+										</table>
+												</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+													document.write(new Date()
+															.getFullYear())
+												</script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="header-title"> Sidebar Filters</li>
+        <li class="adjustments-line">
+          <a href="javascript:void(0)" class="switch-trigger active-color">
+            <div class="badge-colors ml-auto mr-auto">
+              <span class="badge filter badge-purple" data-color="purple"></span>
+              <span class="badge filter badge-azure" data-color="azure"></span>
+              <span class="badge filter badge-green" data-color="green"></span>
+              <span class="badge filter badge-warning" data-color="orange"></span>
+              <span class="badge filter badge-danger" data-color="danger"></span>
+              <span class="badge filter badge-rose active" data-color="rose"></span>
+            </div>
+            <div class="clearfix"></div>
+          </a>
+        </li>
+        <li class="header-title">Images</li>
+        <li class="active">
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-1.jpg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-2.jpg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-3.jpg" alt="">
+          </a>
+        </li>
+        <li>
+          <a class="img-holder switch-trigger" href="javascript:void(0)">
+            <img src="../assets/img/sidebar-4.jpg" alt="">
+          </a>
+        </li>
+        <li class="button-container">
+          <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
+        </li>
+        <!-- <li class="header-title">Want more components?</li>
+            <li class="button-container">
+                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
+                  Get the pro version
+                </a>
+            </li> -->
+        <li class="button-container">
+          <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
+            View Documentation
+          </a>
+        </li>
+        <li class="button-container github-star">
+          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
+        </li>
+        <li class="header-title">Thank you for 95 shares!</li>
+        <li class="button-container text-center">
+          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
+          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
+          <br>
+          <br>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+   <script>
     $(document).ready(function() {
     	
     	  $(".sidebar-wrapper li").eq(2).addClass('active');
@@ -406,269 +677,6 @@ body {
       });
     });
   </script>
-</head>
-
-<body class="">
-<%@include file='sidebar.jsp' %>
-  
-		<div class="main-panel">
-			<!-- Navbar -->
-			<%@include file='top_nav.jsp' %>
-			<!-- End Navbar -->
-			<div class="content">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-header card-header-primary">
-									<h4 class="card-title ">상품 등록</h4>
-									<p class="card-category">상품을 등록할수 있습니다..</p>
-								</div>
-								<div class="card-body">
-									<div class="table-responsive">
-										<table class="table"
-											style="background-color: rgba(230, 236, 236, 0.4); margin-top: 10px">
-											<thead class=" text-primary">
-												<form enctype="multipart/form-data">
-													<table width=100% cellspacing=0 cellpadding=0 align=center>
-														<div class=modifyForm>
-															<tr>
-																<td><label for="category">카테고리</label> &nbsp; &nbsp;
-																 <select name="selectCategory" id="selectCategory">
-																 		<option value="default">선택</option>
-																		<option value="glove">글러브</option>
-																		<option value="bat">배트</option>
-																		<option value="uniform">유니폼</option>
-																		<option value="shoes">야구화</option>
-																		<option value="ball">야구공</option>
-																</select></td>
-															</tr>
-															<br>
-															<tr>
-																<td><label for="goodsName">상품명</label> <input
-																	text="text" class="form-control" id="goodsName"
-																	name="goodsName" placeholder="상품명을 적으세요"></td>
-															</tr><br>
-
-															<tr>
-																<td><label for="goodsPrice">가격</label> <input
-																	text="text" class="form-control" id="goodsPrice"
-																	name="goodsPrice" placeholder="가격을 적으세요"></td>
-															</tr><br>
-
-															<tr>
-																<td><label for="goodsContents">상세내용</label> <input
-																	text="text" class="form-control" id="goodsContents"
-																	name="goodsContents" placeholder="상세 내용을 적으세요">
-
-																</td>
-															</tr><br>
-																		
-
-															<tr>
-															<div id="imageInsert">
-																<table width=100% colspan=2>
-																	<tr>
-																	
-																	<td width =33% height=33%>
-																		<label for ="goodsImage">상품 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																		<img style="width:34%; height:34%;" id="image_section" style='text-align:center'> <input type="file" id="imgInput">
-																		
-																		</td>
-																		
-																		<td width =33% height=33%>
-																		<label for ="goodsImage2">추가 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																		<img style="width:33%; height:33%;" id="image_section2" style='text-align:center'> <input type="file" id="imgInput2">
-																		
-																		</td>
-																		
-																		<td width =33% height=33%>
-																		<label for ="goodsImage3">추가 이미지</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																		<img style="width:33%; height:33%;" id="image_section3" style='text-align:center'> <input type="file" id="imgInput3">
-																		</td>
-																	
-																		</tr>	
-																</table>
-																</div>
-														<tr><br>
-																<td><label for="goodsContents">제조사</label> <input
-																	text="text" class="form-control" id="goodsBrand"
-																	name="goodsBrand" placeholder="제조사를 적으세요">
-
-																</td>
-															</tr>
-															<tr><br>
-																<td><label for="goodsAmount">재고 수량</label> <input
-																	text="text" class="form-control" id="goodsAmount"
-																	name="goodsAmount" placeholder="수량을 적으세요">
-
-																</td>
-															</tr>
-																<tr><br>
-																<td><label for="goodsPopular">인기 상품</label> <input
-																	type="checkbox" id="goodsPopular"
-																	name="goodsPopular">
-
-																</td>
-															</tr>
-															<tr><br>
-																<td><label for="goodsDiscouint">할인율</label> <input
-																	type="text" class="form-control" id="goodsDiscount"
-																	name="goodsDiscount" placeholder="할인율을 적으세요 %">
-
-																</td>
-															</tr>
-															<tr><br>																													<tr>
-																<td><label for="goodsSoldout">품절 여부</label> <input
-																	type="checkbox"  id="goodsSoldout"
-																	name="goodsSoldout">
-
-																</td>
-															</tr>
-															<tr><br>
-																<td><label for="goodsSellTotal">누적 판매 수</label> <input
-																	text="text" class="form-control" id="goodsSellTotal"
-																	name="goodsSellTotal" readonly>
-
-																</td>
-															</tr><br>
-															
-														 	<div id="appendMoreDetail">
-														 	
-														 	</div>
-														 	<tr>
-														 	<table align=center>
-														 	<tr>
-														 	<td ><input type='submit' class="btn btn-info" id=goodsModifysubmit name=goodsModifysubmit value="상품등록">
-															</td>
-															</tr>
-															</table>
-															</tr>
-														</div>
-													</table>
-
-
-
-												</form>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-													document.write(new Date()
-															.getFullYear())
-												</script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
-        <li class="button-container">
-          <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-        </li>
-        <!-- <li class="header-title">Want more components?</li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                  Get the pro version
-                </a>
-            </li> -->
-        <li class="button-container">
-          <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-            View Documentation
-          </a>
-        </li>
-        <li class="button-container github-star">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-        </li>
-        <li class="header-title">Thank you for 95 shares!</li>
-        <li class="button-container text-center">
-          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-          <br>
-          <br>
-        </li>
-      </ul>
-    </div>
-  </div>
-  
 </body>
 
 </html>
