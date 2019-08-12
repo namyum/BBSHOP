@@ -762,6 +762,8 @@ function qnaList_Ajax() {
 				console.log('서버로부터 받은 GoodsVO의 goods_num : ' + result.goods.goods_num);
 				
 				var content = '';
+				var total = '';
+				var total_price = result.goods.price * result.qty
 				
 				content += '<li class="miniCart_item">';
 				content += '<a href="/goods_info.do">';
@@ -772,18 +774,21 @@ function qnaList_Ajax() {
 				content += '<div class="item_info">';
 				
 				content += '<div id="item-name" class="item-name">' + result.goods.name + '</div>';
-				content += '<div id="item-price"><span>' + result.goods.price + '원</span></div>';
+				content += '<div id="item-price"><span>' + total_price + '원</span></div>';
 				content += '<div id="item-quantity">수량 : <span>' + result.qty + '</span></div>';
 				
-				
-				
 				content += '</div>';
-				
-				
 				content += '</li>';
 				
 				$('.miniCart_list').empty();
 				$('.miniCart_list').append(content);
+				
+				// 미니카트 total 없애기
+				total += total_price + '원';
+				
+				$('#minicart_total').empty();
+				$('#minicart_total').append(total);
+				
 			},
 			error: function() {
 
