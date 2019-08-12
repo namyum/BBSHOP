@@ -134,10 +134,6 @@
 				var carts = result.cart_list;
 				
 				$.each(carts, function(index, value) {
-					
-					console.log(carts);
-					console.log(index);
-					console.log(value);
 				
 					content += '<li class="miniCart_item">';
 					content += '<a href="/goods_info.do">';
@@ -153,11 +149,10 @@
 					
 					content += '</div>';
 					content += '</li>';
-					
-					$('.miniCart_list').empty();
-					$('.miniCart_list').append(content);
-				
 				});
+				
+				$('.miniCart_list').empty();
+				$('.miniCart_list').append(content);
 				
 				// 미니카트 total 없애기
 				total += result.allPrice + '원';

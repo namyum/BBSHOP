@@ -760,8 +760,10 @@ function qnaList_Ajax() {
 				alert('미니카트 성공!');
 								
 				var content = '';
-				var total = '';
-				var total_price = result.goods.price * result.qty
+				var total = 0;
+				var total_price = result.goods.price * result.qty;
+				
+				var carts = result.cart_list;
 				
 				content += '<li class="miniCart_item">';
 				content += '<a href="/goods_info.do">';
@@ -778,14 +780,36 @@ function qnaList_Ajax() {
 				content += '</div>';
 				content += '</li>';
 				
+				total += parseInt(total_price);
+								
+				$.each(carts, function(index, value) {
+				
+					content += '<li class="miniCart_item">';
+					content += '<a href="/goods_info.do">';
+					content += '<img class="item_img" src="';
+					content += result.goods_list[index].main_img + '">';
+					content += '</a>';
+						
+					content += '<div class="item_info">';
+					
+					content += '<div id="item-name" class="item-name">' + result.goods_list[index].name + '</div>';
+					content += '<div id="item-price"><span>' + value.TOTALPRICE + '원</span></div>';
+					content += '<div id="item-quantity">수량 : <span>' + value.QNTTY + '</span></div>';
+					
+					content += '</div>';
+					content += '</li>';
+				});
+				
+				total += parseInt(result.allPrice);
+				
 				$('.miniCart_list').empty();
 				$('.miniCart_list').append(content);
 				
 				// 미니카트 total 없애기
-				total += total_price + '원';
 				
 				$('#minicart_total').empty();
 				$('#minicart_total').append(total);
+				$('#minicart_total').append('원');
 				
 			},
 			error: function() {

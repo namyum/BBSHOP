@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.service.CartService;
+import com.bbshop.bit.service.CartServiceImpl;
 import com.bbshop.bit.service.GoodsService;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +38,9 @@ public class GoodsController {
 	private GoodsService service;
 	
 	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
+	
+	@Autowired
+	private CartService cartService;
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
@@ -263,6 +269,10 @@ public class GoodsController {
 		
 		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
 		int qty = Integer.parseInt((String)map.get("qty"));
+		int allPrice = 0;
+		
+		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
+		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
 		
 		// 상품 상세 번호를 구할 때 필요한 변수들
 		int category = (int)map.get("category");
@@ -282,6 +292,26 @@ public class GoodsController {
 		
 		result.put("goods", goods);
 		result.put("qty", qty);
+		
+		// 장바구니 리스트에 담긴 상품들의 상품 정보를 담은 리스트를 만든다.
+		for (int i = 0; i < cart_list.size(); i++) {
+			
+			long goodsnum = cart_list.get(i).getGOODS_NUM();
+			Cart_GDVO temp = cart_list.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cart_list.set(i, temp);
+			goods_list.add(cartService.getGoods(goodsnum));
+		}
+		
+		// 총 금액 구하기.
+		for (int i = 0 ; i < cart_list.size(); i++) {
+			
+			allPrice += cart_list.get(i).getTOTALPRICE();
+		}
+		
+		result.put("allPrice", allPrice);
+		result.put("goods_list",goods_list);
+		result.put("cart_list", cart_list);
 		
 		return result;
 	}
