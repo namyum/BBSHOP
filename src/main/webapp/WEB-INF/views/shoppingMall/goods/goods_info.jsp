@@ -308,7 +308,7 @@ function qnaList_Ajax() {
 						</div>
 						<div class="card_area" style="width:400px;">
 							<a class="main_btn" href="/order">구매하기</a>
-							<a class="main_btn" id="info_cart_btn" href="#none">장바구니</a>
+							<a class="main_btn" id="info_cart_btn" href="#">장바구니</a>
 							
 						</div>
 					</div>
@@ -730,6 +730,44 @@ function qnaList_Ajax() {
 	else if(category == 5) {
 		$('.gd_info.ball').css('display', 'table-row');
 		$('a.ball').css('display', 'flex');
+	}
+	
+	//상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
+	info_cart_btn.onclick = function() {
+				
+		var data = {};
+		
+		data["goods_num"] = ${goods.goods_num};
+		data["category"] = ${categoryInt};
+		
+		// 카테고리가 글러브일 경우, 상품 옵션을 data에 넣어준다.
+		if (category == 1) {
+			
+			data["hand"] = $('#glove_hand option:selected').val();
+			data["tame"] = $('#glove_tame option:selected').val();
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "addGoodsToCart.do",
+			data: JSON.stringify(data),
+			dataType: "json",
+			contentType: "application/json",
+			success: function(result) {
+				
+				alert('ajax 성공!');
+				
+				console.log('서버로부터 받은 GoodsVO의 goods_num : ' + result.goods.goods_num);
+			},
+			error: function() {
+
+				alert('ajax 실패!');
+			}
+		});
+		
+		// 미니카트 나오기
+		curtain.style.display = "block";
+		miniCart.style.width = "350px";
 	}
 	
 </script>

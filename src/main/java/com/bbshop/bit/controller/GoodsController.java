@@ -1,6 +1,7 @@
 package com.bbshop.bit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -253,4 +254,24 @@ public class GoodsController {
 		return "shoppingMall/main/shopping_main";
 	}
 
+	
+	@RequestMapping("addGoodsToCart.do")
+	@ResponseBody
+	public Map<String, Object> addGoods(@RequestBody Map<String, Object> map) {
+		
+		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
+//		int category = (int)map.get("category");
+//		int hand = Integer.parseInt((String)map.get("hand"));
+//		int taming = Integer.parseInt((String)map.get("tame"));
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		GoodsVO goods = service.getGoodsInfo((long)goods_num);
+		
+		System.out.println(goods.toString());
+		
+		result.put("goods", goods);
+		
+		return result;
+	}
 }

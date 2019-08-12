@@ -125,11 +125,7 @@
 		miniCart.style.width = "0";
 		location.href="/cart";
 	}
-	//상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
-	info_cart_btn.onclick = function() {
-		curtain.style.display = "block";
-		miniCart.style.width = "350px";
-	}
+
 
 	function openCart() {
 		curtain.style.display = "block";
