@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bbshop.bit.domain.Cart_PDVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.OrderDTO;
 import com.bbshop.bit.service.CartService;
-import com.bbshop.bit.service.KakaoPay;
+import com.bbshop.bit.service.KakaoPayService;
 import com.bbshop.bit.service.OrderService;
 
 @Controller
@@ -31,7 +32,7 @@ public class OrderController {
 	CartService cartService;
 	
 	@Autowired(required=true)
-	KakaoPay kakaopay;
+	KakaoPayService kakaopay;
 
 	// 쇼핑몰 - 주문 - 주문하기
 	@RequestMapping("/order_cart.do")
@@ -42,7 +43,7 @@ public class OrderController {
 		
 		goodsList = new ArrayList<GoodsVO>();
 		List<Object> optionList = new ArrayList<Object>();
-		int allPrice = 0;
+		int totalPrice = 0, allPrice = 0;
 		
 		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
 		cartList = orderService.getCheckedCartList(goods_num_list);
@@ -52,8 +53,10 @@ public class OrderController {
 			Cart_PDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cartList.set(i, temp);
-			allPrice += cartList.get(i).getTOTALPRICE();
+			totalPrice += cartList.get(i).getTOTALPRICE();
 		}
+		
+		allPrice = totalPrice + shipping_fee;
 		
 		// goods 가져와서 goodsList에 넣어주는 부분
 		 for (String goods_num : goods_num_list ){
@@ -97,15 +100,12 @@ public class OrderController {
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("orderList",cartList);
 		model.addAttribute("optionList", optionList);
+		model.addAttribute("totalPrice" + totalPrice);
 		model.addAttribute("allPrice" + allPrice);
+		model.addAttribute("shipping_fee", shipping_fee);
 		
 		return "shoppingMall/order/order";
 	}
-	
-    @RequestMapping("/gokakao.do")
-    public String goKakao() {
-    	return "shoppingMall/kakaoPay";
-    }
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.GET)
     public void kakaoPayGet() {
@@ -113,24 +113,70 @@ public class OrderController {
     }
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
-    public String kakaoPay() {
+    public String kakaoPay(@RequestParam("GOODS_NUM_LIST") String list, Model model) {
         System.out.println("kakaoPay post............................................");
         
-        return "redirect:" + kakaopay.kakaoPayReady();
+		String[] goods_num_list = list.split(",");
+		int allPrice = 0;
+		
+		goodsList = new ArrayList<GoodsVO>();
+		
+		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
+		cartList = orderService.getCheckedCartList(goods_num_list);
+		
+		// goods 가져와서 goodsList에 넣어주는 부분
+		 for (String goods_num : goods_num_list ){
+			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+		 }
+		 
+		for (int i = 0; i < cartList.size(); i++) {
+			Cart_PDVO temp = cartList.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			allPrice += cartList.get(i).getTOTALPRICE();
+		}
+		
+        
+        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list);
  
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
-    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,
+    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list) {
     	System.out.println("kakaoPaySuccess get............................................");
-    	System.out.println("kakaoPaySuccess pg_token : " + pg_token);
+
+    	String[] goods_num_list = list.split(",");
+		
+		goodsList = new ArrayList<GoodsVO>();
+		
+		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
+		cartList = orderService.getCheckedCartList(goods_num_list);
+		
+		// goods 가져와서 goodsList에 넣어주는 부분
+		 for (String goods_num : goods_num_list ){
+			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+		 }   	
+		 
+		for (int i = 0; i < cartList.size(); i++) {
+			Cart_PDVO temp = cartList.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+		}
+
+    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice));
+    	model.addAttribute("goodsList",goodsList);
+		model.addAttribute("orderList",cartList);
     	
-    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
-    	
-    	return "shoppingMall/kakaoPaySuccess";
+    	return "shoppingMall/order/order_confirmation";
         
     }
-	
-	
+    
+    // 뷰 생성 예정
+    @RequestMapping("/pay.do")
+    public String pay() {
+    	System.out.println("결제 실패");
+    	
+    	return " ";
+        
+    }
 
 }

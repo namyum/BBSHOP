@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
-<%@ include file="../include/shopping_header.jsp" %>
+<%@ include file="../include/shopping_header.jsp" %>   
+
 <%@ page import="java.util.*"%>
 <%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,7 +14,8 @@ int shipping_fee = (int)request.getAttribute("shipping_fee");
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
-@font-face{font-family:'NanumBarunpen';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
+@font-face{font-family:'NanumBarunpen
+';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
 @font-face{font-family:'NanumBarunpen';font-weight:bold;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenB.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenB.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenB.woff2") format("woff2")}
 
 body{font-family:NanumBarunpen, sans-serif}
@@ -107,15 +108,15 @@ body{font-family:NanumBarunpen, sans-serif}
 								<input type='checkbox' class='check' name='checking' id='pd_check${status.index}'>
 								</td>
 								
-								<td><h5>${goodsList[status.index].GOODS_NUM}</h5>
-								<input type="hidden" value="${goodsList[status.index].GOODS_NUM}" id="GOODS_NUM${status.index}"/>
+								<td><h5>${goodsList[status.index].goods_num}</h5>
+								<input type="hidden" value="${goodsList[status.index].goods_num}" id="GOODS_NUM${status.index}"/>
 								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
 								</td>
 								<td>
-											<img src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>" width="145" height="98" alt="">
+											<img src="<c:out value='${goodsList[status.index].main_img}'/>" width="145" height="98" alt="">
 								</td>
 								<td>
-											<p><c:out value="${goodsList[status.index].NAME}"/></p>
+											<p><c:out value="${goodsList[status.index].name}"/></p>
 								</td>
 								<td>
 									<h5 id=price${status.index}><c:out value="${cart.PRICE}원"/></h5>
