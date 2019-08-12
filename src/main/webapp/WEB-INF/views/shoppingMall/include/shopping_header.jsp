@@ -473,7 +473,7 @@ body {
 		<div class="miniCart_total" style="display: flex;">
 			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
 			&emsp;&emsp;
-			<h2 style="color: black; font-weight: bold;" id="minicart_total">155,000원</h2>
+			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
 		</div>
 		<!-- footer -->
 		<div class="miniCart_footer">

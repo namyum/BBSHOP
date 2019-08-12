@@ -160,14 +160,40 @@ public class CartController {
 		return "cart.do";
 	}
 	
+	// 헤더의 장바구니 버튼을 클릭시 ajax 요청을 응답하는 컨트롤러
 	@RequestMapping("getCartList.do")
 	@ResponseBody
-	public List<Cart_GDVO> getCartList() {
+	public Map<String, Object> getCartList() {
 		
 		long user_key = (long)session.getAttribute("member");
-		
+		Map<String, Object> result = new HashMap<>();
+		int allPrice = 0;
+
 		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
+		System.out.println("cart_list : " + cart_list.toString());
 		
-		return cart_list;
+		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
+		
+		// 장바구니 리스트에 담긴 상품들의 상품 정보를 담은 리스트를 만든다.
+		for (int i = 0; i < cart_list.size(); i++) {
+			
+			long goodsnum = cart_list.get(i).getGOODS_NUM();
+			Cart_GDVO temp = cart_list.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cart_list.set(i, temp);
+			goods_list.add(cartService.getGoods(goodsnum));
+		}
+		
+		// 총 금액 구하기.
+		for (int i = 0 ; i < cart_list.size(); i++) {
+			
+			allPrice += cart_list.get(i).getTOTALPRICE();
+		}
+		
+		result.put("allPrice", allPrice);
+		result.put("goods_list",goods_list);
+		result.put("cart_list", cart_list);
+		
+		return result;
 	}
 }

@@ -757,10 +757,8 @@ function qnaList_Ajax() {
 			contentType: "application/json",
 			success: function(result) {
 				
-				alert('ajax 성공!');
-				
-				console.log('서버로부터 받은 GoodsVO의 goods_num : ' + result.goods.goods_num);
-				
+				alert('미니카트 성공!');
+								
 				var content = '';
 				var total = '';
 				var total_price = result.goods.price * result.qty
