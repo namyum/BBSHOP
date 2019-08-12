@@ -23,14 +23,19 @@ import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.CommunityService;
-import com.bbshop.bit.service.ReplyService;
+
+import lombok.extern.log4j.Log4j;
 
 @Controller
+@Log4j
 @RequestMapping("*.do")
 public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private HttpSession session;
 	
 	/* 커뮤니티 */
 	// 커뮤니티 - 메인
@@ -66,8 +71,15 @@ public class CommunityController {
 	@RequestMapping("/community_detail.do")
 	public String community_detail(Model model, @RequestParam("BOARD_NUM") long board_num) {
 		
+		System.out.println("community_detail.do 컨트롤러 진입");
+		
 		communityService.updateHit(board_num);
+		
+		System.out.println("통과하나?");
+		
 		model.addAttribute("post", communityService.getPost((long) board_num));
+		
+		System.out.println("community_detail.do 컨트롤러 나옴");
 
 		return "shoppingMall/community/community_detail";
 	}
@@ -108,12 +120,14 @@ public class CommunityController {
 	
 	@RequestMapping("/communityWriteAction.do")
 	public String communityWriteAction(CommunityVO community, Model model) throws Exception{
+		
+		long user_key = (long)session.getAttribute("member");
 			
 		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
 
 		int res = communityService.insertPost(community);
 		
-		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
+		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
 		
 		if(res == 1) {
 			System.out.println("글이 등록되었습니다.");
@@ -140,11 +154,13 @@ public class CommunityController {
 	
 	@RequestMapping("/communityUpdateAction.do")
 	public String communityUpdateAction(CommunityVO community, Model model) {
+
+		long user_key = (long)session.getAttribute("member");
 		
 		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
 		
 		int res = communityService.updatePost(community);
-		model.addAttribute("BOARD_NUM",communityService.getBoardNum());
+		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
 		
 		if(res == 1) {
 			System.out.println("글이 수정되었습니다.");

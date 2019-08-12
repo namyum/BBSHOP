@@ -24,7 +24,5 @@ public class CommunityVO {
 	private long USER_KEY;	
 	private long SEQ;	
 	private long LEV;	
-	private long DEP;	
-	private int SEQ_BOARD;
-	private int RN;
+	private long DEP;
 }

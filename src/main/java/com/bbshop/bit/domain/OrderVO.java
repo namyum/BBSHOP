@@ -17,7 +17,7 @@ public class OrderVO {
 	private long ship_nmbr;
 	private Date ship_date;
 	private long user_key;
-	private String name;
+	private String name; // 주문자
 	private String items; // 추가: 주문내역
 	private String receiver; // 추가: 수취인
 	

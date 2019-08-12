@@ -161,9 +161,6 @@
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
 						</td>
-						<td>
-						<a href="/fileUploadForm.do">파일업로드</a>
-						</td>
 					</tr>
 				</table>
 			</div>

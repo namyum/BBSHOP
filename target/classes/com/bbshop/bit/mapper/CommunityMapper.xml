@@ -7,16 +7,14 @@
 
 	<insert id="insertPost"
 		parameterType="com.bbshop.bit.domain.CommunityVO">
-		<selectKey keyProperty="SEQ_BOARD" resultType="int"
+		<selectKey keyProperty="BOARD_NUM" resultType="int"
 			order="BEFORE">
 			select seq_board.nextval FROM DUAL
 		</selectKey>
 
-		INSERT INTO community(board_num, writer, user_key, team_name, title,
-		board_content, uploadFile)
+		INSERT INTO community (board_num, writer, user_key, team_name, title, board_content, uploadFile)
 		VALUES
-		(SEQ_BOARD.nextval, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT},
-		#{UPLOADFILE})
+			(#{BOARD_NUM}, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE})
 
 	</insert>
 
@@ -35,8 +33,7 @@
 		WHERE board_num = #{BOARD_NUM}
 	</select>
 
-	<select id="getListWithPaging" parameterType="map"
-		resultType="com.bbshop.bit.domain.CommunityVO">
+	<select id="getListWithPaging" parameterType="map" resultType="com.bbshop.bit.domain.CommunityVO">
 
 	<![CDATA[
 
@@ -81,10 +78,11 @@
 
 	<select id="getBoardNum" resultType="long">
 		SELECT *
-		FROM (SELECT
-		board_num
-		FROM community
-		ORDER BY moddate desc)
+		FROM (
+			SELECT board_num
+			FROM community
+			WHERE user_key = #{user_key}
+			ORDER BY regdate desc)
 		WHERE ROWNUM = 1
 	</select>
 
