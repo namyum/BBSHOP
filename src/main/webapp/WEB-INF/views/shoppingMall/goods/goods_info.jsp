@@ -760,6 +760,30 @@ function qnaList_Ajax() {
 				alert('ajax 성공!');
 				
 				console.log('서버로부터 받은 GoodsVO의 goods_num : ' + result.goods.goods_num);
+				
+				var content = '';
+				
+				content += '<li class="miniCart_item">';
+				content += '<a href="/goods_info.do">';
+				content += '<img class="item_img" src="';
+				content += result.goods.main_img + '">';
+				content += '</a>';
+					
+				content += '<div class="item_info">';
+				
+				content += '<div id="item-name" class="item-name">' + result.goods.name + '</div>';
+				content += '<div id="item-price"><span>' + result.goods.price + '원</span></div>';
+				content += '<div id="item-quantity">수량 : <span>' + result.qty + '</span></div>';
+				
+				
+				
+				content += '</div>';
+				
+				
+				content += '</li>';
+				
+				$('.miniCart_list').empty();
+				$('.miniCart_list').append(content);
 			},
 			error: function() {
 

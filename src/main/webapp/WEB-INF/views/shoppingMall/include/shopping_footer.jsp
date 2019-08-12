@@ -137,13 +137,16 @@
 					console.log(value);
 				
 					content += '<li class="miniCart_item">';
+					
 					content += '<a href="/goods_info.do">';
 					content += '<img class="item_img" src="';
 					content += index.main_img + '">';
 					content += '</a>';
 					
 					content += '<div class="item_info">';
+					
 					content += '<div id="item-name" class="item-name">' + index.name; + '</div>';
+					
 					content += '</div>';
 					content += '</li>';
 				});

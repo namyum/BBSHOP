@@ -281,6 +281,7 @@ public class GoodsController {
 		service.addGoodsToCart(goods, qty, 1); // 임시 user_key = 1
 		
 		result.put("goods", goods);
+		result.put("qty", qty);
 		
 		return result;
 	}
