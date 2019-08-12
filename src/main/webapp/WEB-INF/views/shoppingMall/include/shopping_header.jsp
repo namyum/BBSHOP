@@ -547,7 +547,7 @@ body {
 		</div>
 		<!-- footer -->
 		<div class="miniCart_footer">
-			<a id="view_cart_btn" href="/cart"> V i e w &emsp; C a r t </a>
+			<a id="view_cart_btn" href="/cart.do"> V i e w &emsp; C a r t </a>
 		</div>
 	</div>
 
@@ -574,11 +574,11 @@ body {
 								<li><a href="/savings.do"> 마이 페이지 </a></li>
 							</c:otherwise>
 						</c:choose>
-						<li><a href="/community_main"> <!-- Community --> 커뮤니티
+						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
 						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
 						</a></li>
-						<li><a href="/cart"> 장바구니 </a></li>
+						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
 						<c:set var="nickname" value="${nickname }"/> 
 						<c:choose>
@@ -586,7 +586,7 @@ body {
 								<li><a href="/index.do"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/logout"> 로그아웃 </a></li>
+								<li><a href="/index.do"> 로그아웃 </a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

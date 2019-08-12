@@ -30,12 +30,15 @@ public class CartController {
 	@Autowired(required=true)
 	CartService cartService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("cart.do")
 	public String cart(HttpSession session, Model model) {
 		System.out.println("cart페이지");
 		int allPrice=0;
 		int shipping_fee=0;
-		long user_key = 1;
+		long user_key = (long)session.getAttribute("member");
 		Cart_PDVO vo = new Cart_PDVO();
 		vo.setUSER_KEY(user_key);
 		

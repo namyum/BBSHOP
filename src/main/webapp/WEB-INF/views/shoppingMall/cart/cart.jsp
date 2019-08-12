@@ -230,7 +230,7 @@ body{font-family:NanumBarunpen, sans-serif}
 							<div style="float:right" class="checkout_btn_inner">
 											<a class="main_btn" href="/order">결제하기</a>
 											
-											<a class="genric-btn default-border radius e-large" href="/goods_list">계속 쇼핑하기</a>
+											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
 										</div>
 											
 								
