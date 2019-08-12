@@ -300,20 +300,19 @@ li, a {
                   <form class="row contact_form" action="#" method="post"
                      novalidate="novalidate">
                      <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="name" name="name" 
+                        <input type="text" class="form-control" id="name" name="name"
                         value="<c:out value="${user.NAME}"/>" placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="phone" name="phone"
+                        <input type="text" class="form-control" id="phone"
                            value="<c:out value="${user.PHONE}"/>"
                            placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="phone2"
-                           name="phone2" placeholder="연락처2">
+                        <input type="text" class="form-control" id="phone2" placeholder="연락처2">
                      </div>
                      <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="id" name="id"
+                        <input type="text" class="form-control" id="id"
                           value="<c:out value="${user.MEMBER_ID}"/>"
                            placeholder="이메일">
                      </div>
@@ -326,19 +325,19 @@ li, a {
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="deli_name"
-                           name="order_name" placeholder="성명">
+                           name="name" placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="deli_phone"
-                           name="order_phone" placeholder="연락처1">
+                           name="phone" placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="deli_phone2"
-                           name="order_phone2" placeholder="연락처2">
+                           name="phone2" placeholder="연락처2">
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="deli_id"
-                           name="order_id" placeholder="이메일">
+                            placeholder="이메일">
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <p>배송지 선택</p>
@@ -354,21 +353,21 @@ li, a {
                            </tr>
                            <tr>
                               <td><input type="text" class="form-control"
-                                 id="zipcode_input" name="zipcode_input" style="width: 100px;"></td>
+                                 id="zipcode_input" style="width: 100px;"></td>
                               <td><input type="button" name="zipcode" value="우편번호"
                                  onclick="openZipcode(this.form)" /></td>
                            </tr>
                         </table>
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr1" name="addr1">
+                        <input type="text" class="form-control" id="addr1" name="or_addr">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr2" name="addr2"
+                        <input type="text" class="form-control" id="addr2"
                            placeholder="상세 주소">
                      </div>
                      <div class="col-md-12 form-group">
-                        <textarea class="form-control" name="msg" id="msg" rows="1"
+                        <textarea class="form-control" name="or_msg" id="msg" rows="1"
                            placeholder="주문메세지"></textarea>
                      </div>
                   </form>
@@ -394,6 +393,7 @@ li, a {
                         <li><p>배송비 <span><c:out value="${shipping_fee}원" /></span>
                         </p></li>
                         <li><p>총 결제금액 <span><c:out value="${allPrice}원" /></span>
+                        <input type="hidden" name="pymntamnt" value="${allPrice}"/>
                         </p></li>
                      </ul>
                      <div class="payment_item">
@@ -405,6 +405,7 @@ li, a {
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
                               src="resources/shoppingMall/img/product/single-product/kakaopay.png"
                               alt="" style="width:70px;height:30px;">
+                           <input type="hidden" name="pymntmthd" value="kakaoPay"/>
                            <div class="check"></div>
                         </div>
                      </div>
