@@ -116,6 +116,47 @@
 
 	//장바구니 아이콘 눌렀을 때, miniCart나오기
 	cart_btn.onclick = function() {
+		
+		var data = {};
+		
+		$.ajax({
+			type: "POST",
+			url: "getCartList.do",
+			data: JSON.stringify(data),
+			dataType: "json",
+			contentType: "application/json",
+			success: function(result) {
+				
+				alert('ajax 성공!');
+				
+				var content = '';
+				
+				$.each(result, function(index, value) {
+					
+					console.log(index);
+					console.log(value);
+				
+					content += '<li class="miniCart_item">';
+					content += '<a href="/goods_info.do">';
+					content += '<img class="item_img" src="';
+					content += index.main_img + '">';
+					content += '</a>';
+					
+					content += '<div class="item_info">';
+					content += '<div id="item-name" class="item-name">' + index.name; + '</div>';
+					content += '</div>';
+					content += '</li>';
+				});
+				
+				$('.miniCart_list').empty();
+				$('.miniCart_list').append(content);
+			},
+			error: function() {
+
+				alert('ajax 실패!');
+			}
+		});
+		
 		curtain.style.display = "block";
 		miniCart.style.width = "350px";
 	}

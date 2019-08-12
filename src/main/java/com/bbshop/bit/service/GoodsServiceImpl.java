@@ -159,6 +159,12 @@ public class GoodsServiceImpl implements GoodsService {
 		return mapper.getTotalCountAjax(map);
 	}
 
+	@Override
+	public void addGoodsToCart(GoodsVO goods, int qty, long user_key) {
+
+		mapper.addGoodsToCart(goods, qty, user_key); 
+	}
+
 
 	
 	

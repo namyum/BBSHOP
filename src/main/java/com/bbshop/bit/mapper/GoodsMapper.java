@@ -3,21 +3,23 @@ package com.bbshop.bit.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 
 public interface GoodsMapper {
 		
-	// ÆäÀÌÂ¡ O
-	// »óÇ° ¸ñ·Ï, sorting°ª¿¡ µû¶ó µ¿ÀûÄõ¸®
+	// ï¿½ï¿½ï¿½ï¿½Â¡ O
+	// ï¿½ï¿½Ç° ï¿½ï¿½ï¿½, sortingï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// hashmap[pagingVO(pageNum,amount), category, sorting]
 	public List<GoodsVO> getGoodsList(HashMap<String, Object> map);
 	
-	// Ä«Å×°í¸® º°, goods µ¥ÀÌÅÍ °³¼ö 
+	// Ä«ï¿½×°ï¿½ ï¿½ï¿½, goods ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 	public int getTotalCount(int category);
 	
-	// »óÇ° Á¶È¸
+	// ï¿½ï¿½Ç° ï¿½ï¿½È¸
 	public GoodsVO getGoodsInfo(long goods_num);
 	
 	
@@ -25,10 +27,10 @@ public interface GoodsMapper {
 	
 
 	
-	// »óÇ° QNA µî·Ï - insert¹®ÀÌ ½ÇÇàµÇ°í »ı¼ºµÈ  pk(½ÃÄö½º) °ªÀ» ¾Ë¾Æ¾ß ÇÏ´Â °æ¿ì
+	// ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ - insertï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  pk(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 	public void insertGoodsQnaSelectKey(GoodsQnaVO qna);
 	
-	// »óÇ° QNA ¸ñ·Ï (goods_numÀÌ Ä«Å×°í¸®)
+	// ï¿½ï¿½Ç° QNA ï¿½ï¿½ï¿½ (goods_numï¿½ï¿½ Ä«ï¿½×°ï¿½)
 	// hashmap[pagingVO(pageNum, amount), goods_num]
 	public List<GoodsQnaVO> getQnaList(HashMap<String, Object> map);
 	
@@ -37,15 +39,18 @@ public interface GoodsMapper {
 	
 	
 	
-	// user_key¸¦ ÀÌ¿ëÇØ moredetailÀ» °¡Á®¿Â´Ù.
+	// user_keyï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ moredetailï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 	public MoreDetailsVO findDetail(long user_key);
 	
-	// ÃßÃµ »óÇ° - È¸¿ø
+	// ï¿½ï¿½Ãµ ï¿½ï¿½Ç° - È¸ï¿½ï¿½
 	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail);
 	
-	// ÃßÃµ »óÇ° - ºñÈ¸¿ø
+	// ï¿½ï¿½Ãµ ï¿½ï¿½Ç° - ï¿½ï¿½È¸ï¿½ï¿½
 	public List<GoodsVO> recommendBestList();
 
-	/* ajax·Î µ¥ÀÌÅÍ ºÒ·¯¿Ã ¶§ ÀüÃ¼ °³¼ö ±¸ÇÏ±â */	
+	/* ajaxï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½ */	
 	public int getTotalCountAjax(HashMap<String, Object> map);
+
+	// ì¥ë°”êµ¬ë‹ˆ ëª©ë¡ì— ìƒí’ˆì„ ë„£ëŠ” ë©”ì†Œë“œ
+	public void addGoodsToCart(@Param("goods") GoodsVO goods, @Param("qty") int qty, @Param("user_key") long user_key);
 }

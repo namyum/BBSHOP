@@ -257,18 +257,28 @@ public class GoodsController {
 	
 	@RequestMapping("addGoodsToCart.do")
 	@ResponseBody
-	public Map<String, Object> addGoods(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> addGoodsToCart(@RequestBody Map<String, Object> map) {
+		
+		long user_key = (long)session.getAttribute("member");
 		
 		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
-//		int category = (int)map.get("category");
-//		int hand = Integer.parseInt((String)map.get("hand"));
-//		int taming = Integer.parseInt((String)map.get("tame"));
+		int qty = Integer.parseInt((String)map.get("qty"));
+		
+		// 상품 상세 번호를 구할 때 필요한 변수들
+		int category = (int)map.get("category");
+		int option1 = Integer.parseInt((String)map.get("option1"));
+		int option2 = Integer.parseInt((String)map.get("option2"));
 		
 		Map<String, Object> result = new HashMap<>();
 		
+		// 상품 정보
 		GoodsVO goods = service.getGoodsInfo((long)goods_num);
-		
 		System.out.println(goods.toString());
+		
+		// 상품 상세 번호
+		// 상품 상세 객체(->번호)를 가지고 오는 로직이 의정이가 order에 구현해놓았음. 매퍼에는 임시로 1로 지정함.
+		
+		service.addGoodsToCart(goods, qty, 1); // 임시 user_key = 1
 		
 		result.put("goods", goods);
 		

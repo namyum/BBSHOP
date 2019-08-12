@@ -739,12 +739,14 @@ function qnaList_Ajax() {
 		
 		data["goods_num"] = ${goods.goods_num};
 		data["category"] = ${categoryInt};
-		
+		data["qty"] = $('#sst').val();
+
 		// 카테고리가 글러브일 경우, 상품 옵션을 data에 넣어준다.
+		// 글러브(1)인 경우만 우선적으로 구현.
 		if (category == 1) {
 			
-			data["hand"] = $('#glove_hand option:selected').val();
-			data["tame"] = $('#glove_tame option:selected').val();
+			data["option1"] = $('#glove_hand option:selected').val();
+			data["option2"] = $('#glove_tame option:selected').val();
 		}
 		
 		$.ajax({

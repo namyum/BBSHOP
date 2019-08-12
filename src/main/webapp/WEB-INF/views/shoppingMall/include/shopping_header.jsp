@@ -468,17 +468,13 @@ body {
 		<div class="miniCart_content">
 			<ul class="miniCart_list">
 				<li class="miniCart_item">
-					<a href="/goods_info"> 
+					<a href="/goods_info.do">
 						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
 					</a>
 					<div class="item_info">
 						<div id="item-name" class="item-name">나는 글러브</div>
-						<div class="item-price">
-							<span>10,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>
-						</div>
+						<div class="item-price"><span>10,000원</span></div>
+						<div class="item-quantity">수량 : <span>1</span></div>
 					</div>
 				</li>
 			</ul>
