@@ -89,7 +89,7 @@
 					<th scope="col" style="width: 15%; font-weight: bold;">주문취소</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="order_table">
 			</tbody>
 		</table>
 		<div class="text-center">
@@ -267,8 +267,8 @@
 					
 				});
 				
-				$('tbody').empty();
-				$('tbody').append(str);
+				$('#order_table').empty();
+				$('#order_table').append(str);
 				
 				// 전체 주문 수 표시 AJAX 처리
 				var all_cnt = '';
@@ -328,8 +328,12 @@
 								
 				$.each(result, function(index, value){
 										
-					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date + '</h5></td><td><h5>'
-						+ result[index].items + '</h5></td><td><h5>' +  '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date;
+					str += '</h5></td><td><h5>';
+					str += '<a href="' + result[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + index + ');">';
+					str += result[index].items + '</a></h5></td><td><h5>';
+					str += '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
 						
 					switch(result[index].stts) {
 					
@@ -353,8 +357,8 @@
 					}
 				});
 				
-				$('tbody').empty();
-				$('tbody').append(str);
+				$('#order_table').empty();
+				$('#order_table').append(str);
 				
 				// 페이징 버튼 AJAX 처리
 				for (var i = start; i <= end; i++) {
@@ -460,8 +464,8 @@
 					
 				});
 				
-				$('tbody').empty();
-				$('tbody').append(str);
+				$('#order_table').empty();
+				$('#order_table').append(str);
 				
 				// 전체 주문 수 AJAX 처리
 				var all_cnt = '';
