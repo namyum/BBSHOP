@@ -95,7 +95,7 @@ li, a {
             <div class="banner_content text-center">
                <h2 style="color: white;">주문하기</h2>
                <div class="page_link">
-                  <a href="/shopping_main" style="color: white;">쇼핑몰</a> <a
+                  <a href="/shopping_main.do" style="color: white;">쇼핑몰</a> <a
                      href="/order" style="color: white;">주문</a>
                </div>
             </div>
@@ -112,7 +112,6 @@ li, a {
                   주문 리스트
             </h3>
             <div class="table-responsive">
-         <!--   <form id="orderInfo" action="/kakaoPay.do" method="POST"> -->
                <table class="table">
                   <thead>
                      <tr>
@@ -144,7 +143,6 @@ li, a {
                               </div>
                               <div class="media-body">
                                  <p>${goodsList[status.index].name}</p>
-                                  <input type="hidden" value="${goodsList[status.index].name}"/>
                                  <!-- 상품정보_name -->
                               </div>
                            </div>
@@ -155,7 +153,6 @@ li, a {
                         <td>
                            <div class="product_count">
                                <c:out value="${order.QNTTY}"/>
-                               <input type="hidden" value="<c:out value='${order.QNTTY}'/>"/>
                            </div>
                         </td>
                         <td>
@@ -277,12 +274,11 @@ li, a {
                            <h5>총 상품 금액</h5>
                         </td>
                         <td>
-                           <h5 id="allPrice"><c:out value="${totalPrice}원" /></h5>
+                           <h5>${allPrice }원</h5>
                         </td>
                      </tr>
                   </tbody>
                </table>
-          <!--      </form> -->
             </div>
          </div>
       </div>
@@ -327,7 +323,7 @@ li, a {
                            name="receiver" placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="deli_phone"
+                        <input type="text" class="form-control" id="deli_phone1"
                            name="phone" placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
@@ -513,15 +509,15 @@ li, a {
       // 주문자 정보의 이름 불러오기
       var order_name = document.getElementById('name');
       // 주문자 정보의 번호1 불러오기
-      var order_phone = document.getElementById('phone');
+      var order_phone1 = document.getElementById('phone1');
       // 주문자 정보의 번호2 불러오기
       var order_phone2 = document.getElementById('phone2');
       // 주문자 정보의 이메일 불러오기
       var order_id = document.getElementById('id');
       // 배송 정보의 이름 불러오기
-      var deli_name = document.getElementById('deli_name');
+      var deli_name1 = document.getElementById('deli_name');
       // 배송 정보의 번호1 불러오기
-      var deli_phone = document.getElementById('deli_phone');
+      var deli_phone = document.getElementById('deli_phone1');
       // 배송 정보의 번호2 불러오기
       var deli_phone2 = document.getElementById('deli_phone2');
       // 배송 정보의 이메일 불러오기
@@ -566,7 +562,7 @@ li, a {
       function check(same_above) {
          if (same_above.checked == true) {
             deli_name.value = order_name.value;
-            deli_phone.value = order_phone.value;
+            deli_phone1.value = order_phone1.value;
             deli_phone2.value = order_phone2.value;
             deli_id.value = order_id.value;
          }

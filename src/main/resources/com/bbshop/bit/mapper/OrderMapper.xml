@@ -65,13 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		VALUES(#{order_num}, #{user_key}, #{pymntamnt}, #{savings}, #{or_addr}, #{receiver}, #{phone1}, #{phone2}, #{or_msg}, #{name}, sysdate, 0, 'kakaoPay', 0)
 	</insert>
 	
-	<select id="getLastOrderNum" resultType="com.bbshop.bit.domain.OrderVO">
+	<select id="getLastOrderNum" resultType="com.bbshop.bit.domain.OrderVO" parameterType="long">
 	SELECT order_num 
 	FROM
     	(SELECT * 
     	FROM shop_order 
     	ORDER BY or_date DESC)
-    WHERE user_key = {user_key} and rownum = 1;
+    WHERE user_key = #{user_key} and rownum = 1
 	</select>
 
 </mapper>

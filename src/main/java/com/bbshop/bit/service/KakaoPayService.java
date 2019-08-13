@@ -27,7 +27,7 @@ public class KakaoPayService {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-    public String kakaoPayReady(List<GoodsVO> goodsList, List<Cart_PDVO> cartList, int allPrice, String list) {
+    public String kakaoPayReady(List<GoodsVO> goodsList, List<Cart_PDVO> cartList, int allPrice, String list, long order_num) {
     	
     	String item_name, quantity, total_amount;
     	
@@ -61,7 +61,7 @@ public class KakaoPayService {
         params.add("quantity", quantity);
         params.add("total_amount", total_amount);
         params.add("tax_free_amount", "100");
-        params.add("approval_url", "http://localhost:8080/kakaoPaySuccess.do?allPrice="+allPrice+"&list="+list);
+        params.add("approval_url", "http://localhost:8080/kakaoPaySuccess.do?allPrice="+allPrice+"&list="+list+"&order_num="+order_num);
         params.add("cancel_url", "http://localhost:8080/kakaoPayCancel"); 
         params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail");
  

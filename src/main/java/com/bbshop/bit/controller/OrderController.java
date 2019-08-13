@@ -141,7 +141,7 @@ public class OrderController {
         	System.out.println("주문 등록에 실패했습니다.");
         }
         
-        long order_num = orderService.getLastOrderNum(1);
+        long order_num = orderService.getLastOrderNum(order.getUser_key());
 		
 		goodsList = new ArrayList<GoodsVO>();
 		
@@ -161,14 +161,16 @@ public class OrderController {
 		}
 		
         
-        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list);
+        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num);
  
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,
-    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list) {
+    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, @RequestParam("order_num") long order_num) {
     	System.out.println("kakaoPaySuccess get............................................");
+    	
+    	System.out.println("order_num="+order_num);
 
     	String[] goods_num_list = list.split(",");
 		
