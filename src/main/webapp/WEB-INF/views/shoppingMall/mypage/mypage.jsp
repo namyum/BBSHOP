@@ -40,7 +40,7 @@ a {
 					<i class="fas fa-money-check"></i>
 				</p>
 				<span>보유 쿠폰</span>
-				<h4>1</h4>
+				<h4>0 개</h4>
 			</div>
 			<div class="test">
 				<div class="col-md-4" style="color: white;">
@@ -55,7 +55,7 @@ a {
 						<i class="fas fa-star"></i>
 					</p>
 					<span>보유 포인트</span>
-					<h4>1,350 P</h4>
+					<h4>0 P</h4>
 				</div>
 			</div>
 		</div>

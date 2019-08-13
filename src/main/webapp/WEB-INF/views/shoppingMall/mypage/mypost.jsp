@@ -114,7 +114,7 @@ $(document).ready(function() {
 			} else if (category == 'onetoone') {
 				
 				category = '1:1 문의';
-				col = '1:1 카테고리';
+				col = '문의유형';
 				values = result.onetoone;
 			}
 			
@@ -222,7 +222,7 @@ function getTableWithAjax(menu) {
 			} else if (category == 'onetoone') {
 				
 				cate = '1:1 문의';
-				col = '1:1 카테고리';
+				col = '문의유형';
 				values = result.onetoone;		
 			
 			}
@@ -343,7 +343,7 @@ $(document).on("click", ".page-item a", function(e) {
 			} else if (category == 'onetoone') {
 				
 				cate = '1:1 문의';
-				col = '1:1 카테고리';
+				col = '문의유형';
 				values = result.onetoone;		
 			
 			}
