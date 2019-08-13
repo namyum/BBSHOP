@@ -37,8 +37,8 @@
 						<th scope="col" style="width: 10%; font-weight: bold;">번호</th>
 						<th scope="col" style="width: 15%; font-weight: bold;">카테고리</th>
 						<th scope="col" style="font-weight: bold;">제목</th>
+						<th scope="col" style="width: 10%; font-weight: bold;" id="changing"></th>
 						<th scope="col" style="width: 18%; font-weight: bold;">날짜</th>
-						<th scope="col" style="width: 10%; font-weight: bold;">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -96,23 +96,26 @@ $(document).ready(function() {
 			var start = ${pageMaker.startPage};
 			var end = ${pageMaker.endPage};
 			var str = '';
+			var col = '';
 			var paging = '';
 			
 			if (category == 'review') {
 				
 				category = '상품 후기';
+				col = '별점';
 				values = result.review;
 				
 			} else if (category == 'qna') {
 				
 				category = '상품 QnA';
+				col = '상품 번호';
 				values = result.qna;
 				
 			} else if (category == 'onetoone') {
 				
 				category = '1:1 문의';
-				values = result.onetoone;		
-			
+				col = '1:1 카테고리';
+				values = result.onetoone;
 			}
 			
 			$.each(values, function(index, value){
@@ -120,17 +123,17 @@ $(document).ready(function() {
 				if (category == '상품 후기') {
 					
 					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
-				
+						+ values[index].score + '</h5></td><td><h5>' + values[index].re_date + '</h5></td></tr>';
+					
 				} else if (category == '상품 QnA') {
 					
 					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>0</h5></td></tr>';
-				
+						+ values[index].goods_num + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';
+						
 				} else if (category == '1:1 문의') {
 					
 					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + category + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
+						+ values[index].one_category + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';	
 				}
 				
 			});
@@ -141,6 +144,9 @@ $(document).ready(function() {
 			// 게시판 종류 표시를 바꿔준다
 			$('#table_content').empty();
 			$('#table_content').append(category);
+			
+			$('#changing').empty();
+			$('#changing').append(col);
 			
 			// 페이징 버튼 AJAX 처리
 			for (var i = start; i <= end; i++) {
@@ -204,16 +210,19 @@ function getTableWithAjax(menu) {
 			if (category == 'review') {
 				
 				cate = '상품 후기';
+				col = '별점';
 				values = result.review;
 				
 			} else if (category == 'qna') {
 				
 				cate = '상품 QnA';
+				col = '상품 번호';
 				values = result.qna;
 				
 			} else if (category == 'onetoone') {
 				
 				cate = '1:1 문의';
+				col = '1:1 카테고리';
 				values = result.onetoone;		
 			
 			}
@@ -223,24 +232,17 @@ function getTableWithAjax(menu) {
 				if (cate == '상품 후기') {
 					
 					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
+						+ values[index].score + '</h5></td><td><h5>' + values[index].re_date + '</h5></td></tr>';
 					
-					cnt++;
-				
 				} else if (cate == '상품 QnA') {
 					
 					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>0</h5></td></tr>';
-				
-					cnt++;
-
+						+ values[index].goods_num + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';
+						
 				} else if (cate == '1:1 문의') {
 					
 					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
-				
-					cnt++;
-
+						+ values[index].one_category + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';
 				}
 				
 			});
@@ -250,6 +252,9 @@ function getTableWithAjax(menu) {
 			
 			$('#table_content').empty();
 			$('#table_content').append(cate);
+			
+			$('#changing').empty();
+			$('#changing').append(col);
 			
 			var all_cnt = '';
 			all_cnt += '총 게시글 : ' + total + '개';
@@ -326,16 +331,19 @@ $(document).on("click", ".page-item a", function(e) {
 			if (category == 'review') {
 				
 				cate = '상품 후기';
+				col = '별점';
 				values = result.review;
 				
 			} else if (category == 'qna') {
 				
 				cate = '상품 QnA';
+				col = '상품 번호';
 				values = result.qna;
 				
 			} else if (category == 'onetoone') {
 				
 				cate = '1:1 문의';
+				col = '1:1 카테고리';
 				values = result.onetoone;		
 			
 			}
@@ -345,17 +353,17 @@ $(document).on("click", ".page-item a", function(e) {
 				if (cate == '상품 후기') {
 					
 					str += '<tr><td><h5>' + values[index].rv_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].re_date + '</h5></td><td><h5>' + values[index].re_hit + '</h5></td></tr>';
-									
+						+ values[index].score + '</h5></td><td><h5>' + values[index].re_date + '</h5></td></tr>';
+					
 				} else if (cate == '상품 QnA') {
 					
 					str += '<tr><td><h5>' + values[index].qna_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>0</h5></td></tr>';
-				
+						+ values[index].goods_num + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';
+						
 				} else if (cate == '1:1 문의') {
 					
 					str += '<tr><td><h5>' + values[index].one_one_num + '</h5></td><td><h5>' + cate + '</h5></td><td><h5>' + values[index].one_title + '</h5></td><td><h5>'
-						+ values[index].regdate + '</h5></td><td><h5>' + values[index].hit + '</h5></td></tr>';
+						+ values[index].one_category + '</h5></td><td><h5>' + values[index].regdate + '</h5></td></tr>';
 				}
 				
 			});
@@ -365,6 +373,9 @@ $(document).on("click", ".page-item a", function(e) {
 			
 			$('#table_content').empty();
 			$('#table_content').append(cate);
+			
+			$('#changing').empty();
+			$('#changing').append(col);
 			
 			// 게시판 종류별 총 게시글 출력
 			var all_cnt = '';
