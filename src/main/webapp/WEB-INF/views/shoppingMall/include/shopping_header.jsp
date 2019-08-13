@@ -527,7 +527,7 @@ body {
 		</div>
 
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light" style="max-height:80px;">
+			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->

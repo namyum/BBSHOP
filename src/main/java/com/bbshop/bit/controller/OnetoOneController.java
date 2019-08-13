@@ -55,8 +55,6 @@ public class OnetoOneController {
 	@RequestMapping("/onetoone_register.do")
 	public String register(OnetooneVO board, RedirectAttributes rttr) {
 		
-		session.setAttribute("member", (long)1);
-		
 		long user_key = (long)session.getAttribute("member");
 		
 		board.setUser_key(user_key);
@@ -70,7 +68,7 @@ public class OnetoOneController {
 	}
 
 	@GetMapping("/onetoone_get.do")
-	public String get(@RequestParam("One_One_NUM") long One_One_NUM, @ModelAttribute("pag") PagingVO pag, Model model) {
+	public String get(@RequestParam("one_one_num") long One_One_NUM, @ModelAttribute("pag") PagingVO pag, Model model) {
 		//@RequestParam("one_to_one_category") String category,
 		
 		System.out.println("글 번호 : " + One_One_NUM);
@@ -82,7 +80,7 @@ public class OnetoOneController {
 	}
 
 	@RequestMapping("/onetoone_modify.do")
-	public String modify(@RequestParam("One_One_NUM") Long One_One_NUM, @ModelAttribute("pag") PagingVO pag, Model model, RedirectAttributes rttr) {
+	public String modify(@RequestParam("one_one_num") Long One_One_NUM, @ModelAttribute("pag") PagingVO pag, Model model, RedirectAttributes rttr) {
 
 		OnetooneVO onetooneVO = onetooneservice.OnetoOne_get(One_One_NUM);
 		
@@ -100,7 +98,7 @@ public class OnetoOneController {
 	}
 	
 	@PostMapping("/onetoone_remove.do")
-	public String remove(@RequestParam("ONE_ONE_NUM") Long One_One_NUM, RedirectAttributes rttr) {
+	public String remove(@RequestParam("one_one_num") Long One_One_NUM, RedirectAttributes rttr) {
 		
 		log.info("remove..." + One_One_NUM);
 		
