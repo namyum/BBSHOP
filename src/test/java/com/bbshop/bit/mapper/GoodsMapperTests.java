@@ -36,13 +36,13 @@ public class GoodsMapperTests {
 		
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(18);
 		
-		//°Ë»ö Á¶°Ç ¼³Á¤
+		//ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setType("N");
-		pagingVO.setKeyword("ÀÌÄ¡·Î");
+		pagingVO.setKeyword("ï¿½ï¿½Ä¡ï¿½ï¿½");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);
@@ -68,8 +68,8 @@ public class GoodsMapperTests {
 //	@Test
 	public void testInsertGoodsQnaSelectKey() {
 		GoodsQnaVO qna = new GoodsQnaVO();
-		qna.setTitle("»óÇ° ¹®ÀÇ ÇÕ´Ï´Ù");
-		qna.setContent("»óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù");
+		qna.setTitle("ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½");
+		qna.setContent("ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½");
 		qna.setAttached_file("");
 		qna.setGoods_num(18l);
 		
@@ -83,7 +83,7 @@ public class GoodsMapperTests {
 	public void testQnaList() {
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(6);
 		
@@ -91,8 +91,8 @@ public class GoodsMapperTests {
 		map.put("pagingVO", pagingVO);
 		map.put("goods_num", 21l);
 		
-		List<GoodsQnaVO> qnaList = mapper.getQnaList(map);
-		qnaList.forEach(qna -> log.info(qna));
+//		List<GoodsQnaVO> qnaList = mapper.getQnaList(map);
+//		qnaList.forEach(qna -> log.info(qna));
 	}
 	
 //	@Test
@@ -102,7 +102,7 @@ public class GoodsMapperTests {
 		m.setBRAND1("nike");
 		m.setBRAND2("adidas");
 		m.setBRAND3("brett");
-		m.setPOSITION("Åõ¼ö");
+		m.setPOSITION("ï¿½ï¿½ï¿½ï¿½");
 		m.setTEAM("lg");
 		m.setUSER_KEY(950131);
 		
