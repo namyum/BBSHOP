@@ -557,7 +557,7 @@
                                     <div class="position select">
                                     <select class="form-control" name="POSITION" id="position">
                                     	<option value="position">Position</option>
-                                        <option value="유격수">내야수</option>
+                                        <option value="내야수">내야수</option>
                                         <option value="외야수">외야수</option>
                                         <option value="포수">포수</option>
                                         <option value="투수">투수</option>

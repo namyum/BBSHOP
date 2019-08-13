@@ -531,7 +531,7 @@ body {
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
-					<a class="navbar-brand logo_h" href="/shopping_main"> <img
+					<a class="navbar-brand logo_h" href="/shopping_main.do"> <img
 						src="resources/shoppingMall/img/logo.png" alt=""
 						style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
 					</a>
