@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 <!-- 지수 카트 -->
 
-	<resultMap type="com.bbshop.bit.domain.Cart_GDVO"
+	<resultMap type="com.bbshop.bit.domain.Cart_PDVO"
 		id="CartResultMap">
 		<result property="GOODS_NUM" column="GOODS_NUM" />
 		<result property="PRICE" column="PRICE" />
@@ -66,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		INSERT INTO shop_order(order_num, user_key, pymntamnt, savings, or_addr, receiver, phone1, phone2, or_msg, name, or_date, stts, pymntmthd, cancel)
 		VALUES(#{order_num}, #{user_key}, #{pymntamnt}, #{savings}, #{or_addr}, #{receiver}, #{phone1}, #{phone2}, #{or_msg}, #{name}, sysdate, 0, 'kakaoPay', 0)
 	</insert>
+	
 	
 	<select id="getLastOrderNum" resultType="long" parameterType="long">
 	SELECT order_num 
