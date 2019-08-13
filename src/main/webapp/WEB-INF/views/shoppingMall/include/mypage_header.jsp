@@ -582,97 +582,16 @@ body {
 		<!-- content -->
 		<div class="miniCart_content">
 			<ul class="miniCart_list">
-				<li class="miniCart_item">
-					<!-- 상품 이미지 부분 -->
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<!-- 상품 정보 부분 -->
-					<div class="item_info">
-						<!-- 상품명 -->
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<!-- 상품 가격 -->
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<!-- 상품 수량 -->
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
 			</ul>
 		</div>
+		
 		<!-- total -->
-		<div class="miniCart_total" style="display:flex;">
-			<h2 style="color:black; font-weight:bold;">총 상품금액  : </h2>&emsp;&emsp;<h2 style="color:black; font-weight:bold;">155,000원</h2>
+		<div class="miniCart_total" style="display: flex;">
+			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
+			&emsp;&emsp;
+			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
 		</div>
+		
 		<!-- footer -->
 		<div class="miniCart_footer">
 			<a id="view_cart_btn" href="/cart">

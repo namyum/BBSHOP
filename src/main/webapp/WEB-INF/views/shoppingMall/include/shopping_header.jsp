@@ -475,6 +475,7 @@ body {
 			&emsp;&emsp;
 			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
 		</div>
+		
 		<!-- footer -->
 		<div class="miniCart_footer">
 			<a id="view_cart_btn" href="/cart.do"> V i e w &emsp; C a r t </a>
