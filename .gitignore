@@ -55,3 +55,16 @@ target/classes/com/bbshop/bit/mapper/GoodsMapper.class
 target/classes/com/bbshop/bit/service/GoodsService.class
 target/classes/com/bbshop/bit/service/GoodsServiceImpl.class
 target/classes/com/bbshop/bit/controller/GoodsController.class
+target/classes/com/bbshop/bit/mapper/CartMapper.xml
+target/classes/com/bbshop/bit/mapper/CommunityMapper.xml
+target/classes/com/bbshop/bit/mapper/FAQMapper.xml
+target/classes/com/bbshop/bit/mapper/GoodsMapper.xml
+target/classes/com/bbshop/bit/mapper/MemberMapper.xml
+target/classes/com/bbshop/bit/mapper/MyPageMapper.xml
+target/classes/com/bbshop/bit/mapper/OnetoOneMapper.xml
+target/classes/com/bbshop/bit/mapper/ReplyMapper.xml
+target/classes/com/bbshop/bit/mapper/ReportMapper.xml
+target/classes/log4j.xml
+target/classes/log4jdbc.log4j2.properties
+target/m2e-wtp/web-resources/META-INF/maven/com.bbshop/bit/pom.properties
+target/test-classes/log4j.xml
