@@ -12,7 +12,7 @@ public class ReviewVO {
 	private long re_cnt;
 	private String re_date;
 	private long re_chk;
-	private long good_num;
+	private long goods_num;
 	private long user_key;
 	private long re_hit; // 조회수 컬럼 추가
 	
@@ -70,11 +70,11 @@ public class ReviewVO {
 	public void setRe_chk(long re_chk) {
 		this.re_chk = re_chk;
 	}
-	public long getGood_num() {
-		return good_num;
+	public long getGoods_num() {
+		return goods_num;
 	}
-	public void setGood_num(long good_num) {
-		this.good_num = good_num;
+	public void setGoods_num(long goods_num) {
+		this.goods_num = goods_num;
 	}
 	public long getUser_key() {
 		return user_key;
@@ -87,6 +87,6 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [rv_num=" + rv_num + ", title=" + title + ", contents=" + contents + ", hrscp=" + hrscp
 				+ ", re_img=" + re_img + ", re_cnt=" + re_cnt + ", re_date=" + re_date + ", re_chk=" + re_chk
-				+ ", good_num=" + good_num + ", user_key=" + user_key + ", re_hit=" + re_hit + "]";
+				+ ", good_num=" + goods_num + ", user_key=" + user_key + ", re_hit=" + re_hit + "]";
 	}
 }

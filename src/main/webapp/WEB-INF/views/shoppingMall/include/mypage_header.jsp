@@ -690,29 +690,27 @@ body {
 				<div class="float-left"></div>
 				<div class="float-right">
 					<ul class="right_side">
-						<li>
-							<a href="/mypage">	<!-- MyPage -->
-								마이 페이지
-							</a>
-						</li>
-						<li>
-							<a href="/community_main">	<!-- Community -->
-								커뮤니티
-							</a>
-						</li>
-						<li>
-							<a href="/faq">	<!-- Contact Us -->
-								고객센터
-							</a>
-						</li>
-						<li>	
-							<a href="/cart">
-								장바구니
-							</a>
-						</li>
 						<!-- 민구 추가 -->
 						<c:choose>
-							<c:when test="${nickname eq 'noAccount' }">
+							<c:when test="${member == 00 }">
+								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
+							</c:when>
+							<c:when test="${member == 000 }">
+								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/savings.do"> 마이 페이지 </a></li>
+							</c:otherwise>
+						</c:choose>
+						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
+						</a></li>
+						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						</a></li>
+						<li><a href="/cart.do"> 장바구니 </a></li>
+						<!-- 민구 추가 -->
+						<c:set var="nickname" value="${nickname }"/> 
+						<c:choose>
+							<c:when test="${fn:substring(nickname,0,9) eq 'noAccount'}">
 								<li><a href="/index.do"> 로그인 </a></li>
 							</c:when>
 							<c:otherwise>
@@ -721,7 +719,6 @@ body {
 						</c:choose>
 					</ul>
 				</div>
-
 			</div>
 		</div>
 		
