@@ -170,8 +170,11 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		// 리뷰 평균
 		reviewDTO.setAvg(mapper.getReviewAvg(goods_num));
+		System.out.println("reviewDTO.getAvg() : " + reviewDTO.getAvg());
+		
 		// 리뷰 개수
 		reviewDTO.setTotal(mapper.getReviewCount(goods_num));
+		System.out.println("reviewDTO.getTotal() : " + reviewDTO.getTotal());
 		
 		int[] scoreCount = new int[5];
 		

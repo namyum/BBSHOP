@@ -929,7 +929,7 @@ function setOption() {
 		if (category == 1) {
 			
 			data["option1"] = $('#glove_hand option:selected').val();
-			data["option2"] = $('#glove_tame option:selected').val();
+			data["option2"] = $('#glove_taming option:selected').val();
 		}
 		
 		$.ajax({
