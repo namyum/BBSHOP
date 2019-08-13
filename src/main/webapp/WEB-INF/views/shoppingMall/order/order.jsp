@@ -112,7 +112,6 @@ li, a {
                   주문 리스트
             </h3>
             <div class="table-responsive">
-               <form id="orderInfo" action="/kakaoPay.do" method="POST">
                <table class="table">
                   <thead>
                      <tr>
@@ -279,7 +278,6 @@ li, a {
                      </tr>
                   </tbody>
                </table>
-               </form>
             </div>
          </div>
       </div>

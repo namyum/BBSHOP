@@ -137,6 +137,10 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
+//			long user_key = (long)session.getAttribute("user_key");
+			long user_key = 1;
+			MemberVO user = memberService.getMemberInfo(user_key);
+			
 			goodsList = new ArrayList<GoodsVO>();
 			List<Object> optionList = new ArrayList<Object>();
 			int totalPrice = 0, allPrice = 0;
@@ -197,6 +201,7 @@ public class OrderController {
 			model.addAttribute("totalPrice",totalPrice);
 			model.addAttribute("allPrice",allPrice);
 			model.addAttribute("shipping_fee", shipping_fee);
+			model.addAttribute("user", user);
 			
 			return "shoppingMall/order/order";
 	}
