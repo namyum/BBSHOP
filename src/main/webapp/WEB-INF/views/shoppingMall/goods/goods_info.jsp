@@ -422,6 +422,7 @@ function reviewScore_Ajax() {
 							</button>
 						</div>
 						<div class="card_area" style="width:400px;">
+						
 							<form id="option" action="/order_good.do" method="get" style="display:inline-block;" onsubmit='return setOption();'>
 								<input type="hidden" name="category" value=${goods.category }>
 								<input type="hidden" name="goods_num" value=${goods.goods_num }>
@@ -431,16 +432,7 @@ function reviewScore_Ajax() {
 								<input type="submit" class="main_btn" value="구매하기">
 							</form>
 	
-							<form id="option" action="/insert_cart.do" method="get" style="display:inline-block;">
-								<input type="hidden" name="category" value=${goods.category }>
-								<input type="hidden" name="goods_num" value=${goods.goods_num }>
-								<input type="hidden" name="option1" value="">
-								<input type="hidden" name="option2" value="">
-								<input type="hidden" name="qty" value="">
-								<input type="submit" class="main_btn" id="info_cart_btn" value="장바구니">
-							</form>
-
-							
+							<a class="main_btn" id="info_cart_btn" href="#">장바구니</a>
 						</div>
 					</div>
 				</div>
@@ -922,6 +914,98 @@ function setOption() {
 		$('.gd_info.ball').css('display', 'table-row');
 		$('a.ball').css('display', 'flex');
 	}
+	
+	//상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
+	info_cart_btn.onclick = function() {
+				
+		var data = {};
+		
+		data["goods_num"] = ${goods.goods_num};
+		data["category"] = ${categoryInt};
+		data["qty"] = $('#sst').val();
+
+		// 카테고리가 글러브일 경우, 상품 옵션을 data에 넣어준다.
+		// 글러브(1)인 경우만 우선적으로 구현.
+		if (category == 1) {
+			
+			data["option1"] = $('#glove_hand option:selected').val();
+			data["option2"] = $('#glove_tame option:selected').val();
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "addGoodsToCart.do",
+			data: JSON.stringify(data),
+			dataType: "json",
+			contentType: "application/json",
+			success: function(result) {
+				
+				alert('미니카트 성공!');
+								
+				var content = '';
+				var total = 0;
+				var total_price = result.goods.price * result.qty;
+				
+				var carts = result.cart_list;
+				
+				content += '<li class="miniCart_item">';
+				content += '<a href="/goods_info.do">';
+				content += '<img class="item_img" src="';
+				content += result.goods.main_img + '">';
+				content += '</a>';
+					
+				content += '<div class="item_info">';
+				
+				content += '<div id="item-name" class="item-name">' + result.goods.name + '</div>';
+				content += '<div id="item-price"><span>' + total_price + '원</span></div>';
+				content += '<div id="item-quantity">수량 : <span>' + result.qty + '</span></div>';
+				
+				content += '</div>';
+				content += '</li>';
+				
+				total += parseInt(total_price);
+								
+				$.each(carts, function(index, value) {
+				
+					content += '<li class="miniCart_item">';
+					content += '<a href="/goods_info.do">';
+					content += '<img class="item_img" src="';
+					content += result.goods_list[index].main_img + '">';
+					content += '</a>';
+						
+					content += '<div class="item_info">';
+					
+					content += '<div id="item-name" class="item-name">' + result.goods_list[index].name + '</div>';
+					content += '<div id="item-price"><span>' + value.TOTALPRICE + '원</span></div>';
+					content += '<div id="item-quantity">수량 : <span>' + value.QNTTY + '</span></div>';
+					
+					content += '</div>';
+					content += '</li>';
+				});
+				
+				total += parseInt(result.allPrice);
+				
+				$('.miniCart_list').empty();
+				$('.miniCart_list').append(content);
+				
+				// 미니카트 total 없애기
+				
+				$('#minicart_total').empty();
+				$('#minicart_total').append(total);
+				$('#minicart_total').append('원');
+				
+			},
+			error: function() {
+
+				alert('ajax 실패!');
+			}
+		});
+		
+		// 미니카트 나오기
+		curtain.style.display = "block";
+		miniCart.style.width = "350px";
+	}
+	
 </script>
 <script>
 //qna, review 모달

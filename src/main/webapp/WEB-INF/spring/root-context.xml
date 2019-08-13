@@ -45,5 +45,5 @@
 	</bean>
    
    <mybatis-spring:scan base-package="com.bbshop.bit.mapper" />
-   		
+   
 </beans>

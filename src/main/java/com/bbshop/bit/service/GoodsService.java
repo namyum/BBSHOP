@@ -25,9 +25,9 @@ public interface GoodsService {
 	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
 			List<String> positions, List<String> colors_list, List<String> brands);
 	
+
 	/* 상품 조회 */
 	public GoodsVO getGoodsInfo(Long goods_num);
-	
 	
 	
 	
@@ -60,6 +60,7 @@ public interface GoodsService {
 
 	
 	
+
 	/* user_key를 이용해 moredetail을 가져온다.*/
 	public MoreDetailsVO findDetail(long user_key);
 	
@@ -68,6 +69,9 @@ public interface GoodsService {
 	
 	/* 추천상품 - 비회원 */
 	public List<GoodsVO> recommendBestList();
+
+	// 장바구니 목록에 상품 넣는 메소드
+	public void addGoodsToCart(GoodsVO goods, int qty, long user_key);
 
 	
 }

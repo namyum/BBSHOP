@@ -1,5 +1,6 @@
 package com.bbshop.bit.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,38 +156,17 @@ public class MyPageController {
 		
 		long total = 0;
 		long sum = 0;
-		long user_key = (long)session.getAttribute("member");
-
-		total = myPageService.getTotal(pagingVO, "qna", user_key);
-		List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
-		sum += total;		
+		long user_key = (long)session.getAttribute("member");	
 		
 		total = myPageService.getTotal(pagingVO, "review", user_key);
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
-		sum += total;
 		
-		total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-		List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
-		sum += total;
-		
-		PageDTO pageMaker = new PageDTO(pagingVO, sum);
-			
-		for (int i = 0; i < qna_list.size(); i++) {
-			qna_list.get(i).setQna_num(sum--);
-		}
-		
-		for (int i = 0; i < onetoone_list.size(); i++) {
-			onetoone_list.get(i).setOne_one_num(sum--);
-		}
+		PageDTO pageMaker = new PageDTO(pagingVO, total);
 		
 		for (int i = 0; i < review_list.size(); i++) {
 			review_list.get(i).setRv_num(sum--);
 		}
 		
-
-		
-		model.addAttribute("qna_list", qna_list);
-		model.addAttribute("onetoone_list", onetoone_list);
 		model.addAttribute("review_list", review_list);
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -206,12 +186,19 @@ public class MyPageController {
 		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
 		
 		System.out.println("modify_info 컨트롤러의 회원 정보 : " + member.toString());
-		System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
-		System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
 				
 		model.addAttribute("memberInfo", member);
-		model.addAttribute("addr_list", addr_list);
-		model.addAttribute("member_detail", member_detail);
+		
+		if (addr_list != null) {
+			
+			model.addAttribute("addr_list", addr_list);
+			System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
+		}
+		if (member_detail != null) {
+			
+			model.addAttribute("member_detail", member_detail);
+			System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
+		}
 		
 		return "shoppingMall/mypage/modify_info";
 	}
@@ -401,29 +388,66 @@ public class MyPageController {
 	// ajax로 체크박스 배송 목록 가져 오기
 	@RequestMapping(value = "/orderListCheck.do", consumes = "application/json")
 	@ResponseBody
-	public List<OrderVO> getOrderListCheck(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> getOrderListCheck(@RequestBody Map<String, Object> map) {
 		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
-		long stts = (long)Integer.parseInt((String)map.get("stts"));
+		
+		List<String> stts_list = new ArrayList<String>();
+		
+		System.out.println("map.get(\"stts\") : " + map.get("stts"));
+		
+		stts_list = (List<String>) map.get("stts");
+		
+		for (String item : stts_list) {
+			
+			System.out.println("item : " + item);
+		}
+		
+		Map<String, Object> listMap = new HashMap<>();
 		
 		PagingVO pagingVO = new PagingVO(pageNum, amount);
-
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 		
-		if (stts == 5) {
+		// 체크가 안되어있는 경우 (전체 주문 출력)
+		if (stts_list.size() == 1 && Integer.parseInt(stts_list.get(0)) == 5) {
 		
+			total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
+			
 			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
 			
-			return orders_list;
+			listMap.put("orders_list", orders_list);
+			listMap.put("total", total);
+			
+			return listMap;
 		}
 
-		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts);
+		// 특정 주문 체크박스에 체크가 되어 있는 경우
+		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts_list);
 		
-		return orders_list;
+		List<OrderVO> all_list = new ArrayList<OrderVO>();
+				
+		all_list = myPageService.getAllOrdersList(user_key);
+		
+		// 주문배송 상태와 숫자가 같으면 total 값을 1씩 증가시킨다.
+		for (OrderVO item : all_list) {
+			
+			for (int i = 0; i < stts_list.size(); i++) {
+				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) ) {
+					total++;
+				}
+			}
+		}
+		
+		System.out.println("orders_list : " + orders_list);
+		System.out.println("total : " + total);
+		
+		listMap.put("orders_list", orders_list);
+		listMap.put("total", total);
+		
+		return listMap;
 	}
 	
 	// ajax로 내가 남긴 글 가져 오기
@@ -472,6 +496,7 @@ public class MyPageController {
 		} else {
 			
 			long sum = 0;
+			pagingVO.setPageNum(0); // 전체 게시글을 출력하기 위해 pageNum을 0으로 설정한다.
 			
 			total = myPageService.getTotal(pagingVO, "review", user_key);
 			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
@@ -482,24 +507,63 @@ public class MyPageController {
 			sum += total;
 			
 			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);
+			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
 			sum += total;
 			
+			List<Object> total_list = new ArrayList<Object>();
+			
+			// 전체 게시글 목록의 번호를 가지도록 VO상의 번호를 재설정한다.
 			for (int i = 0; i < qna_list.size(); i++) {
 				qna_list.get(i).setQna_num(sum--);
+				total_list.add(qna_list.get(i));
 			}
 			
 			for (int i = 0; i < onetoone_list.size(); i++) {
 				onetoone_list.get(i).setOne_one_num(sum--);
+				total_list.add(onetoone_list.get(i));
 			}
 			
 			for (int i = 0; i < review_list.size(); i++) {
 				review_list.get(i).setRv_num(sum--);
+				total_list.add(review_list.get(i));				
 			}
 			
-			listMap.put("qna", qna_list);		
-			listMap.put("onetoone", onetoone_list);
-			listMap.put("review", review_list);
+//			listMap.put("qna", qna_list);		
+//			listMap.put("onetoone", onetoone_list);
+//			listMap.put("review", review_list);
+			
+//			pagingVO.setPageNum(pageNum); // pagingVO의 pageNum을 다시 원래대로 맞춘다.
+//			
+//			// startPage와 endPage를 구하는 로직
+//			int endPage = (int)(Math.ceil(pagingVO.getPageNum() / 10.0)) * 10;
+//			int startPage = endPage - 9;
+//			
+//			int realEnd = (int)(Math.ceil((total_list.size() * 1.0) / pagingVO.getAmount()));
+//			
+//			if (realEnd < endPage) {
+//				endPage = realEnd;
+//			}
+			
+			int start = (int)((pageNum - 1) * amount);
+			int end = (int)(amount * pageNum - 1);
+			
+			List<Object> output_list = new ArrayList<Object>();
+			
+			for (int i = start; i <= end; i++) {
+				
+				output_list.add(total_list.get(i));
+			}
+			
+			// pageNum : 1, amount : 5 -> 0 ~ 4
+			// pageNum : 2, amount : 5 -> 5 ~ 9
+			// pageNum : 3, amount : 5 -> 10 ~ 14
+			// pageNum : x, amount : y -> amount * (pageNum - 1) ~ amount * pageNum - 1
+			
+			System.out.println("output_list : " + output_list);
+			System.out.println("total_list.size() : " + total_list.size());
+			
+			listMap.put("output_list", output_list);
+			listMap.put("total", total_list.size());
 			
 			return listMap;
 		}

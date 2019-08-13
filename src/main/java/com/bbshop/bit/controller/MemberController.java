@@ -74,7 +74,7 @@ public class MemberController {
 		
 		//맵과 무슨 버튼을 눌렀는지 를 서비스를 통해서 넣어준다.
 		String resultUrl = memberService.memberLogin(map,toPage);
-		if(resultUrl.equals("shopping_main.do") || resultUrl.equals("shoppingMall/main/community_main")) {
+		if(resultUrl.equals("shopping_main.do") || resultUrl.equals("community_main.do")) {
 			
 			session.setAttribute("member", memberService.getUser_key(vo));
 			session.setAttribute("nickname", vo.getNICKNAME());

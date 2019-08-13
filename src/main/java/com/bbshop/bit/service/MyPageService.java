@@ -25,7 +25,7 @@ public interface MyPageService {
 	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key);
 	
 	// 주문 내역 주문 상태에 따라 가지고 오기
-	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, long stts);
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, List<String> stts_list);
 	
 	// 리뷰 내역 가지고 오기
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);

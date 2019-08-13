@@ -107,7 +107,9 @@
 </select>
 
 
+
 <!--===================================================================================-->
+
 
 
 <!-- 상품 QNA 등록 - insert문이 실행되고 생성된  pk(시퀀스) 값을 알아야 하는 경우 -->
@@ -254,5 +256,14 @@
 ]]>
 </select>
 
+<insert id="addGoodsToCart">
+
+	<selectKey keyProperty="gd_ct_key" order="BEFORE" resultType="long">
+		SELECT seq_cart.nextval FROM dual
+	</selectKey>
+
+	INSERT INTO cart_gd
+	VALUES (#{gd_ct_key}, #{goods.price}, #{qty}, 2000, 0, #{goods.goods_num}, #{user_key}, 1)
+</insert>
 
 </mapper>

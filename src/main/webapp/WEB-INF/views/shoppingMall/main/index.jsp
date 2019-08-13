@@ -288,9 +288,9 @@
                     <td width="100%" height="700" align="center" valign="middle">
                         <table width="700" cellpadding="0" cellspacing="0" height="100">
                             <tbody>
-                                <tr align = center>
-                                        <!--<img style ="background-color:rgba(255, 255, 255, 0); border: none " src ="../bitbaseball/bbslogo.png">-->
-                                        <br><br><br><br><br><br>
+                               <tr align = center>
+                                	<img style ="background-color:rgba(255, 255, 255, 0); border: none " src ="${pageContext.request.contextPath }/resources/shoppingMall/img/logo.png">
+                                    <br><br><br><br><br><br>
                                 </tr>
                                 <tr>
 

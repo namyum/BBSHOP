@@ -116,6 +116,57 @@
 
 	//장바구니 아이콘 눌렀을 때, miniCart나오기
 	cart_btn.onclick = function() {
+		
+		var data = {};
+		
+		$.ajax({
+			type: "POST",
+			url: "getCartList.do",
+			data: JSON.stringify(data),
+			dataType: "json",
+			contentType: "application/json",
+			success: function(result) {
+				
+				alert('ajax 성공!');
+								
+				var content = '';
+				var total = '';
+				var carts = result.cart_list;
+				
+				$.each(carts, function(index, value) {
+				
+					content += '<li class="miniCart_item">';
+					content += '<a href="/goods_info.do">';
+					content += '<img class="item_img" src="';
+					content += result.goods_list[index].main_img + '">';
+					content += '</a>';
+						
+					content += '<div class="item_info">';
+					
+					content += '<div id="item-name" class="item-name">' + result.goods_list[index].name + '</div>';
+					content += '<div id="item-price"><span>' + value.TOTALPRICE + '원</span></div>';
+					content += '<div id="item-quantity">수량 : <span>' + value.QNTTY + '</span></div>';
+					
+					content += '</div>';
+					content += '</li>';
+				});
+				
+				$('.miniCart_list').empty();
+				$('.miniCart_list').append(content);
+				
+				// 미니카트 total 없애기
+				total += result.allPrice + '원';
+				
+				$('#minicart_total').empty();
+				$('#minicart_total').append(total);
+				
+			},
+			error: function() {
+
+				alert('ajax 실패!');
+			}
+		});
+		
 		curtain.style.display = "block";
 		miniCart.style.width = "350px";
 	}
@@ -125,11 +176,7 @@
 		miniCart.style.width = "0";
 		location.href="/cart";
 	}
-	//상품info에서 장바구니 버튼 눌렀을 때, miniCart나오기
-	info_cart_btn.onclick = function() {
-		curtain.style.display = "block";
-		miniCart.style.width = "350px";
-	}
+
 
 	function openCart() {
 		curtain.style.display = "block";

@@ -3,7 +3,8 @@ package com.bbshop.bit.domain;
 import lombok.Data;
 
 @Data
-public class Cart_PDVO {
+public class Cart_GDVO {
+	
 	public long GOODS_NUM;
 	public int PRICE;
 	public int QNTTY;
@@ -13,5 +14,4 @@ public class Cart_PDVO {
 	public int GD_DETAILS;
 	public long USER_KEY;
 	public int TOTALPRICE;
-
 }

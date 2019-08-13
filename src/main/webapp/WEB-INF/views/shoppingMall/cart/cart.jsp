@@ -6,11 +6,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%
-List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
-List<Cart_PDVO> cartList= (List<Cart_PDVO>)request.getAttribute("cartList");
-int allPrice = (int)request.getAttribute("allPrice");
-int shipping_fee = (int)request.getAttribute("shipping_fee");
-%>
+ 	List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
+ List<Cart_GDVO> cartList= (List<Cart_GDVO>)request.getAttribute("cartList");
+ int allPrice = (int)request.getAttribute("allPrice");
+ int shipping_fee = (int)request.getAttribute("shipping_fee");
+ %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
@@ -107,13 +107,13 @@ body{font-family:NanumBarunpen, sans-serif}
 								<input type='checkbox' class='check' id='pd_check'>
 								</td>
 								
-								<td><h5>${goodsList[status.index].GOODS_NUM}</h5>
+								<td><h5>${goodsList[status.index].goods_num}</h5>
 								</td>
 								<td>
-											<img src="<c:out value='${goodsList[status.index].MAIN_IMG}'/>" style="width:100%; height:50%" alt="">
+											<img src="<c:out value='${goodsList[status.index].main_img}'/>" style="width:100%; height:50%" alt="">
 								</td>
 								<td>
-											<p><c:out value="${goodsList[status.index].NAME}"/></p>
+											<p><c:out value="${goodsList[status.index].name}"/></p>
 								</td>
 								<td>
 									<h5 id=price${status.index}><c:out value="${cart.PRICE}원"/></h5>
@@ -230,7 +230,7 @@ body{font-family:NanumBarunpen, sans-serif}
 							<div style="float:right" class="checkout_btn_inner">
 											<a class="main_btn" href="/order">결제하기</a>
 											
-											<a class="genric-btn default-border radius e-large" href="/goods_list">계속 쇼핑하기</a>
+											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
 										</div>
 											
 								

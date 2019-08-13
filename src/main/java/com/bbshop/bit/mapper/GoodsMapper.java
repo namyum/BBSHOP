@@ -41,7 +41,6 @@ public interface GoodsMapper {
 	
 	
 	
-	
 	/* REVIEW 관련 */
 	// 상품 REVIEW 등록 
 	public void insertReview(ReviewVO review);
@@ -70,6 +69,7 @@ public interface GoodsMapper {
 	
 	
 	
+
 	// user_key를 이용해 moredetail을 가져온다.
 	public MoreDetailsVO findDetail(long user_key);
 	
@@ -81,4 +81,7 @@ public interface GoodsMapper {
 
 	/* ajax�� ������ �ҷ��� �� ��ü ���� ���ϱ� */	
 	public int getTotalCountAjax(HashMap<String, Object> map);
+
+	// 장바구니 목록에 상품을 넣는 메소드
+	public void addGoodsToCart(@Param("goods") GoodsVO goods, @Param("qty") int qty, @Param("user_key") long user_key);
 }

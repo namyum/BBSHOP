@@ -1,6 +1,7 @@
 package com.bbshop.bit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
+
 import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +40,9 @@ public class GoodsController {
 	private GoodsService service;
 	
 	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
+	
+	@Autowired
+	private CartService cartService;
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
@@ -282,28 +289,36 @@ public class GoodsController {
 
 		log.info("Controller...shopping_main.jsp");
 
-		//		// 세션 user_key 값 받아오기 
-		//		String nickname = (String)session.getAttribute("nickname");
-		//		
-		//		// 비회원일 경우, 
-		//		if(nickname.substring(0,9).equals("noAccount")) {
-		//			List<GoodsVO> recommendList = service.recommendBestList();
-		//		
-		//			model.addAttribute("recommendList", recommendList);
-		//		}
-		//		// 회원일 경우,.
-		//		else {
-		//			long user_key = (long)session.getAttribute("user_key");
-
-		// 합치기 전 임시 user_key
-		long user_key = 65;
+		long user_key = 0;
+		List<GoodsVO> recommendList = new ArrayList<GoodsVO>();
+		
+		// 세션 user_key 값 받아오기 
+		String nickname = (String)session.getAttribute("nickname");
+				
+		// 비회원일 경우, 
+		if (nickname != null && nickname.substring(0,9).equals("noAccount")) {
+			
+			recommendList = service.recommendBestList();
+				
+			model.addAttribute("recommendList", recommendList);
+			
+			return "shoppingMall/main/shopping_main";
+			
+		// 회원일 경우...
+		} else {
+			user_key = (long)session.getAttribute("member");
+		}
 
 		MoreDetailsVO moredetail = service.findDetail(user_key);
 
 		System.out.println("moredetail 추가 사항 객체 정보 : " + moredetail);
 
-		List<GoodsVO> recommendList = service.recommendGoodsList(moredetail);
-
+		// 추가사항이 없을 경우 moredetail이 null이 되므로 null 체크 로직 추가.
+		if (moredetail != null) {
+		
+			recommendList = service.recommendGoodsList(moredetail);
+		}
+		
 		if (recommendList != null) {
 
 			System.out.println("recommendList 객체 : " + recommendList.toString());
@@ -323,4 +338,59 @@ public class GoodsController {
 		return "shoppingMall/main/shopping_main";
 	}
 
+	
+	@RequestMapping("addGoodsToCart.do")
+	@ResponseBody
+	public Map<String, Object> addGoodsToCart(@RequestBody Map<String, Object> map) {
+		
+		long user_key = (long)session.getAttribute("member");
+		
+		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
+		int qty = Integer.parseInt((String)map.get("qty"));
+		int allPrice = 0;
+		
+		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
+		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
+		
+		// 상품 상세 번호를 구할 때 필요한 변수들
+		int category = (int)map.get("category");
+		int option1 = Integer.parseInt((String)map.get("option1"));
+		int option2 = Integer.parseInt((String)map.get("option2"));
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// 상품 정보
+		GoodsVO goods = service.getGoodsInfo((long)goods_num);
+		System.out.println(goods.toString());
+		
+		// 상품 상세 번호
+		// 상품 상세 객체(->번호)를 가지고 오는 로직이 의정이가 order에 구현해놓았음. 매퍼에는 임시로 1로 지정함.
+		
+		service.addGoodsToCart(goods, qty, 1); // 임시 user_key = 1
+		
+		result.put("goods", goods);
+		result.put("qty", qty);
+		
+		// 장바구니 리스트에 담긴 상품들의 상품 정보를 담은 리스트를 만든다.
+		for (int i = 0; i < cart_list.size(); i++) {
+			
+			long goodsnum = cart_list.get(i).getGOODS_NUM();
+			Cart_GDVO temp = cart_list.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cart_list.set(i, temp);
+			goods_list.add(cartService.getGoods(goodsnum));
+		}
+		
+		// 총 금액 구하기.
+		for (int i = 0 ; i < cart_list.size(); i++) {
+			
+			allPrice += cart_list.get(i).getTOTALPRICE();
+		}
+		
+		result.put("allPrice", allPrice);
+		result.put("goods_list",goods_list);
+		result.put("cart_list", cart_list);
+		
+		return result;
+	}
 }

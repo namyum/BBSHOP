@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbshop.bit.domain.Cart_PDVO;
+import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.CartService;
 
@@ -24,19 +24,22 @@ import com.bbshop.bit.service.CartService;
 @RequestMapping("*.do")
 public class CartController {
 	
-	List<Cart_PDVO> cartList ;
+	List<Cart_GDVO> cartList ;
 	List<GoodsVO> goodsList;
 	
 	@Autowired(required=true)
 	CartService cartService;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("cart.do")
 	public String cart(HttpSession session, Model model) {
 		System.out.println("cart페이지");
 		int allPrice=0;
 		int shipping_fee=0;
-		long user_key = 1;
-		Cart_PDVO vo = new Cart_PDVO();
+		long user_key = (long)session.getAttribute("member");
+		Cart_GDVO vo = new Cart_GDVO();
 		vo.setUSER_KEY(user_key);
 		
 		cartList = cartService.getCartList(user_key);
@@ -44,7 +47,7 @@ public class CartController {
 		
 		for (int i = 0; i < cartList.size(); i++) {
 			long goodsnum = cartList.get(i).getGOODS_NUM();
-			Cart_PDVO temp = cartList.get(i);
+			Cart_GDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cartList.set(i, temp);
 			int price = cartList.get(i).getPRICE();
@@ -75,7 +78,7 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="QnttyUp.do" , method=RequestMethod.GET)
 	public String qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index,Model model) {
-		Cart_PDVO temp =cartList.get(index);
+		Cart_GDVO temp =cartList.get(index);
 		int allPrice=0;
 		int shipping_fee=0;
 		
@@ -100,7 +103,7 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="QnttyDown.do" , method=RequestMethod.GET)
 	public String qnttyDown(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index ,Model model) {
-		Cart_PDVO temp =cartList.get(index);
+		Cart_GDVO temp =cartList.get(index);
 		int allPrice=0;
 		int shipping_fee=0;
 
@@ -155,5 +158,42 @@ public class CartController {
 			cartService.deleteAll();
 		}
 		return "cart.do";
+	}
+	
+	// 헤더의 장바구니 버튼을 클릭시 ajax 요청을 응답하는 컨트롤러
+	@RequestMapping("getCartList.do")
+	@ResponseBody
+	public Map<String, Object> getCartList() {
+		
+		long user_key = (long)session.getAttribute("member");
+		Map<String, Object> result = new HashMap<>();
+		int allPrice = 0;
+
+		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
+		System.out.println("cart_list : " + cart_list.toString());
+		
+		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
+		
+		// 장바구니 리스트에 담긴 상품들의 상품 정보를 담은 리스트를 만든다.
+		for (int i = 0; i < cart_list.size(); i++) {
+			
+			long goodsnum = cart_list.get(i).getGOODS_NUM();
+			Cart_GDVO temp = cart_list.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cart_list.set(i, temp);
+			goods_list.add(cartService.getGoods(goodsnum));
+		}
+		
+		// 총 금액 구하기.
+		for (int i = 0 ; i < cart_list.size(); i++) {
+			
+			allPrice += cart_list.get(i).getTOTALPRICE();
+		}
+		
+		result.put("allPrice", allPrice);
+		result.put("goods_list",goods_list);
+		result.put("cart_list", cart_list);
+		
+		return result;
 	}
 }
