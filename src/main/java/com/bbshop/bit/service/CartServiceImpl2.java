@@ -7,23 +7,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbshop.bit.domain.Cart_GDVO;
+import com.bbshop.bit.domain.Cart_GDVO2;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.mapper.CartMapper;
+import com.bbshop.bit.mapper.CartMapper2;
 
 @Service("cartService")
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl2 implements CartService2 {
 
 	@Autowired
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<Cart_GDVO> getCartList(long user_key) {
+	public List<Cart_GDVO2> getCartList(long user_key) {
 		
 		System.out.println("유저키가 여기까지 들어오는가?"+user_key);
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-		sqlSession.getMapper(CartMapper.class);
-		List<Cart_GDVO> cartList = mapper.getCartList(user_key);
+		CartMapper2 mapper = sqlSession.getMapper(CartMapper2.class);
+		sqlSession.getMapper(CartMapper2.class);
+		List<Cart_GDVO2> cartList = mapper.getCartList(user_key);
 		
 		System.out.println(cartList);
 		
@@ -34,8 +34,8 @@ public class CartServiceImpl implements CartService {
 	public GoodsVO getGoods(long goodsnum){
 		System.out.println("GoodsNum이 들어오는가?"+goodsnum);
 		
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-		sqlSession.getMapper(CartMapper.class);
+		CartMapper2 mapper = sqlSession.getMapper(CartMapper2.class);
+		sqlSession.getMapper(CartMapper2.class);
 		
 		GoodsVO goods = mapper.getGoods(goodsnum);
 		System.out.println(goods);
@@ -45,24 +45,24 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	@Override
-	public void modify(Cart_GDVO qnt) {
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-		sqlSession.getMapper(CartMapper.class);
+	public void modify(Cart_GDVO2 qnt) {
+		CartMapper2 mapper = sqlSession.getMapper(CartMapper2.class);
+		sqlSession.getMapper(CartMapper2.class);
 		mapper.modify(qnt);
 		System.out.println("수정되었습니다.");
 	}
 	@Override
 	public void selectDelete(Map<String,Object> deleteMap) {
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-		sqlSession.getMapper(CartMapper.class);
+		CartMapper2 mapper = sqlSession.getMapper(CartMapper2.class);
+		sqlSession.getMapper(CartMapper2.class);
 		mapper.selectDelete(deleteMap);
 		System.out.println("삭제 되었습니다.");
 		
 	}
 	@Override
 	public void deleteAll() {
-		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-		sqlSession.getMapper(CartMapper.class);
+		CartMapper2 mapper = sqlSession.getMapper(CartMapper2.class);
+		sqlSession.getMapper(CartMapper2.class);
 		mapper.deleteAll();
 		System.out.println("전체삭제 되었습니다.");
 	}

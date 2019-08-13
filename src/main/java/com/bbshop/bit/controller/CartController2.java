@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbshop.bit.domain.Cart_GDVO;
+import com.bbshop.bit.domain.Cart_GDVO2;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.service.CartService;
+import com.bbshop.bit.service.CartService2;
 
 @Controller
 @RequestMapping("*.do")
-public class CartController {
+public class CartController2 {
 	
-	List<Cart_GDVO> cartList ;
+	List<Cart_GDVO2> cartList ;
 	List<GoodsVO> goodsList;
 	
 	@Autowired(required=true)
-	CartService cartService;
+	CartService2 cartService;
 	
 	@Autowired
 	private HttpSession session;
@@ -39,7 +39,7 @@ public class CartController {
 		int allPrice=0;
 		int shipping_fee=0;
 		long user_key = (long)session.getAttribute("member");
-		Cart_GDVO vo = new Cart_GDVO();
+		Cart_GDVO2 vo = new Cart_GDVO2();
 		vo.setUSER_KEY(user_key);
 		
 		cartList = cartService.getCartList(user_key);
@@ -47,7 +47,7 @@ public class CartController {
 		
 		for (int i = 0; i < cartList.size(); i++) {
 			long goodsnum = cartList.get(i).getGOODS_NUM();
-			Cart_GDVO temp = cartList.get(i);
+			Cart_GDVO2 temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cartList.set(i, temp);
 			int price = cartList.get(i).getPRICE();
@@ -78,7 +78,7 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="QnttyUp.do" , method=RequestMethod.GET)
 	public String qnttyUp(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index,Model model) {
-		Cart_GDVO temp =cartList.get(index);
+		Cart_GDVO2 temp =cartList.get(index);
 		int allPrice=0;
 		int shipping_fee=0;
 		
@@ -103,7 +103,7 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="QnttyDown.do" , method=RequestMethod.GET)
 	public String qnttyDown(@RequestParam("QNTTY") int qnt, @RequestParam("index") int index ,Model model) {
-		Cart_GDVO temp =cartList.get(index);
+		Cart_GDVO2 temp =cartList.get(index);
 		int allPrice=0;
 		int shipping_fee=0;
 
@@ -169,7 +169,7 @@ public class CartController {
 		Map<String, Object> result = new HashMap<>();
 		int allPrice = 0;
 
-		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
+		List<Cart_GDVO2> cart_list = cartService.getCartList(user_key);
 		System.out.println("cart_list : " + cart_list.toString());
 		
 		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
@@ -178,7 +178,7 @@ public class CartController {
 		for (int i = 0; i < cart_list.size(); i++) {
 			
 			long goodsnum = cart_list.get(i).getGOODS_NUM();
-			Cart_GDVO temp = cart_list.get(i);
+			Cart_GDVO2 temp = cart_list.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cart_list.set(i, temp);
 			goods_list.add(cartService.getGoods(goodsnum));
