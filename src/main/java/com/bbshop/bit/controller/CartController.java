@@ -24,7 +24,7 @@ import com.bbshop.bit.service.CartService;
 @RequestMapping("*.do")
 public class CartController {
 	
-	List<Cart_PDVO> cartList ;
+	List<Cart_PDVO> cartList;
 	List<GoodsVO> goodsList;
 	
 	@Autowired(required=true)

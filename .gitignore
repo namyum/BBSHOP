@@ -55,3 +55,10 @@ src/main/webapp/resources/shoppingMall/img/goods/g-5.jpg
 src/main/webapp/resources/shoppingMall/img/goods/g-6.png
 src/main/webapp/resources/shoppingMall/img/goods/g-7.jpg
 src/main/webapp/resources/shoppingMall/img/goods/g-8.jpg
+target/classes/com/bbshop/bit/controller/OrderController.class
+target/classes/com/bbshop/bit/mapper/OrderMapper.class
+target/classes/com/bbshop/bit/mapper/OrderMapper.xml
+target/classes/com/bbshop/bit/service/CartService.class
+target/classes/com/bbshop/bit/service/CartServiceImpl.class
+target/classes/com/bbshop/bit/service/OrderService.class
+target/classes/com/bbshop/bit/service/OrderServiceImpl.class
