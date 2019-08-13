@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <html lang="en">
-
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -499,7 +500,7 @@ body {
 					<input type="text" class="form-control" id="search_name"
 						placeholder="검색할 상품명을 적어주세요." /><br />
 				</div>
-				<br /> <input type="submit" class="btn btn-info btn-block"
+				<br /> <input type="button" class="btn btn-info btn-block"
 					id="search_submit_btn" value="검색" />
 			</form>
 		</div>
@@ -563,7 +564,7 @@ body {
 						<td></td>
 					</tr>
 				</table><br>
-				<input type="submit" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">				
+				<input type="button" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">				
 			</form>
 		</div>
 	</div>
@@ -581,97 +582,16 @@ body {
 		<!-- content -->
 		<div class="miniCart_content">
 			<ul class="miniCart_list">
-				<li class="miniCart_item">
-					<!-- 상품 이미지 부분 -->
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<!-- 상품 정보 부분 -->
-					<div class="item_info">
-						<!-- 상품명 -->
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<!-- 상품 가격 -->
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<!-- 상품 수량 -->
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
-				<li class="miniCart_item">
-					<a href="/goods_info">
-						<img class="item_img" src="resources/shoppingMall/img/product/single-product/s-product-6.JPG">
-					</a>
-					<div class="item_info">
-						<div id="item-name" class="item-name">
-							나는 글러브
-						</div>
-						<div class="item-price">
-							<span>100,000원</span>
-						</div>
-						<div class="item-quantity">
-							수량 : <span>1</span>			
-						</div>
-					</div>
-				</li>
 			</ul>
 		</div>
+		
 		<!-- total -->
-		<div class="miniCart_total" style="display:flex;">
-			<h2 style="color:black; font-weight:bold;">총 상품금액  : </h2>&emsp;&emsp;<h2 style="color:black; font-weight:bold;">155,000원</h2>
+		<div class="miniCart_total" style="display: flex;">
+			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
+			&emsp;&emsp;
+			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
 		</div>
+		
 		<!-- footer -->
 		<div class="miniCart_footer">
 			<a id="view_cart_btn" href="/cart">
@@ -689,29 +609,35 @@ body {
 				<div class="float-left"></div>
 				<div class="float-right">
 					<ul class="right_side">
-						<li>
-							<a href="/mypage">	<!-- MyPage -->
-								마이 페이지
-							</a>
-						</li>
-						<li>
-							<a href="/community_main">	<!-- Community -->
-								커뮤니티
-							</a>
-						</li>
-						<li>
-							<a href="/faq">	<!-- Contact Us -->
-								고객센터
-							</a>
-						</li>
-						<li>	
-							<a href="/cart">
-								장바구니
-							</a>
-						</li>
+						<!-- 민구 추가 -->
+						<c:choose>
+							<c:when test="${member == 00 }">
+								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
+							</c:when>
+							<c:when test="${member == 000 }">
+								<li><a href="#" onclick="noAccToLogin()"> 마이 페이지 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/savings.do"> 마이 페이지 </a></li>
+							</c:otherwise>
+						</c:choose>
+						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
+						</a></li>
+						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						</a></li>
+						<li><a href="/cart.do"> 장바구니 </a></li>
+						<!-- 민구 추가 -->
+						<c:set var="nickname" value="${nickname }"/> 
+						<c:choose>
+							<c:when test="${fn:substring(nickname,0,9) eq 'noAccount'}">
+								<li><a href="/index.do"> 로그인 </a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="/index.do"> 로그아웃 </a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
-
 			</div>
 		</div>
 		
@@ -848,10 +774,10 @@ body {
 		<div class="container-fluid">
 			<div class="section-top-border">
 				<ul class="myPageTop">
-					<li><a href="/mypage" class="menu">마이페이지</a></li>
-					<li><a href="/order_status" class="menu">주문/배송</a></li>
-					<li><a href="/mypost" class="menu">내가 남긴 글</a></li>
-					<li><a href="/modify_info" class="menu">회원 정보 수정</a></li>
+					<li><a href="/savings.do" class="menu">마이페이지</a></li>
+					<li><a href="/order_status.do" class="menu">주문/배송</a></li>
+					<li><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
+					<li><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>
