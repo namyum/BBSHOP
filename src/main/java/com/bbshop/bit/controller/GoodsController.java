@@ -20,6 +20,7 @@ import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.GoodsService;
 
@@ -145,9 +146,17 @@ public class GoodsController {
 		model.addAttribute("categoryInt", category);
 		model.addAttribute("categoryString", service.category(category));
 		
+		PagingVO pagingVO = new PagingVO();
+		int qnaTotal = service.getQnaCount(goods_num);
+		int reviewTotal = service.getReviewCount(goods_num);
+
+		model.addAttribute("qnaPageMaker", new PageDTO(pagingVO, qnaTotal));
+		model.addAttribute("reviewPageMaker", new PageDTO(pagingVO, reviewTotal));
 		
 		return "shoppingMall/goods/goods_info";
 	}
+	
+	
 	
 	/* 상품 QNA 등록 */
 	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.POST)
@@ -201,6 +210,42 @@ public class GoodsController {
 	}
 
 	
+	
+	/* 상품 REVIEW 등록 */
+	@RequestMapping(value="/registerReview.do", method=RequestMethod.POST)
+	public String registerReview(ReviewVO review, int category, HttpSession session, Model model) {
+		log.info("Controller..insertGoodsQna...!");
+		
+		/* 세션 user_key 값 받아오기 
+		long user_key = (long)session.getAttribute("user_key");
+		String nickname = (String)session.getAttribute("nickname");
+		
+		// 비회원일 경우, 
+		if(nickname.substring(0,9).equals("noAccount")) {
+			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
+		}
+		// 회원일 경우,.
+		else {
+			long user_key = (long)session.getAttribute("user_key");
+			qna.setUser_key(user_key);
+		}			
+		*/
+		
+		// 합치기 전 임시 user_key
+		long user_key = 950131l;
+		review.setUser_key(user_key);
+		
+		log.info(review);
+		
+		// review insert
+		service.insertReview(review);
+		
+		model.addAttribute("goods_num", review.getGoods_num());
+		model.addAttribute("category", category);
+		
+		return "redirect:goods_info.do";
+	}
+	
 	// 상품REVIEW 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getReviewList_Ajax.do", consumes="application/json")
 	@ResponseBody
@@ -213,9 +258,22 @@ public class GoodsController {
 		
 		long goods_num = (long) ((int)map.get("goods_num") * 1.0);
 		
-		List<ReviewVO> reviewList = service.getReviewList(pagingVO, goods_num);
+		int score = (int) map.get("score");
+		
+		List<ReviewVO> reviewList = service.getReviewList(pagingVO, goods_num, score);
 
 		return reviewList;
+	}
+	
+	// 상품REVIEW 별점 뿌려주는 부분 - ajax 데이터 뿌려주기 
+	@RequestMapping(value="/getReviewScore_Ajax.do", consumes="application/json")
+	@ResponseBody
+	public ReviewDTO getReviewScore_Ajax(@RequestBody Map<String, Object> map){
+		log.info("Controller...Review_list.jsp...reviewListAjax");
+		
+		ReviewDTO reviewDTO = service.getReviewDTO((long)((int)map.get("goods_num")*1.0));
+
+		return reviewDTO;
 	}
 	
 	// 쇼핑 메인 - 추천상품

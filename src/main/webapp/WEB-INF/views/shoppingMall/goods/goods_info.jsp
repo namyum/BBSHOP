@@ -104,26 +104,49 @@ a#default-select.default-select {
 </style>
 
 <script>
+$(document).ready(function() {
+	
+	// QNA paging
+	$(".qna-page-item").on("click", function(e) {
+		
+		e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
+		
+		$('.qna-page-item').removeClass("active");
+		$(this).addClass("active");
+		
+		var page = $('.qna-page-item.active a').text();
+		
+		qnaList_Ajax();
+	});
+	
+	// REVIEW paging
+	$(".review-page-item").on("click", function(e) {
+		
+		e.preventDefault();	// a태그를 클릭해도 페이지이동이 없도록,
+		
+		$('.review-page-item').removeClass("active");
+		$(this).addClass("active");
+		
+		var page = $('.review-page-item.active a').text();
+		
+		reviewList_Ajax();
+	});
+});
+
 function qnaList_Ajax() {
 	
-//	var goods_num = ${goods.goods_num};
-
-//	var actionForm = $("#actionForm");
-//	var s = $("#actionForm input[name='pageNum']").val();
+	var qnaPageNum = $('.qna-page-item.active a').attr("href");
 	
-
-//	var qnaPageNum = $('#actionForm input[name="pageNum"]').val();
-//	if(qnaPageNum === undefined)
-//		qnaPageNum = 1;
-	var qnaPageNum = 1;
-	var qnaAmount = 20;
+	if(qnaPageNum === undefined)
+		qnaPageNum = 1;
+	
+	var qnaAmount = 10;
 	var goods_num = ${goods.goods_num};
 	
 	var data = {};
 	data["pageNum"] = qnaPageNum * 1;
 	data["amount"] = qnaAmount;
 	data["goods_num"] = goods_num;
-	console.log(data);
 	
 	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
 	$('#qna_list').empty();
@@ -139,13 +162,11 @@ function qnaList_Ajax() {
 				var output = "";
 				
 				if(data[index].re_lev == 1) 
-					output += "<tr class='table_item reply'>";
+					output += "<tr class='table_item reply'><td style='color:red;'>답변</td>";
 				else
-					output += "<tr class='table_item'>";
+					output += "<tr class='table_item'><td style='color:blue;'>질문</td>";
 					
 				
-					
-				output += "<td>" + data[index].qna_num + "</td>";
 				output += "<td>" + data[index].title + "</td>";
 				output += "<td>" + data[index].nickname + "</td>";
 				output += "<td>" + data[index].regdate + "</td></tr>";
@@ -153,7 +174,7 @@ function qnaList_Ajax() {
 				output += "<tr class='table_content' style='display:none;'>";
 				output += "<td colspan='4'><div class='view'><p>" + data[index].content + "</p></div></td></tr>";
 				
-				console.log("output : " + output);
+//				console.log("output : " + output);
 				$('#qna_list').append(output);
 
 			});
@@ -163,19 +184,19 @@ function qnaList_Ajax() {
 }
 
 function reviewList_Ajax() {
-//	var s = $("#actionForm input[name='pageNum']").val();
+	var reviewPageNum = $('.review-page-item.active a').attr("href");
 	
-//	var qnaPageNum = $('#actionForm input[name="pageNum"]').val();
-//	if(qnaPageNum === undefined)
-//		qnaPageNum = 1;
-	var reviewPageNum = 1;
-	var reviewAmount = 20;
+	if(reviewPageNum === undefined)
+		reviewPageNum = 1;
+	
+	var reviewAmount = ${reviewPageMaker.pagingVO.amount};
 	var goods_num = ${goods.goods_num};
 	
 	var data = {};
 	data["pageNum"] = reviewPageNum * 1;
 	data["amount"] = reviewAmount;
 	data["goods_num"] = goods_num;
+	data["score"] = $('select#score option:selected').val() * 1;
 	console.log(data);
 	
 	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
@@ -211,6 +232,46 @@ function reviewList_Ajax() {
 			});
 		},
 		error : function() {alert('review ajax 통신 실패!');}
+	});
+}
+function reviewScore_Ajax() {
+
+	var goods_num = ${goods.goods_num};
+	
+	var data = {};
+	data["goods_num"] = goods_num;
+	
+	$.ajax({
+		type : "POST",
+		url : "/getReviewScore_Ajax.do",
+		data : JSON.stringify(data),
+		dataType: "json",
+		contentType : "application/json",
+		success : function(data) {
+			
+			$('div.box_total').empty();
+			var output = '';
+			output += "<h5 style='font-weight:bold;'>평균 별점</h5>";
+			output += "<h4>" + data.avg + "</h4>";
+			$('div.box_total').append(output);
+		
+			$('div.rating_list').empty();
+			var output = '';
+			output += "<h3 style='font-weight:bold !important; color=black;'>총 " + data.total + "개의 후기</h3>";
+			output += "<ul class='list'>";
+			output += "<li>5 Star <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'>" +
+				"</i><i class='fa fa-star'></i><i class='fa fa-star'></i>  " + data.scoreCount[4] + "개</li>";
+			output += "<li>4 Star <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'>" +
+				"</i><i class='fa fa-star'></i><i class='fa fa-star' style='visibility: hidden;'></i>  " + data.scoreCount[3] + "개</li>";
+			output += "<li>3 Star <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'>" +
+				"</i><i class='fa fa-star' style='visibility: hidden;'></i><i class='fa fa-star' style='visibility: hidden;'></i>  " + data.scoreCount[2] + "개</li>";
+			output += "<li>2 Star <i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star' style='visibility: hidden;'>" +
+				"</i><i class='fa fa-star' style='visibility: hidden;'></i><i class='fa fa-star' style='visibility: hidden;'></i>  " + data.scoreCount[1] + "개</li>";
+			output += "<li>1 Star <i class='fa fa-star'></i><i class='fa fa-star' style='visibility: hidden;'></i><i class='fa fa-star' style='visibility: hidden;'>" +
+				"</i><i class='fa fa-star' style='visibility: hidden;'></i><i class='fa fa-star' style='visibility: hidden;'></i>  " + data.scoreCount[0] + "개</li></ul>";
+			$('div.rating_list').append(output);
+		},
+		error : function() {alert('review score ajax 통신 실패!');}
 	});
 }
 </script>
@@ -370,7 +431,7 @@ function reviewList_Ajax() {
 								<input type="submit" class="main_btn" value="구매하기">
 							</form>
 	
-							<form id="option" action="/insert_cart.do" method="get" style="display:inline-block;" onsubmit='return ???();'>
+							<form id="option" action="/insert_cart.do" method="get" style="display:inline-block;">
 								<input type="hidden" name="category" value=${goods.category }>
 								<input type="hidden" name="goods_num" value=${goods.goods_num }>
 								<input type="hidden" name="option1" value="">
@@ -437,6 +498,8 @@ function reviewList_Ajax() {
 									<td><h5>브랜드</h5></td>
 									<td><h5><c:out value="${goods.brand }" /></h5></td>
 								</tr>
+							<c:choose>
+								<c:when test="${categoryInt eq 1 }">
 								<tr class="gd_info glove">
 									<td><h5>포지션</h5></td>
 									<td><h5>투수, 올라운드</h5></td>
@@ -445,10 +508,18 @@ function reviewList_Ajax() {
 									<td><h5>색상</h5></td>
 									<td><h5>black</h5></td>
 								</tr>
+								</c:when>
+								<c:when test="${categoryInt eq 2 }">
 								<tr class="gd_info bat">
 									<td><h5>재질</h5></td>
 									<td><h5>알루미늄</h5></td>
 								</tr>
+								<tr class="gd_info glove bat shoes">
+									<td><h5>색상</h5></td>
+									<td><h5>black</h5></td>
+								</tr>
+								</c:when>
+								<c:when test="${categoryInt eq 3 }">
 								<tr class="gd_info uniform">
 									<td><h5>구단</h5></td>
 									<td><h5>??</h5></td>
@@ -457,10 +528,21 @@ function reviewList_Ajax() {
 									<td><h5>홈어웨이</h5></td>
 									<td><h5>??</h5></td>
 								</tr>
+								</c:when>
+								<c:when test="${categoryInt eq 4 }">
+								<tr class="gd_info glove bat shoes">
+									<td><h5>색상</h5></td>
+									<td><h5>black</h5></td>
+								</tr>
+								</c:when>
+								<c:otherwise>
 								<tr class="gd_info ball">
 									<td><h5>용도</h5></td>
 									<td><h5>??</h5></td>
 								</tr>
+								</c:otherwise>
+							</c:choose>
+								
 							</tbody>
 						</table>
 					</div>
@@ -471,10 +553,11 @@ function reviewList_Ajax() {
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="comment_list">
+								<!-- 상품 QNA list가 출력될  table -->
 								<table border="0" style="width : -webkit-fill-available;">
 									<thead>
 										<tr>
-											<th scope="col" class="qna_number">번호</th>
+											<th scope="col" class="qna_number">질문/답변</th>
 											<th scope="col" class="qna_title" style="width:60%;">제목</th>
 											<th scope="col" class="qna_nickname">닉네임</th>
 											<th scope="col" class="qna_date">날짜</th>
@@ -485,31 +568,46 @@ function reviewList_Ajax() {
 									<script>
 										qnaList_Ajax();
 									</script>
-							
-<!-- 										번호,제목,닉네임,날짜 -->
-<!-- 										<tr class="table_item"> -->
-<!-- 											<td style="padding:20px, 0;">3</td> -->
-<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
-<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
-<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
-<!-- 										</tr> -->
-<!-- 										내용 -->
-<!-- 										<tr class="table_content" style="display:none;"> -->
-<!-- 											<td colspan="4"> -->
-<!-- 												<div class="view"> -->
-<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
-<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
-<!-- 												</div> -->
-<!-- 											</td> -->
-<!-- 										</tr> -->
 	
 									</tbody>
 								</table>
-							
-								<!-- Q&A 작성버튼 -->
+
+							<!-- 페이지 출력 - script 항상 같이 따라가야함 -->
+							<div class="row" style="padding-top:30px; margin:0; max-width:100%;">
+								<nav class="cat_page mx-auto" aria-label="Page navigation example">
+									<ul class="pagination">
+										<c:if test="${qnaPageMaker.prev }">
+											<li class="page-item page-item-left qna-page-item">
+												<a class="page-link" href="${qnaPageMaker.startPage-1 }">
+													<i class="fa fa-chevron-left" aria-hidden="true"></i>
+												</a>
+											</li>
+										</c:if>
+
+										<!-- a태그의 href속성에 페이지번호값을 설정하였다. -->
+										<c:forEach var="num" begin="${qnaPageMaker.startPage }" end="${qnaPageMaker.endPage }">
+											<li class="page-item qna-page-item ${qnaPageMaker.pagingVO.pageNum == num? 'active':''}">
+												<a class="page-link" href="${num }">${num }</a>
+											</li>
+										</c:forEach>
+
+										<c:if test="${qnaPageMaker.next }">
+											<li class="page-item page-item-right qna-page-item">
+												<a class="page-link" href="${qnaPageMaker.endPage+1 }">
+													<i class="fa fa-chevron-right" aria-hidden="true"></i>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+								</nav>
+								<button class="btn submit_btn" id="qna_btn">상품 문의 등록</button>
+							</div>
+
+								<!-- Q&A 작성버튼
 								<div class="col-md-12 text-right" style="padding : 20px 0 0 0;">
 									<button class="btn submit_btn" id="qna_btn">상품 문의 등록</button>
 								</div>
+								-->
 							</div>
 						</div>
 						
@@ -560,12 +658,14 @@ function reviewList_Ajax() {
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-12">
+						
 						<div class="row total_rate">
+						
 							<div class="col-3">
 								<div class="single-element-widget">
-									<h3 class="mb-30 title_color" style="padding-left:30px;">별점 별 보기</h3>
+									<h3 class="mb-30 title_color" style="padding-left:30px; font-weight:bold;">별점 별 보기</h3>
 									<div class="default-select" id="default-select">
-										<select>
+										<select id="score" onchange="reviewList_Ajax()">
 											<option value="0">전체</option>
 											<option value="5">★★★★★</option>
 											<option value="4">★★★★☆</option>
@@ -576,47 +676,29 @@ function reviewList_Ajax() {
 									</div>
 								</div>
 							</div>
+							
+						
 							<div class="col-6">
 								<div class="box_total">
-									<h5>평균 별점</h5>
-									<h4>5.0</h4>
 									<!-- 평균값 입력 -->
+<!-- 								<h5>평균 별점</h5> -->
+<!-- 								<h4>5.0</h4> -->
 								</div>
 							</div>
+							
+							
 							<div class="col-3" style="text-align:center;">
 								<div class="rating_list">
-									<h3>총 ??개의 후기</h3>
-									<!-- 후기 max글번호 입력 -->
+							<!--	<h3>총 ??개의 후기</h3>
 									<ul class="list">
-										<li><a href="#">5 Star <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> 03
-										</a></li>
-										<li><a href="#">4 Star <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"
-												style="visibility: hidden;"></i> 00
-										</a></li>
-										<li><a href="#">3 Star <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> 00
-										</a></li>
-										<li><a href="#">2 Star <i class="fa fa-star"></i> <i
-												class="fa fa-star"></i> <i class="fa fa-star"
-												style="visibility: hidden;"></i> <i class="fa fa-star"
-												style="visibility: hidden;"></i> <i class="fa fa-star"
-												style="visibility: hidden;"></i> 00
-										</a></li>
-										<li><a href="#">1 Star <i class="fa fa-star"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> <i
-												class="fa fa-star" style="visibility: hidden;"></i> 00
-										</a></li>
-									</ul>
+									<!-- 후기 별점 글 개수 입력 -->
 								</div>
 							</div>
+							
+							<script>
+								reviewScore_Ajax();
+							</script>
+							
 						</div>
 						<div class="comment_list">
 							<table border="0" style="width : -webkit-fill-available;">
@@ -635,88 +717,104 @@ function reviewList_Ajax() {
 										reviewList_Ajax();
 									</script>
 
-<!-- 										번호,제목,닉네임,날짜 -->
-<!-- 										<tr class="table_item"> -->
-<!-- 											<td style="padding:20px, 0;">3</td> -->
-<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
-<!-- 											<td style="padding:20px, 0;">별점</td> -->
-<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
-<!-- 											<td style="padding:20px, 0;">조회수</td> -->
-<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
-<!-- 										</tr> -->
-<!-- 										내용 -->
-<!-- 										<tr class="table_content" style="display:none;"> -->
-<!-- 											<td colspan="6"> -->
-<!-- 												<div class="view"> -->
-<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
-<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
-<!-- 												</div> -->
-<!-- 											</td> -->
-<!-- 										</tr> -->
-
 									</tbody>
 								</table>
 
-								
-								<!-- Q&A 작성버튼 -->
+							<!-- 페이지 출력 - script 항상 같이 따라가야함 -->
+							<div class="row" style="padding-top:30px; margin:0; max-width:100%;">
+								<nav class="cat_page mx-auto" aria-label="Page navigation example">
+									<ul class="pagination">
+										<c:if test="${reviewPageMaker.prev }">
+											<li class="page-item page-item-left review-page-item">
+												<a class="page-link" href="${reviewPageMaker.startPage-1 }">
+													<i class="fa fa-chevron-left" aria-hidden="true"></i>
+												</a>
+											</li>
+										</c:if>
+
+										<!-- a태그의 href속성에 페이지번호값을 설정하였다. -->
+										<c:forEach var="num" begin="${reviewPageMaker.startPage }" end="${reviewPageMaker.endPage }">
+											<li class="page-item review-page-item ${reviewPageMaker.pagingVO.pageNum == num? 'active':''}">
+												<a class="page-link" href="${num }">${num }</a>
+											</li>
+										</c:forEach>
+
+										<c:if test="${reviewPageMaker.next }">
+											<li class="page-item page-item-right review-page-item">
+												<a class="page-link" href="${reviewPageMaker.endPage+1 }">
+													<i class="fa fa-chevron-right" aria-hidden="true"></i>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+								</nav>
+								<button class="btn submit_btn" id="review_btn">상품 후기 등록</button>
+							</div>
+							
+								<!-- Review 작성버튼
 								<div class="col-md-12 text-right" style="padding : 20px 0 0 0;">
 									<button class="btn submit_btn" id="review_btn">상품 후기 등록</button>
 								</div>
+								-->
 							</div>
 						</div>
 		<!-- ==================== 후기 작성 모달 ==================== -->
 						<div id="review_Modal">
 							<div class="review_Content review_box">
 								<span class="modal_close close">&times;</span>	<!-- X버튼 -->
+								<form class="row review_form" action="/registerReview.do" method="post" id="reviewForm" novalidate="novalidate">
 								<h4 align="center">후기 작성하기</h4>
 								<div id="star_review">
-									<input type="checkbox">
+									<input type="radio" name="score" value="5">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									&nbsp;
-									<input type="checkbox">
+									<input type="radio" name="score" value="4">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									&nbsp;
-									<input type="checkbox">
+									<input type="radio" name="score" value="3">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									&nbsp;
-									<input type="checkbox">
+									<input type="radio" name="score" value="2">
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star"></i>
 									&nbsp;
-									<input type="checkbox">
+									<input type="radio" name="score" value="1">
 									<i class="fa fa-star"></i>
 								</div>
 								
-								<form class="row review_form" action="" method="post" id="reviewForm" novalidate="novalidate">
 									<!-- 후기 제목 -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="text" class="form-control" id="title" name="title" placeholder="후기 제목">
+											<input type="text" class="form-control" id="title" name="title" placeholder="REVIEW 제목">
 										</div>
 									</div>
 									<!-- 후기 내용 -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="후기 내용"></textarea>
+											<textarea class="form-control" name="contents" id="contents" rows="1" placeholder="REVIEW 내용"></textarea>
 										</div>
 									</div>
 									<!-- 후기 첨부파일 -->
 									<div class="col-md-12">
 										<div class="form-group">
-											<input type="FILE" class="form-control" id="file" name="file" placeholder="첨부파일">
+											<input type="FILE" class="form-control" id="re_img" name="re_img" placeholder="첨부파일">
 										</div>
 									</div>
-									<div class="col-md-12 text-right">
 									
+									<!-- hidden : goods_num, category -->
+									<input type="hidden" name="goods_num" value=${goods.goods_num }>
+									<input type="hidden" name="category" value=${goods.category }>
+									
+									<div class="col-md-12 text-right">
 										<button type="submit" value="submit" class="btn submit_btn">등록하기</button>
 									</div>
 								</form>
@@ -766,7 +864,6 @@ function setOption() {
 	return true;
 }
 </script>
-
 <script>
 	// table(qna, review) - 제목 클릭시, 내용 보여주는 이벤트
 	var table_item = document.getElementsByClassName("table_item");
@@ -825,9 +922,7 @@ function setOption() {
 		$('.gd_info.ball').css('display', 'table-row');
 		$('a.ball').css('display', 'flex');
 	}
-	
 </script>
-
 <script>
 //qna, review 모달
 var qna_Modal = document.getElementById('qna_Modal');
