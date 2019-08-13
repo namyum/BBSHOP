@@ -112,7 +112,7 @@ li, a {
                   주문 리스트
             </h3>
             <div class="table-responsive">
-            <form id="orderInfo" action="/kakaoPay.do" method="POST">
+         <!--   <form id="orderInfo" action="/kakaoPay.do" method="POST"> -->
                <table class="table">
                   <thead>
                      <tr>
@@ -133,7 +133,6 @@ li, a {
                   <tbody>
                   <c:forEach var="order" items="${orderList}" varStatus="status">
                   <input type="hidden" value="${goodsList[status.index].goods_num}" class="goods_num" id="GOODS_NUM${status.index}"/>
-				  <input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
                      <tr>
                         <td>
                            <div class="media">
@@ -145,7 +144,7 @@ li, a {
                               </div>
                               <div class="media-body">
                                  <p>${goodsList[status.index].name}</p>
-                                  <input type="hidden" value="${goodsList[status.index].name}" name="name"/>
+                                  <input type="hidden" value="${goodsList[status.index].name}"/>
                                  <!-- 상품정보_name -->
                               </div>
                            </div>
@@ -156,7 +155,7 @@ li, a {
                         <td>
                            <div class="product_count">
                                <c:out value="${order.QNTTY}"/>
-                               <input type="hidden" value="<c:out value='${order.QNTTY}'/>" name="qntty"/>
+                               <input type="hidden" value="<c:out value='${order.QNTTY}'/>"/>
                            </div>
                         </td>
                         <td>
@@ -263,7 +262,7 @@ li, a {
                    </c:choose>
                         <td>
                            <h5><c:out value="${order.TOTALPRICE}"/></h5>
-                           <input type="hidden" value="<c:out value='${order.TOTALPRICE}'/>" name="totalPrice"/>
+                           <input type="hidden" value="<c:out value='${order.TOTALPRICE}'/>"/>
                         </td>
                      </tr>
                     
@@ -283,7 +282,7 @@ li, a {
                      </tr>
                   </tbody>
                </table>
-               </form>
+          <!--      </form> -->
             </div>
          </div>
       </div>
@@ -297,14 +296,14 @@ li, a {
             <div class="row">
                <div class="col-lg-6">
                   <h3>주문자 정보</h3>
-                  <form class="row contact_form" action="#" method="post"
-                     novalidate="novalidate">
+                  <form class="row contact_form" id="orderInfo" action="/kakaoPay.do" method="POST">
+                     <input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="name" name="name"
                         value="<c:out value="${user.NAME}"/>" placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="phone"
+                        <input type="text" class="form-control" id="phone1"
                            value="<c:out value="${user.PHONE}"/>"
                            placeholder="연락처1">
                      </div>
@@ -325,7 +324,7 @@ li, a {
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="deli_name"
-                           name="name" placeholder="성명">
+                           name="receiver" placeholder="성명">
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="deli_phone"
@@ -341,10 +340,9 @@ li, a {
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <p>배송지 선택</p>
-                        <label><input TYPE='radio' id="new_input"
-                           name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
-                           id="user_input" name="addr_input" value='user_addr' />사용자 지정</label> <input
-                           type="button" name="addressList" id="addressBtn" value="주소록 목록" />
+                        <label><input TYPE='radio' id="new_input"  value='new_addr' />신규 입력</label> <label><input TYPE='radio'
+                           id="user_input" value='user_addr' />사용자 지정</label> <input
+                           type="button" id="addressBtn" value="주소록 목록" />
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <table>
@@ -354,7 +352,7 @@ li, a {
                            <tr>
                               <td><input type="text" class="form-control"
                                  id="zipcode_input" style="width: 100px;"></td>
-                              <td><input type="button" name="zipcode" value="우편번호"
+                              <td><input type="button" value="우편번호"
                                  onclick="openZipcode(this.form)" /></td>
                            </tr>
                         </table>
@@ -401,7 +399,7 @@ li, a {
                      </div>
                      <div class="payment_item active">
                         <div class="radion_btn">
-                           <input type="radio" id="kakaoPay" name="selector" style="z-index:1;"> <label
+                           <input type="radio" id="kakaoPay" style="z-index:1;"> <label
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
                               src="resources/shoppingMall/img/product/single-product/kakaopay.png"
                               alt="" style="width:70px;height:30px;">
@@ -410,7 +408,7 @@ li, a {
                         </div>
                      </div>
                      <div class="creat_account">
-                        <input type="checkbox" id="payAgree" name="selector"> <label
+                        <input type="checkbox" id="payAgree"> <label
                            for="f-option4" style="font-size:17px; font-weight:bold;">구매 진행에 동의합니다.(필수)</label>
                      </div>
                      <a class="main_btn" onclick="goPay(this)">결제하기</a>

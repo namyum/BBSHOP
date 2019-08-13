@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bbshop.bit.domain.Cart_PDVO;
 import com.bbshop.bit.domain.Gd_GloveVO;
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.mapper.OrderMapper;
 
 @Service("orderService")
@@ -71,5 +72,19 @@ public class OrderServiceImpl implements OrderService{
 		return ballvo;
 	}
 	*/
+	
+	@Override
+	public int insertOrder(OrderVO order) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.insertOrder(order);
+	}
+	
+	@Override
+	public long getLastOrderNum(long user_key) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.getLastOrderNum(user_key);
+	}
 
 }

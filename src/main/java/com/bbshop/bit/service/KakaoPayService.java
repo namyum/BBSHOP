@@ -17,6 +17,7 @@ import com.bbshop.bit.domain.Cart_PDVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.KakaoPayApprovalVO;
 import com.bbshop.bit.domain.KakaoPayReadyVO;
+import com.bbshop.bit.domain.OrderVO;
  
 @Service
 public class KakaoPayService {
@@ -61,7 +62,7 @@ public class KakaoPayService {
         params.add("total_amount", total_amount);
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/kakaoPaySuccess.do?allPrice="+allPrice+"&list="+list);
-        params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
+        params.add("cancel_url", "http://localhost:8080/kakaoPayCancel"); 
         params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail");
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);

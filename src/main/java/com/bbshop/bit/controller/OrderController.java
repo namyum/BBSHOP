@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bbshop.bit.domain.Cart_PDVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.OrderDTO;
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.KakaoPayService;
 import com.bbshop.bit.service.OrderService;
@@ -113,11 +113,35 @@ public class OrderController {
     }
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
-    public String kakaoPay(@RequestParam("GOODS_NUM_LIST") String list, Model model) {
+    public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, HttpSession session) {
         System.out.println("kakaoPay post............................................");
+		/*
+		 long user_key = (long)session.getAttribute("user_key");
+		 String nickname = (String)session.getAttribute("nickname");
+		 
+		 // 비회원
+		 if(nickname.substring(0,9).equals("noAccount")) {
+		 	// alert("로그인이 필요합니다.");
+		 }
+		 else{
+		 	long user_key = (long)session.getAttribute("user_key");
+		 	qna.setUser_key(user_key);
+		 	}
+		 */
         
 		String[] goods_num_list = list.split(",");
 		int allPrice = 0;
+		
+        order.setUser_key(1);
+        int res = orderService.insertOrder(order);
+        
+        if(res == 1) {
+        	System.out.println("주문이 등록되었습니다.");
+        } else {
+        	System.out.println("주문 등록에 실패했습니다.");
+        }
+        
+        long order_num = orderService.getLastOrderNum(1);
 		
 		goodsList = new ArrayList<GoodsVO>();
 		
@@ -129,6 +153,7 @@ public class OrderController {
 			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 		 }
 		 
+		// 총 결제 금액 구하는 과정
 		for (int i = 0; i < cartList.size(); i++) {
 			Cart_PDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
