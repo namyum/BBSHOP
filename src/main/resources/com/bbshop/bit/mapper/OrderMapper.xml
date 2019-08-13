@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 <!-- 지수 카트 -->
 
-	<resultMap type="com.bbshop.bit.domain.Cart_PDVO"
+	<resultMap type="com.bbshop.bit.domain.Cart_GDVO"
 		id="CartResultMap">
 		<result property="GOODS_NUM" column="GOODS_NUM" />
 		<result property="PRICE" column="PRICE" />
