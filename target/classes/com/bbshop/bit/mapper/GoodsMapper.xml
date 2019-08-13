@@ -157,7 +157,7 @@
 
 <!-- 상품 REVIEW 등록  -->
 <insert id="insertReview">
-	insert into review
+	insert into review (rv_num, title, contents, score, re_img, re_date, re_chk, goods_num, user_key)
 	values(seq_review.nextval, #{title}, #{contents}, #{score}, #{re_img}, sysdate, 1, #{goods_num}, #{user_key})
 </insert>
 

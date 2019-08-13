@@ -237,7 +237,7 @@ public class GoodsController {
 		*/
 		
 		// 합치기 전 임시 user_key
-		long user_key = 950131l;
+		long user_key = 1;
 		review.setUser_key(user_key);
 		
 		log.info(review);

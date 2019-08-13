@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%
  	List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
-  List<Cart_GDVO2> cartList= (List<Cart_GDVO2>)request.getAttribute("cartList");
+  List<Cart_GDVO> cartList= (List<Cart_GDVO>)request.getAttribute("cartList");
   int allPrice = (int)request.getAttribute("allPrice");
   int shipping_fee = (int)request.getAttribute("shipping_fee");
  %>
@@ -109,17 +109,12 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								
 								<td><h5>${goodsList[status.index].goods_num}</h5>
-<<<<<<< HEAD
-								</td>
-								<td>
-											<img src="<c:out value='${goodsList[status.index].main_img}'/>" style="width:100%; height:50%" alt="">
-=======
+
 								<input type="hidden" value="${goodsList[status.index].goods_num}" id="GOODS_NUM${status.index}"/>
 								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
 								</td>
 								<td>
 											<img src="<c:out value='${goodsList[status.index].main_img}'/>" width="145" height="98" alt="">
->>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 								</td>
 								<td>
 											<p><c:out value="${goodsList[status.index].name}"/></p>

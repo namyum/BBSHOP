@@ -633,6 +633,7 @@ li, a {
                 var num = $(this).val();
                 goods_num.push(num);
           });
+            alert(goods_num);
           $("#GOODS_NUM_LIST").val(goods_num);
           $("#orderInfo").submit();
          }
