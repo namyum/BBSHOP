@@ -296,7 +296,7 @@ public class GoodsController {
 		String nickname = (String)session.getAttribute("nickname");
 				
 		// 비회원일 경우, 
-		if (nickname != null && nickname.substring(0,9).equals("noAccount")) {
+		if (nickname != null && nickname.length() > 10 && nickname.substring(0,9).equals("noAccount")) {
 			
 			recommendList = service.recommendBestList();
 				
