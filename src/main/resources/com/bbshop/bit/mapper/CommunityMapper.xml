@@ -5,22 +5,19 @@
 
 <mapper namespace="com.bbshop.bit.mapper.CommunityMapper">
 
-	<insert id="insertPost"
-		parameterType="com.bbshop.bit.domain.CommunityVO">
-		<selectKey keyProperty="BOARD_NUM" resultType="int"
-			order="BEFORE">
+	<insert id="insertPost" parameterType="com.bbshop.bit.domain.CommunityVO">
+		<selectKey keyProperty="BOARD_NUM" resultType="int" order="BEFORE">
 			select seq_board.nextval FROM DUAL
 		</selectKey>
 
-		INSERT INTO community (board_num, writer, user_key, team_name, title, board_content, uploadFile)
+		INSERT INTO community
 		VALUES
-			(#{BOARD_NUM}, #{WRITER}, 1, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE})
+			(#{BOARD_NUM}, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE}, #{WRITER}, 0, sysdate, sysdate, 0, 0, #{USER_KEY}, 1, 1, 1 )
 
 	</insert>
 
 	<select id="getNickname" parameterType="int" resultType="String">
-		SELECT
-		nickname
+		SELECT nickname
 		FROM sh_user
 		WHERE user_key = #{USER_KEY}
 	</select>

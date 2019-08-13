@@ -13,13 +13,10 @@ public class CommunityVO {
 	private String BOARD_CONTENT;
 	private String UPLOADFILE;
 	private String WRITER;	
-	private long HIT; 
+	private long HIT;
 	private Date REGDATE;
-	private Date MODDATE;	
-	private long PREVIOUSPOST;	
-	private long NEXTPOST;
+	private Date MODDATE;
 	private long REPLY_COUNT;	 // 댓글 개수
-	private String URI;	
 	private long REPORT_NUM;	
 	private long USER_KEY;	
 	private long SEQ;	

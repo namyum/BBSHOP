@@ -109,7 +109,7 @@ a {
 							<tbody>
 								<c:forEach items="${list}" var="board">
 									<tr>
-										<td><c:out value="${board.RN}" /></td>
+										<td><c:out value="${board.BOARD_NUM}" /></td>
 										<td style="text-align: left;"><a
 											href="/community_detail.do?BOARD_NUM=<c:out value="${board.BOARD_NUM}"/>"><c:out
 													value="${board.TITLE}" /></a></td>

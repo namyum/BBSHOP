@@ -125,6 +125,8 @@ public class CommunityController {
 			
 		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
 
+		community.setUSER_KEY(user_key);
+		
 		int res = communityService.insertPost(community);
 		
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
