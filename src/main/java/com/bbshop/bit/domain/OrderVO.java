@@ -8,7 +8,7 @@ public class OrderVO {
 	private String or_addr;
 	private String pymntmthd;
 	private long pymntamnt;
-	private long phone;
+	private long phone1;
 	private long phone2;
 	private long savings;
 	private String or_msg;
@@ -45,11 +45,11 @@ public class OrderVO {
 	public void setPymntamnt(long pymntamnt) {
 		this.pymntamnt = pymntamnt;
 	}
-	public long getPhone() {
-		return phone;
+	public long getPhone1() {
+		return phone1;
 	}
-	public void setPhone(long phone) {
-		this.phone = phone;
+	public void setPhone1(long phone) {
+		this.phone1 = phone;
 	}
 	public long getPhone2() {
 		return phone2;
@@ -121,7 +121,7 @@ public class OrderVO {
 	@Override
 	public String toString() {
 		return "OrderVO [order_num=" + order_num + ", or_addr=" + or_addr + ", pymntmthd=" + pymntmthd + ", pymntamnt="
-				+ pymntamnt + ", phone=" + phone + ", phone2=" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
+				+ pymntamnt + ", phone=" + phone1 + ", phone2=" + phone2 + ", savings=" + savings + ", or_msg=" + or_msg
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
 				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + ", receiver=" + receiver + "]";
 	}

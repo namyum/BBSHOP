@@ -162,9 +162,15 @@ function qnaList_Ajax() {
 				var output = "";
 				
 				if(data[index].re_lev == 1) 
+<<<<<<< HEAD
 					output += "<tr class='table_item reply'><td style='color:red;'>답변</td>";
 				else
 					output += "<tr class='table_item'><td style='color:blue;'>질문</td>";
+=======
+					output += "<tr class='table_item reply'>";
+				else
+					output += "<tr class='table_item'>";
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 					
 				
 				output += "<td>" + data[index].title + "</td>";
@@ -174,7 +180,10 @@ function qnaList_Ajax() {
 				output += "<tr class='table_content' style='display:none;'>";
 				output += "<td colspan='4'><div class='view'><p>" + data[index].content + "</p></div></td></tr>";
 				
+<<<<<<< HEAD
 //				console.log("output : " + output);
+=======
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 				$('#qna_list').append(output);
 
 			});
@@ -184,19 +193,32 @@ function qnaList_Ajax() {
 }
 
 function reviewList_Ajax() {
+<<<<<<< HEAD
 	var reviewPageNum = $('.review-page-item.active a').attr("href");
 	
 	if(reviewPageNum === undefined)
 		reviewPageNum = 1;
 	
 	var reviewAmount = ${reviewPageMaker.pagingVO.amount};
+=======
+//	var s = $("#actionForm input[name='pageNum']").val();
+	
+//	var qnaPageNum = $('#actionForm input[name="pageNum"]').val();
+//	if(qnaPageNum === undefined)
+//		qnaPageNum = 1;
+	var reviewPageNum = 1;
+	var reviewAmount = 20;
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 	var goods_num = ${goods.goods_num};
 	
 	var data = {};
 	data["pageNum"] = reviewPageNum * 1;
 	data["amount"] = reviewAmount;
 	data["goods_num"] = goods_num;
+<<<<<<< HEAD
 	data["score"] = $('select#score option:selected').val() * 1;
+=======
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 	console.log(data);
 	
 	// 상품 목록이 들어갈 div 클래스 이름 - 초기화
@@ -222,7 +244,11 @@ function reviewList_Ajax() {
 					output += "<i class='fa fa-star'></i>"
 				}
 				output += "</td>";
+<<<<<<< HEAD
 				output += "<td>" + data[index].nickname + "</td>";
+=======
+				output += "<td>" + data[index].user_key + "</td>";
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 				output += "<td>" + data[index].re_date + "</td></tr>";
 				
 				output += "<tr class='table_content' style='display:none;'>";
@@ -234,6 +260,7 @@ function reviewList_Ajax() {
 		error : function() {alert('review ajax 통신 실패!');}
 	});
 }
+<<<<<<< HEAD
 function reviewScore_Ajax() {
 
 	var goods_num = ${goods.goods_num};
@@ -274,6 +301,8 @@ function reviewScore_Ajax() {
 		error : function() {alert('review score ajax 통신 실패!');}
 	});
 }
+=======
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 </script>
 </head>
 
@@ -396,7 +425,11 @@ function reviewScore_Ajax() {
 							<li>	<!-- 야구공 옵션 -->
 								<a class="default-select ball" id="default-select" href="#none">
 									<label for="ball_unit"><span class="option">판매단위</span></label>
+<<<<<<< HEAD
 									<select id="ball_unit" class="ball">
+=======
+									<select id="ball_unit" class="ball"> 
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 										<option value="0">낱개</option>
 										<option value="1">12개(1타스)</option>
 									</select>
@@ -422,7 +455,10 @@ function reviewScore_Ajax() {
 							</button>
 						</div>
 						<div class="card_area" style="width:400px;">
+<<<<<<< HEAD
 						
+=======
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 							<form id="option" action="/order_good.do" method="get" style="display:inline-block;" onsubmit='return setOption();'>
 								<input type="hidden" name="category" value=${goods.category }>
 								<input type="hidden" name="goods_num" value=${goods.goods_num }>
@@ -431,8 +467,26 @@ function reviewScore_Ajax() {
 								<input type="hidden" name="qty" value="">
 								<input type="submit" class="main_btn" value="구매하기">
 							</form>
+<<<<<<< HEAD
 	
 							<a class="main_btn" id="info_cart_btn" href="#">장바구니</a>
+=======
+							
+							<form id="option" action="/insert_cart.do" method="get" style="display:inline-block;" onsubmit='return ???();'>
+								<input type="hidden" name="category" value=${goods.category }>
+								<input type="hidden" name="goods_num" value=${goods.goods_num }>
+								<input type="hidden" name="option1" value="">
+								<input type="hidden" name="option2" value="">
+								<input type="hidden" name="qty" value="">
+								<input type="submit" class="main_btn" id="info_cart_btn" value="장바구니">
+							</form>	
+							
+							
+							
+<!--							<a class="main_btn" href="/order_good.do">구매하기</a> -->
+<!-- 							<a class="main_btn" id="info_cart_btn" href="#none">장바구니</a> -->
+							
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 						</div>
 					</div>
 				</div>
@@ -560,6 +614,26 @@ function reviewScore_Ajax() {
 									<script>
 										qnaList_Ajax();
 									</script>
+<<<<<<< HEAD
+=======
+							
+<!-- 										번호,제목,닉네임,날짜 -->
+<!-- 										<tr class="table_item"> -->
+<!-- 											<td style="padding:20px, 0;">3</td> -->
+<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
+<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
+<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
+<!-- 										</tr> -->
+<!-- 										내용 -->
+<!-- 										<tr class="table_content" style="display:none;"> -->
+<!-- 											<td colspan="4"> -->
+<!-- 												<div class="view"> -->
+<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
+<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 	
 									</tbody>
 								</table>
@@ -657,7 +731,11 @@ function reviewScore_Ajax() {
 								<div class="single-element-widget">
 									<h3 class="mb-30 title_color" style="padding-left:30px; font-weight:bold;">별점 별 보기</h3>
 									<div class="default-select" id="default-select">
+<<<<<<< HEAD
 										<select id="score" onchange="reviewList_Ajax()">
+=======
+										<select>
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 											<option value="0">전체</option>
 											<option value="5">★★★★★</option>
 											<option value="4">★★★★☆</option>
@@ -709,6 +787,7 @@ function reviewScore_Ajax() {
 										reviewList_Ajax();
 									</script>
 
+<<<<<<< HEAD
 									</tbody>
 								</table>
 
@@ -745,6 +824,33 @@ function reviewScore_Ajax() {
 							
 								<!-- Review 작성버튼
 								<div class="col-md-12 text-right" style="padding : 20px 0 0 0;">
+=======
+<!-- 										번호,제목,닉네임,날짜 -->
+<!-- 										<tr class="table_item"> -->
+<!-- 											<td style="padding:20px, 0;">3</td> -->
+<!-- 											<td style="padding:20px, 0;">상품문의합니다</td> -->
+<!-- 											<td style="padding:20px, 0;">별점</td> -->
+<!-- 											<td style="padding:20px, 0;">왕왕</td> -->
+<!-- 											<td style="padding:20px, 0;">조회수</td> -->
+<!-- 											<td style="padding:20px, 0;">19/08/04</td> -->
+<!-- 										</tr> -->
+<!-- 										내용 -->
+<!-- 										<tr class="table_content" style="display:none;"> -->
+<!-- 											<td colspan="6"> -->
+<!-- 												<div class="view"> -->
+<!-- 												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna -->
+<!-- 										aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p> -->
+<!-- 												</div> -->
+<!-- 											</td> -->
+<!-- 										</tr> -->
+
+									</tbody>
+								</table>
+
+								
+								<!-- Q&A 작성버튼 -->
+								<div class="col-md-12 text-right" style="padding:20px 0 0 0;">
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 									<button class="btn submit_btn" id="review_btn">상품 후기 등록</button>
 								</div>
 								-->
@@ -820,6 +926,42 @@ function reviewScore_Ajax() {
 		</div>
 	</section>
 	<!--================End Product Description Area =================-->
+<script>
+//setOption
+function setOption() {
+	var form = document.forms["option"];
+	
+	var category = form['category'].value;
+	var qty = $('.product_count .qty');
+	
+	if(category == 1) {
+		var option = $('select.glove option:selected');
+		form['option1'].value = option[0].value;
+		form['option2'].value = option[1].value;
+	}
+	else if(category == 2) {
+		var option = $('select.bat option:selected');
+		form['option1'].value = option[0].value;
+	}
+	else if(category == 3) {
+		var option = $('select.uniform option:selected');
+		form['option1'].value = option[0].value;
+	}
+	else if(category == 4) {
+		var option = $('select.shoes option:selected');
+		form['option1'].value = option[0].value;
+		form['option2'].value = option[1].value;
+	}
+	else if(category == 5) {
+		var option = $('select.ball option:selected');
+		form['option1'].value = option[0].value;
+	}
+	
+	form['qty'].value = qty[0].value;
+	
+	return true;
+}
+</script>
 <script>
 //setOption
 function setOption() {

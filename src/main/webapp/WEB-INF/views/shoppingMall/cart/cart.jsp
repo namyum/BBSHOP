@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    
-<%@ include file="../include/shopping_header.jsp" %>
+<%@ include file="../include/shopping_header.jsp" %>   
+
 <%@ page import="java.util.*"%>
 <%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,7 +14,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
-@font-face{font-family:'NanumBarunpen';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
+@font-face{font-family:'NanumBarunpen
+';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
 @font-face{font-family:'NanumBarunpen';font-weight:bold;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenB.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenB.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenB.woff2") format("woff2")}
 
 body{font-family:NanumBarunpen, sans-serif}
@@ -85,6 +86,7 @@ body{font-family:NanumBarunpen, sans-serif}
 		<div class="container">
 			<div class="cart_inner">
 				<div class="table-responsive">
+				<form id="orderForm" action="/order_cart.do" method="POST">
 					<table class="table">
 						<thead>
 							<tr>
@@ -99,18 +101,25 @@ body{font-family:NanumBarunpen, sans-serif}
 							</tr>
 						</thead>
 						<tbody>
-						
 						<c:forEach var="cart" items="${cartList}" varStatus="status">
 				
 							<tr>
 								<td>
-								<input type='checkbox' class='check' id='pd_check'>
+								<input type='checkbox' class='check' name='checking' id='pd_check${status.index}'>
 								</td>
 								
 								<td><h5>${goodsList[status.index].goods_num}</h5>
+<<<<<<< HEAD
 								</td>
 								<td>
 											<img src="<c:out value='${goodsList[status.index].main_img}'/>" style="width:100%; height:50%" alt="">
+=======
+								<input type="hidden" value="${goodsList[status.index].goods_num}" id="GOODS_NUM${status.index}"/>
+								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
+								</td>
+								<td>
+											<img src="<c:out value='${goodsList[status.index].main_img}'/>" width="145" height="98" alt="">
+>>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 								</td>
 								<td>
 											<p><c:out value="${goodsList[status.index].name}"/></p>
@@ -136,7 +145,8 @@ body{font-family:NanumBarunpen, sans-serif}
 									</div>
 								</td>
 								<td>
-									<h5 id="totalPrice${status.index}"><c:out value="${cart.TOTALPRICE}원"/></h5>
+									<h5 id="totalPrice${status.index}" class="totalPrice"><c:out value="${cart.TOTALPRICE}원"/></h5>
+									<input type="hidden" name="TOTALPRICE" value="${cart.TOTALPRICE}"/>
 								</td>
 							</tr>
  							<script>
@@ -197,6 +207,7 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>				
 								<td>
 									<h5 id="shipping_fee">${shipping_fee}원</h5>
+									<input type="hidden" name="SHIPPING_FEE" value="${shipping_fee}"/>
 								</td>
 							</tr>
 							<tr>
@@ -214,10 +225,12 @@ body{font-family:NanumBarunpen, sans-serif}
 								</td>
 								<td>
 									<h5 id="allPrice">${allPrice}원</h5>
+									<input type="hidden" name="ALLPRICE"/>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					</form>
 							
 							
 							
@@ -228,7 +241,7 @@ body{font-family:NanumBarunpen, sans-serif}
 							
 							
 							<div style="float:right" class="checkout_btn_inner">
-											<a class="main_btn" href="/order">결제하기</a>
+											<a class="main_btn" onclick="getProduct(${status.index})">결제하기</a>
 											
 											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
 										</div>
@@ -264,6 +277,60 @@ body{font-family:NanumBarunpen, sans-serif}
 					}
 				});
 		});
+
+		function getProduct(){
+			var product = new Array();
+			
+		    $("input[name='checking']:checked").each(function() {
+		          var num = $(this).attr('id').split('check');
+		          var id = $("#GOODS_NUM"+num[1]).val();
+		          product.push(id);
+		    });
+		    
+		    $("#GOODS_NUM_LIST").val(product);
+		    $("#orderForm").submit();
+		}
+		
+		// 상품 금액 * 수량을 계산한 totalPrice를 controller에 배열 형태로 보내준다.
+		var priceArr = new Array();
+		
+		$("input[name='checking']:checked").each(function () {
+		  	  var num = $(this).attr('id').split('check');
+		  	  var price = $("#totalPrice"+num[1])[0].innerHTML;
+		  	  price = price.substring(0,(price.length)-1);
+		  	  priceArr.push(price);
+	   	});
+		 $("input[name='TOTALPRICE']").val(priceArr);
+		
+		/*
+		function checkOnclick(){
+			var listindex = [];
+
+			$('input:checkbox[type=checkbox]:checked').each(function () {
+				listindex.push($('.check').index(this));
+			
+				});
+			
+			alert(listindex);
+			var ajaxarr={"listindex":listindex}
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+     			url:"order_checked.do?listindex="+listindex,
+     			type:"GET",
+     			data:ajaxarr,
+     			dataType:"text",
+     			success : function(data) {
+     				var result = data.split(",");
+     				
+     				$("#allPrice").html(result[1]+"원");
+     				$("#shipping_fee").html(result[2]+"원");
+					}, error : function() {
+							console.log("실패");
+					}
+				});
+		    
+		}
+		*/
 		
 		
 		</script>

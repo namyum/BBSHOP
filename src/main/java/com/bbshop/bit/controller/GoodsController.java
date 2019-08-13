@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbshop.bit.domain.Cart_GDVO2;
+import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
@@ -25,7 +25,7 @@ import com.bbshop.bit.domain.PagingVO;
 
 import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
-import com.bbshop.bit.service.CartService2;
+import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class GoodsController {
 	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
 	
 	@Autowired
-	private CartService2 cartService;
+	private CartService cartService;
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
@@ -215,8 +215,6 @@ public class GoodsController {
 
 		return qnaList;
 	}
-
-	
 	
 	/* 상품 REVIEW 등록 */
 	@RequestMapping(value="/registerReview.do", method=RequestMethod.POST)
@@ -282,7 +280,7 @@ public class GoodsController {
 
 		return reviewDTO;
 	}
-	
+
 	// 쇼핑 메인 - 추천상품
 	@RequestMapping(value="/shopping_main.do", method=RequestMethod.GET)
 	public String shopping_main(HttpSession session, Model model) {
@@ -349,7 +347,7 @@ public class GoodsController {
 		int qty = Integer.parseInt((String)map.get("qty"));
 		int allPrice = 0;
 		
-		List<Cart_GDVO2> cart_list = cartService.getCartList(user_key);
+		List<Cart_GDVO> cart_list = cartService.getCartList(user_key);
 		List<GoodsVO> goods_list = new ArrayList<GoodsVO>();
 		
 		// 상품 상세 번호를 구할 때 필요한 변수들
@@ -375,7 +373,7 @@ public class GoodsController {
 		for (int i = 0; i < cart_list.size(); i++) {
 			
 			long goodsnum = cart_list.get(i).getGOODS_NUM();
-			Cart_GDVO2 temp = cart_list.get(i);
+			Cart_GDVO temp = cart_list.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			cart_list.set(i, temp);
 			goods_list.add(cartService.getGoods(goodsnum));

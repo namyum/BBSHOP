@@ -18,6 +18,7 @@ public class GoodsVO {
 	private long discount;		// 할인율
 	private long sales;			// 판매 수량
 	private String regdate;		// 등록일
+	// private Date regdate;
 	
 	// stock, soldout 변수 삭제!
 }
