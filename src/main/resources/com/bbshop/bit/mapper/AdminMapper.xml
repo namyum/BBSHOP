@@ -90,7 +90,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	select * from gd_uniform where goods_num=#{goods_num}
 
 </select>
-
+<select id="getGoodsNum" resultMap="goodsResultMap">
+	select * from goods where name=#{NAME}
+</select>
+<insert id="insertGoods">
+	<selectKey keyProperty="goodsnum" resultType="int" order="BEFORE">
+		select seq_goods.nextval FROM DUAL
+	</selectKey>
+	insert into goods (goods_num,category,name,price,detail,main_img,dtl_img1,dtl_img2,best,discount,sales,regdate,brand) 
+	values(#{goodsnum},#{CATEGORY},#{NAME},#{PRICE},#{DETAIL},#{MAIN_IMG},#{DTL_IMG1},#{DTL_IMG2},#{BEST},#{DISCOUNT},#{SALES},SYSDATE,#{BRAND})
+	
+</insert>
 
 
 

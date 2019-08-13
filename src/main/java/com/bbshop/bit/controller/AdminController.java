@@ -1,9 +1,11 @@
 package com.bbshop.bit.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,9 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bbshop.bit.domain.AdminPageDTO;
 import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.Gd_ballVO;
+import com.bbshop.bit.domain.Gd_batVO;
+import com.bbshop.bit.domain.Gd_gloveVO;
+import com.bbshop.bit.domain.Gd_shoesVO;
+import com.bbshop.bit.domain.Gd_uniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.AdminService;
 
@@ -115,6 +124,80 @@ public class AdminController {
 	@RequestMapping(value="addGoods.do")
 	public String addGoods() {
 		return "shoppingMall/admin/addGoods";
+	}
+	
+	@RequestMapping(value="insertGoods.do", method=RequestMethod.POST)
+	public String insertGoods(MultipartHttpServletRequest request) throws Exception {
+		System.out.println("여기까진?");
+		GoodsVO vo = new GoodsVO();
+		Gd_ballVO ball= new Gd_ballVO();
+		Gd_batVO bat= new Gd_batVO();
+		Gd_gloveVO glove= new Gd_gloveVO();
+		Gd_uniformVO uniform= new Gd_uniformVO();
+		Gd_shoesVO shoes= new Gd_shoesVO();
+		
+		List<MultipartFile> mf = request.getFiles("IMG");
+		//String uploadPath = request.getSession().getServletContext().getRealPath("/");
+		//원래 프로젝트 String uploadPath="C:\\Users\\dntjr\\Documents\\workspace-sts-3.9.8.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BBSHOP\\resources\\shoppingMall\\img\\goods\\glove\\";
+		//깃에 있는 프로젝트경로
+		
+		String uploadPath="C:\\Users\\dntjr\\GITHUB\\BBSHOP-1\\src\\main\\webapp\\resources\\shoppingMall\\img\\goods\\glove\\";
+		System.out.println("실제경로"+uploadPath);
+		String [] originalFileExtension = new String [mf.size()];
+		String [] storedFileName = new String[mf.size()];
+		for(int i = 0 ; i < mf.size();i++) {
+		originalFileExtension[i] = mf.get(i).getOriginalFilename();
+		storedFileName[i]= UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension[i];
+		
+		}
+		
+		for(int i = 0; i<mf.size();i++) {
+			if(mf.get(i).getSize()!=0)
+				//암호화해서 파일을 저장한다.
+			//mf.get(i).transferTo(new File(uploadPath+storedFileName[i]));
+				mf.get(i).transferTo(new File(uploadPath+originalFileExtension[i]));
+		}
+		//goodsVO에 값을 하나하나 받아서 넣어준다 ㅠㅠ
+		vo.setCATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
+		System.out.println("category"+vo.getCATEGORY());
+		vo.setPRICE(Integer.parseInt(request.getParameter("PRICE")));
+		System.out.println("price"+vo.getPRICE());
+		vo.setNAME(request.getParameter("NAME"));
+		System.out.println("name"+vo.getNAME());
+		vo.setBRAND(request.getParameter("BRAND"));
+		System.out.println("brand"+vo.getBRAND());
+		vo.setMAIN_IMG(originalFileExtension[0]);
+		vo.setDTL_IMG1(originalFileExtension[1]);
+		vo.setDTL_IMG2(originalFileExtension[2]);
+		vo.setDISCOUNT(Integer.parseInt(request.getParameter("DISCOUNT")));
+		System.out.println("discount"+vo.getDISCOUNT());
+		vo.setSALES(0);
+		System.out.println("sales"+vo.getSALES());
+		vo.setDETAIL(request.getParameter("DETAIL"));
+		System.out.println("detail"+vo.getDETAIL());
+		//vo.setBEST(Integer.parseInt(request.getParameter("BEST")));
+		System.out.println(vo);
+		
+		switch(Integer.parseInt(request.getParameter("CATEGORY"))) {
+		
+		case 1:{
+			System.out.println("글러브입니다.");
+			glove.setHAND(Integer.parseInt(request.getParameter("HAND")));
+			glove.setTAMING(Integer.parseInt(request.getParameter("TAMING")));
+			glove.setCOLOR(request.getParameter("COLOR"));
+			glove.setPOSITION(request.getParameter("POSITION"));
+			glove.setSTOCK(Integer.parseInt(request.getParameter("STOCK")));
+			adminService.insertGoods(vo,glove);
+			break;
+		}
+		
+		
+		}
+		
+		System.out.println(glove);
+		
+		//각태그별로 맞는 네임을쓰자 카테고리의 번호를 받아고기
+		return "forward:goodsList.do";
 	}
 	
 	@RequestMapping("order.do")

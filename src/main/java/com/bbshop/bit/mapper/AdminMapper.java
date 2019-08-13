@@ -17,4 +17,7 @@ public interface AdminMapper {
 	public List<Object> getUniformList(long goods_num);
 	public List<Object> getShoesList(long goods_num);
 	public List<Object> getBallList(long goods_num);
+	public void insertGoods(GoodsVO vo);
+	public void insertGoodsDetails(Object obj);
+	public int getGoodsNum(String name);
 }

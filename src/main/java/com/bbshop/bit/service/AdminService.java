@@ -9,4 +9,5 @@ public interface AdminService {
 
 	public List<GoodsVO> getGoodsList();
 	public List<Object> getGdList(int category, long goods_NUM);
+	public void insertGoods(GoodsVO vo, Gd_gloveVO glove);
 }

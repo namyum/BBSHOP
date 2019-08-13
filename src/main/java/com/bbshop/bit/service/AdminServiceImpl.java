@@ -73,4 +73,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return goodsList;
 	}
+
+
+	@Override
+	public void insertGoods(GoodsVO vo, Gd_gloveVO glove) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		mapper.insertGoods(vo);
+		vo.setGOODS_NUM(mapper.getGoodsNum(vo.getNAME()));
+		System.out.println(vo.getGOODS_NUM());
+		//mapper.insertGoodsDetails(glove);
+	}
 }
