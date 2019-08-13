@@ -71,16 +71,9 @@ public class CommunityController {
 	@RequestMapping("/community_detail.do")
 	public String community_detail(Model model, @RequestParam("BOARD_NUM") long board_num) {
 		
-		System.out.println("community_detail.do 컨트롤러 진입");
-		
-		communityService.updateHit(board_num);
-		
-		System.out.println("통과하나?");
-		
+		communityService.updateHit(board_num);		
 		model.addAttribute("post", communityService.getPost((long) board_num));
 		
-		System.out.println("community_detail.do 컨트롤러 나옴");
-
 		return "shoppingMall/community/community_detail";
 	}
 
@@ -90,6 +83,7 @@ public class CommunityController {
 		
 		model.addAttribute("post", communityService.getPost((long) board_num));
 		model.addAttribute("boardNum", board_num);
+		
 		return "shoppingMall/community/community_modify";
 	}
 	
@@ -124,7 +118,6 @@ public class CommunityController {
 		long user_key = (long)session.getAttribute("member");
 			
 		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
-
 		community.setUSER_KEY(user_key);
 		
 		int res = communityService.insertPost(community);
@@ -160,8 +153,10 @@ public class CommunityController {
 		long user_key = (long)session.getAttribute("member");
 		
 		community.setBOARD_CONTENT(community.getBOARD_CONTENT().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		community.setUSER_KEY(user_key);
 		
 		int res = communityService.updatePost(community);
+		
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
 		
 		if(res == 1) {

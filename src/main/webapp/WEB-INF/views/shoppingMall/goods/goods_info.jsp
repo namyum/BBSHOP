@@ -756,8 +756,6 @@ function qnaList_Ajax() {
 			dataType: "json",
 			contentType: "application/json",
 			success: function(result) {
-				
-				alert('미니카트 성공!');
 								
 				var content = '';
 				var total = 0;

@@ -126,8 +126,6 @@
 			dataType: "json",
 			contentType: "application/json",
 			success: function(result) {
-				
-				alert('ajax 성공!');
 								
 				var content = '';
 				var total = '';
