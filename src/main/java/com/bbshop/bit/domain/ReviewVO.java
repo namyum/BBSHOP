@@ -17,5 +17,5 @@ public class ReviewVO {
 	private long user_key;		// 회원 식별자
 //	private long re_hit; 		// 조회수 컬럼 추가 (삭제가능성 높음)
 	
-	private String nickname;	// 뷰에 출력하기 위한 닉네임 (테이블에는 없는 컬럼)
+	private String nickname;	// 뷰에 출력하기 위한 닉네임 (테이블에는 없는 컬럼)(추가)
 }
