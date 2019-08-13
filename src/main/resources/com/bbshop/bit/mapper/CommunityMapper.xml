@@ -24,8 +24,7 @@
 
 	<select id="getPost" parameterType="long"
 		resultType="com.bbshop.bit.domain.CommunityVO">
-		SELECT team_name, title, board_num, writer, regdate, hit,
-		reply_count, board_content, uploadFile
+		SELECT team_name, title, board_num, writer, regdate, hit, reply_count, board_content, uploadFile
 		FROM community
 		WHERE board_num = #{BOARD_NUM}
 	</select>
