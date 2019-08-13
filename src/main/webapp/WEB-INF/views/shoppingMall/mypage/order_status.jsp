@@ -230,6 +230,7 @@
 				var start = end - 9;
 				var total = result.length;
 				var paging = '';
+				var cnt = 0;
 				
 				var realEnd = (Math.ceil((result.total * 1.0) / amount));
 				
@@ -241,9 +242,15 @@
 					
 				$.each(values, function(index, value) {
 										
-					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date + '</h5></td><td><h5>'
-						+ values[index].items + '</h5></td><td><h5>' +  '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
+					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
+					str += '</h5></td><td><h5>';
+					str += '<a href="' + values[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + cnt + ');">';
+					str += values[index].items + '</a></h5></td><td><h5>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
 							
+					cnt = cnt + 1;
+					
 					switch(values[index].stts) {
 						
 						case 0 : str += '결제완료'; break;
@@ -427,7 +434,8 @@
 				var start = end - 9;
 				var total = result.length;
 				var paging = '';
-				
+				var cnt = 0;
+
 				var realEnd = (Math.ceil((result.total * 1.0) / amount));
 				
 				if (realEnd < end) {
@@ -437,9 +445,18 @@
 				var values = result.orders_list;
 					
 				$.each(values, function(index, value) {
+					
+					console.log(index);
+					
 										
-					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date + '</h5></td><td><h5>'
-						+ values[index].items + '</h5></td><td><h5>' +  '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
+					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
+					str += '</h5></td><td><h5>';
+					str += '<a href="' + values[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + cnt + ');">';
+					str += values[index].items + '</a></h5></td><td><h5>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
+					
+					cnt = cnt + 1;
 							
 					switch(values[index].stts) {
 						
