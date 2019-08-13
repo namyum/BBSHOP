@@ -15,4 +15,5 @@ public interface MemberMapper {
 	public long getUser_key(MemberVO vo);	
 	public int getId(MemberVO vo);
 	public int getNickname(MemberVO vo);
+	public MemberVO getMemberInfo(long user_key);
 }

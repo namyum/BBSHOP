@@ -4,6 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 <mapper namespace="com.bbshop.bit.mapper.OrderMapper">
 
+<!-- 지수 카트 -->
+
 	<resultMap type="com.bbshop.bit.domain.Cart_PDVO"
 		id="CartResultMap">
 		<result property="GOODS_NUM" column="GOODS_NUM" />
@@ -32,25 +34,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		WHERE glove_num = #{GD_DETAILS}
 	</select>
 	
-	<select id="getOptionListBat">
+	<select id="getOptionListBat" resultType = "com.bbshop.bit.domain.Gd_BatVO">
 		SELECT *
 		FROM gd_bat
 		WHERE bat_num = #{GD_DETAILS}
 	</select>
 	
-	<select id="getOptionListUniform">
+	<select id="getOptionListUniform" resultType = "com.bbshop.bit.domain.Gd_UniformVO">
 		SELECT *
 		FROM gd_uniform
 		WHERE uniform_num = #{GD_DETAILS}
 	</select>
 	
-	<select id="getOptionListShoes">
+	<select id="getOptionListShoes" resultType = "com.bbshop.bit.domain.Gd_ShoesVO">
 		SELECT *
 		FROM gd_shoes
 		WHERE shoes_num = #{GD_DETAILS}
 	</select>
 	
-	<select id="getOptionListBall">
+	<select id="getOptionListBall" resultType = "com.bbshop.bit.domain.Gd_BallVO">
 		SELECT *
 		FROM gd_ball
 		WHERE ball_num = #{GD_DETAILS}
@@ -73,5 +75,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     	ORDER BY or_date DESC)
     WHERE user_key = #{user_key} and rownum = 1
 	</select>
+	
+<!-- 의정 단일상품 -->
+
+<select id="getGloveOption" resultType="com.bbshop.bit.domain.Gd_GloveVO">
+	SELECT *
+	FROM GD_GLOVE
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		HAND = #{hand} AND
+		TAMING = #{taming}
+</select>
+
+<select id="getBatOption" resultType="com.bbshop.bit.domain.Gd_BatVO">
+	SELECT *
+	FROM GD_BAT
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getUniformOption" resultType="com.bbshop.bit.domain.Gd_UniformVO">
+	SELECT *
+	FROM GD_UNIFORM
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getShoesOption" resultType="com.bbshop.bit.domain.Gd_ShoesVO">
+	SELECT *
+	FROM GD_SHOES
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SPIKE = #{spike} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getBallOption" resultType="com.bbshop.bit.domain.Gd_BallVO">
+	SELECT *
+	FROM GD_BALL
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SALES_UNIT = #{sales_unit}
+</select>
 
 </mapper>

@@ -13,4 +13,7 @@ public interface CartService {
 	public void modify(Cart_PDVO qnt);
 	public void selectDelete(Map<String,Object> deleteMap);
 	public void deleteAll();
+
+	// 의정 - 배송비 불러오는 서비스 메서드 추가
+	public int calcShipping_fee(int allPrice);
 }

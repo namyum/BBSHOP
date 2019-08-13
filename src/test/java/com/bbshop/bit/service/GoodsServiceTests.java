@@ -23,7 +23,7 @@ public class GoodsServiceTests {
 	private GoodsService service;
 	
 	
-//	@Test	// GoodsService °´Ã¼°¡ Á¦´ë·Î ÁÖÀÔÀÌ °¡´ÉÇÑÁö È®ÀÎ
+	@Test	// GoodsService ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 	public void testExist() {
 		log.info(service);
 		assertNotNull(service);
@@ -34,7 +34,7 @@ public class GoodsServiceTests {
 		
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(16);
 		
@@ -50,21 +50,21 @@ public class GoodsServiceTests {
 //	@Test
 	public void testInsertGoodsQna() {
 		GoodsQnaVO qna = new GoodsQnaVO();
-		qna.setTitle("ÀÌº£¸®ÄÚ±èÄ¡Âî°³");
-		qna.setContent("»óÇ° ¹®ÀÇ »çÀÌÁî ¹®ÀÇ »ö»ó ¹®ÀÇ Æ÷Áö¼Ç ¹®ÀÇ ¹®ÀÇ ¹®ÀÇ¹®À¸ÀÌ! ¹®ÀÇ! ¹®ÀÇ¹È¾Æ¤Ì¹Ì¤¿·è¸¶ ÇÏÀÕ");
+		qna.setTitle("ï¿½Ìºï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ä¡ï¿½î°³");
+		qna.setContent("ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½Ç¹È¾Æ¤Ì¹Ì¤ï¿½ï¿½è¸¶ ï¿½ï¿½ï¿½ï¿½");
 		qna.setAttached_file("");
 		qna.setGoods_num(3);
 		
 		service.insertGoodsQna(qna);
 		
-		log.info("»ý¼ºµÈ »óÇ°QNA ±Û ¹øÈ£ : " + qna.getQna_num());
+		log.info("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°QNA ï¿½ï¿½ ï¿½ï¿½È£ : " + qna.getQna_num());
 	}
 	
 //	@Test
 	public void testGetQnaList() {
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(6);
 

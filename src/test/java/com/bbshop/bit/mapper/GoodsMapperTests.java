@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
@@ -23,26 +24,32 @@ import lombok.extern.log4j.Log4j;
 public class GoodsMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private GoodsMapper mapper;
+	private GoodsMapper goodsMapper;
 	
+//	@Setter(onMethod_ = @Autowired)
+//	private OrderMapper ordermapper;
+	/*
 //	@Test
 	public void testGetList() {
-//		mapper.getGoodsList_New(1).forEach(goods -> log.info(goods));
-
+		Gd_GloveVO g = new Gd_GloveVO();
+//		g = ordermapper.getGloveOption(2, 1, 1);
+		
+		log.info(g);
 	}
+	
 	
 //	@Test
 	public void testPaging() {
 		
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(18);
 		
-		//°Ë»ö Á¶°Ç ¼³Á¤
+		//ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setType("N");
-		pagingVO.setKeyword("ÀÌÄ¡·Î");
+		pagingVO.setKeyword("ï¿½ï¿½Ä¡ï¿½ï¿½");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);
@@ -52,24 +59,24 @@ public class GoodsMapperTests {
 		map.put("max_amount", 500000);
 		
 		
-		List<GoodsVO> goodsList = mapper.getGoodsList(map);
+		List<GoodsVO> goodsList = ordemapper.getGoodsList(map);
 		
 		goodsList.forEach(goods -> log.info(goods));
 	}
-	
-//	@Test 
+	*/
+	@Test 
 	public void testGetGoodsInfo() {
 		GoodsVO g = new GoodsVO();
-		g = mapper.getGoodsInfo(8);
+		g = goodsMapper.getGoodsInfo(8);
 		
 		log.info(g);
 	}
-	
+	/*
 //	@Test
 	public void testInsertGoodsQnaSelectKey() {
 		GoodsQnaVO qna = new GoodsQnaVO();
-		qna.setTitle("»óÇ° ¹®ÀÇ ÇÕ´Ï´Ù");
-		qna.setContent("»óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù »óÇ° ¹®ÀÇ ÇÕ´Ï´Ù");
+		qna.setTitle("ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½");
+		qna.setContent("ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´Ï´ï¿½");
 		qna.setAttached_file("");
 		qna.setGoods_num(18l);
 		
@@ -83,7 +90,7 @@ public class GoodsMapperTests {
 	public void testQnaList() {
 		PagingVO pagingVO = new PagingVO();
 		
-		//8°³¾¿ 2ÆäÀÌÁö
+		//8ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(6);
 		
@@ -102,7 +109,7 @@ public class GoodsMapperTests {
 		m.setBRAND1("nike");
 		m.setBRAND2("adidas");
 		m.setBRAND3("brett");
-		m.setPOSITION("Åõ¼ö");
+		m.setPOSITION("ï¿½ï¿½ï¿½ï¿½");
 		m.setTEAM("lg");
 		m.setUSER_KEY(950131);
 		
@@ -120,11 +127,12 @@ public class GoodsMapperTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testRecommendBest() {
 		
 		List<GoodsVO> list = mapper.recommendBestList();
 		list.forEach(goods -> log.info(goods));
 		
 	}
+	*/
 }

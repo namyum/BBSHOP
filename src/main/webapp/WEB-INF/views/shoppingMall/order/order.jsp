@@ -112,6 +112,7 @@ li, a {
                   주문 리스트
             </h3>
             <div class="table-responsive">
+               <form id="orderInfo" action="/kakaoPay.do" method="POST">
                <table class="table">
                   <thead>
                      <tr>
@@ -158,108 +159,107 @@ li, a {
                         <td>
                            <h5>${order.SAVINGS}점</h5>
                         </td>
-               <c:choose>
-                         <c:when test="${goodsList[status.index].category eq 1 }">
-                            <td>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].HAND eq 0 }">
-                                 좌/우 : 좌투<br>
-                              </c:when>
-                              <c:otherwise>
-                                 좌/우 : 우투<br>
-                              </c:otherwise>
-                           </c:choose>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].TAMING eq 0 }">
-                                 길들이기 : 없음
-                              </c:when>
-                              <c:otherwise>
-                                 길들이기 : 있음
-                              </c:otherwise>
-                           </c:choose>
-                           </td>
+					<c:choose>
+                   		<c:when test="${goodsList[status.index].category eq 1 }">
+                   			<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].HAND eq 0 }">
+                        			좌/우 : 좌투<br>
+                        		</c:when>
+                        		<c:otherwise>
+                        			좌/우 : 우투<br>
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].TAMING eq 0 }">
+                        			길들이기 : 없음
+                        		</c:when>
+                        		<c:otherwise>
+                        			길들이기 : 있음
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
                         </c:when>
 
                         <c:when test="${goodsList[status.index].category eq 2 }">
-                           <td>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 32 }">
-                                 규격 : 32인치
-                              </c:when>
-                              <c:otherwise>
-                                 규격 : 33인치
-                              </c:otherwise>
-                           </c:choose>
-                           </td>
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 32 }">
+                        			규격 : 32인치
+                        		</c:when>
+                        		<c:otherwise>
+                        			규격 : 33인치
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
                         </c:when>
 
                         <c:when test="${goodsList[status.index].category eq 3 }">
-                           <td>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 85 }">
-                                 사이즈 : 85
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 90 }">
-                                 사이즈 : 90
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 95 }">
-                                 사이즈 : 95
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 100 }">
-                                 사이즈 : 100
-                              </c:when>
-                              <c:otherwise>
-                                 사이즈 : 105
-                              </c:otherwise>
-                           </c:choose>
-                           </td>
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 85 }">
+                        			사이즈 : 85
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 90 }">
+                        			사이즈 : 90
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 95 }">
+                        			사이즈 : 95
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 100 }">
+                        			사이즈 : 100
+                        		</c:when>
+                        		<c:otherwise>
+                        			사이즈 : 105
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
                         </c:when>
 
                         <c:when test="${goodsList[status.index].category eq 4 }">
-                           <td>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 230 }">
-                                 사이즈 : 230<br>
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 240 }">
-                                 사이즈 : 240<br>
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 250 }">
-                                 사이즈 : 250<br>
-                              </c:when>
-                              <c:when test="${optionList[status.index].GD_SIZE eq 260 }">
-                                 사이즈 : 260<br>
-                              </c:when>
-                              <c:otherwise>
-                                 사이즈 : 270<br>
-                              </c:otherwise>
-                           </c:choose>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].SPIKE eq 0 }">
-                                 스파이크 : 없음
-                              </c:when>
-                              <c:otherwise>
-                                 스파이크 : 있음
-                              </c:otherwise>
-                           </c:choose>
-                           </td>
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 230 }">
+                        			사이즈 : 230<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 240 }">
+                        			사이즈 : 240<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 250 }">
+                        			사이즈 : 250<br>
+                        		</c:when>
+                        		<c:when test="${optionList[status.index].GD_SIZE eq 260 }">
+                        			사이즈 : 260<br>
+                        		</c:when>
+                        		<c:otherwise>
+                        			사이즈 : 270<br>
+                        		</c:otherwise>
+                        	</c:choose>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].SPIKE eq 0 }">
+                        			스파이크 : 없음
+                        		</c:when>
+                        		<c:otherwise>
+                        			스파이크 : 있음
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
                         </c:when>
                         <c:otherwise>
-                           <td>
-                           <c:choose>
-                              <c:when test="${optionList[status.index].SALES_UNIT eq 0 }">
-                                 판매단위 : 낱개
-                              </c:when>
-                              <c:otherwise>
-                                 판매단위 : 12개(1박스)
-                              </c:otherwise>
-                           </c:choose>
-                           </td>
+                        	<td>
+                        	<c:choose>
+                        		<c:when test="${optionList[status.index].SALES_UNIT eq 0 }">
+                        			판매단위 : 낱개
+                        		</c:when>
+                        		<c:otherwise>
+                        			판매단위 : 12개(1박스)
+                        		</c:otherwise>
+                        	</c:choose>
+                        	</td>
                         </c:otherwise>
                    </c:choose>
                         <td>
                            <h5><c:out value="${order.TOTALPRICE}"/></h5>
-                           <input type="hidden" value="<c:out value='${order.TOTALPRICE}'/>"/>
                         </td>
                      </tr>
                     
@@ -279,6 +279,7 @@ li, a {
                      </tr>
                   </tbody>
                </table>
+               </form>
             </div>
          </div>
       </div>
@@ -291,7 +292,7 @@ li, a {
          <div class="billing_details">
             <div class="row">
                <div class="col-lg-6">
-                  <h3>주문자 정보</h3>
+                  <h3 style="font-weight:bold;">주문자 정보</h3>
                   <form class="row contact_form" id="orderInfo" action="/kakaoPay.do" method="POST">
                      <input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
                      <div class="col-md-12 form-group">
@@ -316,7 +317,7 @@ li, a {
                            <input type="checkbox" id="same_above" onClick="check(this)">
                            <label for="same_above" style="margin-bottom:30px;">위 정보와 같음</label>
                         </div>
-                        <h3>배송정보</h3>
+                        <h3 style="font-weight:bold;">배송정보</h3>
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="deli_name"
@@ -335,49 +336,50 @@ li, a {
                             placeholder="이메일">
                      </div>
                      <div class="col-md-12 form-group p_star">
-                        <p>배송지 선택</p>
-                        <label><input TYPE='radio' id="new_input"  value='new_addr' />신규 입력</label> <label><input TYPE='radio'
-                           id="user_input" value='user_addr' />사용자 지정</label> <input
+                        <p style="font-weight:bold; color:black;">배송지 선택</p>
+                      <!--  <label><input TYPE='radio' id="new_input"
+                          name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
+                           id="user_input" name="addr_input" value='user_addr' />사용자 지정</label> --> <input
                            type="button" id="addressBtn" value="주소록 목록" />
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <table>
                            <tr>
-                              <td><p>주소</p></td>
+                              <td><p style="font-weight:bold; color:black;">주소</p></td>
                            </tr>
                            <tr>
-                              <td><input type="text" class="form-control"
-                                 id="zipcode_input" style="width: 100px;"></td>
-                              <td><input type="button" value="우편번호"
-                                 onclick="openZipcode(this.form)" /></td>
+                              <td><input type="text" class="form-control" id="zipcode_input" style="width: 100px;"></td>
+                              <td><a href="javascript:execDaumPostcode()"
+							class="genric-btn default radius"> <span
+							style="font-weight: bold;">우편번호 검색</span></a></td>
                            </tr>
                         </table>
                      </div>
-                     <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr1" name="or_addr">
+                     <div class="col-md-7 form-group p_star">
+                        <input type="text" class="form-control" id="addr1" placeholder="도로명 주소">
                      </div>
-                     <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="addr2"
-                           placeholder="상세 주소">
+                     <div class="col-md-5 form-group p_star">
+                        <input type="text" class="form-control" id="addr2" placeholder="상세 주소">
                      </div>
+                     <!-- hidden form -->
+                     <input type="hidden" name="or_addr" value=""/>
+                     <input type="hidden" name="pymntamnt" value="${allPrice}"/>
                      <div class="col-md-12 form-group">
-                        <textarea class="form-control" name="or_msg" id="msg" rows="1"
-                           placeholder="주문메세지"></textarea>
+                        <textarea class="form-control" name="or_msg" id="msg" rows="1" placeholder="주문메세지"></textarea>
                      </div>
                   </form>
                </div>
                <div class="col-lg-6">
                   <div class="order_box">
-                     <h2>결제단계</h2>
-                     
+                     <h2 style="font-weight:bold;">결제단계</h2>                   
                      <ul class="list">
                         <li><p>상품 <span>총합</span></p></li>
                      <c:forEach var="order" items="${orderList}" varStatus="status">
-                     <li>
-                        <p class="product_name"><c:out value="${goodsList[status.index].name}" />
-                        <span class="middle"><c:out value="x${order.QNTTY }" /></span>
-                        <span class="last"><c:out value="${order.TOTALPRICE }" /></span></p>
-                     </li>
+         				<li>
+         					<p class="product_name"><c:out value="${goodsList[status.index].name}" />
+         					<span class="middle"><c:out value="x${order.QNTTY }" /></span>
+         					<span class="last"><c:out value="${order.TOTALPRICE }" /></span></p>
+         				</li>
                      </c:forEach>
                      </ul>
                      
@@ -387,7 +389,6 @@ li, a {
                         <li><p>배송비 <span><c:out value="${shipping_fee}원" /></span>
                         </p></li>
                         <li><p>총 결제금액 <span><c:out value="${allPrice}원" /></span>
-                        <input type="hidden" name="pymntamnt" value="${allPrice}"/>
                         </p></li>
                      </ul>
                      <div class="payment_item">
@@ -397,7 +398,7 @@ li, a {
                         <div class="radion_btn">
                            <input type="radio" id="kakaoPay" style="z-index:1;"> <label
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
-                              src="resources/shoppingMall/img/product/single-product/kakaopay.png"
+                              src="resources/shoppingMall/img/product/single-product/kakaopay.jpg"
                               alt="" style="width:70px;height:30px;">
                            <input type="hidden" name="pymntmthd" value="kakaoPay"/>
                            <div class="check"></div>
@@ -495,7 +496,61 @@ li, a {
          </div>
       </div>
    </div>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+	function execDaumPostcode() {
 
+		new daum.Postcode({
+
+					oncomplete : function(data) {
+						
+						var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+						var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraRoadAddr += data.bname;
+						}
+
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraRoadAddr += (extraRoadAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+
+						if (extraRoadAddr !== '') {
+							extraRoadAddr = ' (' + extraRoadAddr + ')';
+						}
+
+						if (fullRoadAddr !== '') {
+							fullRoadAddr += extraRoadAddr;
+						}
+				
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('zipcode_input').value = data.zonecode;		
+						document.getElementById('addr1').value = fullRoadAddr;
+			//			document.getElementById('addr1').value = data.jibunAddress;
+
+						/*
+						if (data.autoRoadAddress) {
+							var expRoadAddr = data.autoRoadAddress
+									+ extraRoadAddr;
+							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
+									+ expRoadAddr + ')';
+
+						} else if (data.autoJibunAddress) {
+							var expJibunAddr = data.autoJibunAddress;
+							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
+									+ expJibunAddr + ')';
+						} else {
+							document.getElementById('guide').innerHTML = '';
+						}
+						*/
+						
+						// 커서를 상세 주소 필드로 이동한다.
+						document.getElementById('addr2').focus();
+					}
+				}).open();
+	}
+</script>
    <script>
       var modal = document.getElementById('addressModal');
       // Get the button that opens the modal
