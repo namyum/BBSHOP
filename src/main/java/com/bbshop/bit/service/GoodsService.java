@@ -6,25 +6,26 @@ import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
+import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
 
 public interface GoodsService {
 	
-	// ī�װ� int > String
+	// 카테고리 int > String
 	public String category(int category);
 	
-	/* ����¡ O, ��ǰ ��� */
+	/* 페이징 O, 상품 목록 */
 	public List<GoodsVO> getGoodsList(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount, 
 			List<String> positions, List<String> colors_list, List<String> brands);
 
-	/* ī�װ���  goods ������ ���� */
+	/* 카테고리별  goods 데이터 개수 */
 	public int getTotalCount(int category);
 	
 	/* ajax�� ������ �ҷ��� �� ��ü ���� ���ϱ� */
 	public int getTotalCountAjax(int category, PagingVO pagingVO, String sorting, String min_amount, String max_amount,
 			List<String> positions, List<String> colors_list, List<String> brands);
 	
-	/* ��ǰ ��ȸ */
+	/* 상품 조회 */
 	public GoodsVO getGoodsInfo(Long goods_num);
 	
 	
@@ -32,27 +33,40 @@ public interface GoodsService {
 	
 	
 	
-	/* ��ǰ QNA ��� */
+	/* 상품 QNA 등록 */
 	public void insertGoodsQna(GoodsQnaVO qna);
 	
-	/* ��ǰ QNA ��� */
+	/* 상품 QNA 목록 */
 	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long goods_num);
 	
-	/* 상품 REVIEW 출력 */
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, long goods_num);
-
-
-	
-
+	/* 상품 별, QNA 글 개수 */
+	public int getQnaCount(long goods_num);
 	
 	
-	/* user_key�� �̿��� moredetail�� �����´�.*/
+	
+	
+	
+	/* 상품 REVIEW 등록 */
+	public void insertReview(ReviewVO review);
+	
+	/* 상품 REVIEW 목록 */
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long goods_num, int score);
+	
+	/* 상품 별, REVIEW 글 개수 */
+	public int getReviewCount(long goods_num);
+	
+	/* 상품 별, 리뷰평균점수, 리뷰개수, 별점 별 리뷰 개수 등.. DTO를 반환 */
+	public ReviewDTO getReviewDTO(long goods_num);
+
+	
+	
+	/* user_key를 이용해 moredetail을 가져온다.*/
 	public MoreDetailsVO findDetail(long user_key);
 	
-	/* ��õ��ǰ - ȸ�� */
+	/* 추천상품 - 회원 */
 	public List<GoodsVO> recommendGoodsList(MoreDetailsVO moredetail); 
 	
-	/* ��õ��ǰ - ��ȸ�� */
+	/* 추천상품 - 비회원 */
 	public List<GoodsVO> recommendBestList();
 
 	
