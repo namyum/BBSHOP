@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FAQVO {
-
+	
 	private long FAQ_NUM;
 	private String FAQ_CATEGORY;
 	private String SUBJECT;

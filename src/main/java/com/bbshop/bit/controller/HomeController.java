@@ -10,7 +10,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index() {
 
-		return "/savings.mp";
+		return "index.do";
 	}
 
 	/* 쇼핑몰 */

@@ -282,7 +282,7 @@ body {
 	height : 10%;
 	z-index : 201;
 	background-color : white; /*#EAD6BD;*/
- 	padding : 10px 24px 15px; 
+
 }
 .miniCart_footer #view_cart_btn {	/* view cart 버튼 */
 	width : 100%;
@@ -292,9 +292,11 @@ body {
 	cursor : pointer;
 	font-size : 25px !important;
 	text-align : center;
-	padding-top : 11px !important;
+	padding-top : 35px !important;
  	display : inherit;
  	font-weight : bold;
+ 	vertical-align: middle;
+ 	
 }
 
 #curtain {
@@ -466,6 +468,7 @@ body {
 /* 	min-height: 100%; */
 /* 	border-radius: 0; */
 /* } */
+
 </style>
 
 <script>	//민구
@@ -587,7 +590,7 @@ body {
 						<td></td>
 					</tr>
 				</table>
-				<br><input type="button" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">				
+				<br><input type="button" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">
 			</form>
 		</div>
 	</div>
@@ -781,11 +784,25 @@ body {
 	<!--================Header Menu Area =======================-->
 	
 	<!--================start Home Banner Area =================-->
-	<section class="banner_area" id="banner_mypage">
+	<!--  <section class="banner_area" id="banner_mypage">
 		<div class="banner_inner d-flex align-items-center" style="background-color:white;">
 			<div class="container-fluid">
 				<div class="banner_content text-center">
 					<h2 style="color: #777777;">My Page</h2>
+				</div>
+			</div>
+		</div>
+	</section>-->
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center"
+			style="background-color: #57c051;">
+			<div class="container">
+				<div class="banner_content text-center">
+					<h2 style="color: white;">마이페이지</h2>
+					<div class="page_link">
+						<a href="" style="color: white;">홈</a> <a
+							href="" style="color: white;">마이페이지</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -797,10 +814,10 @@ body {
 		<div class="container-fluid">
 			<div class="section-top-border">
 				<ul class="myPageTop">
-					<li><a href="/savings.do" class="menu">마이페이지</a></li>
-					<li><a href="/order_status.do" class="menu">주문/배송</a></li>
-					<li><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
-					<li><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/savings.do" class="menu">마이페이지</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/order_status.do" class="menu">주문/배송</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>

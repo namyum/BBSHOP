@@ -288,7 +288,6 @@ body {
 	height: 10%;
 	z-index: 201;
 	background-color: white; /*#EAD6BD;*/
-	padding: 10px 24px 15px;
 }
 
 .miniCart_footer #view_cart_btn { /* view cart 버튼 */
@@ -299,7 +298,7 @@ body {
 	cursor: pointer;
 	font-size: 25px !important;
 	text-align: center;
-	padding-top: 11px !important;
+	padding-top: 35px !important;
 	display: inherit;
 	font-weight: bold;
 }

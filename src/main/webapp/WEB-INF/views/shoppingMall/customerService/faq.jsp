@@ -4,6 +4,20 @@
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+.page-item.active .page-link{
+background-color: #57c051;
+}
+.cat_page .pagination li:hover a, .cat_page .pagination li.active a{
+background-color: #57c051;
+border-color: #57c051;
+}
+.genric-btn.default{
+color:#ffffff;
+background-color: #57c051;
+}
+.genric-btn.default:hover{
+background-color: #57c051;
+}
 body {
 	font-weight: bold;
 	font-size: 17px;
@@ -106,7 +120,7 @@ $(document).ready(function(){
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center"
-			style="background-color: #70e270;">
+			style="background-color: #57c051;">
 			<div class="container">
 				<div class="banner_content text-center">
 					<h2 style="color: white;">고객센터</h2>
@@ -120,27 +134,32 @@ $(document).ready(function(){
 	</section>
 	<!--================End Home Banner Area =================-->
 	
-	<div class="button-group-area mt-40" style="margin-bottom: 30px;">
-		<a href="/faq_list.do" class="genric-btn primary e-large"
-			style="background: #024137; margin-left: 30%; padding: 6px 60px; font-size: 30px; font-weight: bold;">FAQ</a>
-		<a href="/onetoonelist.do" class="genric-btn primary e-large"
-			style="background: #024137; margin-left: 21%; padding: 6px 60px; font-size: 30px; font-weight: bold;">1:1문의</a>
+	<div class="button-group-area mt-40" style="margin-bottom: 30px; text-align:right;">
+		<a href="/faq" class="genric-btn primary e-large"
+			style="background: #57c051; font-size: 30px; font-weight: bold;">FAQ</a>
+		<a href="/one_to_one_list" class="genric-btn primary e-large"
+			style="background: #a0a0a0; font-size: 30px; font-weight: bold;">1:1문의</a>
 	</div>
 	
 	<div class="button-group-area mt-40" style="margin-bottom: 20px;">
+		
 		<form name=category>
 		
-		<a href="/faq_list.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 19.5%">전체보기</a>
-		<a href="/cancel.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >변경/취소</a>
-		<a href="/trade.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >교환/반품</a>
-		<a href="/order.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >주문/조회</a>
-		<a href="/question.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >상품문의</a>
-			
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold;width:240px;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;" >전체보기</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">변경/취소</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:240px;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">교환/반품</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">주문/조회</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">상품문의</a>
 		</form>
 	</div>
 	
@@ -246,11 +265,7 @@ $(document).ready(function(){
             	</form>
             </div>
          </td>
-         
-         
       </tr>
    </table>
-   		
-   		
 
 <%@ include file="../include/shopping_footer.jsp" %>

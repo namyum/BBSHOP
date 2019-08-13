@@ -4,6 +4,12 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.default{
+	background: #dde8e1;
+}
+.genric-btn.default:hover{
+	background: #dde8e1;
+}
 .col-md-4::before {
 	position: absolute;
 	left: 0;
@@ -103,10 +109,10 @@ a {
 		</div>
 	</div>
 	<div class="section-top-border"
-		style="background: #e4e4e4; padding-bottom: 20px;">
+		style="background: #ffffff; padding-bottom: 20px;">
 		<div class="areaBox">
 			<div class="myOrderBox">
-				<div class="myOrderCon">
+				<div class="myOrderCon" style="border-right:none; border-left:none; border-bottom:none; border-top:none;">
 					<div class="row"
 						style="width: 1000px; margin: 0 auto; padding-left: 100px">
 
@@ -186,12 +192,12 @@ a {
 		</div>
 	</div>
 	<div class="section-top-border">
-		<h3 style="padding: 15px 0px 0px 15px;">내 적립금 현황</h3>
+		<h3 style="padding: 15px 0px 0px 15px; text-align: center;">내 적립금 현황</h3>
 		<h5 align="right">내 적립금 : ${pageMaker.total }건</h5>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
-					<tr style="background: #b5dab6; padding: 20px;">
+					<tr style="background: #ffffff; padding: 20px;">
 						<th scope="col"
 							style="text-align: center; padding: 20px; width: 15%">주문날짜</th>
 						<th scope="col" style="text-align: center; padding: 20px;">주문내역</th>

@@ -4,6 +4,16 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.product_top_bar{
+	background: #ffffff;
+}
+.genric-btn.default{
+	background: #57c051;
+}
+.genric-btn.default:hover{
+	background: #ffffff;
+}
+
 .sorting {
 	margin-right: 50px;
 }
@@ -19,7 +29,11 @@ h3, h4, h6 {
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
-						<h3 class="mb-30 title_color">회원 정보 수정</h3>
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px;">회원 정보 수정
+						<a id="withdraw" href="/withdraw.do" class="genric-btn default radius" style="float: right;"><span>회원 탈퇴</span></a>
+						<a href="#" class="genric-btn disable radius" onclick="modify_userInfo('modify_info')" id="modifybtn" style="float: right; margin-right: 10px;"><span>수정하기</span></a>
+						</h3>
+
 						<h5 style="margin-bottom: 30px;">* 회원 정보는 비밀번호가 일치해야 수정이 가능합니다.</h5>
 						<form class="row contact_form" action="/modify_userInfo.do"
 							method="post" novalidate="novalidate" id="modify_info">
@@ -71,22 +85,21 @@ h3, h4, h6 {
 								<span id="nickCheck"></span>
 							</div>
 						</form>
-						<a href="#" class="genric-btn disable radius"
-							onclick="modify_userInfo('modify_info')" id="modifybtn"><span>수정하기</span></a> <a
-							id="withdraw" href="/withdraw.do"
-							class="genric-btn default radius" style="float: right;"><span>회원
-								탈퇴</span> </a>
+						
 					</div>
 				</div>
 			</div>
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
-						<h3 class="mb-30 title_color">배송지 목록</h3>
-						<a href="/write_addr.do?num=${addr_list.size() }"
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px; padding-left: 150px;">배송지 목록
+							<a href="/write_addr.do?num=${addr_list.size() }"
 							class="genric-btn default radius"
 							style="float: right; margin-top: 0px;"><span>새 배송지 등록</span>
 						</a>
+						
+						</h3>
+					
 						<div class="row">
 							<c:forEach items="${addr_list }" var="AddrVO" varStatus="status">
 								<div class="col-lg-4">
@@ -124,7 +137,10 @@ h3, h4, h6 {
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12">
-						<h3 class="mb-30 title_color">추가 정보 수정</h3>
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px; padding-left: 110px;">추가 정보 수정
+						<a href="#" class="genric-btn default radius"
+								onclick="update_detail();" style="float: right;"><span>수정하기</span>
+							</a></h3>
 						<h5>* 구단과 포지션은 하나만 선택 가능합니다.</h5>
 						<h5 style="margin-bottom: 30px;">* 관심 브랜드는 최대 3개까지 선택 가능합니다.</h5>
 						<form class="row contact_form" action="#" method="post"
@@ -298,11 +314,7 @@ h3, h4, h6 {
 								</div>
 							</div>
 						</form>
-						<div>
-							<a href="#" class="genric-btn default radius"
-								onclick="update_detail();" style="float: left;"><span>수정하기</span>
-							</a>
-						</div>
+
 					</div>
 
 				</div>
