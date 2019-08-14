@@ -124,9 +124,10 @@ h3, h4, h6 {
 										</div>
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
-										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
-											수정</span> </a> <a href="#" onclick="deleteAddr('${AddrVO.num }');"
-										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
+										class="genric-btn default radius" style="margin-top: 30px"><span>배송지 
+											수정</span> </a> 
+											<a href="#" onclick="deleteAddr('${AddrVO.num }');"
+										class="genric-btn danger radius" style="margin-top: 30px; font-size: 14px"><span>배송지 
 											삭제</span> </a>
 								</div>
 							</c:forEach>
