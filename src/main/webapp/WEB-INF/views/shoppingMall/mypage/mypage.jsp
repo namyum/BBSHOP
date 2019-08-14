@@ -50,7 +50,7 @@ a {
 	text-transform: uppercase;
 	font-weight: 700;
 	font-size: 2.6em;
-	color: #FFF;
+	color: #63676c;
 	margin-top: 15px;
 	text-align: left;
 	margin-bottom: 25px;
@@ -72,8 +72,8 @@ a {
  * Contenedor
  ============================*/
 .pricing-wrapper {
-	width: 960px;
-	margin: 40px auto 0;
+	width: 100%;
+	margin: 20px auto 0;
 	font-size: 62.5%;
 	font-family: font-family: 'Montserrat', sans-serif;
 }
@@ -81,7 +81,7 @@ a {
 .pricing-table {
 	margin: 0 10px;
 	text-align: center;
-	width: 300px;
+	width: 23%;
 	float: left;
 	-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.4);
 	box-shadow: 0 0 15px rgba(0,0,0,0.4);
@@ -239,7 +239,7 @@ a {
  		display: block;
  		float: none;
  		margin: 0 0 20px 0;
- 		width: 100%;
+ 		width: 80%;
  	}
  }
 
@@ -251,7 +251,7 @@ a {
 
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 80%;
+    width: 100%;
     margin: 30px auto;
   }
 }
@@ -464,12 +464,10 @@ a {
 				<div class="modal-body">
 					<div class="pricing-wrapper clearfix">
 						<!-- Title -->
-						<h1 class="pricing-table-title">
-							SEO Services <a href="http://alextodea.net">alextodea.net</a>
-						</h1>
+						<h1 class="pricing-table-title">멤버십 안내</h1>
 
 						<div class="pricing-table">
-							<h3 class="pricing-title">Bronze</h3>
+							<h3 class="pricing-title">브론즈</h3>
 							<div class="price">
 								$99<sup>/ month</sup>
 							</div>
@@ -489,9 +487,32 @@ a {
 								<a href="#" class="pricing-action">Sign Up</a>
 							</div>
 						</div>
+						
 						<!-- Second -->
+						<div class="pricing-table">
+							<h3 class="pricing-title" id="silvercolor">실버</h3>
+							<div class="price">
+								$199<sup>/ month</sup>
+							</div>
+							<!-- Characteristics -->
+							<ul class="table-list">
+								<li>Website Review</li>
+								<li>Website Repair</li>
+								<li>Analytics Setup</li>
+								<li>Keyword Analysis<span> Extra</span></li>
+								<li>Page Rank<span> Extra</span></li>
+							</ul>
+							<!-- Call to action -->
+							<div class="table-buy">
+								<p>
+									$199<sup>/ month</sup>
+								</p>
+								<a href="#" class="pricing-action">Sign Up</a>
+							</div>
+						</div>
+						<!-- gold grade -->
 						<div class="pricing-table recommended">
-							<h3 class="pricing-title">Gold</h3>
+							<h3 class="pricing-title">골드</h3>
 							<div class="price">
 								$249<sup>/ month</sup>
 							</div>
@@ -515,9 +536,8 @@ a {
 								<a href="#" class="pricing-action">Sign Up</a>
 							</div>
 						</div>
-
 						<div class="pricing-table">
-							<h3 class="pricing-title" id="silvercolor">Silver</h3>
+							<h3 class="pricing-title" style="background-color: #b9f2ff;">다이아</h3>
 							<div class="price">
 								$199<sup>/ month</sup>
 							</div>
@@ -538,12 +558,10 @@ a {
 							</div>
 						</div>
 					</div>
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+						data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
