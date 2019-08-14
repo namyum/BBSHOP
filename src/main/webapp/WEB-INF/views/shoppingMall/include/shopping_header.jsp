@@ -527,13 +527,12 @@ body {
 		</div>
 
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container-fluid">
+			<nav class="navbar navbar-expand-lg navbar-light" style="max-height:80px;">
+				<div class="container-fluid" style="max-height:80px;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
 					<a class="navbar-brand logo_h" href="/shopping_main.do"> <img
-						src="resources/shoppingMall/img/logo.png" alt=""
-						style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
+						src="resources/shoppingMall/img/logo.png" alt="" style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"

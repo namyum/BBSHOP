@@ -53,7 +53,8 @@ h3, h4, h6 {
 							<div class="col-md-5 form-group p_star">
 								<label for="phone">휴대폰</label> <input type="text"
 									class="form-control" id="PHONE" name="PHONE"
-									value="<c:out value="${memberInfo.PHONE }" default="null" />">
+									value="<c:out value="${memberInfo.PHONE }" default="null" />"
+									readonly>
 							</div>
 							<div class="col-md-7 form-group p_star"></div>
 							<div class="col-md-5 form-group p_star">
