@@ -12,8 +12,7 @@
 
 		INSERT INTO community
 		VALUES
-			(#{BOARD_NUM}, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE}, #{WRITER}, 0, sysdate, sysdate, 0, 0, #{USER_KEY})
-
+		(#{BOARD_NUM}, #{TEAM_NAME}, #{TITLE}, #{BOARD_CONTENT}, #{UPLOADFILE}, #{WRITER}, 0, sysdate, sysdate, 0, 0, #{USER_KEY})
 	</insert>
 
 	<select id="getNickname" parameterType="int" resultType="String">

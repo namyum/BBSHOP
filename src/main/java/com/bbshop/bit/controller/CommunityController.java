@@ -61,6 +61,7 @@ public class CommunityController {
 		 	qna.setUser_key(user_key);
 		 	}
 		 */
+		System.out.println("등록 폼 진입");
 		model.addAttribute("nickname",communityService.getNickname(1));
 		model.addAttribute("teamName", teamName);
 		
@@ -121,7 +122,7 @@ public class CommunityController {
 		community.setUSER_KEY(user_key);
 		
 		int res = communityService.insertPost(community);
-		
+		System.out.println("글 등록");
 		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
 		
 		if(res == 1) {
@@ -157,7 +158,7 @@ public class CommunityController {
 		
 		int res = communityService.updatePost(community);
 		
-		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
+		model.addAttribute("BOARD_NUM",community.getBOARD_NUM());
 		
 		if(res == 1) {
 			System.out.println("글이 수정되었습니다.");
