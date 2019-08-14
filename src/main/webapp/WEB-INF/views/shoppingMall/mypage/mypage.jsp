@@ -119,15 +119,15 @@ a {
 }
 
 .pricing-table .price {
-	background: #403e3d;
-	font-size: 3.4em;
+	background: #e9efec;
+	font-size: 2.6em;
 	font-weight: 700;
 	padding: 20px 0;
 	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
 .pricing-table .price sup {
-	font-size: 0.4em;
+	font-size: 0.5em;
 	position: relative;
 	left: 5px;
 }
@@ -155,11 +155,7 @@ a {
 
 .table-list li span {
 	font-weight: 400;
-  color: #3fab91
-}
-
-#goldspan {
-  color: #ffd700;
+  	color: #3fab91
 }
 
 
@@ -469,93 +465,58 @@ a {
 						<div class="pricing-table">
 							<h3 class="pricing-title">브론즈</h3>
 							<div class="price">
-								$99<sup>/ month</sup>
+								￦ 0<sup> / 누적 금액</sup>
 							</div>
 
 							<!-- Characteristics-->
 							<ul class="table-list">
-								<li>Website Review</li>
-								<li>Website Repair</li>
-								<li>Analytics Setup</li>
-								<li>Keyword Analysis</li>
+								<li>적립 : 구매 금액의 3%</li>
+								<li>할인 : 상품 금액의 3%</li>
+								<li>쿠폰 : 분기 기준 1회 발행, 3% 할인</li>
 							</ul>
-							<!-- Call to action -->
-							<div class="table-buy">
-								<p>
-									$99<sup>/ month</sup>
-								</p>
-								<a href="#" class="pricing-action">Sign Up</a>
-							</div>
 						</div>
-						
+
 						<!-- Second -->
 						<div class="pricing-table">
 							<h3 class="pricing-title" id="silvercolor">실버</h3>
 							<div class="price">
-								$199<sup>/ month</sup>
+								￦ 100,000<sup> / 누적 금액</sup>
 							</div>
 							<!-- Characteristics -->
 							<ul class="table-list">
-								<li>Website Review</li>
-								<li>Website Repair</li>
-								<li>Analytics Setup</li>
-								<li>Keyword Analysis<span> Extra</span></li>
-								<li>Page Rank<span> Extra</span></li>
+								<li>적립 : 구매 금액의 5%</li>
+								<li>할인 : 상품 금액의 5%</li>
+								<li>쿠폰 : 2달 기준 1회 발행, 5% 할인</li>
 							</ul>
-							<!-- Call to action -->
-							<div class="table-buy">
-								<p>
-									$199<sup>/ month</sup>
-								</p>
-								<a href="#" class="pricing-action">Sign Up</a>
-							</div>
 						</div>
 						<!-- gold grade -->
 						<div class="pricing-table recommended">
 							<h3 class="pricing-title">골드</h3>
 							<div class="price">
-								$249<sup>/ month</sup>
+								￦ 400,000<sup> / 누적 금액</sup>
 							</div>
 							<!-- Characteristics-->
-							<ul class="table-list">
-								<li>Website Review</li>
-								<li>Website Repair</li>
-								<li>Analytics Setup</li>
-								<li>Keyword Analysis<span> Extra</span></li>
-								<li>Page Rank<span> Extra</span></li>
-								<li>Robot.txt File<span id="goldspan"> Extra</span></li>
-								<li>Google Map Listing<span id="goldspan"> Extra</span></li>
-								<li class>Competitor review<span id="goldspan">
-										Extra</span></li>
+							<ul class="table-list" style="margin-bottom: 0px;">
+								<li>적립 : 구매 금액의 7%</li>
+								<li>할인 : 상품 금액의 7%</li>
+								<li>쿠폰 : 월 1회 발행, 5% 할인</li>
+								<li>배송비 <span>무료</span></li>
 							</ul>
-							<!-- Call to action -->
-							<div class="table-buy">
-								<p>
-									$249<sup>/ month</sup>
-								</p>
-								<a href="#" class="pricing-action">Sign Up</a>
-							</div>
 						</div>
 						<div class="pricing-table">
 							<h3 class="pricing-title" style="background-color: #b9f2ff;">다이아</h3>
 							<div class="price">
-								$199<sup>/ month</sup>
+								￦ 1,000,000<sup> / 누적 금액</sup>
 							</div>
 							<!-- Characteristics -->
 							<ul class="table-list">
-								<li>Website Review</li>
-								<li>Website Repair</li>
-								<li>Analytics Setup</li>
-								<li>Keyword Analysis<span> Extra</span></li>
-								<li>Page Rank<span> Extra</span></li>
+								<li>적립 : 구매 금액의 10%</li>
+								<li>할인 : 상품 금액의 10%</li>
+								<li>쿠폰 : 월 2회 발행, 7% 할인</li>
+								<li>배송비 <span>무료</span></li>
+								<li>분기별 <span>야구 관람권</span> 증정
+								</li>
 							</ul>
-							<!-- Call to action -->
-							<div class="table-buy">
-								<p>
-									$199<sup>/ month</sup>
-								</p>
-								<a href="#" class="pricing-action">Sign Up</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -566,9 +527,7 @@ a {
 			</div>
 		</div>
 	</div>
-
-
-
+	<!-- 멤버십 모달 끝 -->
 </div>
 
 <script type="text/javascript">
