@@ -177,20 +177,19 @@
          <artifactId>ojdbc6</artifactId>
          <version>12.1.0.2</version>
       </dependency>
-     <!-- file upload -->
-		<!--  commonsMultipartResolver 사용시 설정 -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		
-		</dependency>
-		<!-- file upload // -->
+     <!-- 파일 업로드를 하기위함. -->
+      <dependency>
+         <groupId>commons-fileupload</groupId>
+         <artifactId>commons-fileupload</artifactId>
+         <version>1.2.1</version>
+      </dependency>
+      <dependency>
+         <groupId>commons-io</groupId>
+         <artifactId>commons-io</artifactId>
+         <version>1.4</version>
+      </dependency>
+
+
 
 		<!-- gson, json -->
 	<dependency>
