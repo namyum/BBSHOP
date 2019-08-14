@@ -49,7 +49,7 @@ body {
 <script type="text/javascript">
 $(document).ready(function() {
 
-	var formObj = $("#openForm");
+	var formObj = $("#operForm");
 
 	$('button').on("click", function(e) {
 	
@@ -61,11 +61,17 @@ $(document).ready(function() {
 
 		if (operation === 'remove') {
 			
-			formObj.attr("action", "onetoone_remove.do");
+			var answer = confirm('게시글을 삭제하시겠습니까?');
+			
+			if (answer == true) {
+			
+				formObj.attr("action", "onetoone_remove.do");
+			}
 			
 		} else if (operation === 'list') {
 			
 			self.location = "onetoonelist.do";
+			
 			return;
 		}
 		

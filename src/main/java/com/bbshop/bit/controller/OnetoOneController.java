@@ -106,7 +106,6 @@ public class OnetoOneController {
 		
 		onetooneservice.OnetoOne_remove(One_One_NUM);
 		
-		
 		return "redirect:/onetoonelist.do";
 	}
 	
