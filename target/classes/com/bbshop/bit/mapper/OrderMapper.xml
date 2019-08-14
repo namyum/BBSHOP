@@ -65,8 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		</selectKey>
 		INSERT INTO shop_order(order_num, user_key, pymntamnt, savings, or_addr, receiver, phone1, phone2, or_msg, name, or_date, stts, pymntmthd, cancel)
 		VALUES(#{order_num}, #{user_key}, #{pymntamnt}, #{savings}, #{or_addr}, #{receiver}, #{phone1}, #{phone2}, #{or_msg}, #{name}, sysdate, 0, 'kakaoPay', 0)
-	</insert>
-	
+	</insert>	
 	
 	<select id="getLastOrderNum" resultType="long" parameterType="long">
 	SELECT order_num 
@@ -76,6 +75,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     	ORDER BY or_date DESC)
     WHERE user_key = #{user_key} and rownum = 1
 	</select>
+	
+	<select id="getOrderList" resultType="com.bbshop.bit.domain.OrderVO">
+		SELECT *
+		FROM shop_order
+		WHERE order_num = #{order_num}
+	</select>
+	
+	<update id="updateGloveStock">
+		UPDATE gd_glove
+		SET stock = stock - #{QNTTY}
+		WHERE glove_num = #{GLOVE_NUM}
+	</update>
+	
+	<update id="updateBatStock">
+		UPDATE gd_bat
+		SET stock = stock - #{QNTTY}
+		WHERE bat_num = #{BAT_NUM}
+	</update>
+	
+	<update id="updateUniformStock">
+		UPDATE gd_uniform
+		SET stock = stock - #{QNTTY}
+		WHERE uniform_num = #{UNIFORM_NUM}
+	</update>
+	
+	<update id="updateShoesStock">
+		UPDATE gd_shoes
+		SET stock = stock - #{QNTTY}
+		WHERE shoes_num = #{SHOES_NUM}
+	</update>
+	
+	<update id="updateBallStock">
+		UPDATE gd_ball
+		SET stock = stock - #{QNTTY}
+		WHERE ball_num = #{BALL_NUM}
+	</update>
+	
 	
 <!-- 의정 단일상품 -->
 

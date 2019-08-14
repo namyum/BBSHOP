@@ -98,6 +98,48 @@ public class OrderServiceImpl implements OrderService {
 		return mapper.getLastOrderNum(user_key);
 	}
 	
+	@Override
+	public OrderVO getOrderList(long order_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.getOrderList(order_num);
+	}
+	
+	@Override
+	public int updateGloveStock(int qntty, long glove_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateGloveStock(qntty, glove_num);
+	}
+	
+	@Override
+	public int updateBatStock(int qntty, long bat_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateBatStock(qntty, bat_num);
+	}
+	
+	@Override
+	public int updateUniformStock(int qntty, long uniform_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateUniformStock(qntty, uniform_num);
+	}
+	
+	@Override
+	public int updateShoesStock(int qntty, long shoes_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateShoesStock(qntty, shoes_num);
+	}
+	
+	@Override
+	public int updateBallStock(int qntty, long ball_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateBallStock(qntty, ball_num);
+	}
+	
 	// 의정 단일상품
 	
 	/*

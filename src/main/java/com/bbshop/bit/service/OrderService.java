@@ -30,6 +30,18 @@ public interface OrderService {
 	
 	public long getLastOrderNum(long user_key);
 	
+	public OrderVO getOrderList(long order_num);
+	
+	public int updateGloveStock(int qntty, long glove_num);
+	
+	public int updateBatStock(int qntty, long bat_num);
+	
+	public int updateUniformStock(int qntty, long uniform_num);
+	
+	public int updateShoesStock(int qntty, long shoes_num);
+	
+	public int updateBallStock(int qntty, long ball_num);
+	
 	// 의정 단일상품
 
 //	public GoodsVO getGoodsInfo(Long goods_num);

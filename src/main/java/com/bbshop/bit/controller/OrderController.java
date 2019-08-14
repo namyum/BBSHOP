@@ -53,11 +53,10 @@ public class OrderController {
 	private KakaoPayService kakaopay;
 	
 	// 회원 user_key를 가져오기 위한 HttpSession
-	@Autowired(required=true)
 	private HttpSession session;
 	
-	// 회원 주소록을 가져오기 위한 MyPageService
 	@Autowired(required=true)
+	// 회원 주소록을 가져오기 위한 MyPageService
 	MyPageService mypageService;
 	
 	List<GoodsVO> goodsList;
@@ -113,7 +112,9 @@ public class OrderController {
 		
 		int allPrice = orderGood.getTOTALPRICE();
 
-		long user_key = (long)session.getAttribute("member");
+		
+//		long user_key = (long)session.getAttribute("user_key");
+		long user_key = 950131;
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
@@ -139,7 +140,8 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
-			long user_key = (long)session.getAttribute("member");
+//			long user_key = (long)session.getAttribute("user_key");
+			long user_key = 1;
 			MemberVO user = memberService.getMemberInfo(user_key);
 			
 			goodsList = new ArrayList<GoodsVO>();
@@ -159,12 +161,8 @@ public class OrderController {
 			
 			allPrice = totalPrice + shipping_fee;
 			
-			
 			// goods 가져와서 goodsList에 넣어주는 부분
 			 for (String goods_num : goods_num_list ){
-				 
-				 System.out.println("goods_num : " + goods_num);
-				 
 				 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 			 }
 			 
@@ -217,26 +215,27 @@ public class OrderController {
     }
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
-    public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, HttpSession session) {
-    	System.out.println("kakaoPay post............................................");
-
-    	// orderVO name 설정 코드
-    	
-    	System.out.println("order.getName() : " + order.getName());
-    	
-    	long user_key = (long)session.getAttribute("member");
+    public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, 
+    		@RequestParam("shipping_fee") int shipping_fee) {
+        System.out.println("kakaoPay post............................................");
+		/*
+		 long user_key = (long)session.getAttribute("user_key");
+		 String nickname = (String)session.getAttribute("nickname");
+		 
+		 // 비회원
+		 if(nickname.substring(0,9).equals("noAccount")) {
+		 	// alert("로그인이 필요합니다.");
+		 }
+		 else{
+		 	long user_key = (long)session.getAttribute("user_key");
+		 	qna.setUser_key(user_key);
+		 	}
+		 */
         
 		String[] goods_num_list = list.split(",");
-		int allPrice = 0;
+		int allPrice = (int)order.getPymntamnt();
 		
-		/*
-		 * order_num을 파라미터로 orderVO 정보를 들고 올 코드가 추가 될 부분.
-		 * 
-		 * 
-		 * 
-		 */
-		
-        order.setUser_key(user_key);
+        order.setUser_key(1);
         int res = orderService.insertOrder(order);
         
         if(res == 1) {
@@ -257,47 +256,89 @@ public class OrderController {
 			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 		 }
 		 
+		 /*
 		// 총 결제 금액 구하는 과정
 		for (int i = 0; i < cartList.size(); i++) {
 			Cart_GDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			allPrice += cartList.get(i).getTOTALPRICE();
 		}
+		*/
+		
         
-        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num);
+        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee);
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,
-    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, @RequestParam("order_num") long order_num) {
+    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, 
+    		@RequestParam("order_num") long order_num, @RequestParam("shipping_fee") int shipping_fee) {
     	System.out.println("kakaoPaySuccess get............................................");
     	
-    	String order_items = "";
     	System.out.println("order_num="+order_num);
 
     	String[] goods_num_list = list.split(",");
 		
 		goodsList = new ArrayList<GoodsVO>();
+		int totalPrice = 0;
 		
 		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
 		cartList = orderService.getCheckedCartList(goods_num_list);
 		
 		// goods 가져와서 goodsList에 넣어주는 부분
-		for (String goods_num : goods_num_list ) {
-			goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-		}
+		 for (String goods_num : goods_num_list ){
+			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+		 }   	
 		 
+		// 각 상품별 결제 금액 set
 		for (int i = 0; i < cartList.size(); i++) {
 			Cart_GDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cartList.set(i, temp);
+			totalPrice += cartList.get(i).getTOTALPRICE();
 		}
 		
-	// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
+		OrderVO order = orderService.getOrderList(order_num);
+    	String[] addr_list = order.getOr_addr().split(",");
+    	
+    	// 주문한 개수만큼 재고에서 빼기
+    	for(int i=0; i<goodsList.size();i++) {
+			switch(goodsList.get(i).getCategory()) {
+			
+			// 글러브
+			case 1 : 
+				orderService.updateGloveStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 배트
+			case 2 : 
+				orderService.updateBatStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 유니폼
+			case 3 : 
+				orderService.updateUniformStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구화
+			case 4 : 
+				orderService.updateShoesStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구공
+			case 5 : 
+				orderService.updateBallStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			}
+			System.out.println("재고 업데이트 완료!");
+		}
+    	
+    	// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
     	long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		// 주문한 상품의 이름 바인딩
-		order_items = goodsList.get(0).getName();
+		String order_items = goodsList.get(0).getName();
 		
 		long savings_curr = 0;
 		int total_buy_curr = user.getTOTAL_BUY();
@@ -341,8 +382,13 @@ public class OrderController {
     	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice));
     	model.addAttribute("goodsList",goodsList);
 		model.addAttribute("orderList",cartList);
+		model.addAttribute("order",order);
+		model.addAttribute("addr_list",addr_list);
+		model.addAttribute("shipping_fee",shipping_fee);
+		model.addAttribute("totalPrice",totalPrice);
     	
     	return "shoppingMall/order/order_confirmation";
+        
     }
     
     // 뷰 생성 예정
@@ -351,6 +397,6 @@ public class OrderController {
     	System.out.println("결제 실패");
     	
     	return " ";
+        
     }
-
 }
