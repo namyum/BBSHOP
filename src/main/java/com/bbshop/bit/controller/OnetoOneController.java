@@ -73,6 +73,9 @@ public class OnetoOneController {
 		
 		System.out.println("글 번호 : " + One_One_NUM);
 		
+		String nickname = (String)session.getAttribute("nickname");
+		
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("board", onetooneservice.OnetoOne_get(One_One_NUM));
 		//model.addAttribute("category", category);
 		
@@ -87,7 +90,6 @@ public class OnetoOneController {
 		log.info("modify:" + onetooneVO);
 
 		model.addAttribute("board", onetooneVO);
-
 
 		if (onetooneservice.OnetoOne_modify(onetooneVO)) {
 			

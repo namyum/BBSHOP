@@ -38,7 +38,7 @@
 	
 	<insert id="OnetoOne_insert">
 	
-	<selectKey keyProperty="ONE_ONE_NUM" order="BEFORE" resultType="long">
+	<selectKey keyProperty="one_one_num" order="BEFORE" resultType="long">
 			select seq_board.nextval from dual	<!--  시퀀스생성-->
 		</selectKey>
 		

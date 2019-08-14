@@ -158,7 +158,7 @@ $(document).ready(function() {
 					</div>
 					
 					<form id='operForm' action="/onetoone_get.do" method="post">
-						<input type='hidden' id='ONE_ONE_NUM' name='ONE_ONE_NUM' value='<c:out value="${board.one_one_num}"/>'>
+						<input type='hidden' id='one_one_num' name='one_one_num' value='<c:out value="${board.one_one_num}"/>'>
 						<input type='hidden' name='pageNum' value='<c:out value="${pagingVO.pageNum}"/>'>
 						<input type='hidden' name='amount' value='<c:out value="${pagingVO.amount}"/>'>
           				<input type='hidden' name='keyword' value ='<c:out value="${pagingVO.keyword}"/>'>
@@ -189,7 +189,7 @@ $(document).ready(function() {
 						<div class="button-group-area mt-40">
 							<a href="#"  onclick='history.back(-1); return false;' id="go_list" class="genric-btn primary radius" style="margin-left: 42%;">목록보기</a>
 							
-							<a id="modify_post" href="/onetoone_modify.do?One_One_NUM=${board.one_one_num}" class="genric-btn primary radius">수정</a>
+							<a id="modify_post" href="/onetoone_modify.do?one_one_num=${board.one_one_num}" class="genric-btn primary radius">수정</a>
 							
 							<button type="submit" data-oper='remove' id="delete_post" class="genric-btn primary radius" style="float: right;">삭제</button>
 						</div>
