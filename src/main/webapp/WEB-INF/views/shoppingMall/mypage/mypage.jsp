@@ -277,7 +277,14 @@ a {
 						<i class="fas fa-won-sign"></i>
 					</p>
 					<span>보유 적립금</span>
-					<h4>￦ ${savings_list["0"].or_savings_total }</h4>
+					<h4>
+						<c:choose>
+						<c:when test="${savings_list['0'].or_savings_total eq null}">
+						￦ 0
+						</c:when>
+						<c:otherwise>￦ ${savings_list["0"].or_savings_total}</c:otherwise>
+						</c:choose>
+					</h4>
 				</div>
 				<div class="col-md-4" style="color: white;">
 					<p>
