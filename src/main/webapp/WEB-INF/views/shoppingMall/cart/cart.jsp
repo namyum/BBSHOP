@@ -282,6 +282,13 @@ body{font-family:NanumBarunpen, sans-serif}
 		          product.push(id);
 		    });
 		    
+		    // 상품 체크 하지 않았을 시 경고창
+		    if (!product[0]) {
+		    	
+		    	alert('결제하실 상품을 선택해주세요.');
+		    	return false;
+		    }
+		    
 		    $("#GOODS_NUM_LIST").val(product);
 		    $("#orderForm").submit();
 		}

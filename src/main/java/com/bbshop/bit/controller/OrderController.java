@@ -158,8 +158,12 @@ public class OrderController {
 			
 			allPrice = totalPrice + shipping_fee;
 			
+			
 			// goods 가져와서 goodsList에 넣어주는 부분
 			 for (String goods_num : goods_num_list ){
+				 
+				 System.out.println("goods_num : " + goods_num);
+				 
 				 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 			 }
 			 
