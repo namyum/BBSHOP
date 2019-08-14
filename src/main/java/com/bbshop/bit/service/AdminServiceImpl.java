@@ -76,13 +76,62 @@ public class AdminServiceImpl implements AdminService {
 
 
 	@Override
-	public void insertGoods(GoodsVO vo, Gd_gloveVO glove) {
+	public void insertGoods(GoodsVO vo, Object obj) {
 		// TODO Auto-generated method stub
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		mapper.insertGoods(vo);
-		vo.setGOODS_NUM(mapper.getGoodsNum(vo.getNAME()));
-		System.out.println(vo.getGOODS_NUM());
-		//mapper.insertGoodsDetails(glove);
+		//System.out.println("데이터 삽입이 제대로 이뤄졌다.");
+		System.out.println("vo의 굿즈넘"+mapper.getGoodsNum(vo));
+		vo.setGOODS_NUM((long)mapper.getGoodsNum(vo));
+//		System.out.println(obj.getClass().getName());
+//		String goodsObj = obj.getClass().getName().substring(22);
+//		System.out.println(goodsObj);
+		
+		switch(vo.getCATEGORY()) {
+			
+			case 1:{
+				System.out.println("glove입니다.");
+				Gd_gloveVO glove = (Gd_gloveVO)obj;
+				glove.setGOODS_NUM(vo.getGOODS_NUM());
+				System.out.println("glove GoodsNUM"+glove.getGOODS_NUM());
+				mapper.insertGoodsGlove(glove);
+				break;
+			}
+			
+			case 2:{
+				System.out.println("bat입니다");
+				Gd_batVO bat = (Gd_batVO)obj;
+				bat.setGOODS_NUM(vo.getGOODS_NUM());
+				mapper.insertGoodsBat(bat);
+				break;
+			}
+			case 3:{
+				System.out.println("uniform입니다");
+				Gd_uniformVO uniform = (Gd_uniformVO)obj;
+				uniform.setGOODS_NUM(vo.getGOODS_NUM());
+				mapper.insertGoodsUniform(uniform);
+				break;
+			}
+			case 4:{
+				System.out.println("shoes입니다");
+				Gd_shoesVO shoes = (Gd_shoesVO)obj;
+				shoes.setGOODS_NUM(vo.getGOODS_NUM());
+				mapper.insertGoodsShoes(shoes);
+				break;
+			}
+			case 5:{
+				System.out.println("ball입니다");
+				Gd_ballVO ball = (Gd_ballVO)obj;
+				ball.setGOODS_NUM(vo.getGOODS_NUM());
+				mapper.insertGoodsBall(ball);
+				break;
+			}
+			
+		
+		
+		
+		}
+		
 	}
 }

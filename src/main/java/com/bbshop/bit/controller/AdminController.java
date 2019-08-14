@@ -166,9 +166,9 @@ public class AdminController {
 		System.out.println("name"+vo.getNAME());
 		vo.setBRAND(request.getParameter("BRAND"));
 		System.out.println("brand"+vo.getBRAND());
-		vo.setMAIN_IMG(originalFileExtension[0]);
-		vo.setDTL_IMG1(originalFileExtension[1]);
-		vo.setDTL_IMG2(originalFileExtension[2]);
+		vo.setMAIN_IMG("resources/shoppingMall/img/goods/glove/"+originalFileExtension[0]);
+		vo.setDTL_IMG1("resources/shoppingMall/img/goods/glove/"+originalFileExtension[1]);
+		vo.setDTL_IMG2("resources/shoppingMall/img/goods/glove/"+originalFileExtension[2]);
 		vo.setDISCOUNT(Integer.parseInt(request.getParameter("DISCOUNT")));
 		System.out.println("discount"+vo.getDISCOUNT());
 		vo.setSALES(0);
@@ -190,7 +190,49 @@ public class AdminController {
 			adminService.insertGoods(vo,glove);
 			break;
 		}
-		
+		case 2:{
+			System.out.println("bat입니다.");
+			bat.setMATERIAL(request.getParameter("MATERIAL"));
+			bat.setGD_SIZE(Integer.parseInt(request.getParameter("GD_SIZE")));
+			bat.setCOLOR(request.getParameter("COLOR"));
+			bat.setSTOCK(Integer.parseInt(request.getParameter("STOCK")));
+			adminService.insertGoods(vo,bat);
+			break;
+		}
+//		
+//		case 1:{
+//			System.out.println("글러브입니다.");
+//			glove.setHAND(Integer.parseInt(request.getParameter("HAND")));
+//			glove.setTAMING(Integer.parseInt(request.getParameter("TAMING")));
+//			glove.setCOLOR(request.getParameter("COLOR"));
+//			glove.setPOSITION(request.getParameter("POSITION"));
+//			glove.setSTOCK(Integer.parseInt(request.getParameter("STOCK")));
+//			adminService.insertGoods(vo,glove);
+//			break;
+//		}
+//		
+//		case 1:{
+//			System.out.println("글러브입니다.");
+//			glove.setHAND(Integer.parseInt(request.getParameter("HAND")));
+//			glove.setTAMING(Integer.parseInt(request.getParameter("TAMING")));
+//			glove.setCOLOR(request.getParameter("COLOR"));
+//			glove.setPOSITION(request.getParameter("POSITION"));
+//			glove.setSTOCK(Integer.parseInt(request.getParameter("STOCK")));
+//			adminService.insertGoods(vo,glove);
+//			break;
+//		}
+//		
+//		case 1:{
+//			System.out.println("글러브입니다.");
+//			glove.setHAND(Integer.parseInt(request.getParameter("HAND")));
+//			glove.setTAMING(Integer.parseInt(request.getParameter("TAMING")));
+//			glove.setCOLOR(request.getParameter("COLOR"));
+//			glove.setPOSITION(request.getParameter("POSITION"));
+//			glove.setSTOCK(Integer.parseInt(request.getParameter("STOCK")));
+//			adminService.insertGoods(vo,glove);
+//			break;
+//		}
+//		
 		
 		}
 		

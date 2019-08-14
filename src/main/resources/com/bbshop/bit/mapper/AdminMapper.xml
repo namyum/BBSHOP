@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 <select id="getGoodsList" resultMap="goodsResultMap">
 
-	select * from goods
+	select * from goods order by goods_num desc
 	
 </select>
 
@@ -90,17 +90,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	select * from gd_uniform where goods_num=#{goods_num}
 
 </select>
-<select id="getGoodsNum" resultMap="goodsResultMap">
-	select * from goods where name=#{NAME}
+<select id="getGoodsNum" parameterType="com.bbshop.bit.domain.GoodsVO" resultType="int">
+	select goods_num from goods where name=#{NAME}
 </select>
 <insert id="insertGoods">
-	<selectKey keyProperty="goodsnum" resultType="int" order="BEFORE">
+	<selectKey keyProperty="GOODS_NUM" resultType="int" order="BEFORE">
 		select seq_goods.nextval FROM DUAL
 	</selectKey>
 	insert into goods (goods_num,category,name,price,detail,main_img,dtl_img1,dtl_img2,best,discount,sales,regdate,brand) 
-	values(#{goodsnum},#{CATEGORY},#{NAME},#{PRICE},#{DETAIL},#{MAIN_IMG},#{DTL_IMG1},#{DTL_IMG2},#{BEST},#{DISCOUNT},#{SALES},SYSDATE,#{BRAND})
+	values(#{GOODS_NUM},#{CATEGORY},#{NAME},#{PRICE},#{DETAIL},#{MAIN_IMG},#{DTL_IMG1},#{DTL_IMG2},#{BEST},#{DISCOUNT},#{SALES},SYSDATE,#{BRAND})
 	
 </insert>
+
+<insert id="insertGoodsGlove">
+	<selectKey keyProperty="GLOVE_NUM" resultType="int" order="BEFORE">
+		select seq_gd_glove.nextval FROM DUAL
+	</selectKey>
+
+	insert into gd_glove(glove_num,goods_num,hand,taming,position,color,stock)
+	values(#{GLOVE_NUM},#{GOODS_NUM},#{HAND},#{TAMING},#{POSITION},#{COLOR},#{STOCK})
+</insert>
+
 
 
 

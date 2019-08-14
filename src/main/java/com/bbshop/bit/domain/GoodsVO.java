@@ -4,7 +4,7 @@ package com.bbshop.bit.domain;
 import java.sql.Date;
 
 import lombok.Data;
-//지금 굿즈 넘이 세터가 없다는 어이없는 실수가 나옴 집가서 해보자
+
 @Data
 public class GoodsVO {
 	private long GOODS_NUM;

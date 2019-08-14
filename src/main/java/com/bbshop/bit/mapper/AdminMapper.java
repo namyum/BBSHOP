@@ -18,6 +18,10 @@ public interface AdminMapper {
 	public List<Object> getShoesList(long goods_num);
 	public List<Object> getBallList(long goods_num);
 	public void insertGoods(GoodsVO vo);
-	public void insertGoodsDetails(Object obj);
-	public int getGoodsNum(String name);
+	public void insertGoodsGlove(Gd_gloveVO glove);
+	public void insertGoodsBat(Gd_batVO bat);
+	public void insertGoodsBall(Gd_ballVO ball);
+	public void insertGoodsShoes(Gd_shoesVO shoes);
+	public void insertGoodsUniform(Gd_uniformVO uniform);
+	public int getGoodsNum(GoodsVO vo);
 }
