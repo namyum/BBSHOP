@@ -620,7 +620,7 @@ body {
 		
 		<!-- footer -->
 		<div class="miniCart_footer">
-			<a id="view_cart_btn" href="/cart">
+			<a id="view_cart_btn" href="/cart.do">
 				V i e w &emsp; C a r t
 			</a> 
 		</div>

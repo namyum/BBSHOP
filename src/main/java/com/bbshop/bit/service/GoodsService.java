@@ -71,7 +71,7 @@ public interface GoodsService {
 	public List<GoodsVO> recommendBestList();
 
 	// 장바구니 목록에 상품 넣는 메소드
-	public void addGoodsToCart(GoodsVO goods, int qty, long user_key);
+	public void addGoodsToCart(GoodsVO goods, int qty, long user_key, long goods_detail_num);
 
 	
 }

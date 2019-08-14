@@ -30,7 +30,7 @@
    </bean>
    
    	<!-- 회원가입 메일 인증 이 메일에서 보내주는 것임-->
-	<bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" /><!-- 465 or 25 -->
 		<property name="username" value="bbshopbit@gmail.com" />

@@ -17,16 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.Cart_GDVO;
+import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
-
 import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
+import com.bbshop.bit.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -39,10 +40,15 @@ public class GoodsController {
 	@Autowired
 	private GoodsService service;
 	
+	@Autowired
 	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
+
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
@@ -221,23 +227,20 @@ public class GoodsController {
 	public String registerReview(ReviewVO review, int category, HttpSession session, Model model) {
 		log.info("Controller..insertGoodsQna...!");
 		
-		/* 세션 user_key 값 받아오기 
-		long user_key = (long)session.getAttribute("user_key");
-		String nickname = (String)session.getAttribute("nickname");
+		// 세션 user_key 값 받아오기 
+		long user_key = 0;
+		String nickname = "";
 		
 		// 비회원일 경우, 
 		if(nickname.substring(0,9).equals("noAccount")) {
 			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
+		} else {
+			
+			user_key = (long)session.getAttribute("user_key");
+			nickname = (String)session.getAttribute("nickname");
 		}
-		// 회원일 경우,.
-		else {
-			long user_key = (long)session.getAttribute("user_key");
-			qna.setUser_key(user_key);
-		}			
-		*/
 		
 		// 합치기 전 임시 user_key
-		long user_key = 1;
 		review.setUser_key(user_key);
 		
 		log.info(review);
@@ -342,6 +345,7 @@ public class GoodsController {
 	public Map<String, Object> addGoodsToCart(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
+		long goods_detail_num = 0;
 		
 		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
 		int qty = Integer.parseInt((String)map.get("qty"));
@@ -355,6 +359,12 @@ public class GoodsController {
 		int option1 = Integer.parseInt((String)map.get("option1"));
 		int option2 = Integer.parseInt((String)map.get("option2"));
 		
+		if (category == 1) {
+			
+			Gd_GloveVO gd_GloveVO = orderService.getGloveOption(goods_num, option1, option2);
+			goods_detail_num = gd_GloveVO.getGLOVE_NUM();
+		}
+		
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 정보
@@ -364,7 +374,7 @@ public class GoodsController {
 		// 상품 상세 번호
 		// 상품 상세 객체(->번호)를 가지고 오는 로직이 의정이가 order에 구현해놓았음. 매퍼에는 임시로 1로 지정함.
 		
-		service.addGoodsToCart(goods, qty, 1); // 임시 user_key = 1
+		service.addGoodsToCart(goods, qty, user_key, goods_detail_num);
 		
 		result.put("goods", goods);
 		result.put("qty", qty);

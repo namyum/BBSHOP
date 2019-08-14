@@ -315,7 +315,6 @@ body {
 	animation: fadein .2s;
 	z-index: 100;
 	overflow: auto;
-<<<<<<< HEAD
 }
 
 /* 로그인 모달
@@ -506,7 +505,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->

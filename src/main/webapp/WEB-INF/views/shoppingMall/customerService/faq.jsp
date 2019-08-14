@@ -24,7 +24,6 @@ body {
 }
 
 .order_details_table {
-	width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
@@ -133,36 +132,34 @@ $(document).ready(function(){
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
-	
+	<div class="container">
 	<div class="button-group-area mt-40" style="margin-bottom: 30px; text-align:right;">
-		<a href="/faq" class="genric-btn primary e-large"
-			style="background: #57c051; font-size: 30px; font-weight: bold;">FAQ</a>
-		<a href="/one_to_one_list" class="genric-btn primary e-large"
-			style="background: #a0a0a0; font-size: 30px; font-weight: bold;">1:1문의</a>
+		<a href="/faq.do" class="genric-btn primary e-large"
+			style="background: #57c051; font-size: 30px; font-weight: bold; width:15%;">FAQ</a>
+		<a href="/one_to_one_list.do" class="genric-btn primary e-large"
+			style="background: #a0a0a0; font-size: 30px; font-weight: bold; width:15%;">1:1문의</a>
 	</div>
 	
-	<div class="button-group-area mt-40" style="margin-bottom: 20px;">
-		
-		<form name=category>
+	<div class="button-group-area" style="text-align: center;">
 		
 		<a href="#" class="genric-btn primary radius"
-			style="background: #57c051; color: #ffffff; font-weight: bold;width:240px;
-			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;" >전체보기</a>
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;" >전체보기</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
-			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">변경/취소</a>
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">변경/취소</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:240px;
-			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">교환/반품</a>
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">교환/반품</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
-			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">주문/조회</a>
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">주문/조회</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold;width:240px;
-			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px;border-left-width: 0px; margin-left: 0px;">상품문의</a>
-		</form>
+			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">상품문의</a>
 	</div>
 	
+	<div class="button-group-area" style="margin-bottom: 20px; text-align: center;">
 	<div class="order_details_table" style="margin-top: 0px; padding: 0px;">
 		<!-- <h2 style="text-align: center;">고객센터</h2> -->
 		<div class="table-responsive">
@@ -267,5 +264,8 @@ $(document).ready(function(){
          </td>
       </tr>
    </table>
+   </div>
+   </div>
+   </div>
 
 <%@ include file="../include/shopping_footer.jsp" %>
