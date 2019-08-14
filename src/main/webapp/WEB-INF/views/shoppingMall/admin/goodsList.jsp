@@ -136,46 +136,46 @@ th{
                         
                         
                           <td  style="text-align: center">
-                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.GOODS_NUM}</Button>
+                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.goods_num}</Button>
                           </td>
                           <td  style="text-align: center">
                               글러브
                           </td>
                           <td width=10% height=10% style='text-align:center'>
-                            <img src="${goods.MAIN_IMG}" width=60% >
+                            <img src="${goods.main_img}" width=60% >
                           </td>
                           <td  style="text-align: center">
-                             <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'" >${goods.NAME }</Button>
+                             <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'" >${goods.name }</Button>
                           </td>
                           <td class="text-primary"  style="text-align: center">
-                            ${goods.PRICE}원
+                            ${goods.price}원
                           </td>
                           <td  style="text-align: center">
                             99
                           </td>
                           <td  style="text-align: center">
-                            ${goods.SALES}개
+                            ${goods.sales}개
                           </td>
                           <td  style="text-align: center">
-                            ${goods.BRAND }
+                            ${goods.brand }
                           </td>
                           <td  style="text-align: center">
-                              ${goods.REGDATE}
+                              ${goods.regdate}
                             </td>
                             <td  style="text-align: center">
                               <c:choose>
                               
-                              	<c:when test="${goods.BEST ==0 }">
+                              	<c:when test="${goods.best ==0 }">
                               		일반
                               	</c:when>
-                              	<c:when test="${goods.BEST ==1 }">
+                              	<c:when test="${goods.best ==1 }">
                               		인기
                               	</c:when>
                               </c:choose>
                               
                             </td>
                             <td  style="text-align: center">
-                                ${goods.DISCOUNT}
+                                ${goods.discount}
                               </td>
                               <td  style="text-align: center">
                                 X

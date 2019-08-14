@@ -5,22 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace="com.bbshop.bit.mapper.AdminMapper">
 
 <resultMap type="com.bbshop.bit.domain.GoodsVO" id="goodsResultMap">
-	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
-	<result property ="CATEGORY" column ="CATEGORY"/>
-	<result property ="NAME" column ="NAME"/>
-	<result property ="PRICE" column ="PRICE"/>
-	<result property ="DETAIL" column ="DETAIL"/>
-	<result property ="MAIN_IMG" column ="MAIN_IMG"/>
-	<result property ="DTL_IMG1" column ="DTL_IMG1"/>
-	<result property ="DTL_IMG2" column ="DTL_IMG2"/>
-	<result property ="BEST" column ="BEST"/>
-	<result property ="DISCOUNT" column ="DISCOUNT"/>
+	<result property ="goods_num" column ="goods_num"/>
+	<result property ="category" column ="category"/>
+	<result property ="name" column ="name"/>
+	<result property ="price" column ="price"/>
+	<result property ="detail" column ="detail"/>
+	<result property ="main_img" column ="main_img"/>
+	<result property ="dtl_img1" column ="dtl_img1"/>
+	<result property ="dtl_img2" column ="dtl_img2"/>
+	<result property ="best" column ="best"/>
+	<result property ="discount" column ="discount"/>
 	<result property ="SAILS" column ="SAILS"/>
-	<result property ="REGDATE" column ="REGDATE"/>
-	<result property ="BRAND" column ="BRAND"/>
+	<result property ="regdate" column ="regdate"/>
+	<result property ="brand" column ="brand"/>
 </resultMap>
 
-<resultMap type="com.bbshop.bit.domain.Gd_gloveVO" id="gloveResultMap">
+<resultMap type="com.bbshop.bit.domain.Gd_GloveVO" id="gloveResultMap">
 	<result property ="GLOVE_NUM" column ="GLOVE_NUM"/>
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="HAND" column ="HAND"/>
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="STOCK" column ="STOCK"/>
 </resultMap>
 
-<resultMap type="com.bbshop.bit.domain.Gd_batVO" id="batResultMap">
+<resultMap type="com.bbshop.bit.domain.Gd_BatVO" id="batResultMap">
 	<result property ="BAT_NUM" column ="BAT_NUM"/>
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="MATERIAL" column ="MATERIAL"/>
@@ -38,14 +38,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="COLOR" column ="COLOR"/>
 	<result property ="STOCK" column ="STOCK"/>
 </resultMap>
-<resultMap type="com.bbshop.bit.domain.Gd_ballVO" id="ballResultMap">
+<resultMap type="com.bbshop.bit.domain.Gd_BallVO" id="ballResultMap">
 	<result property ="BALL_NUM" column ="BALL_NUM"/>
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="USAGE" column ="USAGE"/>
-	<result property ="SALES_UNIT" column ="SALES_UNIT"/>
+	<result property ="sales_UNIT" column ="sales_UNIT"/>
 	<result property ="STOCK" column ="STOCK"/>
 </resultMap>
-<resultMap type="com.bbshop.bit.domain.Gd_uniformVO" id="uniformResultMap">
+<resultMap type="com.bbshop.bit.domain.Gd_UniformVO" id="uniformResultMap">
 	<result property ="UNIFORM_NUM" column ="UNIFORM_NUM"/>
 	<result property ="TEAM" column ="TEAM"/>
 	<result property ="GD_SIZE" column ="GD_SIZE"/>
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="STOCK" column ="STOCK"/>
 
 </resultMap>
-<resultMap type="com.bbshop.bit.domain.Gd_shoesVO" id="shoesResultMap">
+<resultMap type="com.bbshop.bit.domain.Gd_ShoesVO" id="shoesResultMap">
 	<result property ="SHOES_NUM" column ="SHOES_NUM"/>
 	<result property ="GOODS_NUM" column ="GOODS_NUM"/>
 	<result property ="SPIKE" column ="SPIKE"/>
@@ -91,14 +91,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 </select>
 <select id="getGoodsNum" parameterType="com.bbshop.bit.domain.GoodsVO" resultType="int">
-	select goods_num from goods where name=#{NAME}
+	select goods_num from goods where name=#{name}
 </select>
 <insert id="insertGoods">
-	<selectKey keyProperty="GOODS_NUM" resultType="int" order="BEFORE">
+	<selectKey keyProperty="goods_num" resultType="int" order="BEFORE">
 		select seq_goods.nextval FROM DUAL
 	</selectKey>
 	insert into goods (goods_num,category,name,price,detail,main_img,dtl_img1,dtl_img2,best,discount,sales,regdate,brand) 
-	values(#{GOODS_NUM},#{CATEGORY},#{NAME},#{PRICE},#{DETAIL},#{MAIN_IMG},#{DTL_IMG1},#{DTL_IMG2},#{BEST},#{DISCOUNT},#{SALES},SYSDATE,#{BRAND})
+	values(#{goods_num},#{category},#{name},#{price},#{detail},#{main_img},#{dtl_img1},#{dtl_img2},#{best},#{discount},#{sales},SYSDATE,#{brand})
 	
 </insert>
 
@@ -108,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	</selectKey>
 
 	insert into gd_glove(glove_num,goods_num,hand,taming,position,color,stock)
-	values(#{GLOVE_NUM},#{GOODS_NUM},#{HAND},#{TAMING},#{POSITION},#{COLOR},#{STOCK})
+	values(#{GLOVE_NUM},#{goods_num},#{HAND},#{TAMING},#{POSITION},#{COLOR},#{STOCK})
 </insert>
 
 

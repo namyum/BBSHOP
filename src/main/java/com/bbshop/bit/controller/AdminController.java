@@ -20,15 +20,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bbshop.bit.domain.AdminPageDTO;
 import com.bbshop.bit.domain.Criteria;
-import com.bbshop.bit.domain.Gd_ballVO;
-import com.bbshop.bit.domain.Gd_batVO;
-import com.bbshop.bit.domain.Gd_gloveVO;
-import com.bbshop.bit.domain.Gd_shoesVO;
-import com.bbshop.bit.domain.Gd_uniformVO;
+import com.bbshop.bit.domain.Gd_BallVO;
+import com.bbshop.bit.domain.Gd_BatVO;
+import com.bbshop.bit.domain.Gd_GloveVO;
+import com.bbshop.bit.domain.Gd_ShoesVO;
+import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.AdminService;
-
-
 
 @Controller
 @RequestMapping("*.do")
@@ -60,7 +58,7 @@ public class AdminController {
 		List<Object> detailList = new ArrayList<Object>();
 		for(int i=0; i<goodsList.size();i++) {
 			//대표 상품 하나에 옵션들을 받아오는 리스트이다. 카테고리와 굿즈넘버를 넘겨줘서 그걸로 1개의 상품의 옵션을 다담아오는 리스트를 만듬.
-			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCATEGORY(),goodsList.get(i).getGOODS_NUM());
+			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCategory(),goodsList.get(i).getGoods_num());
 			//그 리스트들을 다시 한 리스트에 addAll하여서 전체의 옵션 리스트를 하나 만들어준다.
 			detailList.addAll(tempList);
 		}
@@ -98,7 +96,7 @@ public class AdminController {
 		List<Object> detailList = new ArrayList<Object>();
 		for(int i=0; i<goodsList.size();i++) {
 			//대표 상품 하나에 옵션들을 받아오는 리스트이다. 카테고리와 굿즈넘버를 넘겨줘서 그걸로 1개의 상품의 옵션을 다담아오는 리스트를 만듬.
-			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCATEGORY(),goodsList.get(i).getGOODS_NUM());
+			List<Object> tempList = adminService.getGdList(goodsList.get(i).getCategory(),goodsList.get(i).getGoods_num());
 			//그 리스트들을 다시 한 리스트에 addAll하여서 전체의 옵션 리스트를 하나 만들어준다.
 			detailList.addAll(tempList);
 		}
@@ -130,11 +128,11 @@ public class AdminController {
 	public String insertGoods(MultipartHttpServletRequest request) throws Exception {
 		System.out.println("여기까진?");
 		GoodsVO vo = new GoodsVO();
-		Gd_ballVO ball= new Gd_ballVO();
-		Gd_batVO bat= new Gd_batVO();
-		Gd_gloveVO glove= new Gd_gloveVO();
-		Gd_uniformVO uniform= new Gd_uniformVO();
-		Gd_shoesVO shoes= new Gd_shoesVO();
+		Gd_BallVO ball= new Gd_BallVO();
+		Gd_BatVO bat= new Gd_BatVO();
+		Gd_GloveVO glove= new Gd_GloveVO();
+		Gd_UniformVO uniform= new Gd_UniformVO();
+		Gd_ShoesVO shoes= new Gd_ShoesVO();
 		
 		List<MultipartFile> mf = request.getFiles("IMG");
 		//String uploadPath = request.getSession().getServletContext().getRealPath("/");
@@ -158,23 +156,23 @@ public class AdminController {
 				mf.get(i).transferTo(new File(uploadPath+originalFileExtension[i]));
 		}
 		//goodsVO에 값을 하나하나 받아서 넣어준다 ㅠㅠ
-		vo.setCATEGORY(Integer.parseInt(request.getParameter("CATEGORY")));
-		System.out.println("category"+vo.getCATEGORY());
-		vo.setPRICE(Integer.parseInt(request.getParameter("PRICE")));
-		System.out.println("price"+vo.getPRICE());
-		vo.setNAME(request.getParameter("NAME"));
-		System.out.println("name"+vo.getNAME());
-		vo.setBRAND(request.getParameter("BRAND"));
-		System.out.println("brand"+vo.getBRAND());
-		vo.setMAIN_IMG("resources/shoppingMall/img/goods/glove/"+originalFileExtension[0]);
-		vo.setDTL_IMG1("resources/shoppingMall/img/goods/glove/"+originalFileExtension[1]);
-		vo.setDTL_IMG2("resources/shoppingMall/img/goods/glove/"+originalFileExtension[2]);
-		vo.setDISCOUNT(Integer.parseInt(request.getParameter("DISCOUNT")));
-		System.out.println("discount"+vo.getDISCOUNT());
-		vo.setSALES(0);
-		System.out.println("sales"+vo.getSALES());
-		vo.setDETAIL(request.getParameter("DETAIL"));
-		System.out.println("detail"+vo.getDETAIL());
+		vo.setCategory(Integer.parseInt(request.getParameter("CATEGORY")));
+		System.out.println("category"+vo.getCategory());
+		vo.setPrice(Integer.parseInt(request.getParameter("PRICE")));
+		System.out.println("price"+vo.getPrice());
+		vo.setName(request.getParameter("NAME"));
+		System.out.println("name"+vo.getName());
+		vo.setBrand(request.getParameter("BRAND"));
+		System.out.println("brand"+vo.getBrand());
+		vo.setMain_img("resources/shoppingMall/img/goods/glove/"+originalFileExtension[0]);
+		vo.setDtl_img1("resources/shoppingMall/img/goods/glove/"+originalFileExtension[1]);
+		vo.setDtl_img2("resources/shoppingMall/img/goods/glove/"+originalFileExtension[2]);
+		vo.setDiscount(Integer.parseInt(request.getParameter("DISCOUNT")));
+		System.out.println("discount"+vo.getDiscount());
+		vo.setSales(0);
+		System.out.println("sales"+vo.getSales());
+		vo.setDetail(request.getParameter("DETAIL"));
+		System.out.println("detail"+vo.getDetail());
 		//vo.setBEST(Integer.parseInt(request.getParameter("BEST")));
 		System.out.println(vo);
 		
