@@ -28,6 +28,233 @@
 a {
 	text-decoration: none;
 }
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	color: #933835;
+	text-decoration: none;
+}
+
+.pricing-table-title {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 2.6em;
+	color: #FFF;
+	margin-top: 15px;
+	text-align: left;
+	margin-bottom: 25px;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table-title a {
+	font-size: 0.6em;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	height: 0;
+	width: 0;
+	clear: both;
+}
+/** ========================
+ * Contenedor
+ ============================*/
+.pricing-wrapper {
+	width: 960px;
+	margin: 40px auto 0;
+	font-size: 62.5%;
+	font-family: font-family: 'Montserrat', sans-serif;
+}
+
+.pricing-table {
+	margin: 0 10px;
+	text-align: center;
+	width: 300px;
+	float: left;
+	-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.4);
+	box-shadow: 0 0 15px rgba(0,0,0,0.4);
+	-webkit-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.pricing-table:hover {
+	-webkit-transform: scale(1.06);
+	-ms-transform: scale(1.06);
+	-o-transform: scale(1.06);
+	transform: scale(1.06);
+}
+
+.pricing-title {
+	color: #403E3D;
+	background: #cd7f32;
+	padding: 20px 0;
+	font-size: 2em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+#silvercolor {
+  background-color:#c0c0c0;
+}
+
+.pricing-table.recommended .pricing-title {
+	background: #ffd700;
+}
+
+.pricing-table.recommended .pricing-action {
+	background: #ffd700;
+}
+
+.pricing-table .price {
+	background: #403e3d;
+	font-size: 3.4em;
+	font-weight: 700;
+	padding: 20px 0;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table .price sup {
+	font-size: 0.4em;
+	position: relative;
+	left: 5px;
+}
+
+.table-list {
+	background: #FFF;
+	color: #403d3a;
+}
+
+.table-list li {
+	font-size: 1.4em;
+	font-weight: 700;
+	padding: 12px 8px;
+}
+
+.table-list li:before {
+	content: "\f00c";
+	font-family: 'FontAwesome';
+	color: #3fab91;
+	display: inline-block;
+	position: relative;
+	right: 5px;
+	font-size: 16px;
+} 
+
+.table-list li span {
+	font-weight: 400;
+  color: #3fab91
+}
+
+#goldspan {
+  color: #ffd700;
+}
+
+
+
+.table-list li:nth-child(2n) {
+	background: #F0F0F0;
+}
+
+.table-buy {
+	background: #FFF;
+	padding: 15px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.table-buy p {
+	float: left;
+	color: #37353a;
+	font-weight: 700;
+	font-size: 2.4em;
+}
+
+.table-buy p sup {
+	font-size: 0.5em;
+	position: relative;
+	left: 5px;
+}
+
+.table-buy .pricing-action {
+	float: right;
+	color: #FFF;
+	background: #403E3D;
+	padding: 10px 16px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-weight: 700;
+	font-size: 1.4em;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+	-webkit-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.table-buy .pricing-action:hover {
+	background: #cf4f3e;
+}
+
+.recommended .table-buy .pricing-action:hover {
+	background: #228799;	
+}
+
+/** ================
+ * Responsive
+ ===================*/
+ @media only screen and (min-width: 768px) and (max-width: 959px) {
+ 	.pricing-wrapper {
+ 		width: 768px;
+ 	}
+
+ 	.pricing-table {
+ 		width: 236px;
+ 	}
+	
+	.table-list li {
+		font-size: 1.3em;
+	}
+
+ }
+
+ @media only screen and (max-width: 767px) {
+ 	.pricing-wrapper {
+ 		width: 420px;
+ 	}
+
+ 	.pricing-table {
+ 		display: block;
+ 		float: none;
+ 		margin: 0 0 20px 0;
+ 		width: 100%;
+ 	}
+ }
+
+@media only screen and (max-width: 479px) {
+	.pricing-wrapper {
+		width: 300px;
+	}
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 80%;
+    margin: 30px auto;
+  }
+}
 </style>
 <div class="container">
 	<div class="section-top-border" style="display: flex;">
@@ -82,8 +309,8 @@ a {
 				<h4>
 					<span>멤버십 혜택 안내</span>
 				</h4>
-				<span><a href="#" style="color: #777777;" data-toggle="tooltip" data-placement="bottom"
-							title="멤버십 등급 및 혜택 출력 될 것임">자세히 보기</a></span>
+				<span><a href="#" style="color: #777777;" data-toggle="modal" 
+				data-target="#exampleModal">자세히 보기</a></span>
 			</div>
 		</div>
 		<div class="col-sm-3 col-md-3 text-center"
@@ -113,8 +340,7 @@ a {
 		<div class="areaBox">
 			<div class="myOrderBox">
 				<div class="myOrderCon" style="border-right:none; border-left:none; border-bottom:none; border-top:none;">
-					<div class="row"
-						style="width: 1000px; margin: 0 auto; padding-left: 100px">
+					<div class="row" style="width: 1000px; margin: 0 auto; padding-left: 100px">
 
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
@@ -229,6 +455,102 @@ a {
 			</form>
 		</div>
 	</div>
+
+	<!-- 멤버십 모달 -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="pricing-wrapper clearfix">
+						<!-- Title -->
+						<h1 class="pricing-table-title">
+							SEO Services <a href="http://alextodea.net">alextodea.net</a>
+						</h1>
+
+						<div class="pricing-table">
+							<h3 class="pricing-title">Bronze</h3>
+							<div class="price">
+								$99<sup>/ month</sup>
+							</div>
+
+							<!-- Characteristics-->
+							<ul class="table-list">
+								<li>Website Review</li>
+								<li>Website Repair</li>
+								<li>Analytics Setup</li>
+								<li>Keyword Analysis</li>
+							</ul>
+							<!-- Call to action -->
+							<div class="table-buy">
+								<p>
+									$99<sup>/ month</sup>
+								</p>
+								<a href="#" class="pricing-action">Sign Up</a>
+							</div>
+						</div>
+						<!-- Second -->
+						<div class="pricing-table recommended">
+							<h3 class="pricing-title">Gold</h3>
+							<div class="price">
+								$249<sup>/ month</sup>
+							</div>
+							<!-- Characteristics-->
+							<ul class="table-list">
+								<li>Website Review</li>
+								<li>Website Repair</li>
+								<li>Analytics Setup</li>
+								<li>Keyword Analysis<span> Extra</span></li>
+								<li>Page Rank<span> Extra</span></li>
+								<li>Robot.txt File<span id="goldspan"> Extra</span></li>
+								<li>Google Map Listing<span id="goldspan"> Extra</span></li>
+								<li class>Competitor review<span id="goldspan">
+										Extra</span></li>
+							</ul>
+							<!-- Call to action -->
+							<div class="table-buy">
+								<p>
+									$249<sup>/ month</sup>
+								</p>
+								<a href="#" class="pricing-action">Sign Up</a>
+							</div>
+						</div>
+
+						<div class="pricing-table">
+							<h3 class="pricing-title" id="silvercolor">Silver</h3>
+							<div class="price">
+								$199<sup>/ month</sup>
+							</div>
+							<!-- Characteristics -->
+							<ul class="table-list">
+								<li>Website Review</li>
+								<li>Website Repair</li>
+								<li>Analytics Setup</li>
+								<li>Keyword Analysis<span> Extra</span></li>
+								<li>Page Rank<span> Extra</span></li>
+							</ul>
+							<!-- Call to action -->
+							<div class="table-buy">
+								<p>
+									$199<sup>/ month</sup>
+								</p>
+								<a href="#" class="pricing-action">Sign Up</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 </div>
 
 <script type="text/javascript">
@@ -240,7 +562,7 @@ a {
 		
 		var amount = actionForm.find("input[name='amount']").val();
 		var pageNum = actionForm.find("input[name='pageNum']").val();
-
+f
 		var data = {
 			pageNum : pageNum,
 			amount : amount

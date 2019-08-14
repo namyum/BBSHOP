@@ -407,7 +407,7 @@ body {
 	vertical-align: bottom;
 	display: inline-block;
 	zoom: 1;
-	*display: inline;
+	display: inline;
 }
 .plan-mouseover .plan-name {
 	background-color: #4e9a06 !important;
