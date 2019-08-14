@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.Gd_BallVO;
@@ -30,7 +29,6 @@ import com.bbshop.bit.service.KakaoPayService;
 import com.bbshop.bit.service.MemberService;
 import com.bbshop.bit.service.MyPageService;
 import com.bbshop.bit.service.OrderService;
-
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -118,7 +116,6 @@ public class OrderController {
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
-		System.out.println("userAddr.toString() : " + userAddr.toString());
 
 		int shipping_fee = cartService.calcShipping_fee(allPrice);
 		
@@ -198,7 +195,6 @@ public class OrderController {
 			}
 			
 			List<AddrVO> userAddr = mypageService.getAddrList(user_key);
-			System.out.println("userAddr.toString() : " + userAddr.toString());
 
 			model.addAttribute("goodsList",goodsList);
 			model.addAttribute("orderList",cartList);

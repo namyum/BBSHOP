@@ -4,16 +4,48 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.bbshop.bit.domain.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
- 	List<GoodsVO> goodsList= (List<GoodsVO>)request.getAttribute("goodsList");
-  List<Cart_GDVO> cartList= (List<Cart_GDVO>)request.getAttribute("cartList");
-  int allPrice = (int)request.getAttribute("allPrice");
-  int shipping_fee = (int)request.getAttribute("shipping_fee");
- %>
+	List<GoodsVO> goodsList = (List<GoodsVO>) request.getAttribute("goodsList");
+	List<Cart_GDVO> cartList = (List<Cart_GDVO>) request.getAttribute("cartList");
+	int allPrice = (int) request.getAttribute("allPrice");
+	int shipping_fee = (int) request.getAttribute("shipping_fee");
+%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <style>
+.main_btn{
+background: #57c051;
+color: #ffffff;
+border: 1px solid #57c051;
+}
+
+.main_btn:hover{
+background: #57c051;
+}
+.genric-btn.danger:hover{
+color:#ffffff;
+background: #f44a40;
+border: 1px solid #f44a40;
+}
+a{
+color: #ffffff;
+}
+.genric-btn.default-border{
+border: 1px solid #a0a0a0;
+background: #a0a0a0;
+}
+.genric-btn.default-border:hover{
+color: #ffffff;
+background: #a0a0a0;
+border:  1px solid #a0a0a0;
+}
+.cart_area{
+padding-top: 0px;
+}
+.banner_area .banner_inner{
+background-color: #57c051;
+}
 @font-face{font-family:'NanumBarunpen
 ';font-weight:normal;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenR.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenR.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenR.woff2") format("woff2")}
 @font-face{font-family:'NanumBarunpen';font-weight:bold;src:local(NanumBarunpen);src:url("resources/shoppingMall/fonts/nanumbarunpenB.eot");src:url("resources/shoppingMall/fonts/nanumbarunpenB.woff") format("woff"), url("resources/shoppingMall/fonts/nanumbarunpenB.woff2") format("woff2")}
@@ -67,13 +99,13 @@ body{font-family:NanumBarunpen, sans-serif}
 	</script>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
-		<div class="banner_inner d-flex align-items-center">
-			<div class="container">
+		<div class="banner_inner d-flex align-items-center"style="background-color: #57c051;">
+			<div class="container"> 
 				<div class="banner_content text-center">
-					<h2>Shopping Cart</h2>
+					<h2>장바구니</h2>
 					<div class="page_link">
 						<a href="/shopping_main">쇼핑몰</a>
-						<a href="/cart.do">Cart</a>
+						<a href="/cart.do">장바구니</a>
 					</div>
 				</div>
 			</div>
@@ -231,16 +263,15 @@ body{font-family:NanumBarunpen, sans-serif}
 							
 							
 							<div style="float:left">
-							<button style="width:100%" class="genric-btn danger radius e-large" id="selectDelete">선택삭제</button>
+							<button style="width:100%; font-size: 14px" class="genric-btn danger radius e-large" id="selectDelete">선택삭제</button>
 								</div>				
 							
 							
 							
 							<div style="float:right" class="checkout_btn_inner">
-											<a class="main_btn" onclick="getProduct(${status.index})">결제하기</a>
-											
-											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
-										</div>		
+								<a class="main_btn" onclick="getProduct(${status.index})" style="width: 136.89px; color:#ffffff;">결제하기</a>
+								<a class="genric-btn default-border radius e-large" href="/goods_list.do" style="color:#ffffff;">계속 쇼핑하기</a>
+							</div>
 				</div>
 			</div>
 		</div>

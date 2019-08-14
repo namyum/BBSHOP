@@ -4,6 +4,13 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.page-item.active .page-link{
+background-color: #57c051;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+background-color: #57c051;
+border-color: #57c051;
+}
 .goods {
 	width: 50px;
 	height: 30px;
