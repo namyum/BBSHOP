@@ -50,6 +50,7 @@ public class OrderController {
 	private KakaoPayService kakaopay;
 	
 	// 회원 user_key를 가져오기 위한 HttpSession
+	@Autowired(required=true)
 	private HttpSession session;
 	
 	@Autowired(required=true)
@@ -109,9 +110,7 @@ public class OrderController {
 		
 		int allPrice = orderGood.getTOTALPRICE();
 
-		
-//		long user_key = (long)session.getAttribute("user_key");
-		long user_key = 950131;
+		long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
@@ -137,8 +136,7 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
-//			long user_key = (long)session.getAttribute("user_key");
-			long user_key = 1;
+			long user_key = (long)session.getAttribute("member");
 			MemberVO user = memberService.getMemberInfo(user_key);
 			
 			goodsList = new ArrayList<GoodsVO>();
@@ -251,6 +249,37 @@ public class OrderController {
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			allPrice += cartList.get(i).getTOTALPRICE();
 		}
+		
+//		// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
+//		MemberVO user = memberService.getMemberInfo(user_key);
+//		
+//		long savings_curr = user.getSAVINGS();
+//		int total_buy_curr = user.getTotal_buy();
+//		String grade_curr = user.getGRADE();
+//		
+//		if (grade_curr.equals("bronze")) {
+//			savings_curr += ((long)allPrice / 100) * 3;
+//		} else if (grade_curr.equals("silver")) {
+//			savings_curr += ((long)allPrice / 100) * 5;
+//		} else if (grade_curr.equals("silver")) {
+//			savings_curr += ((long)allPrice / 100) * 7;
+//		} else 
+//		
+//		// 누적 금액 업데이트
+//		total_buy_curr += allPrice;
+//		user.setTotal_buy(total_buy_curr);
+//		
+//		// 등급 조정
+//		if (total_buy_curr >= 200000) {	
+//			user.setGRADE("silver");
+//		} else if (total_buy_curr >= 500000) {
+//			user.setGRADE("gold");
+//		} else if (total_buy_curr >= 1000000) {
+//			user.setGRADE("diamond");
+//		} else {
+//			user.setGRADE("bronze");
+//		}
+		
 		
         
         return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num);

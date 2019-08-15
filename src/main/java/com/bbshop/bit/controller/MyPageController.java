@@ -56,17 +56,12 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 		
+		MemberVO user = myPageService.getUserInfo(user_key); // 회원 정보 불러오기
+		
 		total = myPageService.getTotal(pagingVO, "savings", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
-		
-		if (savings_list.size() == 0) {
-			
-			return "shoppingMall/mypage/mypage";
-		}
-		
 		List<Long> all_savings = myPageService.getAllSavings(user_key);
-		
 		List<OrderVO> orders_list = myPageService.getAllOrdersList(user_key);
 		
 		long[] savings_total_list = new long[(int)total];
@@ -104,19 +99,47 @@ public class MyPageController {
 		}
 		
 		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
-		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
-		
+		int end = (int)(total - ((pagingVO.getPageNum() - 1) * pagingVO.getAmount()));
 		int cnt = (int)(pagingVO.getAmount() - 1);
+		int pymnt_toNextGrade = 0;
+		
+		System.out.println(user.getGRADE());
+		
+		switch (user.getGRADE()) {
+		
+		case "bronze" :
+			pymnt_toNextGrade = 200000 - user.getTOTAL_BUY();
+			break;
+		case "silver" :
+			pymnt_toNextGrade = 500000 - user.getTOTAL_BUY();
+			break;
+		case "gold" :
+			pymnt_toNextGrade = 1000000 - user.getTOTAL_BUY();
+			break;
+		case "diamond" :
+			pymnt_toNextGrade = 0;
+			break;
+		}
+		
+		System.out.println("pymnt_toNextGrade : " + pymnt_toNextGrade);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		model.addAttribute("savings_list", savings_list);
+		model.addAttribute("stts_list", stts_list);
+		model.addAttribute("pymnt_toNextGrade", pymnt_toNextGrade);
+		
+		// 적립금이 0개인 경우
+		if (savings_list.size() == 0) {
+		
+			return "shoppingMall/mypage/mypage";
+		}
 		
 		for (int i = start; i < end; i++) {
 			
 			savings_list.get(cnt--).setOr_savings_total(savings_total_list[i]);
 		}
-				
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
-		model.addAttribute("savings_list", savings_list);
-		model.addAttribute("stts_list", stts_list);
-		
+
 		return "shoppingMall/mypage/mypage";
 	}
 	

@@ -259,8 +259,8 @@ a {
 			<aside class="single_sidebar_widget author_widget"
 				style="color: white;">
 				<p></p>
-				<h4>강민구</h4>
-				<p>mangoJuiceDeli</p>
+				<h4>${user.NICKNAME }</h4>
+				<p>${user.MEMBER_ID }</p>
 				<br> <br>
 				<div class="br"></div>
 			</aside>
@@ -303,7 +303,20 @@ a {
 					<i class="fas fa-medal"></i>
 				</p>
 				<span>회원 등급</span>
-				<h1 style="margin-top: 10px; color: #abae46;">Gold</h1>
+				<c:choose>
+					<c:when test="${user.GRADE eq 'bronze'}">
+						<h1 style="margin-top: 10px; color: #cd7f32;">${user.GRADE }</h1>
+					</c:when>
+					<c:when test="${user.GRADE eq 'silver'}">
+						<h1 style="margin-top: 10px; color: #29a1bc;">${user.GRADE }</h1>
+					</c:when>
+					<c:when test="${user.GRADE eq 'gold'}">
+						<h1 style="margin-top: 10px; color: #ffd700;">${user.GRADE }</h1>
+					</c:when>
+					<c:otherwise>
+						<h1 style="margin-top: 10px; color: #b9f2ff;">${user.GRADE }</h1>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div style="padding: 30px; background: #b7d2b1; height: 150px;">
 				<p>
@@ -322,17 +335,17 @@ a {
 				<div class="blog_info text-center">
 					<ul class="blog_meta list" style="clear: both">
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="2019/07/12"><span>가입일</span> <i
-								class="lnr lnr-calendar-full"></i> </a></li>
+							title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>"><span>가입일</span>
+								<i class="lnr lnr-calendar-full"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ 50,000"><span>누적 구매액</span> <i class="lnr lnr-eye"></i>
-						</a></li>
+							title="￦ ${user.TOTAL_BUY }"><span>누적 구매액</span> <i
+								class="lnr lnr-eye"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ 25,000"><span>다음 등급까지 남은 구매액</span> <i
+							title="￦ ${pymnt_toNextGrade }"><span>다음 등급까지 남은 구매액</span> <i
 								class="lnr lnr-bubble"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="회원님은 경고 횟수 0회 입니다."><span>누적 경고</span> <i
-								class="lnr lnr-user"></i> </a></li>
+							title="회원님은 경고 횟수 ${user.CAUTION } 회 입니다."><span>누적 경고</span>
+								<i class="lnr lnr-user"></i> </a></li>
 					</ul>
 				</div>
 			</div>
@@ -479,7 +492,6 @@ a {
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 3%</li>
 								<li>할인 : 상품 금액의 3%</li>
-								<li>쿠폰 : 분기 기준 1회 발행, 3% 할인</li>
 							</ul>
 						</div>
 
@@ -493,7 +505,6 @@ a {
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 5%</li>
 								<li>할인 : 상품 금액의 5%</li>
-								<li>쿠폰 : 2달 기준 1회 발행, 5% 할인</li>
 							</ul>
 						</div>
 						<!-- gold grade -->
@@ -506,7 +517,6 @@ a {
 							<ul class="table-list" style="margin-bottom: 0px;">
 								<li>적립 : 구매 금액의 7%</li>
 								<li>할인 : 상품 금액의 7%</li>
-								<li>쿠폰 : 월 1회 발행, 5% 할인</li>
 								<li>배송비 <span>무료</span></li>
 							</ul>
 						</div>
@@ -519,7 +529,6 @@ a {
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 10%</li>
 								<li>할인 : 상품 금액의 10%</li>
-								<li>쿠폰 : 월 2회 발행, 7% 할인</li>
 								<li>배송비 <span>무료</span></li>
 								<li>분기별 <span>야구 관람권</span> 증정
 								</li>
