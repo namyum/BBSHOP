@@ -53,7 +53,7 @@ public interface GoodsService {
 	public List<ReviewVO> getReviewList(PagingVO pagingVO, long goods_num, int score);
 	
 	/* 상품 별, REVIEW 글 개수 */
-	public int getReviewCount(long goods_num);
+	public int getReviewCount(long goods_num, int score);
 	
 	/* 상품 별, 리뷰평균점수, 리뷰개수, 별점 별 리뷰 개수 등.. DTO를 반환 */
 	public ReviewDTO getReviewDTO(long goods_num);

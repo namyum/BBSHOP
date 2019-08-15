@@ -1,10 +1,13 @@
 package com.bbshop.bit.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,6 @@ import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
-
 import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.CartService;
@@ -46,19 +48,19 @@ public class GoodsController {
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
-	public String goods_list(@RequestParam(required=false, defaultValue="1") int category, PagingVO pagingVO, Model model) {
+	public String goods_list(@RequestParam(required=false, defaultValue="1") int category, Model model) {
 		
 		log.info("Controller...goods_list.jsp");
 		
 		System.out.println("컨트롤러에서의 category : " + category);
 		
 		// String id = (String)session.getAttribute("id");
-		
 		// id = "noAccount";
 		
 		model.addAttribute("categoryInt", category);
 		model.addAttribute("categoryString", service.category(category));
 		
+		PagingVO pagingVO = new PagingVO(1,8);
 		int total = service.getTotalCount(category);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
@@ -155,7 +157,7 @@ public class GoodsController {
 		
 		PagingVO pagingVO = new PagingVO();
 		int qnaTotal = service.getQnaCount(goods_num);
-		int reviewTotal = service.getReviewCount(goods_num);
+		int reviewTotal = service.getReviewCount(goods_num, 0);
 
 		model.addAttribute("qnaPageMaker", new PageDTO(pagingVO, qnaTotal));
 		model.addAttribute("reviewPageMaker", new PageDTO(pagingVO, reviewTotal));
@@ -167,29 +169,14 @@ public class GoodsController {
 	
 	/* 상품 QNA 등록 */
 	@RequestMapping(value="/registerGoodsQna.do", method=RequestMethod.POST)
-	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) {
+	public String registerGoodsQna(GoodsQnaVO qna, int category, HttpSession session, Model model) throws IOException {
 		log.info("Controller..insertGoodsQna...!");
 		
-		/* 세션 user_key 값 받아오기 
-		long user_key = (long)session.getAttribute("user_key");
-		String nickname = (String)session.getAttribute("nickname");
-		
-		// 비회원일 경우, 
-		if(nickname.substring(0,9).equals("noAccount")) {
-			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
-		}
-		// 회원일 경우,.
-		else {
-			long user_key = (long)session.getAttribute("user_key");
-			qna.setUser_key(user_key);
-		}			
-		*/
-		
-		// 합치기 전 임시 user_key
-		long user_key = 950131l;
+		// 회원일 경우, (비회원은 뷰단에서 js로 막아놓음!), QnaVO에 user_key 초기화
+		long user_key = (long)session.getAttribute("member");
 		qna.setUser_key(user_key);
 		
-		// qna insert
+		// insert
 		service.insertGoodsQna(qna);
 		
 		model.addAttribute("goods_num", qna.getGoods_num());
@@ -202,47 +189,36 @@ public class GoodsController {
 	// 상품QNA 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getQnaList_Ajax.do", consumes="application/json")
 	@ResponseBody
-	public List<GoodsQnaVO> getQnaList_Ajax(@RequestBody Map<String, Object> map){
+	public Map<String, Object> getQnaList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...QNA_list.jsp...qnaListAjax");
 		
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.setPageNum((int) map.get("pageNum"));
 		pagingVO.setAmount((int) map.get("amount"));
 		
-		long goods_num = (long) ((int)map.get("goods_num") * 1.0);
+		long goods_num = (int)map.get("goods_num");
+		
+		Map<String,Object> qnaMap = new HashMap<>();
 		
 		List<GoodsQnaVO> qnaList = service.getQnaList(pagingVO, goods_num);
+		qnaMap.put("qnaList", qnaList);
+		
+		int total = service.getQnaCount(goods_num);
+		qnaMap.put("total", total);
 
-		return qnaList;
+		return qnaMap;
 	}
 	
 	/* 상품 REVIEW 등록 */
 	@RequestMapping(value="/registerReview.do", method=RequestMethod.POST)
 	public String registerReview(ReviewVO review, int category, HttpSession session, Model model) {
-		log.info("Controller..insertGoodsQna...!");
+		log.info("Controller..insertReview...!");
 		
-		/* 세션 user_key 값 받아오기 
-		long user_key = (long)session.getAttribute("user_key");
-		String nickname = (String)session.getAttribute("nickname");
-		
-		// 비회원일 경우, 
-		if(nickname.substring(0,9).equals("noAccount")) {
-			// alert("로그인이 필요합니다") or 로그인모달 or 인덱스로 날려
-		}
-		// 회원일 경우,.
-		else {
-			long user_key = (long)session.getAttribute("user_key");
-			qna.setUser_key(user_key);
-		}			
-		*/
-		
-		// 합치기 전 임시 user_key
-		long user_key = 1;
+		// 회원일 경우, (비회원은 뷰단에서 js로 막아놓음!), ReviewVO에 user_key 초기화
+		long user_key = (long)session.getAttribute("member");
 		review.setUser_key(user_key);
-		
-		log.info(review);
-		
-		// review insert
+
+		// insert
 		service.insertReview(review);
 		
 		model.addAttribute("goods_num", review.getGoods_num());
@@ -254,20 +230,26 @@ public class GoodsController {
 	// 상품REVIEW 목록 페이지 - ajax 데이터 뿌려주기 
 	@RequestMapping(value="/getReviewList_Ajax.do", consumes="application/json")
 	@ResponseBody
-	public List<ReviewVO> getReviewList_Ajax(@RequestBody Map<String, Object> map){
+	public Map<String, Object> getReviewList_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...Review_list.jsp...reviewListAjax");
-		
+
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.setPageNum((int) map.get("pageNum"));
 		pagingVO.setAmount((int) map.get("amount"));
 		
-		long goods_num = (long) ((int)map.get("goods_num") * 1.0);
+		long goods_num = (int)map.get("goods_num");
 		
 		int score = (int) map.get("score");
 		
-		List<ReviewVO> reviewList = service.getReviewList(pagingVO, goods_num, score);
+		Map<String,Object> reviewMap = new HashMap<>();
 
-		return reviewList;
+		List<ReviewVO> reviewList = service.getReviewList(pagingVO, goods_num, score);
+		reviewMap.put("reviewList", reviewList);
+		
+		int total = service.getReviewCount(goods_num, score);
+		reviewMap.put("total", total);
+
+		return reviewMap;
 	}
 	
 	// 상품REVIEW 별점 뿌려주는 부분 - ajax 데이터 뿌려주기 
@@ -276,7 +258,8 @@ public class GoodsController {
 	public ReviewDTO getReviewScore_Ajax(@RequestBody Map<String, Object> map){
 		log.info("Controller...Review_list.jsp...reviewListAjax");
 		
-		ReviewDTO reviewDTO = service.getReviewDTO((long)((int)map.get("goods_num")*1.0));
+		long goods_num = (int) map.get("goods_num");
+		ReviewDTO reviewDTO = service.getReviewDTO(goods_num);
 
 		return reviewDTO;
 	}
@@ -290,47 +273,40 @@ public class GoodsController {
 		long user_key = 0;
 		List<GoodsVO> recommendList = new ArrayList<GoodsVO>();
 		
-		// 세션 user_key 값 받아오기 
+		// 세션 nickname 값 받아오기 
 		String nickname = (String)session.getAttribute("nickname");
+		System.out.println("비회원 nickname : "+ nickname);
 				
 		// 비회원일 경우, 
-		if (nickname != null && nickname.length() > 10 && nickname.substring(0,9).equals("noAccount")) {
+		if (nickname != null && nickname.length() >= 10 && nickname.substring(0,9).equals("noAccount")) {
 			
 			recommendList = service.recommendBestList();
-				
+			
+			for (int i = 0; i < recommendList.size(); i++) {
+				System.out.println("추천 제품 목록 : " + recommendList.get(i).toString());
+			}
+			
 			model.addAttribute("recommendList", recommendList);
 			
 			return "shoppingMall/main/shopping_main";
 			
-		// 회원일 경우...
+		// 회원일 경우...session user_key를 가져온다.
 		} else {
 			user_key = (long)session.getAttribute("member");
 		}
 
+		// 추가사항 정보를 받아온다.
 		MoreDetailsVO moredetail = service.findDetail(user_key);
-
 		System.out.println("moredetail 추가 사항 객체 정보 : " + moredetail);
 
 		// 추가사항이 없을 경우 moredetail이 null이 되므로 null 체크 로직 추가.
-		if (moredetail != null) {
-		
+		if (moredetail == null) {
+			recommendList = service.recommendBestList();
+		}
+		else {
 			recommendList = service.recommendGoodsList(moredetail);
 		}
 		
-		if (recommendList != null) {
-
-			System.out.println("recommendList 객체 : " + recommendList.toString());
-
-			for (int i = 0; i < recommendList.size(); i++) {
-
-				System.out.println("추천 제품 목록 : " + recommendList.get(i).toString());
-			}
-
-		} else {
-
-			System.out.println("recommendList는 null입니다.");
-		}
-
 		model.addAttribute("recommendList", recommendList);
 
 		return "shoppingMall/main/shopping_main";
