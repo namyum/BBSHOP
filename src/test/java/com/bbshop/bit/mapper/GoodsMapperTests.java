@@ -28,7 +28,7 @@ public class GoodsMapperTests {
 	
 //	@Setter(onMethod_ = @Autowired)
 //	private OrderMapper ordermapper;
-	/*
+	
 //	@Test
 	public void testGetList() {
 		Gd_GloveVO g = new Gd_GloveVO();
@@ -43,13 +43,12 @@ public class GoodsMapperTests {
 		
 		PagingVO pagingVO = new PagingVO();
 		
-		//8���� 2������
 		pagingVO.setPageNum(1);
 		pagingVO.setAmount(18);
 		
-		//�˻� ���� ����
-		pagingVO.setType("N");
-		pagingVO.setKeyword("��ġ��");
+		log.info(pagingVO);
+		pagingVO.setType("");
+//		pagingVO.setKeyword("null");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);
@@ -59,12 +58,12 @@ public class GoodsMapperTests {
 		map.put("max_amount", 500000);
 		
 		
-		List<GoodsVO> goodsList = ordemapper.getGoodsList(map);
+		List<GoodsVO> goodsList = goodsMapper.getGoodsList(map);
 		
 		goodsList.forEach(goods -> log.info(goods));
 	}
-	*/
-	@Test 
+	
+//	@Test 
 	public void testGetGoodsInfo() {
 		GoodsVO g = new GoodsVO();
 		g = goodsMapper.getGoodsInfo(8);

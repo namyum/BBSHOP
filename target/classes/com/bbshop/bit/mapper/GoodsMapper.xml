@@ -179,7 +179,8 @@
 ]]>
 		<if test='score != 0'>
 			and score = #{score}
-		</if>		
+		</if>
+				
 	)
 <![CDATA[
 	where rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
@@ -192,6 +193,9 @@
 	SELECT COUNT(*)
 	FROM REVIEW
 	WHERE GOODS_NUM = #{goods_num}
+	<if test='score != 0'>
+		and score = #{score}
+	</if>
 </select>
 
 

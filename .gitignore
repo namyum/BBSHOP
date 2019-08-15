@@ -103,3 +103,14 @@ target/classes/com/bbshop/bit/service/OrderServiceImpl.class
 >>>>>>> 9e1716324f7853ea04921fcce5ca03ab21468f49
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/maven/com.bbshop/bit/pom.properties
+target/classes/com/bbshop/bit/service/GoodsServiceImpl.class
+target/test-classes/com/bbshop/bit/mapper/GoodsMapperTests.class
+target/test-classes/com/bbshop/bit/mapper/GoodsMapperTests.class
+src/test/java/com/bbshop/bit/mapper/GoodsMapperTests.java
+target/classes/com/bbshop/bit/controller/GoodsController.class
+target/classes/com/bbshop/bit/controller/MemberController.class
+target/classes/com/bbshop/bit/mapper/GoodsMapper.class
+target/classes/com/bbshop/bit/mapper/GoodsMapper.xml
+target/classes/com/bbshop/bit/service/GoodsService.class
+target/m2e-wtp/web-resources/META-INF/maven/com.bbshop/bit/pom.properties
+src/test/java/com/bbshop/bit/mapper/GoodsMapperTests.java
