@@ -50,13 +50,11 @@ public interface GoodsMapper {
 	public List<ReviewVO> getReviewList(HashMap<String, Object> map);
 	
 	// 상품 별, REVIEW 글 개수
-	public int getReviewCount(long goods_num);
+	public int getReviewCount(@Param("goods_num") long goods_num, @Param("score") long score);
 	
 	// 상품 별, REVIEW 점수 평균
 	public double getReviewAvg(long goods_num);
 	
-	// 상품 별, 별점 별 REVIEW 글 개수
-	public int getScoreCount(@Param("goods_num") long goods_num, @Param("score") long score);
 	
 	
 	

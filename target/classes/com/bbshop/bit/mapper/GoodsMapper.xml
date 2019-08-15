@@ -207,14 +207,6 @@
 </select>
 
 
-<!-- 상품 별, 별점 별 REVIEW 글 개수  -->
-<select id="getScoreCount" resultType="int">
-	SELECT COUNT(*)
-	FROM REVIEW
-	WHERE GOODS_NUM = #{goods_num}
-	AND SCORE = #{score}
-</select>
-
 <!--===================================================================================-->
 
 <select id="getNickName" resultType="String">
