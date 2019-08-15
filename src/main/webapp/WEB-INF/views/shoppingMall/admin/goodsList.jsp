@@ -124,7 +124,7 @@ th{
                         
                       </thead>
                       <tbody id="goodsListTable">
-                      <!--  foreach 문을 에이잭스로 불러 보자. 에이잭스의 스타트와 엔드값을 어마운트로 조정하면 될거같다. -->
+                      
                       <c:forEach var="goods" items="${goodsList}" varStatus="status" begin="${PageMaker.cri.pageNum*5-5 }" end="${PageMaker.cri.pageNum*5-1 }">
                       
                       
@@ -136,7 +136,7 @@ th{
                         
                         
                           <td  style="text-align: center">
-                              <Button id="modifygoods_btn" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.goods_num}</Button>
+                              <Button id="modifygoods_numbtn${status.index}" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.goods_num}</Button>
                           </td>
                           <td  style="text-align: center">
                               글러브
@@ -181,7 +181,7 @@ th{
                                 X
                               </td>
                               <td  style="text-align: center">
-                                <button class="btn btn-danger btn-sm">삭제</button>
+                                <button class="btn btn-danger btn-sm" id="deletebtn${status.index}">삭제</button>
                               </td>
                         </tr>
                        </c:forEach>
@@ -190,7 +190,7 @@ th{
                       
                         <table id='table_footer'width="100%">
                       	<tr>
-                      	 	<td align=left><button class='btn btn-dark btn-sm'>선택 삭제</button></td>
+                      	 	<td align=left><button class='btn btn-dark btn-sm' id="selectDelete">선택 삭제</button></td>
                       
                    
                       	<td style='text-align:center'>
@@ -411,6 +411,32 @@ th{
   </script>
  
   <script>	
+  
+  $("#selectDelete").click(function(){
+		var listindex=[];
+		var goodsnum=[];
+		$('input:checkbox[type=checkbox]:checked').each(function (index) {
+			listindex.push($('.check').index(this));
+			goodsnum.push($('#modifygoods_numbtn'+listindex[index]).text());
+			
+			});
+		var ajaxarr={"goodsnum":goodsnum}
+		alert(listindex);
+		alert(goodsnum);
+		alert(ajaxarr);
+		$.ajaxSettings.traditional = true;
+		$.ajax({
+			url:"selectGoodsDelete.do",
+			type:"POST",
+			data:ajaxarr,
+			dataType:"text", //text를 받아와서 data를 ,를 기점으로 잘라서 배열에 저장.
+			success : function(data) {
+				location.href="goodsList.do";
+				}, error : function() {
+						console.log("실패");
+				}
+			});
+	});
 
   //선택체크 부분 
   //전체체크를 누르면 하위에 모든 체크박스가 체크된다.

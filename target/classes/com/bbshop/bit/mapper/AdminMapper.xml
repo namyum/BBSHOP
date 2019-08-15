@@ -111,8 +111,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	values(#{GLOVE_NUM},#{goods_num},#{HAND},#{TAMING},#{POSITION},#{COLOR},#{STOCK})
 </insert>
 
+<delete id ="deleteGoodsOption" parameterType="hashMap">
+	delete
+	from goods
+	where goods_num IN
+	<foreach collection="delnum" item="delete" open="(" close=")" separator=",">
+	#{delete.value}
+	</foreach> 
+</delete>
 
 
+
+<delete id ="deleteGoods" parameterType="hashMap">
+	delete
+	from goods
+	where goods_num IN
+	<foreach collection="delnum" item="delete" open="(" close=")" separator=",">
+	#{delete.value}
+	</foreach> 
+</delete>
 
 
 

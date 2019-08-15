@@ -2,6 +2,7 @@ package com.bbshop.bit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +132,22 @@ public class AdminServiceImpl implements AdminService {
 		
 		
 		
+		}
+		
+	}
+
+
+	@Override
+	public void deleteGoods(Map<String, Object> deleteMap) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		try {
+		mapper.deleteGoods(deleteMap);
+		}
+		catch(Exception e) {
+			System.out.println("delete실패..");
+			e.printStackTrace();
 		}
 		
 	}

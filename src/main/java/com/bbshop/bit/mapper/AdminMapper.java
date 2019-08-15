@@ -1,6 +1,7 @@
 package com.bbshop.bit.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
@@ -24,4 +25,5 @@ public interface AdminMapper {
 	public void insertGoodsShoes(Gd_ShoesVO shoes);
 	public void insertGoodsUniform(Gd_UniformVO uniform);
 	public int getGoodsNum(GoodsVO vo);
+	public void deleteGoods(Map<String, Object> deleteMap);
 }

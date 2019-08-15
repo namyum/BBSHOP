@@ -240,6 +240,22 @@ public class AdminController {
 		return "forward:goodsList.do";
 	}
 	
+	@RequestMapping(value="selectGoodsDelete.do",method=RequestMethod.POST)
+	public String selectDelete(HttpServletRequest request) {
+		List<Integer> delnum = new ArrayList<Integer>();
+		Map<String,Object> deleteMap = new HashMap<String,Object>();
+		String[] num = request.getParameterValues("goodsnum");
+		
+		for(int i = 0 ; i <num.length;i++) {
+			delnum.add(Integer.parseInt(num[i]));
+		}
+		System.out.println(delnum);
+		deleteMap.put("delnum", delnum);
+		//TOODOO 상품을 지우려고 하니 카테고리별로 지워야할것들이 있다. 일단 카테고리 값을 받아오고, 어떻게 데이터를 처리할지 생각해보자.
+		//adminService.deleteGoods(deleteMap);
+		return "";
+	}
+	
 	@RequestMapping("order.do")
 	public String order() {
 		return "shoppingMall/admin/order";
