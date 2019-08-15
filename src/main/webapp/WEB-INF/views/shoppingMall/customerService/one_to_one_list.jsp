@@ -70,7 +70,7 @@ a {
 			
 			console.log(value);
 			
-			actionForm.append("<input type='hidden' name='One_One_NUM' value='" + value + "'>");
+			actionForm.append("<input type='hidden' name='one_one_num' value='" + value + "'>");
 			actionForm.attr("action","/onetoone_get.do");
 			actionForm.submit();
 		});
@@ -268,13 +268,13 @@ a {
 									<div class="col-md-6">
 										<label for="subject" class="text-black">제목 <span
 											class="text-danger">*</span></label> <input type="text"
-											class="form-control" id="subject" name="ONE_TITLE">
+											class="form-control" id="subject" name="one_title">
 									</div>
 									<div class="col-md-6">
 										<label for="category" class="text-black">카테고리 <span
 											class="text-danger">*</span></label>
 										<div class="left_dorp">
-											<select class="sorting" name="ONE_CATEGORY">
+											<select class="sorting" name="one_category">
 												<option value="--">--</option>
 												<option value="주문/배송">주문/배송</option>
 												<option value="상품관련">상품관련</option>
@@ -288,13 +288,13 @@ a {
 											class="text-danger" >*</span></label>
 										<div>
 											<textarea class="single-textarea" placeholder="글 내용을 작성해주세요."
-												onfocus="this.placeholder = ''" name="ONE_CONTENTS" style="margin-bottom: 10px"></textarea>
+												onfocus="this.placeholder = ''" name="one_contents" style="margin-bottom: 10px"></textarea>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label for="content" class="text-black">첨부파일</label>
 										<div>
-											<input type="file" id="file" name="ONE_FILE">
+											<input type="file" id="file" name="one_file">
 										</div>
 									</div>
 								</div> 

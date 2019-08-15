@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
         <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
         <property name="username" value="scott"></property>
@@ -30,7 +30,7 @@
    </bean>
    
    	<!-- 회원가입 메일 인증 이 메일에서 보내주는 것임-->
-	<bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" /><!-- 465 or 25 -->
 		<property name="username" value="bbshopbit@gmail.com" />

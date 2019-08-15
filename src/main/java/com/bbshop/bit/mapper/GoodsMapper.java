@@ -81,5 +81,6 @@ public interface GoodsMapper {
 	public int getTotalCountAjax(HashMap<String, Object> map);
 
 	// 장바구니 목록에 상품을 넣는 메소드
-	public void addGoodsToCart(@Param("goods") GoodsVO goods, @Param("qty") int qty, @Param("user_key") long user_key);
+	public void addGoodsToCart(@Param("goods") GoodsVO goods, @Param("qty") int qty, @Param("user_key") long user_key
+			, @Param("goods_detail_num") long goods_detail_num);
 }

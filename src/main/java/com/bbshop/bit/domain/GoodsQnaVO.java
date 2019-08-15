@@ -15,6 +15,5 @@ public class GoodsQnaVO {
 	private long re_ref;		// 원글:PK(qna_num)과 같게, 답글:참조하는 원글 번호
 	private int re_lev;			// 답글 계층 (0:원글(사용자), 1:답글(관리자))
 	private int re_seq;			// 답글 순서 (0:원글(사용자), 1:답글(관리자))
-	
 	private String nickname;	// 뷰에 출력하기 위한 닉네임변수, 테이블에는 없는 컬럼.
 }

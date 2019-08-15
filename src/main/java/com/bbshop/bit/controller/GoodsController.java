@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.Cart_GDVO;
+import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
@@ -29,6 +30,7 @@ import com.bbshop.bit.domain.ReviewDTO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
+import com.bbshop.bit.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -41,10 +43,15 @@ public class GoodsController {
 	@Autowired
 	private GoodsService service;
 	
+	@Autowired
 	private HttpSession session; // 로그인 시에 session에 id값이 담겨있다.
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
+
 	
 	// 상품 목록 페이지
 	@RequestMapping(value="/goods_list.do", method=RequestMethod.GET)
@@ -216,6 +223,7 @@ public class GoodsController {
 		
 		// 회원일 경우, (비회원은 뷰단에서 js로 막아놓음!), ReviewVO에 user_key 초기화
 		long user_key = (long)session.getAttribute("member");
+
 		review.setUser_key(user_key);
 
 		// insert
@@ -318,6 +326,7 @@ public class GoodsController {
 	public Map<String, Object> addGoodsToCart(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
+		long goods_detail_num = 0;
 		
 		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
 		int qty = Integer.parseInt((String)map.get("qty"));
@@ -331,6 +340,12 @@ public class GoodsController {
 		int option1 = Integer.parseInt((String)map.get("option1"));
 		int option2 = Integer.parseInt((String)map.get("option2"));
 		
+		if (category == 1) {
+			
+			Gd_GloveVO gd_GloveVO = orderService.getGloveOption(goods_num, option1, option2);
+			goods_detail_num = gd_GloveVO.getGLOVE_NUM();
+		}
+		
 		Map<String, Object> result = new HashMap<>();
 		
 		// 상품 정보
@@ -340,7 +355,7 @@ public class GoodsController {
 		// 상품 상세 번호
 		// 상품 상세 객체(->번호)를 가지고 오는 로직이 의정이가 order에 구현해놓았음. 매퍼에는 임시로 1로 지정함.
 		
-		service.addGoodsToCart(goods, qty, 1); // 임시 user_key = 1
+		service.addGoodsToCart(goods, qty, user_key, goods_detail_num);
 		
 		result.put("goods", goods);
 		result.put("qty", qty);

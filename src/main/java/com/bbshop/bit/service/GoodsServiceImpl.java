@@ -255,9 +255,9 @@ public class GoodsServiceImpl implements GoodsService {
 	
 
 	@Override
-	public void addGoodsToCart(GoodsVO goods, int qty, long user_key) {
+	public void addGoodsToCart(GoodsVO goods, int qty, long user_key, long goods_detail_num) {
 
-		mapper.addGoodsToCart(goods, qty, user_key); 
+		mapper.addGoodsToCart(goods, qty, user_key, goods_detail_num); 
 	}
 	
 	

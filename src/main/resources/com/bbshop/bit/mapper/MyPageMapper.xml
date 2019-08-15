@@ -18,7 +18,7 @@
 		<result property="rv_num" column="rv_num" />
 		<result property="title" column="title" />
 		<result property="re_date" column="re_date" />
-		<result property="re_hit" column="re_hit" />
+		<result property="score" column="score" />
 	</resultMap>
 	
 	<select id="getTotalCount" resultType="java.lang.Long">
@@ -77,9 +77,9 @@
 	</select>
 		
 	<select id="getReviewList" resultMap="reviewVO">
-		    SELECT rownum rn, rv_num, title, re_date, re_hit
+		    SELECT rownum rn, rv_num, title, re_date, score
      		FROM	
-				( SELECT rv_num, title, re_date, re_hit
+				( SELECT rv_num, title, re_date, score
 			  	  FROM review
 			   	  WHERE user_key = #{key}
        		  	  ORDER BY rv_num desc )

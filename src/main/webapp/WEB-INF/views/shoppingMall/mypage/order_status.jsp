@@ -66,20 +66,20 @@
 		<h5 align="right"><span id="all_cnt">내 주문 : ${pageMaker.total }건</span></h5>
 		<div class="col-md-6" style="margin-bottom: 10px; padding-left: 0px;">
 			<input type="checkbox" name="stts" value="0" id="paid" onclick="showOrderList()">
-				<label for="paid" class="addr_chk">결제완료</label>
+				<label for="paid" class="addr_chk">결제완료</label>&nbsp;&nbsp;
 			<input type="checkbox" name="stts" value="1" id="deliverPre" onclick="showOrderList()">
-				<label for="deliverPre" class="addr_chk">배송준비중</label>
+				<label for="deliverPre" class="addr_chk">배송준비중</label>&nbsp;&nbsp;
 			<input type="checkbox" name="stts" value="2" id="delivering" onclick="showOrderList()">
-				<label for="delivering" class="addr_chk">배송중</label>
+				<label for="delivering" class="addr_chk">배송중</label>&nbsp;&nbsp;
 			<input type="checkbox" name="stts" value="3" id="deliverFin" onclick="showOrderList()">
-				<label for="deliverFin" class="addr_chk">배송완료</label>
+				<label for="deliverFin" class="addr_chk">배송완료</label>&nbsp;&nbsp;
 			<input type="checkbox" name="stts" value="4" id="cancel" onclick="showOrderList()">
 				<label for="cancel" class="addr_chk">주문취소</label>
 		</div>
 		<!-- 끝 -->
 		<table class="table table-hover">
 			<thead>
-				<tr style="background: #b5dab6;">
+				<tr>
 					<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
 					<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
 					<th scope="col" style="font-weight: bold;">주문목록</th>

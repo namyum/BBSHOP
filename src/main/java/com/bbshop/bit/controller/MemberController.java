@@ -77,7 +77,7 @@ public class MemberController {
 		if(resultUrl.equals("shopping_main.do") || resultUrl.equals("community_main.do")) {
 			
 			session.setAttribute("member", memberService.getUser_key(vo));
-			session.setAttribute("nickname", vo.getNICKNAME());
+			session.setAttribute("nickname", memberService.getMemberInfo(memberService.getUser_key(vo)).getNICKNAME());
 		}
 		
 		return "redirect:/" + resultUrl;
