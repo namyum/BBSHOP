@@ -217,25 +217,14 @@ public class OrderController {
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
     public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, HttpSession session) {
-        System.out.println("kakaoPay post............................................");
-		/*
-		 long user_key = (long)session.getAttribute("user_key");
-		 String nickname = (String)session.getAttribute("nickname");
-		 
-		 // 비회원
-		 if(nickname.substring(0,9).equals("noAccount")) {
-		 	// alert("로그인이 필요합니다.");
-		 }
-		 else{
-		 	long user_key = (long)session.getAttribute("user_key");
-		 	qna.setUser_key(user_key);
-		 	}
-		 */
+    	System.out.println("kakaoPay post............................................");
+
+    	long user_key = (long)session.getAttribute("member");
         
 		String[] goods_num_list = list.split(",");
 		int allPrice = 0;
 		
-        order.setUser_key(1);
+        order.setUser_key(user_key);
         int res = orderService.insertOrder(order);
         
         if(res == 1) {

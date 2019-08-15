@@ -131,7 +131,7 @@ public class MyPageController {
 
 		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orders_list", orders_list);
@@ -359,7 +359,6 @@ public class MyPageController {
 		
 		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
 		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
-		
 		int cnt = (int)(pagingVO.getAmount()-1);
 		
 		for (int i = start; i < end; i++) {
@@ -375,12 +374,9 @@ public class MyPageController {
 	@ResponseBody
 	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
 		
-		long total = 0;
 		long user_key = (long)session.getAttribute("member");
-
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 		
 		return orders_list;
 	}
@@ -400,7 +396,7 @@ public class MyPageController {
 		
 		System.out.println("map.get(\"stts\") : " + map.get("stts"));
 		
-		stts_list = (List<String>) map.get("stts");
+		stts_list = (List<String>)map.get("stts");
 		
 		for (String item : stts_list) {
 			
@@ -416,7 +412,7 @@ public class MyPageController {
 		
 			total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 			
-			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 			
 			listMap.put("orders_list", orders_list);
 			listMap.put("total", total);
@@ -426,18 +422,15 @@ public class MyPageController {
 
 		// 특정 주문 체크박스에 체크가 되어 있는 경우
 		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts_list);
-		
 		List<OrderVO> all_list = new ArrayList<OrderVO>();
 				
 		all_list = myPageService.getAllOrdersList(user_key);
 		
 		// 주문배송 상태와 숫자가 같으면 total 값을 1씩 증가시킨다.
 		for (OrderVO item : all_list) {
-			
 			for (int i = 0; i < stts_list.size(); i++) {
-				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) ) {
+				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) )
 					total++;
-				}
 			}
 		}
 		
@@ -528,22 +521,6 @@ public class MyPageController {
 				total_list.add(review_list.get(i));				
 			}
 			
-//			listMap.put("qna", qna_list);		
-//			listMap.put("onetoone", onetoone_list);
-//			listMap.put("review", review_list);
-			
-//			pagingVO.setPageNum(pageNum); // pagingVO의 pageNum을 다시 원래대로 맞춘다.
-//			
-//			// startPage와 endPage를 구하는 로직
-//			int endPage = (int)(Math.ceil(pagingVO.getPageNum() / 10.0)) * 10;
-//			int startPage = endPage - 9;
-//			
-//			int realEnd = (int)(Math.ceil((total_list.size() * 1.0) / pagingVO.getAmount()));
-//			
-//			if (realEnd < endPage) {
-//				endPage = realEnd;
-//			}
-			
 			int start = (int)((pageNum - 1) * amount);
 			int end = (int)(amount * pageNum - 1);
 			
@@ -553,11 +530,6 @@ public class MyPageController {
 				
 				output_list.add(total_list.get(i));
 			}
-			
-			// pageNum : 1, amount : 5 -> 0 ~ 4
-			// pageNum : 2, amount : 5 -> 5 ~ 9
-			// pageNum : 3, amount : 5 -> 10 ~ 14
-			// pageNum : x, amount : y -> amount * (pageNum - 1) ~ amount * pageNum - 1
 			
 			System.out.println("output_list : " + output_list);
 			System.out.println("total_list.size() : " + total_list.size());

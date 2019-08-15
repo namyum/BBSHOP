@@ -40,11 +40,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key) {
+	public List<OrderVO> getOrdersList(PagingVO pagingVO, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getOrdersList(pagingVO, total, key);
+		return myPageMapper.getOrdersList(pagingVO, key);
 	}
 
 	@Override

@@ -269,9 +269,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();
@@ -301,9 +301,7 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-			    
 			},
-			
 			error: function() {
 			
 				alert('ajax 에러!');
@@ -360,7 +358,8 @@
 						
 					} else {
 						
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
 				
@@ -476,9 +475,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+							+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();
