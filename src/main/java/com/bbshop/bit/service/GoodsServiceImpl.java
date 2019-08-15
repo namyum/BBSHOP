@@ -159,8 +159,8 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	/* 상품 별, REVIEW 글 개수 */
-	public int getReviewCount(long goods_num) {
-		return mapper.getReviewCount(goods_num);
+	public int getReviewCount(long goods_num, int score) {
+		return mapper.getReviewCount(goods_num, score);
 	}
 
 	/* 상품 별, 리뷰개수, 별점 개수, 등.. DTO를 반환 */
@@ -168,21 +168,30 @@ public class GoodsServiceImpl implements GoodsService {
 	public ReviewDTO getReviewDTO(long goods_num) {
 		ReviewDTO reviewDTO = new ReviewDTO();
 		
-		// 리뷰 평균
-		reviewDTO.setAvg(mapper.getReviewAvg(goods_num));
-		System.out.println("reviewDTO.getAvg() : " + reviewDTO.getAvg());
-		
 		// 리뷰 개수
-		reviewDTO.setTotal(mapper.getReviewCount(goods_num));
-		System.out.println("reviewDTO.getTotal() : " + reviewDTO.getTotal());
+		int total = mapper.getReviewCount(goods_num, 0);
+		reviewDTO.setTotal(total);
+			
+		// 별점 평균 : 0으로 초기화
+		double avg = 0.0;
 		
-		int[] scoreCount = new int[5];
+		// 점수 별 리뷰 갯수 : 0으로 초기화
+		int[] scoreCount = {0, 0, 0, 0, 0};
 		
-		for(int i=0; i<5; i++) {
-			scoreCount[i] = mapper.getScoreCount(goods_num, i+1);
+		// 리뷰 개수가 없다면 평균을 계산할 수 없으므로 0으로 set
+		if(total == 0) {
+			reviewDTO.setAvg(avg);
+			reviewDTO.setScoreCount(scoreCount);
 		}
-		// 리뷰 - 별점 별, 리뷰 개수
-		reviewDTO.setScoreCount(scoreCount);
+		else {
+			avg = mapper.getReviewAvg(goods_num);
+			reviewDTO.setAvg(avg);
+			
+			for(int i=0; i<5; i++) {
+				scoreCount[i] = mapper.getReviewCount(goods_num, i+1);
+			}
+			reviewDTO.setScoreCount(scoreCount);
+		}
 		
 		return reviewDTO;
 	}
@@ -250,8 +259,6 @@ public class GoodsServiceImpl implements GoodsService {
 
 		mapper.addGoodsToCart(goods, qty, user_key); 
 	}
-
-
 	
 	
 }
