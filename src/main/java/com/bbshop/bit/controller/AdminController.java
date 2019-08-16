@@ -239,7 +239,7 @@ public class AdminController {
 		//각태그별로 맞는 네임을쓰자 카테고리의 번호를 받아고기
 		return "forward:goodsList.do";
 	}
-	
+	@ResponseBody
 	@RequestMapping(value="selectGoodsDelete.do",method=RequestMethod.POST)
 	public String selectDelete(HttpServletRequest request) {
 		List<Integer> delnum = new ArrayList<Integer>();
@@ -252,8 +252,10 @@ public class AdminController {
 		System.out.println(delnum);
 		deleteMap.put("delnum", delnum);
 		//TOODOO 상품을 지우려고 하니 카테고리별로 지워야할것들이 있다. 일단 카테고리 값을 받아오고, 어떻게 데이터를 처리할지 생각해보자.
-		//adminService.deleteGoods(deleteMap);
-		return "";
+		
+		adminService.deleteGoods(deleteMap);
+		String msg = "삭제성공";
+		return msg;
 	}
 	
 	@RequestMapping("order.do")

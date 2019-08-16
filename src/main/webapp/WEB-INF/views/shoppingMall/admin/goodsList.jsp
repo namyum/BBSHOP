@@ -118,9 +118,7 @@ th{
                         <th style="text-align: center">
                           품절여부
                         </th>
-                        <th style="text-align: center">
-                          삭제
-                        </th>
+                 
                         
                       </thead>
                       <tbody id="goodsListTable">
@@ -138,8 +136,25 @@ th{
                           <td  style="text-align: center">
                               <Button id="modifygoods_numbtn${status.index}" type="button" class="btn btn-link" onclick="location.href='modifyGoods'">${goods.goods_num}</Button>
                           </td>
-                          <td  style="text-align: center">
+                          <td  style="text-align: center" id="goodsCategory">
+                          <c:choose>
+                          	<c:when test="${goods.category==1}">
                               글러브
+                            </c:when>
+                                   	<c:when test="${goods.category==2}">
+                              배트
+                            </c:when>
+                                   	<c:when test="${goods.category==3}">
+                           유니폼
+                            </c:when>
+                                   	<c:when test="${goods.category==4}">
+                              야구화
+                            </c:when>
+                                   	<c:when test="${goods.category==5}">
+                              야구공
+                            </c:when>
+                           
+                          </c:choose>
                           </td>
                           <td width=10% height=10% style='text-align:center'>
                             <img src="${goods.main_img}" width=60% >
@@ -180,9 +195,7 @@ th{
                               <td  style="text-align: center">
                                 X
                               </td>
-                              <td  style="text-align: center">
-                                <button class="btn btn-danger btn-sm" id="deletebtn${status.index}">삭제</button>
-                              </td>
+                            
                         </tr>
                        </c:forEach>
                        
@@ -190,7 +203,7 @@ th{
                       
                         <table id='table_footer'width="100%">
                       	<tr>
-                      	 	<td align=left><button class='btn btn-dark btn-sm' id="selectDelete">선택 삭제</button></td>
+                      	 	<td align=left><button class='btn btn-danger btn-sm' id="selectDelete">선택 삭제</button></td>
                       
                    
                       	<td style='text-align:center'>
@@ -418,7 +431,6 @@ th{
 		$('input:checkbox[type=checkbox]:checked').each(function (index) {
 			listindex.push($('.check').index(this));
 			goodsnum.push($('#modifygoods_numbtn'+listindex[index]).text());
-			
 			});
 		var ajaxarr={"goodsnum":goodsnum}
 		alert(listindex);
@@ -429,11 +441,14 @@ th{
 			url:"selectGoodsDelete.do",
 			type:"POST",
 			data:ajaxarr,
-			dataType:"text", //text를 받아와서 data를 ,를 기점으로 잘라서 배열에 저장.
+			dataType:"text",
 			success : function(data) {
+				console.log("삭제 성공");
+				console.log(data);
 				location.href="goodsList.do";
-				}, error : function() {
-						console.log("실패");
+				}, 
+			error : function() {
+				console.log("실패");
 				}
 			});
 	});

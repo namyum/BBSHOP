@@ -140,10 +140,15 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteGoods(Map<String, Object> deleteMap) {
 		// TODO Auto-generated method stub
+		System.out.println("상품삭제합니다");
+		
+		System.out.println(deleteMap);
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		sqlSession.getMapper(AdminMapper.class);
 		try {
 		mapper.deleteGoods(deleteMap);
+		System.out.println("상품삭제성공");
+		
 		}
 		catch(Exception e) {
 			System.out.println("delete실패..");
