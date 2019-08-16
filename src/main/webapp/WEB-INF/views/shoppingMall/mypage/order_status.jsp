@@ -4,6 +4,23 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.default:hover{
+border: 1px solid #57c051;
+background: #57c051;
+color: #ffffff;
+}
+.genric-btn.default{
+background: #57c051;
+color: #ffffff;
+}
+.genric-btn.danger{
+font-size: 14px;
+borer: 1px solid #f44a40;
+}
+.genric-btn.danger:hover{
+color:#ffffff;
+background: #f44a40;
+}
 .page-item.active .page-link{
 background-color: #57c051;
 }
@@ -87,16 +104,16 @@ border-color: #57c051;
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
-					<th scope="col" style="font-weight: bold;">주문목록</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">결제금액</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문상태</th>
-					<th scope="col" style="width: 15%; font-weight: bold;">배송현황</th>
-					<th scope="col" style="width: 15%; font-weight: bold;">주문취소</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문번호</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문일자</th>
+					<th scope="col" style="font-weight: bold; text-align: center;">주문목록</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">결제금액</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문상태</th>
+					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">배송현황</th>
+					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">주문취소</th>
 				</tr>
 			</thead>
-			<tbody id="order_table">
+			<tbody id="order_table" style="text-align: center;">
 			</tbody>
 		</table>
 		<div class="text-center">

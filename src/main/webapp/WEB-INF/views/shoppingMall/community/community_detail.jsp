@@ -13,11 +13,22 @@
 %>
 
 <style>
+.genric-btn.default{
+background: #57c051;
+border: 1px solid #57c051;
+color: #ffffff;
+}
+.genric-btn.danger:hover{
+color: #ffffff;
+background: #f44a40;
+}
 body {
 	font-size: 17px;
 	font-weight: bold;
 }
-
+b, sup, sub, u, del{
+color:#57c051;
+}
 .comments-area .btn-report {
 	background-color: #fff;
 	color: #222222;
@@ -28,7 +39,12 @@ body {
 	font-weight: 600;
 	transition: all 300ms linear 0s;
 }
-
+.comments-area{
+padding-top:0px;
+padding-bottom:0px;
+background: #f7f7ff;
+border: #f7f7ff
+}
 .report_modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
@@ -115,11 +131,19 @@ body {
 								<ul class="blog_meta list">
 									<li>
 										<table>
+											<tbody>
 											<tr>
 												<td>
-													<h2><b>[<c:out value="${post.TEAM_NAME}"/>]</b><c:out value="${post.TITLE}" /></h2>
+													<h2>
+														<b>[<c:out value="${post.TEAM_NAME}" />]
+														</b>
+														<c:out value="${post.TITLE}" />
+													 <a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>"
+													id="go_list" class="genric-btn primary radius"
+													style="float: right; margin-left: 650px; background-color: #57c051">목록보기</a></h2>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</li>
 									<li></li>
@@ -150,7 +174,7 @@ body {
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details"
-							style="min-width: 100%;margin-bottom:20px;">
+							style="min-width: 100%;margin-bottom:20px; height: 250px; border-bottom: black;">
 							<c:out value="${post.BOARD_CONTENT}" />
 
 						</div>
@@ -167,18 +191,27 @@ body {
 									</p></td>
 								<td style="float: right;"><a
 									class="genric-btn primary small" id="reportBtn0"
-									style="float: right; padding: 0 20px;" onclick="report(0)"> 신고하기</a></td>
+									style="float: right; padding: 0 20px; background-color: #f44a40" onclick="report(0)"> 신고하기</a></td>
 							</tr>
 						</table>
 					</div>
 
 					<div class="comments-area">
-						<div class="comment-list-write" style="padding-bottom:48px;">
+
+						<!-- 댓글 -->
+						
+						<h4 id="getComments"></h4>
+						<div class="comment-list-show">
+
+						</div>
+
+					</div>
+					<div class="comment-list-write" style="padding-bottom:48px;">
 							<div class="single-comment justify-content-between d-flex"
 								style="border-bottom: 1.5px solid #eee;">
 								<div class="user justify-content-between d-flex" style="min-width:100%;">
-									<div class="desc" style="min-width:100%;">
-										<h5 id="reply_writer">글쓴이</h5>
+									<div class="desc" style="min-width:100%; margin-top:10px;">
+										<h5 id="reply_writer" style="padding-top:10px;">글쓴이</h5>
 										<p class="write_date" style="font-size:13px;color:#cccccc;margin-bottom:13px;">
 										<!-- sysdate 받아와야 함 -->
 										<fmt:formatDate pattern="yyyy-MM-dd" value="${post.REGDATE}" /></p>
@@ -186,23 +219,16 @@ body {
 											id="reply_content" style="width: 100%; height: 100px;" />
 										<div class="reply-btn">
 											<a class="genric-btn primary small" id="reply_submit"
-												style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px;">등록</a>
+												style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px; background-color: #57c051;">등록</a>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						
-						<!-- 댓글 -->
-						
-						<h4 id="getComments"></h4>
-						<div class="comment-list-show">
-
-						</div>
 						<div class="panel-footer">
 						
 						</div>
-					</div>
+						</div>
+
 					<!-- 이전글 다음글 버튼 -->
 					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
 						<div class="row">
@@ -227,11 +253,9 @@ body {
 					<!-- 수정, 삭제, 목록보기 버튼 -->
 					<div style="width: 100%;">
 						<div class="button-group-area mt-40">
-							<a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>" id="go_list"
-								class="genric-btn primary radius" style="margin-left:35%">목록보기</a>
 							<a href="/community_modify.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>" id="modify_post"
-								class="genric-btn primary radius">수정</a> <a id="delete_post"
-								class="genric-btn primary radius" style="float: right;" >삭제</a>
+								class="genric-btn primary radius" style="background-color: #57c051; margin-left: 40%;">수정</a> <a id="delete_post"
+								class="genric-btn primary radius" style="background-color: #f44a40;" >삭제</a>
 						</div>
 					</div>
 					<!-- 수정, 삭제, 목록보기 버튼 끝 -->
@@ -298,7 +322,7 @@ body {
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" style="width:30%;margin:8% auto;">
 				<div class="modal-header">
-					<h2 class="text-black" style="font-weight: bold">신고하기</h2>
+					<h2 class="text-black" style="font-weight: bold;">신고하기</h2>
 					<span class="close" data-dismiss="modal">&times;</span>
 				</div>
 				<div class="modal-body" style="margin-left:3%">
@@ -310,19 +334,19 @@ body {
 								<div class="form-group row">
 					<table>
 						<tr class="report_content">
-							<td><p>작성자:</p></td>
+							<td><p style="margin-bottom: 0px;">작성자:</p></td>
 							<td><input type="text" name="WRITER"
 								class="form-control" id="WRITER" readonly /></td>
 						</tr>
 						<tr>
-							<td><p>신고 내용 주소:</p></td>
+							<td><p style="margin-bottom: 0px;">신고 내용 주소:</p></td>
 							<td><input type="text" name="URI" class="form-control" style="width:140%;"
 								value=<%=url %> readonly /></td>
 							
 						</tr>
 
 						<tr>
-							<td><p>신고 카테고리:</p></td>
+							<td><p style="margin-bottom: 0px;">신고 카테고리:</p></td>
 							<td><select class="nice-select" name="RE_CATEGORY">
 									<option value="header">신고사유</option>
 									<option value="swear">욕설</option>
@@ -338,9 +362,9 @@ body {
 					</div>
 				</div>
 				<div class="modal-footer" align="center">
+					<button class="genric-btn default radius" id="submitReport">제출</button>
 					<button type="button" class="genric-btn danger radius"
 						data-dismiss="modal">닫기</button>
-					<button class="genric-btn default radius" id="submitReport">제출</button>
 				</div>
 			</div>
 		</div>

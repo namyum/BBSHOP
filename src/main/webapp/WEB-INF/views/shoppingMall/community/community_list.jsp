@@ -6,6 +6,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <style>
+.cat_page .pagination li:hover a, .cat_page .pagination li.active a{
+background: #57c051;
+border-color:#57c051 !important;
+}
 body {
 	font-size: 17px;
 	font-weight: bold;
@@ -32,7 +36,7 @@ a {
 							<a class="nav-item nav-link" id="nav-home-tab" name="kbo"
 							data-toggle="tab" role="tab"
 							aria-controls="nav-home" aria-selected="true" onclick="location.href='/community_list.do?TEAM_NAME=kbo'"> <img
-							src="resources/community/img/kbo_main.png" width="70" height="70"
+							src="resources/community/img/kbo_main.png" width="50" height="50"
 							class="img-fluid rounded"></a> <a
 							class="nav-item nav-link link" id="nav-contact-tab" name="lg"
 							data-toggle="tab" href="#nav-contact" role="tab"

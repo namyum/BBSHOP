@@ -5,8 +5,34 @@
 <%@ include file="../include/shopping_header.jsp" %>
 <head>
 <style>
+.product_description_area .tab-content .total_rate .box_total{
+background: #ffffff;
+}
+.submit_btn{
+background: #57c051;
+border : 1px solid #57c051;
+}
+.submit_btn:hover{
+background: #57c051;
+color: #ffffff;
+border : 1px solid #57c051;
+}
+
+.banner_area .banner_inner{
+background-color: #57c051;
+}
+.product_description_area .nav.nav-tabs{
+background: #ffffff;
+}
 .tab-content>#home {
 	text-align: center;
+}
+.product_description_area .nav.nav-tabs li a.active{
+background: #57c051;
+border-color: #57c051;
+}
+.product_description_area .tab-content{
+border-top: 1px solid #eee;
 }
 
 .form-group>#file {
@@ -19,9 +45,15 @@
 }
 
 .main_btn {
+background:#57c051;
 	width: 150px;
+	border: 1px solid #57c051;
 }
-
+.main_btn:hover{
+background: #57c051;
+color: #ffffff;
+border : 1px solid #57c051;
+}
 .option {
 	padding-top: 8px;
 }
@@ -100,6 +132,12 @@ a#default-select.default-select {
 	padding : 15px;
 	font-color : black !important;
 	font-weight : normal !important;
+}
+.s_product_text h2{
+color:#57c051;
+}
+.active{
+color: black;
 }
 </style>
 
@@ -547,10 +585,10 @@ function reviewScore_Ajax() {
 								<table border="0" style="width : -webkit-fill-available;">
 									<thead>
 										<tr>
-											<th scope="col" class="qna_number">질문/답변</th>
-											<th scope="col" class="qna_title" style="width:60%;">제목</th>
-											<th scope="col" class="qna_nickname">닉네임</th>
-											<th scope="col" class="qna_date">날짜</th>
+											<th scope="col" class="qna_number" style="color: #000000;">질문/답변</th>
+											<th scope="col" class="qna_title" style="width:60%; color: #000000">제목</th>
+											<th scope="col" class="qna_nickname" style="color: #000000;">닉네임</th>
+											<th scope="col" class="qna_date" style="color: #000000;">날짜</th>
 										</tr>
 									</thead>
 									<tbody id="qna_list">
@@ -653,15 +691,15 @@ function reviewScore_Ajax() {
 						
 							<div class="col-3">
 								<div class="single-element-widget">
-									<h3 class="mb-30 title_color" style="padding-left:30px; font-weight:bold;">별점 별 보기</h3>
+									<h3 class="mb-30 title_color" style="padding-left:15px; font-weight:bold; margin-bottom: 15px">별점 별 보기</h3>
 									<div class="default-select" id="default-select">
 										<select id="score" onchange="reviewList_Ajax()">
 											<option value="0">전체</option>
 											<option value="5">★★★★★</option>
-											<option value="4">★★★★☆</option>
-											<option value="3">★★★☆☆</option>
-											<option value="2">★★☆☆☆</option>
-											<option value="1">★☆☆☆☆</option>
+											<option value="4">★★★★</option>
+											<option value="3">★★★</option>
+											<option value="2">★★</option>
+											<option value="1">★</option>
 										</select>
 									</div>
 								</div>
