@@ -63,7 +63,8 @@ public interface GoodsMapper {
 	// user_key로 nickname 가져오기
 	public String getNickName(long user_key);
 	
-	
+	// user_key로 등급 가져오기
+	public String getGrade(long user_key);
 	
 	
 	

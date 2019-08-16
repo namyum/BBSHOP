@@ -60,6 +60,9 @@ public interface GoodsService {
 
 	
 	
+	
+	/* 적립금 구하기 */
+	public int getSavings(long price, long user_key);
 
 	/* user_key를 이용해 moredetail을 가져온다.*/
 	public MoreDetailsVO findDetail(long user_key);

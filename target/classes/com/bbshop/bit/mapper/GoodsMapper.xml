@@ -215,6 +215,12 @@
 	where user_key = #{user_key}
 </select>
 
+<select id="getGrade" resultType="String">
+	select grade
+	from sh_user
+	where user_key = #{user_key}
+</select>
+
 
 <!--======================================================================-->
 

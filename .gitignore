@@ -117,3 +117,9 @@ src/test/java/com/bbshop/bit/mapper/GoodsMapperTests.java
 target/classes/com/bbshop/bit/mapper/GoodsMapper.class
 target/classes/com/bbshop/bit/mapper/GoodsMapper.xml
 target/classes/com/bbshop/bit/service/GoodsServiceImpl.class
+target/classes/com/bbshop/bit/controller/OrderController.class
+target/classes/com/bbshop/bit/mapper/GoodsMapper.class
+target/classes/com/bbshop/bit/mapper/GoodsMapper.xml
+target/classes/com/bbshop/bit/service/GoodsService.class
+target/classes/com/bbshop/bit/service/GoodsServiceImpl.class
+target/m2e-wtp/web-resources/META-INF/maven/com.bbshop/bit/pom.properties

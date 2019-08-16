@@ -197,8 +197,29 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	
-	
-	
+	// 등급에 따른 적립금 구하기
+	@Override
+	public int getSavings(long price, long user_key) {
+		System.out.println("user_key : " + user_key);
+		String grade = mapper.getGrade(user_key);
+		System.out.println("grade : " + grade);
+		
+		double savings = 0.0;
+		if(grade.equals("silver")) {
+			savings = price * 0.01;
+		}
+		else if(grade.equals("gold")) {
+			savings = price * 0.03;
+		}
+		else if(grade.equals("platinum")) {
+			savings = price * 0.05;
+		}
+		else {
+			savings = price * 0.1;
+		}
+		
+		return (int) Math.ceil(savings);
+	}
 	
 	/* user_key를 이용해 moredetail을 가져온다. */
 	@Override

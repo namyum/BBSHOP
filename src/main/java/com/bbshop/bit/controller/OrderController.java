@@ -60,6 +60,7 @@ public class OrderController {
 	List<Object> optionList;
 	List<Cart_GDVO> cartList;
 	
+	// 단일상품 구매하기 (장바구니 테이블을 거치지 않음)
 	@RequestMapping(value="/order_good.do", method=RequestMethod.GET)
 	public String order_good(@RequestParam int category, @RequestParam long goods_num,
 								@RequestParam int option1, @RequestParam int option2, @RequestParam int qty,  Model model) {
@@ -74,6 +75,7 @@ public class OrderController {
 		// goods_num으로  GOODS 테이블에 접근해, GoodsVO를 가져온다. 가져온 GoodsVO를 goodsList에 add!
 		GoodsVO goodsVO = goodsService.getGoodsInfo(goods_num);
 		goodsList.add(goodsVO);
+		
 		
 		
 		// 상품 상세옵션vo를 가져와서, optionList에 add!
@@ -99,22 +101,27 @@ public class OrderController {
 		}
 		
 
+		long user_key = (long)session.getAttribute("member");
+		MemberVO user = memberService.getMemberInfo(user_key);
+		
+		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
+		log.info(userAddr);
+		
 		// Cart_GDVO 잠시 빌리기...?
 		Cart_GDVO orderGood = new Cart_GDVO();
 		orderGood.setPRICE((int) goodsVO.getPrice());
 		orderGood.setQNTTY(qty);
-		orderGood.setSAVINGS((int)(goodsVO.getPrice()*0.05));
 		orderGood.setTOTALPRICE(orderGood.getPRICE()*orderGood.getQNTTY());
-		cartList.add(orderGood);
 		
 		int allPrice = orderGood.getTOTALPRICE();
+		
+		int savings = goodsService.getSavings(allPrice, user_key);
+		orderGood.setSAVINGS(savings);
+		
+		log.info(orderGood);
 
+		cartList.add(orderGood);
 		
-//		long user_key = (long)session.getAttribute("user_key");
-		long user_key = 950131;
-		MemberVO user = memberService.getMemberInfo(user_key);
-		
-		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
 
 		int shipping_fee = cartService.calcShipping_fee(allPrice);
 		
