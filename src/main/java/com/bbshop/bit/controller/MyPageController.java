@@ -179,7 +179,7 @@ public class MyPageController {
 		
 		long total = 0;
 		long sum = 0;
-		long user_key = (long)session.getAttribute("member");	
+		long user_key = (long)session.getAttribute("member");
 		
 		total = myPageService.getTotal(pagingVO, "review", user_key);
 		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);

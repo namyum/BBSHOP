@@ -146,9 +146,10 @@
 		UPDATE sh_user 
 		SET 
 			name = #{NAME}, 
-			member_pw = #{MEMBER_PW}, 
+			member_pw = #{MEMBER_PW},
 			phone = #{PHONE},
-			nickname = #{NICKNAME}
+			nickname = #{NICKNAME},
+			moddate = sysdate
 		WHERE user_key = #{USER_KEY}
 	</update>
 	

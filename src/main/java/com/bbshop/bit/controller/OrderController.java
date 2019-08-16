@@ -249,38 +249,6 @@ public class OrderController {
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 			allPrice += cartList.get(i).getTOTALPRICE();
 		}
-		
-//		// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
-//		MemberVO user = memberService.getMemberInfo(user_key);
-//		
-//		long savings_curr = user.getSAVINGS();
-//		int total_buy_curr = user.getTotal_buy();
-//		String grade_curr = user.getGRADE();
-//		
-//		if (grade_curr.equals("bronze")) {
-//			savings_curr += ((long)allPrice / 100) * 3;
-//		} else if (grade_curr.equals("silver")) {
-//			savings_curr += ((long)allPrice / 100) * 5;
-//		} else if (grade_curr.equals("silver")) {
-//			savings_curr += ((long)allPrice / 100) * 7;
-//		} else 
-//		
-//		// 누적 금액 업데이트
-//		total_buy_curr += allPrice;
-//		user.setTotal_buy(total_buy_curr);
-//		
-//		// 등급 조정
-//		if (total_buy_curr >= 200000) {	
-//			user.setGRADE("silver");
-//		} else if (total_buy_curr >= 500000) {
-//			user.setGRADE("gold");
-//		} else if (total_buy_curr >= 1000000) {
-//			user.setGRADE("diamond");
-//		} else {
-//			user.setGRADE("bronze");
-//		}
-		
-		
         
         return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num);
     }
@@ -308,6 +276,43 @@ public class OrderController {
 			Cart_GDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 		}
+		
+		// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
+    	long user_key = (long)session.getAttribute("member");
+		MemberVO user = memberService.getMemberInfo(user_key);
+		
+		long savings_curr = user.getSAVINGS();
+		int total_buy_curr = user.getTOTAL_BUY();
+		String grade_curr = user.getGRADE();
+		
+		// 적립금 업데이트
+		if (grade_curr.equals("bronze")) {
+			savings_curr += ((long)allPrice / 100) * 3;
+		} else if (grade_curr.equals("silver")) {
+			savings_curr += ((long)allPrice / 100) * 5;
+		} else if (grade_curr.equals("gold")) {
+			savings_curr += ((long)allPrice / 100) * 7;
+		} else {
+			savings_curr += ((long)allPrice / 100) * 10;
+		}
+		user.setSAVINGS(savings_curr);
+		
+		// 누적 금액 업데이트
+		total_buy_curr += allPrice;
+		user.setTOTAL_BUY(total_buy_curr);
+		
+		// 등급 업데이트
+		if (total_buy_curr < 200000) {	
+			user.setGRADE("bronze");
+		} else if (total_buy_curr < 500000) {
+			user.setGRADE("silver");
+		} else if (total_buy_curr < 1000000) {
+			user.setGRADE("gold");
+		} else {
+			user.setGRADE("diamond");
+		}
+		
+		memberService.updateMemberInfoAfterOrder(user);
 
     	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice));
     	model.addAttribute("goodsList",goodsList);
