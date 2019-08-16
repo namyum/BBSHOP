@@ -12,6 +12,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface OrderMapper {
 	
@@ -48,6 +49,13 @@ public interface OrderMapper {
 	
 	public int updateBallStock(@Param("QNTTY") int qntty,
 			@Param("BALL_NUM") long ball_num);
+	
+	public int deleteOrder(long order_num);
+	
+	public int updateTid(@Param("tid") String tid,
+			@Param("order_num") long order_num);
+	
+	public int insertOrderGD(Order_GDVO order_gd);
 
 	// 의정 단일상품
 	public Gd_GloveVO getGloveOption(HashMap<String, Object> map);	

@@ -14,6 +14,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.mapper.GoodsMapper;
 import com.bbshop.bit.mapper.OrderMapper;
 
@@ -138,6 +139,27 @@ public class OrderServiceImpl implements OrderService {
 		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
 		
 		return mapper.updateBallStock(qntty, ball_num);
+	}
+	
+	@Override
+	public int deleteOrder(long order_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.deleteOrder(order_num);
+	}
+	
+	@Override
+	public int updateTid(String tid, long order_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateTid(tid, order_num);
+	}
+	
+	@Override
+	public int insertOrderGD(Order_GDVO order_gd) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.insertOrderGD(order_gd);
 	}
 	
 	// 의정 단일상품

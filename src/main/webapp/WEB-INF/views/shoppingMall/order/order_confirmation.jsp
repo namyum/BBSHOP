@@ -53,7 +53,7 @@ body {
 							</li>
 							<li>
 								<a href="#none">
-									<span>총 결제금액</span> : ${info.amount.total}</a>
+									<span>총 결제금액</span> : ${order.pymntamnt}</a>
 							</li>
 							<li>
 								<a href="#none">
@@ -137,7 +137,10 @@ body {
 									<h5></h5>
 								</td>
 								<td>
-									<p style="text-align:center;">${info.amount.total}</p>
+									<p style="text-align:center;">${order.pymntamnt}</p>
+								</td>
+								<td>
+									<input type="button" value="결제 취소" onclick="location.href='/kakaoPayCancelOrder.do?order_num=65'">
 								</td>
 							</tr>
 						</tbody>

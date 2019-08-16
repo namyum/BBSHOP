@@ -1,3 +1,4 @@
+
 package com.bbshop.bit.controller;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.SavingsVO;
+import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 import com.bbshop.bit.service.KakaoPayService;
@@ -231,20 +233,10 @@ public class OrderController {
 		 	qna.setUser_key(user_key);
 		 	}
 		 */
-        
 		String[] goods_num_list = list.split(",");
 		int allPrice = (int)order.getPymntamnt();
 		
         order.setUser_key(1);
-        int res = orderService.insertOrder(order);
-        
-        if(res == 1) {
-        	System.out.println("주문이 등록되었습니다.");
-        } else {
-        	System.out.println("주문 등록에 실패했습니다.");
-        }
-        
-        long order_num = orderService.getLastOrderNum(order.getUser_key());
 		
 		goodsList = new ArrayList<GoodsVO>();
 		
@@ -255,18 +247,27 @@ public class OrderController {
 		 for (String goods_num : goods_num_list ){
 			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 		 }
-		 
-		 /*
-		// 총 결제 금액 구하는 과정
-		for (int i = 0; i < cartList.size(); i++) {
-			Cart_GDVO temp = cartList.get(i);
-			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
-			allPrice += cartList.get(i).getTOTALPRICE();
-		}
-		*/
-		
-        
-        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee);
+
+	     // 한가지 상품을 구매하는 경우 -> 상품명. 한가지 이상의 상품을 구매하는 경우 -> 1상품명 + 외 n개
+	      if(goods_num_list.length == 1) {
+	         order.setItems(goodsList.get(0).getName());
+	      } else {
+	    	 order.setItems(goodsList.get(0).getName()+"외"+((goods_num_list.length)-1)+"개");
+	      }
+	      
+	     // 주문 등록
+	      int res = orderService.insertOrder(order);
+	        
+	      if(res == 1) {
+	     	System.out.println("주문이 등록되었습니다.");
+	       } else {
+	       	System.out.println("주문 등록에 실패했습니다.");
+	       }
+	     
+	     // 방금 order테이블에 insert한 order_num
+	     long order_num = orderService.getLastOrderNum(order.getUser_key());
+		       
+        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee, order.getUser_key());
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
@@ -274,8 +275,6 @@ public class OrderController {
     		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, 
     		@RequestParam("order_num") long order_num, @RequestParam("shipping_fee") int shipping_fee) {
     	System.out.println("kakaoPaySuccess get............................................");
-    	
-    	System.out.println("order_num="+order_num);
 
     	String[] goods_num_list = list.split(",");
 		
@@ -379,7 +378,29 @@ public class OrderController {
 		
 		memberService.updateMemberInfoAfterOrder(user);
 
-    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice));
+		// order_gd 테이블에 insert!
+    	for(int i=0;i<cartList.size();i++) {
+    		Order_GDVO order_gd = new Order_GDVO();
+    		order_gd.setPrice(cartList.get(i).getTOTALPRICE());
+    		order_gd.setStock_stts(cartList.get(i).getQNTTY());
+    		order_gd.setSavings(cartList.get(i).getSAVINGS());
+    		order_gd.setOrder_num(order_num);
+    		order_gd.setGoods_num(cartList.get(i).getGOODS_NUM());
+    		order_gd.setGd_details(cartList.get(i).getGD_DETAILS());
+    		
+    		orderService.insertOrderGD(order_gd);
+    	}
+    	
+    	// kakaoPayInfo로부터 return 받는 tid를 update
+    	int res = orderService.updateTid(kakaopay.kakaoPayInfo(pg_token, allPrice, order_num, order.getUser_key()).getTid(), order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("tid가 업데이트 되었습니다.");
+    	} else {
+    		System.out.println("tid 업데이트에 실패했습니다.");
+    	}
+
+    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice, order_num, order.getUser_key()));
     	model.addAttribute("goodsList",goodsList);
 		model.addAttribute("orderList",cartList);
 		model.addAttribute("order",order);
@@ -391,12 +412,67 @@ public class OrderController {
         
     }
     
-    // 뷰 생성 예정
+    // 카카오페이 결제 시도 실패 시
     @RequestMapping("/pay.do")
-    public String pay() {
+    public String pay(@RequestParam("order_num") long order_num) {
     	System.out.println("결제 실패");
     	
-    	return " ";
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";
         
+    }
+    
+    // 사용자 측에서 결제 중 취소 시
+    @RequestMapping("/kakaoPayCancel.do")
+    public String kakaoPayCancel(@RequestParam("order_num") long order_num) {
+    	System.out.println("결제 취소");
+    	
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";
+        
+    }
+    
+    // 시간초과 등으로 인한 fail
+    @RequestMapping("/kakaoPaySuccessFail.do")
+    public String kakaoPaySuccessFail(@RequestParam("order_num") long order_num) {
+    	System.out.println("결제 오류");
+    	
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";  
+    }
+    
+    // 사용자가 결제 이후 취소 시
+    @RequestMapping("/kakaoPayCancelOrder.do")
+    public String kakaoPayCancelOrder(@RequestParam("order_num") long order_num,
+    		Model model) {
+    	System.out.println("결제건을 취소합니다");
+    	
+    	OrderVO order = orderService.getOrderList(order_num);
+    	
+    	int allPrice = (int)order.getPymntamnt();
+    	model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
+    	
+    	return "shoppingMall/main/shopping_main";  
     }
 }

@@ -2,6 +2,9 @@ package com.bbshop.bit.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class OrderVO {
 
 	private long order_num;
@@ -132,6 +135,4 @@ public class OrderVO {
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
 				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + ", receiver=" + receiver + "]";
 	}
-	
-	
 }
