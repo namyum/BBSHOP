@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bbshop.bit.domain.AdminPageDTO;
 import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
 import com.bbshop.bit.domain.Gd_GloveVO;
@@ -276,9 +277,46 @@ public class AdminController {
 	}
 
 	@RequestMapping("service_FAQ.do")
-	public String service_FAQ() {
+	public String service_FAQ(Model model , Criteria cri,HttpServletRequest request) {
+		List<FAQVO> FAQList = adminService.getFAQList();
+		System.out.println(FAQList);
+		
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,FAQList.size());
+		
+		model.addAttribute("FAQList", FAQList);
+		model.addAttribute("PageMaker",temp);
+		
 		return "shoppingMall/admin/service_FAQ";
 	}
+	@ResponseBody
+	@RequestMapping(value="service_FAQPaging.do", consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
+	public Map<String,Object> FAQListPaging(Model model , Criteria cri,HttpServletRequest request) {
+		System.out.println("FAQ 페이지 입니다.");
+		List<FAQVO> FAQList = adminService.getFAQList();
+		System.out.println(FAQList);
+		
+		cri.setAmount(5);
+		
+		
+		//post방식으로 넘어온 pageNum을 출력하고 그값을 criteria객체에 넣어준다.
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+	
+		
+		AdminPageDTO temp = new AdminPageDTO(cri,FAQList.size());
+		System.out.println(temp);
+		System.out.println(cri);
+		//json으로 전달하기 위해 맵형식으로 바꿔준다.
+		Map<String,Object> pagingList = new HashMap<String,Object>();
+		pagingList.put("FAQList", FAQList);
+		pagingList.put("PageMaker",temp);
+		
+		System.out.println(pagingList);
+		return pagingList;
+	}
+	
 	@RequestMapping("service_OneToOne.do")
 	public String onetoone() {
 		return "shoppingMall/admin/service_OneToOne";

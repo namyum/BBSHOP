@@ -120,6 +120,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	</foreach> 
 </delete>
 
-
+<select id="getFAQList" resultType="com.bbshop.bit.domain.FAQVO">
+	select * from service_FAQ order by faq_num desc
+</select>
 
 </mapper>

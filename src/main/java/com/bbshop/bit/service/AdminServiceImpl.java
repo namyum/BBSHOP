@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
 import com.bbshop.bit.domain.Gd_GloveVO;
@@ -155,5 +156,16 @@ public class AdminServiceImpl implements AdminService {
 			e.printStackTrace();
 		}
 		
+	}
+
+
+	@Override
+	public List<FAQVO> getFAQList() {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		
+		
+		return mapper.getFAQList();
 	}
 }
