@@ -264,8 +264,8 @@
 		SELECT seq_cart.nextval FROM dual
 	</selectKey>
 
-	INSERT INTO cart_gd
-	VALUES (#{gd_ct_key}, #{goods.price}, #{qty}, 2000, 0, #{goods.goods_num}, #{user_key}, #{goods_detail_num})
+	INSERT INTO cart_gd(gd_ct_key, price, qntty, savings, stock, goods_num, user_key, gd_details)
+	VALUES (#{gd_ct_key}, #{goods.price}, #{qty}, #{savings}, 0, #{goods.goods_num}, #{user_key}, #{goods_detail_num})
 </insert>
 
 </mapper>

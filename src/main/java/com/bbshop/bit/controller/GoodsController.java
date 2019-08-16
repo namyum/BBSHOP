@@ -1,13 +1,11 @@
 package com.bbshop.bit.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbshop.bit.domain.Cart_GDVO;
+import com.bbshop.bit.domain.Gd_BallVO;
+import com.bbshop.bit.domain.Gd_BatVO;
 import com.bbshop.bit.domain.Gd_GloveVO;
+import com.bbshop.bit.domain.Gd_ShoesVO;
+import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
@@ -326,9 +328,11 @@ public class GoodsController {
 	public Map<String, Object> addGoodsToCart(@RequestBody Map<String, Object> map) {
 		
 		long user_key = (long)session.getAttribute("member");
+		
 		long goods_detail_num = 0;
 		
 		int goods_num = (int)map.get("goods_num"); // Integer는 long으로 형변환할 수 없다.
+		
 		int qty = Integer.parseInt((String)map.get("qty"));
 		int allPrice = 0;
 		
@@ -341,9 +345,24 @@ public class GoodsController {
 		int option2 = Integer.parseInt((String)map.get("option2"));
 		
 		if (category == 1) {
-			
 			Gd_GloveVO gd_GloveVO = orderService.getGloveOption(goods_num, option1, option2);
 			goods_detail_num = gd_GloveVO.getGLOVE_NUM();
+		}
+		else if(category == 2) {
+			Gd_BatVO gd_BatVO = orderService.getBatOption(goods_num, option1);
+			goods_detail_num = gd_BatVO.getBAT_NUM();
+		}
+		else if(category == 3) {
+			Gd_UniformVO gd_UniformVO = orderService.getUniformOption(goods_num, option1);
+			goods_detail_num = gd_UniformVO.getUNIFORM_NUM();
+		}
+		else if(category == 4) {
+			Gd_ShoesVO gd_ShoesVO = orderService.getShoesOption(goods_num, option1, option2);
+			goods_detail_num = gd_ShoesVO.getSHOES_NUM();
+		}
+		else {
+			Gd_BallVO gd_BallVO = orderService.getBallOption(goods_num, option1);
+			goods_detail_num = gd_BallVO.getBALL_NUM();
 		}
 		
 		Map<String, Object> result = new HashMap<>();
@@ -355,7 +374,11 @@ public class GoodsController {
 		// 상품 상세 번호
 		// 상품 상세 객체(->번호)를 가지고 오는 로직이 의정이가 order에 구현해놓았음. 매퍼에는 임시로 1로 지정함.
 		
-		service.addGoodsToCart(goods, qty, user_key, goods_detail_num);
+		// 적립금 구하기
+		int savings = service.getSavings(goods.getPrice()*qty, user_key);
+		
+		// 장바구니 테이블에 insert
+		service.addGoodsToCart(goods, qty, user_key, goods_detail_num, savings);
 		
 		result.put("goods", goods);
 		result.put("qty", qty);
@@ -375,6 +398,7 @@ public class GoodsController {
 			
 			allPrice += cart_list.get(i).getTOTALPRICE();
 		}
+	
 		
 		result.put("allPrice", allPrice);
 		result.put("goods_list",goods_list);

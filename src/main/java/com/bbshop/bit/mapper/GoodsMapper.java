@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsQnaVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
@@ -68,6 +69,8 @@ public interface GoodsMapper {
 	
 	
 	
+	
+	
 
 	// user_key를 이용해 moredetail을 가져온다.
 	public MoreDetailsVO findDetail(long user_key);
@@ -83,5 +86,6 @@ public interface GoodsMapper {
 
 	// 장바구니 목록에 상품을 넣는 메소드
 	public void addGoodsToCart(@Param("goods") GoodsVO goods, @Param("qty") int qty, @Param("user_key") long user_key
-			, @Param("goods_detail_num") long goods_detail_num);
+			, @Param("goods_detail_num") long goods_detail_num, @Param("savings") int savings);
+
 }

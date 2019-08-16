@@ -569,7 +569,7 @@ function reviewScore_Ajax() {
 <!-- #home : 상세 설명 -->
 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<!-- DB, 사진3번째컬럼, 상세사진 긴~거 띄우기 -->
-				  	<img class="bbshop-info" src=${goods.dtl_img2 } alt="" style="max-width: -webkit-fill-available;" >
+				  	<img class="bbshop-info" src="${goods.dtl_img2 }" alt="" style="max-width: -webkit-fill-available;" >
 				</div>
 				
 <!-- #profile : 상품 정보 (객체의 속성들? 다 설정) ----------------------------------------------------------------------------------->

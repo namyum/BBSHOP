@@ -144,8 +144,7 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
-//			long user_key = (long)session.getAttribute("user_key");
-			long user_key = 1;
+			long user_key = (long)session.getAttribute("member");
 			MemberVO user = memberService.getMemberInfo(user_key);
 			
 			goodsList = new ArrayList<GoodsVO>();
