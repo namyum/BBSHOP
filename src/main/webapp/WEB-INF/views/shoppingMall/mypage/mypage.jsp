@@ -639,7 +639,7 @@ a {
 				$.each(result, function(index, value) {
 
 					str += '<tr><td><h5>' + result[index].or_date
-							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + result[index].order_items
 							+ '</h5></td><td><h5>' + '￦ '
 							+ result[index].or_savings + '</h5></td><td><h5>'
 							+ '￦ ' + result[index].or_savings_total
