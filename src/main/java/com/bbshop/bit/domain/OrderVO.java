@@ -20,6 +20,7 @@ public class OrderVO {
 	private String name; // 주문자
 	private String items; // 추가: 주문내역
 	private String receiver; // 추가: 수취인
+	private String tid; // 추가: 19/08/17 카카오페이 결제시 필요
 	
 	public long getOrder_num() {
 		return order_num;
@@ -116,6 +117,12 @@ public class OrderVO {
 	}
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
+	}
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
 	}
 	
 	@Override

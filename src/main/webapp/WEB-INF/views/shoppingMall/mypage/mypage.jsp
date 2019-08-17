@@ -282,7 +282,7 @@ a {
 						<c:when test="${savings_list['0'].or_savings_total eq null}">
 						￦ 0
 						</c:when>
-						<c:otherwise>￦ ${savings_list["0"].or_savings_total}</c:otherwise>
+						<c:otherwise>￦ ${savings_list['0'].or_savings_total}</c:otherwise>
 						</c:choose>
 					</h4>
 				</div>
@@ -499,7 +499,7 @@ a {
 						<div class="pricing-table">
 							<h3 class="pricing-title" id="silvercolor">실버</h3>
 							<div class="price">
-								￦ 100,000<sup> / 누적 금액</sup>
+								￦ 200,000<sup> / 누적 금액</sup>
 							</div>
 							<!-- Characteristics -->
 							<ul class="table-list">
@@ -511,7 +511,7 @@ a {
 						<div class="pricing-table recommended">
 							<h3 class="pricing-title">골드</h3>
 							<div class="price">
-								￦ 400,000<sup> / 누적 금액</sup>
+								￦ 500,000<sup> / 누적 금액</sup>
 							</div>
 							<!-- Characteristics-->
 							<ul class="table-list" style="margin-bottom: 0px;">
@@ -555,7 +555,6 @@ a {
 		
 		var amount = actionForm.find("input[name='amount']").val();
 		var pageNum = actionForm.find("input[name='pageNum']").val();
-f
 		var data = {
 			pageNum : pageNum,
 			amount : amount
@@ -571,14 +570,13 @@ f
 
 				var start = ${pageMaker.startPage};
 				var end = ${pageMaker.endPage};
-				
 				var str = '';
 				var paging = '';
 
 				$.each(result, function(index, value) {
 
 					str += '<tr><td><h5>' + result[index].or_date
-							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + result[index].order_items
 							+ '</h5></td><td><h5>' + '￦ '
 							+ result[index].or_savings + '</h5></td><td><h5>'
 							+ '￦ ' + result[index].or_savings_total

@@ -112,6 +112,7 @@ body{font-family:NanumBarunpen, sans-serif}
 
 								<input type="hidden" value="${goodsList[status.index].goods_num}" id="GOODS_NUM${status.index}"/>
 								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
+								<input type="hidden" name="order_name" id="order_name" value="${goodsList[status.index].name}">
 								</td>
 								<td>
 											<img src="<c:out value='${goodsList[status.index].main_img}'/>" width="145" height="98" alt="">
@@ -288,6 +289,8 @@ body{font-family:NanumBarunpen, sans-serif}
 		    	alert('결제하실 상품을 선택해주세요.');
 		    	return false;
 		    }
+		    
+		    console.log('product : ' + product);
 		    
 		    $("#GOODS_NUM_LIST").val(product);
 		    $("#orderForm").submit();

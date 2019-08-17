@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.Gd_BallVO;
@@ -21,12 +22,14 @@ import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 import com.bbshop.bit.service.KakaoPayService;
 import com.bbshop.bit.service.MemberService;
 import com.bbshop.bit.service.MyPageService;
 import com.bbshop.bit.service.OrderService;
+
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -53,8 +56,8 @@ public class OrderController {
 	@Autowired(required=true)
 	private HttpSession session;
 	
-	@Autowired(required=true)
 	// 회원 주소록을 가져오기 위한 MyPageService
+	@Autowired(required=true)
 	MyPageService mypageService;
 	
 	List<GoodsVO> goodsList;
@@ -217,6 +220,10 @@ public class OrderController {
     public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, HttpSession session) {
     	System.out.println("kakaoPay post............................................");
 
+    	// orderVO name 설정 코드
+    	
+    	System.out.println("order.getName() : " + order.getName());
+    	
     	long user_key = (long)session.getAttribute("member");
         
 		String[] goods_num_list = list.split(",");
@@ -258,6 +265,7 @@ public class OrderController {
     		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, @RequestParam("order_num") long order_num) {
     	System.out.println("kakaoPaySuccess get............................................");
     	
+    	String order_items = "";
     	System.out.println("order_num="+order_num);
 
     	String[] goods_num_list = list.split(",");
@@ -268,9 +276,12 @@ public class OrderController {
 		cartList = orderService.getCheckedCartList(goods_num_list);
 		
 		// goods 가져와서 goodsList에 넣어주는 부분
-		 for (String goods_num : goods_num_list ){
-			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-		 }   	
+		for (String goods_num : goods_num_list ) {
+			goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+		}
+		
+		// 주문한 상품의 이름 출력
+		order_items = goodsList.get(0).getName();
 		 
 		for (int i = 0; i < cartList.size(); i++) {
 			Cart_GDVO temp = cartList.get(i);
@@ -281,21 +292,27 @@ public class OrderController {
     	long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
-		long savings_curr = user.getSAVINGS();
+		long savings_curr = 0;
 		int total_buy_curr = user.getTOTAL_BUY();
 		String grade_curr = user.getGRADE();
+		long savings_used = 0; // 임시로 사용한 적립금 변수를 만든다.
 		
 		// 적립금 업데이트
 		if (grade_curr.equals("bronze")) {
-			savings_curr += ((long)allPrice / 100) * 3;
+			savings_curr = ((long)allPrice / 100) * 3;
 		} else if (grade_curr.equals("silver")) {
-			savings_curr += ((long)allPrice / 100) * 5;
+			savings_curr = ((long)allPrice / 100) * 5;
 		} else if (grade_curr.equals("gold")) {
-			savings_curr += ((long)allPrice / 100) * 7;
+			savings_curr = ((long)allPrice / 100) * 7;
 		} else {
-			savings_curr += ((long)allPrice / 100) * 10;
+			savings_curr = ((long)allPrice / 100) * 10;
 		}
-		user.setSAVINGS(savings_curr);
+		
+		// 적립금 테이블 insert
+		SavingsVO savings = new SavingsVO(savings_curr, order_num, savings_used, order_items);
+		mypageService.insertSavings(savings, user_key);
+		
+		user.setSAVINGS(user.getSAVINGS() + savings_curr);
 		
 		// 누적 금액 업데이트
 		total_buy_curr += allPrice;
@@ -328,7 +345,6 @@ public class OrderController {
     	System.out.println("결제 실패");
     	
     	return " ";
-        
     }
 
 }

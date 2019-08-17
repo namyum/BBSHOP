@@ -8,9 +8,10 @@
 	<!-- 적립금 resultMap -->
 	<resultMap id="savingsVO" type="com.bbshop.bit.domain.SavingsVO">
 		<result property="or_date" column="sa_date" />
-		<result property="or_items" column="items" />
 		<result property="or_savings" column="savings" javaType="java.lang.Long" />
 		<result property="or_num" column="order_num" />
+		<result property="savings_used" column="savings_used" />
+		<result property="order_items" column="order_items" />
 	</resultMap>
 
 	<!-- 후기 resultMap -->
@@ -28,30 +29,34 @@
 	</select>
 
 	<select id="getSavingsList" resultMap="savingsVO">
-		<![CDATA[	
+		<![CDATA[
 			SELECT *
 			FROM (
-    			SELECT sav.sa_date, so.items, sav.savings, sav.order_num
-    			FROM shop_order so, savings sav
-    			WHERE so.order_num = sav.order_num 
-        			AND sav.order_num IN ( SELECT order_num FROM shop_order WHERE user_key = #{key} ) 
-    			ORDER BY order_num desc )
-			WHERE order_num <= ${total} - ((#{pagingVO.pageNum} - 1) * #{pagingVO.amount})
-				AND order_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
-		]]>
+	    		SELECT rownum rn, sa_date, savings, order_num, savings_used, order_items
+	    		FROM savings 
+	    		WHERE user_key = #{key}
+	            ORDER BY order_num desc )
+	     	WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     		AND rn <= #{pagingVO.pageNum} * #{pagingVO.amount}
+     	]]>
 	</select>
+	
+	<insert id="insertSavings">
+		INSERT INTO savings
+		VALUES (#{savings.or_num}, sysdate, #{savings.or_savings}, #{user_key}, #{savings.savings_used}, #{savings.order_items} )
+	</insert>
 
 	<select id="getOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
 		<![CDATA[	
      		SELECT *
      		FROM
-     			( SELECT rownum rn, order_num, or_date, items, pymntamnt, stts  
-       			  FROM shop_order 
+     			( SELECT rownum rn, s.*
+       			  FROM shop_order s
        			  WHERE user_key = #{key}
             	  		AND cancel = 0
        			  ORDER BY order_num desc )
-     		WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
-     			AND rn <= #{pagingVO.pageNum} * #{pagingVO.amount}
+	     	WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     		AND rn <= #{pagingVO.pageNum} * #{pagingVO.amount}
 		]]>
 	</select>
 	
@@ -85,8 +90,8 @@
        		  	  ORDER BY rv_num desc )
        		<if test='pagingVO.pageNum != 0'>
 			<![CDATA[	       	
-	     		WHERE rv_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
-	     			AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
+	     	WHERE rv_num <= ${total} - (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
+	     		AND rv_num > ${total} - #{pagingVO.pageNum} * #{pagingVO.amount}
 			]]>
 			</if>
 	</select>
@@ -215,13 +220,6 @@
 		SELECT count(*) 
 		FROM sh_user
 		WHERE nickname = #{nickname}
-	</select>
-	
-	<!-- 전체 적립금 내역 가져오기 -->
-	<select id="getAllSavings" resultType="java.lang.Long">
-		SELECT savings
-		FROM savings
-		ORDER BY order_num desc
 	</select>
 	
 </mapper>

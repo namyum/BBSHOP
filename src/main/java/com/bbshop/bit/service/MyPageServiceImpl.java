@@ -24,11 +24,11 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long total, long key) {
+	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key) {
 						
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
-		return myPageMapper.getSavingsList(pagingVO, total, key);
+		return myPageMapper.getSavingsList(pagingVO, key);
 	}
 
 	@Override
@@ -154,14 +154,6 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<Long> getAllSavings(long key) {
-
-		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
-
-		return myPageMapper.getAllSavings(key);
-	}
-
-	@Override
 	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
@@ -178,11 +170,19 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, List<String> stts_list) {
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long key, List<String> stts_list) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getOrdersListStss(pagingVO, total, key, stts_list);
+		return myPageMapper.getOrdersListStss(pagingVO, key, stts_list);
+	}
+
+	@Override
+	public void insertSavings(SavingsVO savings, long user_key) {
+		
+		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
+		
+		myPageMapper.insertSavings(savings, user_key);
 	}
 
 }
