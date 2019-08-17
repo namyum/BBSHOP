@@ -143,7 +143,7 @@ label{
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">FAQ</h4>
                   <div style='float:right'>
-                   <a href="addGoods">
+                   <a href="service_FAQ_write.do">
           			    <i class="material-icons" style='color:white'>create</i></a></div>
               
                 </div>
@@ -190,18 +190,18 @@ label{
                       		<c:forEach var="faq" items="${FAQList}" varStatus="status" begin="${PageMaker.cri.pageNum*5-5 }" end="${PageMaker.cri.pageNum*5-1 }">
                       	<tr>
                       		<td style='text-align:center'><input type='checkbox' class="check" id='checkFAQ' name='checkFAQ'>
-                      		<td style='text-align:center'>${faq.FAQ_NUM}</td>
+                      		<td style='text-align:center'><Button id="modifyFAQ_numbtn${status.index}" type="button" class="btn btn-link">${faq.FAQ_NUM}</Button></td>
                       		<td style='text-align:center'>${faq.FAQ_CATEGORY}</td>
                       		<td style='text-align:center'><Button id="info_FAQ${status.index}" type="button" class="btn btn-link" align=center data-toggle="modal" data-target="#info_modal">${faq.SUBJECT} </Button></td>
                       		<td style='text-align:center'>${faq.REGDATE}</td>
-                      		<td style='text-align:center'><input type='button' id='modifyFAQ' class='btn btn-info btn-sm' value='수정'></td>
+                      		<td style='text-align:center'><input type='button' id='modifyFAQ' class='btn btn-info btn-sm' value='수정' onclick="location.href='modifyFAQ.do?faq_num=${faq.FAQ_NUM}'"></td>
                       	</tr>
                       </c:forEach>
                       	
                       </tbody>
                       <table width=100%>
                       <tr>
-                      	 	<td align=left><button class='btn btn-dark btn-sm'>선택 삭제</button></td>
+                      	<td align=left><button class='btn btn-danger btn-sm' id="selectDelete">선택 삭제</button></td>
                       
                    
                       	<td style='text-align:center'>
@@ -336,8 +336,9 @@ label{
     var span = document.getElementsByClassName('close')[0];
     $('#info_FAQ1').click(function(){
       info.style.display = "block";
-      var content = ${FAQList[1].CONTENT};
-      $('#subject').html("${FAQList[1].SUBJECT}");
+      var content="${FAQList[0].CONTENT}".replaceAll("\n", "<br>");
+      //"${FAQList[1].CONTENT}".value.replace(/(\n|\r\n)/g, '<br>');;
+      $('#subject').html("content");
       $('#content').html(content);
     });
     window.onclick = function (event){
@@ -367,6 +368,32 @@ label{
 	
 	
 	});
+	
+	 $("#selectDelete").click(function(){
+			var listindex=[];
+			var faqnum=[];
+			$('input:checkbox[type=checkbox]:checked').each(function (index) {
+				listindex.push($('.check').index(this));
+				faqnum.push($('#modifyFAQ_numbtn'+listindex[index]).text());
+				});
+			var ajaxarr={"faqnum":faqnum}
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url:"selectFAQDelete.do",
+				type:"GET",
+				data:ajaxarr,
+				dataType:"text",
+				success : function(data) {
+					console.log("삭제 성공");
+					console.log(data);
+					location.reload();
+					}, 
+				error : function() {
+					console.log("실패");
+					}
+				});
+		});
+	
   </script>
   
   <script>
@@ -412,7 +439,7 @@ label{
   							var values=data.FAQList[i];
   							console.log(values);
   							str+="<tr><td style='text-align:center'><input type='checkbox' class='check' id='checkFAQ' name='checkFAQ'></td>"
-  	                      		+"<td style='text-align:center'>"+values.faq_NUM+"</td>"
+  	                      		+"<td style='text-align:center'><Button id='modifygoods_btn'"+i+" type='button' class='btn btn-link'>"+values.faq_NUM+"</Button></td>"
 	  	                      	+"<td style='text-align:center'>"+values.faq_CATEGORY+"</td>"
 	  	                      	+"<td style='text-align:center'><Button id='info_FAQ' type='button' class='btn btn-link' align=center>"+values.subject+"</Button></td>"
 	  	                    	+"<td style='text-align:center'>"+values.regdate+"</td>"

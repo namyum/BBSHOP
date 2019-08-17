@@ -168,4 +168,68 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.getFAQList();
 	}
+
+
+	@Override
+	public void write_FAQ(FAQVO faq) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		try {
+		mapper.write_FAQ(faq);
+		System.out.println("등록 성공!");
+		}
+		catch(Exception e) {
+			System.out.println("등록 실패");
+		}
+	}
+
+
+	@Override
+	public void deleteFAQ(Map<String, Object> deleteMap) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		try {
+		mapper.deleteFAQ(deleteMap);
+		System.out.println("삭제성공");
+		}
+		catch(Exception e) {
+			System.out.println("삭제 실패");
+		}
+		
+	}
+
+
+	@Override
+	public FAQVO getFAQ(int faq_num) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		FAQVO faq = new FAQVO();
+		try {
+			faq=mapper.getFAQ(faq_num);
+			System.out.println("찾기성공");
+		}
+		catch(Exception e) {
+			System.out.println("찾기실패");
+		}
+		return faq;
+	}
+
+
+	@Override
+	public void ModifyFAQ(FAQVO faq) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		try {
+			mapper.ModifyFAQ(faq);
+			System.out.println("수정성공");
+		}
+		catch(Exception e) {
+			System.out.println("수정 실패");
+		}
+		
+	}
 }

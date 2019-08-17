@@ -13,4 +13,8 @@ public interface AdminService {
 	public void insertGoods(GoodsVO vo, Object obj);
 	public void deleteGoods(Map<String, Object> deleteMap);
 	public List<FAQVO> getFAQList();
+	public void write_FAQ(FAQVO faq);
+	public void deleteFAQ(Map<String, Object> deleteMap);
+	public FAQVO getFAQ(int faq_num);
+	public void ModifyFAQ(FAQVO faq);
 }

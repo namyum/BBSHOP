@@ -108,14 +108,16 @@ label{
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
-												<form action="write_FAQ.do">
+												<form action="ModifyFAQExecute.do">
 										<table class="table"
 											style="background-color: rgba(230, 236, 236, 0.4); margin-top: 10px">
 											<thead class=" text-primary">
 													<table width=100% cellspacing=0 cellpadding=0 align=center>
 														<div class=modifyForm>
 															<tr>
-																<td><label for="category">카테고리</label> &nbsp; &nbsp;
+																<td>
+														<input type='hidden' name="FAQ_NUM" value=${FAQ.FAQ_NUM }>
+																<label for="category">카테고리</label> &nbsp; &nbsp;
 																 <select class="form-control" name="FAQ_CATEGORY" id="selectCategory">
 																 		<option value="default">선택</option>
 																		<option value="변경/취소">변경/취소</option>
@@ -131,7 +133,7 @@ label{
 															<tr>
 																<td><label for="FAQ_Contents">제목</label> <input
 																	text="text" class="form-control" id="FAQ_Contents"
-																	name="SUBJECT" placeholder="제목 을 적으세요">
+																	name="SUBJECT" placeholder="제목 을 적으세요" value="${FAQ.SUBJECT}">
 																<br>
 																</td>
 															</tr>
@@ -140,14 +142,14 @@ label{
 															<tr>
 																<td><label for="FAQ_Contents">상세내용</label> <input
 																	text="text" class="form-control" id="FAQ_Contents"
-																	name="CONTENT" placeholder="상세 내용을 적으세요">
+																	name="CONTENT" placeholder="상세 내용을 적으세요" value="${FAQ.CONTENT }">
 																<br>
 																</td>
 															</tr>
 														
 														 	
 														 	<tr>
-														 	<td style="text-align:center" ><input type='submit' class="btn btn-info" id=FAQsubmit name=FAQsubmit value="상품등록">
+														 	<td style="text-align:center" ><input type='submit' class="btn btn-info" id=FAQsubmit name=FAQsubmit value="상품수정">
 															</td>
 															</tr>
 															

@@ -124,4 +124,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	select * from service_FAQ order by faq_num desc
 </select>
 
+<insert id="write_FAQ">
+	<selectKey keyProperty="FAQ_NUM" resultType="int" order="BEFORE">
+		select seq_faq.nextval FROM DUAL
+	</selectKey>
+	insert into service_FAQ(faq_num,faq_category,subject,content,regdate)
+	values(#{FAQ_NUM},#{FAQ_CATEGORY},#{SUBJECT},#{CONTENT},SYSDATE)
+</insert>
+
+<delete id="deleteFAQ">
+	delete from service_FAQ where faq_num IN
+	<foreach collection="delnum" item="delete" open="(" close=")" separator=",">
+	#{delete.value}
+	</foreach>
+</delete>
+
+<select id="getFAQ" parameterType="int" resultType="com.bbshop.bit.domain.FAQVO">
+	select * from service_FAQ where faq_num = #{faq_num}
+</select>
+
+<update id="ModifyFAQ" parameterType="com.bbshop.bit.domain.FAQVO">
+	update service_FAQ set faq_category=#{FAQ_CATEGORY} , subject=#{SUBJECT} , content=#{CONTENT}
+	where faq_num=#{FAQ_NUM}
+
+</update>
+
 </mapper>

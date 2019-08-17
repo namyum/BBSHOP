@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -279,7 +280,7 @@ public class AdminController {
 	@RequestMapping("service_FAQ.do")
 	public String service_FAQ(Model model , Criteria cri,HttpServletRequest request) {
 		List<FAQVO> FAQList = adminService.getFAQList();
-		System.out.println(FAQList);
+		//System.out.println(FAQList);
 		
 		cri.setAmount(5);
 		AdminPageDTO temp = new AdminPageDTO(cri,FAQList.size());
@@ -315,6 +316,64 @@ public class AdminController {
 		
 		System.out.println(pagingList);
 		return pagingList;
+	}
+	
+	@RequestMapping(value="service_FAQ_write.do")
+	public String service_FAQ_write() {
+		return "shoppingMall/admin/service_FAQ_write";
+	}
+	
+	@RequestMapping(value="write_FAQ.do" ,method=RequestMethod.GET)
+	public String write_FAQ(HttpServletRequest request) {
+		FAQVO faq = new FAQVO();
+		faq.setSUBJECT(request.getParameter("SUBJECT"));
+		faq.setCONTENT(request.getParameter("CONTENT"));
+		faq.setFAQ_CATEGORY(request.getParameter("FAQ_CATEGORY"));
+		System.out.println("------------------------------------------");
+		System.out.println(faq);
+		System.out.println("------------------------------------------");
+		
+		adminService.write_FAQ(faq);
+		return "forward:service_FAQ.do";
+	}
+	@ResponseBody
+	@RequestMapping(value="selectFAQDelete" ,method=RequestMethod.GET)
+	public String selectDeleteFAQ(HttpServletRequest request) {
+			List<Integer> delnum = new ArrayList<Integer>();
+			Map<String,Object> deleteMap = new HashMap<String,Object>();
+			String[] num = request.getParameterValues("faqnum");
+			
+			for(int i = 0 ; i <num.length;i++) {
+				delnum.add(Integer.parseInt(num[i]));
+			}
+			System.out.println(delnum);
+			deleteMap.put("delnum", delnum);
+			//TOODOO 상품을 지우려고 하니 카테고리별로 지워야할것들이 있다. 일단 카테고리 값을 받아오고, 어떻게 데이터를 처리할지 생각해보자.
+			
+			adminService.deleteFAQ(deleteMap);
+			String msg = "삭제성공";
+			return msg;
+		}
+		
+	@RequestMapping(value="modifyFAQ.do" , method=RequestMethod.GET)
+	public String modifyFAQ(@RequestParam("faq_num") int faq_num,HttpServletRequest request,Model model) {
+		System.out.println(faq_num);
+		FAQVO FAQ = adminService.getFAQ(faq_num);
+		
+		System.out.println(FAQ);
+		model.addAttribute("FAQ",FAQ);
+		return "shoppingMall/admin/service_FAQ_Modify";
+		
+	}
+	
+	@RequestMapping(value="ModifyFAQExecute.do" , method=RequestMethod.GET)
+	public String ModifyFAQExecute(FAQVO faq) {
+		System.out.println(faq);
+		
+		adminService.ModifyFAQ(faq);
+		
+		
+		return "forward:service_FAQ.do";
 	}
 	
 	@RequestMapping("service_OneToOne.do")
