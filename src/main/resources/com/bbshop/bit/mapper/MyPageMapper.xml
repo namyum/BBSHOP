@@ -47,16 +47,19 @@
 	</insert>
 
 	<select id="getOrdersList" resultType="com.bbshop.bit.domain.OrderVO">
-		<![CDATA[	
-     		SELECT *
-     		FROM
-     			( SELECT rownum rn, s.*
-       			  FROM shop_order s
-       			  WHERE user_key = #{key}
-            	  		AND cancel = 0
-       			  ORDER BY order_num desc )
-	     	WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount} 
-	     		AND rn <= #{pagingVO.pageNum} * #{pagingVO.amount}
+			
+     	SELECT *
+     	FROM
+			( SELECT rownum rn, order_num, or_addr, pymntmthd, pymntamnt, phone1, phone2, savings, or_msg, cancel, or_date, 
+			stts, ship_nmbr, ship_date, user_key, name, items, receiver, tid 
+              FROM 
+              		( SELECT s.* 
+                      FROM shop_order s
+                      WHERE user_key = #{key} AND cancel = 0
+                      ORDER BY order_num desc )
+        <![CDATA[
+              WHERE rownum <= #{pagingVO.pageNum} * #{pagingVO.amount} )
+	    WHERE rn > (#{pagingVO.pageNum} - 1) * #{pagingVO.amount}
 		]]>
 	</select>
 	
