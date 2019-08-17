@@ -229,6 +229,13 @@ public class OrderController {
 		String[] goods_num_list = list.split(",");
 		int allPrice = 0;
 		
+		/*
+		 * order_num을 파라미터로 orderVO 정보를 들고 올 코드가 추가 될 부분.
+		 * 
+		 * 
+		 * 
+		 */
+		
         order.setUser_key(user_key);
         int res = orderService.insertOrder(order);
         
@@ -279,25 +286,25 @@ public class OrderController {
 		for (String goods_num : goods_num_list ) {
 			goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
 		}
-		
-		// 주문한 상품의 이름 출력
-		order_items = goodsList.get(0).getName();
 		 
 		for (int i = 0; i < cartList.size(); i++) {
 			Cart_GDVO temp = cartList.get(i);
 			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
 		}
 		
-		// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
+	// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
     	long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
+		
+		// 주문한 상품의 이름 바인딩
+		order_items = goodsList.get(0).getName();
 		
 		long savings_curr = 0;
 		int total_buy_curr = user.getTOTAL_BUY();
 		String grade_curr = user.getGRADE();
-		long savings_used = 0; // 임시로 사용한 적립금 변수를 만든다.
+		long savings_used = 0; // 임시로 사용한 적립금 변수를 만듬. 아직 미구현.
 		
-		// 적립금 업데이트
+		// 등급에 따른 적립금 업데이트
 		if (grade_curr.equals("bronze")) {
 			savings_curr = ((long)allPrice / 100) * 3;
 		} else if (grade_curr.equals("silver")) {
@@ -307,12 +314,12 @@ public class OrderController {
 		} else {
 			savings_curr = ((long)allPrice / 100) * 10;
 		}
+
+		user.setSAVINGS(user.getSAVINGS() + savings_curr);
 		
 		// 적립금 테이블 insert
 		SavingsVO savings = new SavingsVO(savings_curr, order_num, savings_used, order_items);
 		mypageService.insertSavings(savings, user_key);
-		
-		user.setSAVINGS(user.getSAVINGS() + savings_curr);
 		
 		// 누적 금액 업데이트
 		total_buy_curr += allPrice;
@@ -336,7 +343,6 @@ public class OrderController {
 		model.addAttribute("orderList",cartList);
     	
     	return "shoppingMall/order/order_confirmation";
-        
     }
     
     // 뷰 생성 예정

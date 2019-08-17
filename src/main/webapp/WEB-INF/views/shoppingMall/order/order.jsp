@@ -303,7 +303,7 @@ li, a {
                            placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="phone2" placeholder="연락처2">
+                        <input type="text" class="form-control" id="phone2" placeholder="추가 연락처를 입력해주세요.">
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="id"
@@ -354,7 +354,7 @@ li, a {
                         </table>
                      </div>
                      <div class="col-md-7 form-group p_star">
-                        <input type="text" class="form-control" id="addr1" placeholder="도로명 주소">
+                        <input type="text" class="form-control" id="or_addr" placeholder="기본 주소">
                      </div>
                      <div class="col-md-5 form-group p_star">
                         <input type="text" class="form-control" id="addr2" placeholder="상세 주소">
