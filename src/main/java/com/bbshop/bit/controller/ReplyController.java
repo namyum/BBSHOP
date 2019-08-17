@@ -46,6 +46,7 @@ public class ReplyController {
 		 	}
 		 */
 		
+		vo.setUser_key(1);
 		int insertCount = replyService.registerReply(vo);
 		
 		// 댓글이 정상적으로 등록되었을 경우, HttpStatus -> OK, 정상 등록 되지 않았을 경우, 내부 서버 에러. 삼항 연산자 처리

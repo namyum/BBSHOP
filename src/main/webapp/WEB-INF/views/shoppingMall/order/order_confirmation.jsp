@@ -49,7 +49,7 @@ body {
 							</li>
 							<li>
 								<a>
-									<span>주문 날짜</span> : <fmt:formatDate pattern="yyyy-MM-dd" value="${info.approved_at}" /></a>
+									<span>주문 날짜</span> : ${order.or_date}</a>
 							</li>
 							<li>
 								<a href="#none">
@@ -138,9 +138,6 @@ body {
 								</td>
 								<td>
 									<p style="text-align:center;">${order.pymntamnt}</p>
-								</td>
-								<td>
-									<input type="button" value="결제 취소" onclick="location.href='/kakaoPayCancelOrder.do?order_num=65'">
 								</td>
 							</tr>
 						</tbody>

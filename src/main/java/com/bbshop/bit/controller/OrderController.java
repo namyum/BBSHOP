@@ -1,4 +1,3 @@
-
 package com.bbshop.bit.controller;
 
 import java.util.ArrayList;
@@ -382,7 +381,7 @@ public class OrderController {
     	for(int i=0;i<cartList.size();i++) {
     		Order_GDVO order_gd = new Order_GDVO();
     		order_gd.setPrice(cartList.get(i).getTOTALPRICE());
-    		order_gd.setStock_stts(cartList.get(i).getQNTTY());
+    		order_gd.setQntty(cartList.get(i).getQNTTY());
     		order_gd.setSavings(cartList.get(i).getSAVINGS());
     		order_gd.setOrder_num(order_num);
     		order_gd.setGoods_num(cartList.get(i).getGOODS_NUM());
@@ -399,8 +398,7 @@ public class OrderController {
     	} else {
     		System.out.println("tid 업데이트에 실패했습니다.");
     	}
-
-    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice, order_num, order.getUser_key()));
+   
     	model.addAttribute("goodsList",goodsList);
 		model.addAttribute("orderList",cartList);
 		model.addAttribute("order",order);
@@ -470,8 +468,11 @@ public class OrderController {
     	
     	OrderVO order = orderService.getOrderList(order_num);
     	
+    	System.out.println("order="+order.toString());
+    	
     	int allPrice = (int)order.getPymntamnt();
-    	model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
+    	//model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
+    	System.out.println("info="+kakaopay.kakaoPayCancel(allPrice, order.getTid()));
     	
     	return "shoppingMall/main/shopping_main";  
     }
