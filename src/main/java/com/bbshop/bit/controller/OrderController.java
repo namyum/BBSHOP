@@ -54,10 +54,11 @@ public class OrderController {
 	private KakaoPayService kakaopay;
 	
 	// 회원 user_key를 가져오기 위한 HttpSession
+	@Autowired
 	private HttpSession session;
 	
-	@Autowired(required=true)
 	// 회원 주소록을 가져오기 위한 MyPageService
+	@Autowired(required=true)
 	MyPageService mypageService;
 	
 	List<GoodsVO> goodsList;
@@ -112,13 +113,12 @@ public class OrderController {
 		cartList.add(orderGood);
 		
 		int allPrice = orderGood.getTOTALPRICE();
-
 		
-//		long user_key = (long)session.getAttribute("user_key");
-		long user_key = 950131;
+		long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
+		System.out.println("userAddr.toString() : " + userAddr.toString());
 
 		int shipping_fee = cartService.calcShipping_fee(allPrice);
 		
@@ -141,8 +141,7 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
-//			long user_key = (long)session.getAttribute("user_key");
-			long user_key = 1;
+			long user_key = (long)session.getAttribute("member");
 			MemberVO user = memberService.getMemberInfo(user_key);
 			
 			goodsList = new ArrayList<GoodsVO>();
@@ -163,9 +162,9 @@ public class OrderController {
 			allPrice = totalPrice + shipping_fee;
 			
 			// goods 가져와서 goodsList에 넣어주는 부분
-			 for (String goods_num : goods_num_list ){
-				 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-			 }
+			for (String goods_num : goods_num_list ){
+				goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+			}
 			 
 			// 상품 옵션 불러오는 부분
 			for(int i=0; i<goodsList.size();i++) {
@@ -196,8 +195,10 @@ public class OrderController {
 					optionList.add(orderService.getOptionListBall(cartList.get(i).getGD_DETAILS()));
 					break;
 				}
-
 			}
+			
+			List<AddrVO> userAddr = mypageService.getAddrList(user_key);
+			System.out.println("userAddr.toString() : " + userAddr.toString());
 
 			model.addAttribute("goodsList",goodsList);
 			model.addAttribute("orderList",cartList);
@@ -205,6 +206,7 @@ public class OrderController {
 			model.addAttribute("totalPrice",totalPrice);
 			model.addAttribute("allPrice",allPrice);
 			model.addAttribute("shipping_fee", shipping_fee);
+			model.addAttribute("userAddr", userAddr);
 			model.addAttribute("user", user);
 			
 			return "shoppingMall/order/order";
@@ -219,23 +221,14 @@ public class OrderController {
     public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, 
     		@RequestParam("shipping_fee") int shipping_fee) {
         System.out.println("kakaoPay post............................................");
-		/*
-		 long user_key = (long)session.getAttribute("user_key");
-		 String nickname = (String)session.getAttribute("nickname");
+		
+		long user_key = (long)session.getAttribute("member");
+		String nickname = (String)session.getAttribute("nickname");
 		 
-		 // 비회원
-		 if(nickname.substring(0,9).equals("noAccount")) {
-		 	// alert("로그인이 필요합니다.");
-		 }
-		 else{
-		 	long user_key = (long)session.getAttribute("user_key");
-		 	qna.setUser_key(user_key);
-		 	}
-		 */
 		String[] goods_num_list = list.split(",");
 		int allPrice = (int)order.getPymntamnt();
 		
-        order.setUser_key(1);
+        order.setUser_key(user_key);
 		
 		goodsList = new ArrayList<GoodsVO>();
 		

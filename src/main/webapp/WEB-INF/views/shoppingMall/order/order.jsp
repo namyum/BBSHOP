@@ -354,7 +354,7 @@ li, a {
                         </table>
                      </div>
                      <div class="col-md-7 form-group p_star">
-                        <input type="text" class="form-control" id="or_addr" placeholder="기본 주소">
+                        <input type="text" class="form-control" id="addr1" placeholder="기본 주소">
                      </div>
                      <div class="col-md-5 form-group p_star">
                         <input type="text" class="form-control" id="addr2" placeholder="상세 주소">
