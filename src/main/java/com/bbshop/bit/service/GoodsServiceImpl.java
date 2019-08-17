@@ -205,14 +205,14 @@ public class GoodsServiceImpl implements GoodsService {
 		System.out.println("grade : " + grade);
 		
 		double savings = 0.0;
-		if(grade.equals("silver")) {
-			savings = price * 0.01;
-		}
-		else if(grade.equals("gold")) {
+		if(grade.equals("bronze")) {
 			savings = price * 0.03;
 		}
-		else if(grade.equals("platinum")) {
+		else if(grade.equals("silver")) {
 			savings = price * 0.05;
+		}
+		else if(grade.equals("gold")) {
+			savings = price * 0.07;
 		}
 		else {
 			savings = price * 0.1;
