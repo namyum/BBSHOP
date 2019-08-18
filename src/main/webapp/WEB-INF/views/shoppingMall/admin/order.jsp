@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,7 +114,7 @@ body {
 										<div class="float-right">
 											<div class="input-group">
 												<div class="float-right">
-													<input type="checkbox">전체 <input type="checkbox"
+													<input type="checkbox" checked="checked">전체 <input type="checkbox"
 														style="margin-left: 10px;">결제 완료 <input
 														type="checkbox" style="margin-left: 10px;">배송 준비중
 													<input type="checkbox" style="margin-left: 10px;">배송중
@@ -124,7 +125,7 @@ body {
 									</div>
 									<div class="table-responsive">
 										<table class="table table-hover">
-											<thead class=" text-primary">
+											<thead class=" text-primary" style="text-align:center;">
 												<th>주문일자</th>
 												<th>주문번호</th>
 												<th>회원 ID</th>
@@ -135,66 +136,36 @@ body {
 												<th>송장번호</th>
 											</thead>
 											<tbody>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
+											<c:forEach var="orderList" items="${orderList}" varStatus="status">
+												<tr style="text-align:center;">
+													<td>${orderList.or_date}</td>
+													<td>${orderList.order_num}</td>
+													<td>${user_id_list[status.index]}</td>
+													<td>￦${orderList.pymntamnt}</td>
+													<td>${orderList.pymntmthd}</td>
+													<td>￦${orderList.savings}</td>
+                           							 <td>
+                          							 <c:choose>
+                             							 <c:when test="${orderList.stts eq 0 }">
+                                							 결제완료
+                             							 </c:when>
+                             							 <c:when test="${orderList.stts eq 1 }">
+                                							배송준비중
+                             							 </c:when>
+                             							 <c:when test="${orderList.stts eq 2 }">
+                                							 배송중
+                             							 </c:when>
+                             							 <c:when test="${orderList.stts eq 3 }">
+                                							 배송완료
+                             							 </c:when>
+                             						 	<c:otherwise>
+                                 							주문취소
+                             							 </c:otherwise>
+                             						 </c:choose>
+                             						 </td>
+													<td>${orderList.ship_nmbr}</td>
 												</tr>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
-												</tr>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
-												</tr>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
-												</tr>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
-												</tr>
-												<tr>
-													<td>2019-07-08</td>
-													<td>12035150</td>
-													<td>mingu</td>
-													<td>￦36,000</td>
-													<td>카카오페이</td>
-													<td>￦1,000</td>
-													<td>배송준비중</td>
-													<td>15654811</td>
-												</tr>
+											</c:forEach>
 											</tbody>
 										</table>
 									</div>

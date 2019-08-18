@@ -15,6 +15,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.mapper.AdminMapper;
 
 @Service("adminService")
@@ -231,5 +232,19 @@ public class AdminServiceImpl implements AdminService {
 			System.out.println("수정 실패");
 		}
 		
+	}
+	
+	@Override
+	public List<OrderVO> getAllOrders(){
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getAllOrders();
+	}
+	
+	@Override
+	public String getUserId(long user_key) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getUserId(user_key);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.OrderVO;
 
 public interface AdminService {
 
@@ -17,4 +18,6 @@ public interface AdminService {
 	public void deleteFAQ(Map<String, Object> deleteMap);
 	public FAQVO getFAQ(int faq_num);
 	public void ModifyFAQ(FAQVO faq);
+	public List<OrderVO> getAllOrders();
+	public String getUserId(long user_key);
 }

@@ -28,6 +28,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.service.AdminService;
 
 @Controller
@@ -260,8 +261,20 @@ public class AdminController {
 		return msg;
 	}
 	
-	@RequestMapping("order.do")
-	public String order() {
+	@RequestMapping("admin_order.do")
+	public String admin_order(Model model) {
+		
+		List<OrderVO> orderList = adminService.getAllOrders();
+		List<String> user_id_list = new ArrayList<String>();
+		
+		// orderList 순서에  해당하는 user_key로 id 불러오기
+		for(int i=0;i<orderList.size();i++) {
+			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
+		}
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("user_id_list", user_id_list);
+		
 		return "shoppingMall/admin/order";
 	}
 

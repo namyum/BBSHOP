@@ -41,18 +41,24 @@
             </a>
           </li>
           
+          <li class="nav-item ">
+            <a class="nav-link" href="admin_order.do">
+              <i class="material-icons">library_books</i>
+              <p>주문 관리</p>
+            </a>
+          </li>
+          
+          <!-- 교환/반품 구현하지 않아서 주석처리
              <li class="nav-item dropdown">
                   <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     주문 관리
                     <i class="material-icons">library_books</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item" href="order.do" style="color: indianred">주문목록</a>
-                    <a class="dropdown-item" href="refund.do" style="color: indianred">교환/반품</a>
-                      
-            
-            
+                    <a class="dropdown-item" href="admin_order.do" style="color: indianred">주문목록</a>
+                    <a class="dropdown-item" href="refund.do" style="color: indianred">교환/반품</a>                     
           </li>
+          -->  
           <li class="nav-item ">
             <a class="nav-link" href="review.do">
               <i class="material-icons">bubble_chart</i>

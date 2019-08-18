@@ -156,6 +156,8 @@ public class OrderController {
 				totalPrice += cartList.get(i).getTOTALPRICE();
 			}
 			
+			List<AddrVO> userAddr = mypageService.getAddrList(user_key);
+			
 			allPrice = totalPrice + shipping_fee;
 			
 			// goods 가져와서 goodsList에 넣어주는 부분
@@ -202,6 +204,7 @@ public class OrderController {
 			model.addAttribute("allPrice",allPrice);
 			model.addAttribute("shipping_fee", shipping_fee);
 			model.addAttribute("user", user);
+			model.addAttribute("userAddr", userAddr);
 			
 			return "shoppingMall/order/order";
 	}

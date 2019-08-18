@@ -10,6 +10,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.OrderVO;
 
 public interface AdminMapper {
 
@@ -32,4 +33,6 @@ public interface AdminMapper {
 	public void deleteFAQ(Map<String, Object> deleteMap);
 	public FAQVO getFAQ(int faq_num);
 	public void ModifyFAQ(FAQVO faq);
+	public List<OrderVO> getAllOrders();
+	public String getUserId(long user_key);
 }
