@@ -218,7 +218,7 @@ public class GoodsServiceImpl implements GoodsService {
 			savings = price * 0.1;
 		}
 		
-		return (int) Math.ceil(savings);
+		return (int) Math.floor(savings);
 	}
 	
 	/* user_key를 이용해 moredetail을 가져온다. */
