@@ -85,9 +85,9 @@
 		<div class="main_box">
 			<div class="container-fluid">
 				<!-- 추천상품 배너부분 -->
-				<div class="row" style="background-color : #70e270; margin-bottom : 40px; border-radius : 30px;">
+				<div class="row" style="background-color : #57c051; margin-bottom : 40px; border-radius : 30px;">
 					<div class="main_title" style="margin : 20px auto;">
-						<h2 style="color : white; font-weight : bold;">추천 상품</h2>
+						<h2 style="color : white; font-weight : bold; margin-bottom: 0px;">추천 상품</h2>
 					</div>
 				</div>
 				

@@ -8,6 +8,17 @@
 
 <style> /*여긴 list의 style*/
 /* 상품 상단 바(product_top_bar) - 오른쪽 (가격 bar) */
+.cat_page .pagination li:hover a, .cat_page .pagination li.active a{
+background: #57c051;
+border-color:#57c051; !important;
+}
+.banner_area .banner_inner{
+background-color: #57c051;
+}
+.product_top_bar{
+background-color: #ffffff
+}
+
 .right_dorp {
 	display: flex;
 	margin-left: auto;
@@ -149,10 +160,10 @@ function goodsList_Ajax() {
 									<div id="slider-range"></div>
 									<div class="row m0">
 										<label for="amount" style="visibility:hidden;">Price:</label>
-										<input type="text" id="amount" readonly style="text-align:center; font-size:15px; background-color:#f9f9ff; display:none">
-										<input type="text" id="min_amount" readonly style="text-align:center; font-size:17px; background-color:#f9f9ff;">
-										<input type="text" value="~" readonly style="width:15px; text-align:center; font-size:15px; background-color:#f9f9ff;">
-										<input type="text" id="max_amount" readonly style="text-align:center; font-size:17px; background-color:#f9f9ff;">
+										<input type="text" id="amount" readonly style="text-align:center; font-size:15px; display:none">
+										<input type="text" id="min_amount" readonly style="text-align:center; font-size:17px;">
+										<input type="text" value="~" readonly style="width:15px; text-align:center; font-size:15px; ">
+										<input type="text" id="max_amount" readonly style="text-align:center; font-size:17px; ">
 									</div>
 								</div>
 							</div>

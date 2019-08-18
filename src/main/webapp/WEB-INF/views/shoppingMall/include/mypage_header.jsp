@@ -282,7 +282,7 @@ body {
 	height : 10%;
 	z-index : 201;
 	background-color : white; /*#EAD6BD;*/
- 	padding : 10px 24px 15px; 
+
 }
 .miniCart_footer #view_cart_btn {	/* view cart 버튼 */
 	width : 100%;
@@ -292,9 +292,11 @@ body {
 	cursor : pointer;
 	font-size : 25px !important;
 	text-align : center;
-	padding-top : 11px !important;
+	padding-top : 35px !important;
  	display : inherit;
  	font-weight : bold;
+ 	vertical-align: middle;
+ 	
 }
 
 #curtain {
@@ -405,7 +407,7 @@ body {
 	vertical-align: bottom;
 	display: inline-block;
 	zoom: 1;
-	*display: inline;
+	display: inline;
 }
 .plan-mouseover .plan-name {
 	background-color: #4e9a06 !important;
@@ -466,6 +468,7 @@ body {
 /* 	min-height: 100%; */
 /* 	border-radius: 0; */
 /* } */
+
 </style>
 
 <script>	//민구
@@ -513,58 +516,81 @@ body {
 			<h2 align="center">상 세 검 색</h2>
 			<br />
 			<form id="searchBig_Form">
-				<table style="width:100%; font-size:17px;">
+				<table style="width: 100%; font-size: 17px;">
 					<tr>
-						<th style="width:20%;"></th>
-						<th style="width:20%;"></th>
-						<th style="width:20%;"></th>
-						<th style="width:20%;"></th>
-						<th style="width:20%;"></th>
+						<th style="width: 20%;"></th>
+						<th style="width: 20%;"></th>
+						<th style="width: 20%;"></th>
+						<th style="width: 20%;"></th>
+						<th style="width: 20%;"></th>
 					</tr>
 					<!-- 포지션 -->
 					<tr>
 						<th><label for="position">포지션</label></th>&emsp;
-						<td><input type="checkbox" name="position" id="1루수"/><label for="1루수"><span></span>1루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="2루수"/><label for="2루수"><span></span>2루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="3루수"/><label for="3루수"><span></span>3루수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="유격수"/><label for="유격수"><span></span>유격수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="외야수" value="외야수"/><label
+							for="외야수"><span></span>외야수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="내야수" value="내야수"/><label
+							for="내야수"><span></span>내야수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="투수" value="투수"/><label
+							for="투수"><span></span>투수</label>&nbsp;</td>
+						<td><input type="checkbox" name="position" id="포수" value="포수"/><label
+							for="포수" ><span></span>포수</label>&nbsp;</td>
+					</tr>
+					<!-- 색상 -->
+					<tr>
+						<th><label for="color">색상</label></th>
+						<td>
+							<input type="checkbox" name="color" id="black" value="black" /><label 
+							for="black"><span></span>블랙</label>&nbsp;
+						</td>
+						<td>
+							<input type="checkbox" name="color" id="white" value="white" /><label 
+							for="white"><span></span>화이트</label>&nbsp;
+						</td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="position" id="포수"/><label for="포수"><span></span>포수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="투수"/><label for="투수"><span></span>투수</label>&nbsp;</td>
-						<td><input type="checkbox" name="position" id="외야수"/><label for="외야수"><span></span>외야수</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="red" value="red"/><label
+							for="red"><span></span>레드</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="yellow" value="yellow"/><label
+							for="yellow"><span></span>옐로우</label>&nbsp;</td>
+						<td><input type="checkbox" name="color" id="blue" value="blue"/><label
+							for="blue"><span></span>블루</label>&nbsp;</td>
 						<td></td>
-					</tr>
-					<!-- 좌투/우투 -->
-					<tr>
-						<th><label for="hand">좌/우</label></th>
-						<td colspan="2"><input type="checkbox" name="hand" id="left_checkbox" /><label for="left_checkbox"><span></span>좌투(오른손 착용)</label></td>
-						<td colspan="2"><input type="checkbox" name="hand" id="right_checkbox" /><label for="right_checkbox"><span></span>우투(왼손 착용)</label></td>
 					</tr>
 					<!-- 브랜드 -->
 					<tr>
 						<th><label for="brand">브랜드</label></th>
-						<td><input type="checkbox" name="brand" id="mizuno" /><label for="mizuno"><span></span>Mizuno</label></td>
-						<td><input type="checkbox" name="brand" id="wilson" /><label for="wilson"><span></span>Wilson</label></td>
-						<td><input type="checkbox" name="brand" id="adidas" /><label for="adidas"><span></span>Adidas</label></td>
-						<td><input type="checkbox" name="brand" id="nike" /><label for="nike"><span></span>Nike</label></td>
+						<td><input type="checkbox" name="brand" id="mizuno" value="mizuno"/><label
+							for="mizuno"><span></span>Mizuno</label></td>
+						<td><input type="checkbox" name="brand" id="wilson" value="wilson"/><label
+							for="wilson"><span></span>Wilson</label></td>
+						<td><input type="checkbox" name="brand" id="adidas" value="adidas"/><label
+							for="adidas"><span></span>Adidas</label></td>
+						<td><input type="checkbox" name="brand" id="nike" value="nike"/><label
+							for="nike"><span></span>Nike</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="morimoto" /><label for="morimoto"><span></span>Morimoto</label></td>
-						<td><input type="checkbox" name="brand" id="descente" /><label for="descente"><span></span>Descente</label></td>
-						<td colspan="2"><input type="checkbox" name="brand" id="underarmour" /> <label for="underarmour"><span></span>UnderArmour</label></td>
+						<td><input type="checkbox" name="brand" id="morimoto" value="morimoto"/><label
+							for="morimoto"><span></span>Morimoto</label></td>
+						<td><input type="checkbox" name="brand" id="descente" value="descente"/><label
+							for="descente"><span></span>Descente</label></td>
+						<td colspan="2"><input type="checkbox" name="brand" id="underarmour" 
+						value="underarmour"/> <label for="underarmour"><span></span>UnderArmour</label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="checkbox" name="brand" id="brett" /><label for="brett"><span></span>Brett</label></td>
-						<td><input type="checkbox" name="brand" id="fila" /> <label for="fila"><span></span>FILA</label></td>
-						<td><input type="checkbox" name="brand" id="asics" /> <label for="asics"><span></span>Asics</label></td>
+						<td><input type="checkbox" name="brand" id="brett" value="brett"/><label
+							for="brett"><span></span>Brett</label></td>
+						<td><input type="checkbox" name="brand" id="fila" value="fila"/> <label
+							for="fila"><span></span>FILA</label></td>
+						<td><input type="checkbox" name="brand" id="asics" value="asics"/> <label
+							for="asics"><span></span>Asics</label></td>
 						<td></td>
 					</tr>
-				</table><br>
-				<input type="button" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">				
+				</table>
+				<br><input type="button" class="btn btn-info btn-block" id="searchBig_submit_btn" value="검색">
 			</form>
 		</div>
 	</div>
@@ -586,7 +612,7 @@ body {
 		</div>
 		
 		<!-- total -->
-		<div class="miniCart_total" style="display: flex;">
+		<div class="miniCart_total" style="display: flex; margin-bottom: 10px;">
 			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
 			&emsp;&emsp;
 			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
@@ -594,7 +620,7 @@ body {
 		
 		<!-- footer -->
 		<div class="miniCart_footer">
-			<a id="view_cart_btn" href="/cart">
+			<a id="view_cart_btn" href="/cart.do">
 				V i e w &emsp; C a r t
 			</a> 
 		</div>
@@ -623,7 +649,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq_list.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
@@ -641,12 +667,12 @@ body {
 			</div>
 		</div>
 		
-		<div class="main_menu" style="height:80px;">
-			<nav class="navbar navbar-expand-lg navbar-light" style="height:80px; margin:0;">
-				<div class="container-fluid" style="height:80px;">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light" style="max-height:80px;">
+				<div class="container-fluid" style="max-height:80px;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
-					<a class="navbar-brand logo_h" href="/shopping_main">
+					<a class="navbar-brand logo_h" href="/shopping_main.do">
 						<img src="resources/shoppingMall/img/logo.png" alt="" style="visibility : hidden">	<!-- 일단 로고 안보이게 -->
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -663,7 +689,7 @@ body {
 								<ul class="nav navbar-nav center_nav pull-right">
 									<!-- 서브메뉴1 글러브 -->
 									<!-- li태그 자체에 onclick이벤트를 줘야 페이지이동 합니다.(a href는 이동이 안됨) -->
-									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list'">
+									<li class="nav-item submenu dropdown" onclick="javascript: location.href='/goods_list.do?category=1'">
 										<a href="#none" id="submenu_name" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">글러브</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
@@ -758,11 +784,25 @@ body {
 	<!--================Header Menu Area =======================-->
 	
 	<!--================start Home Banner Area =================-->
-	<section class="banner_area" id="banner_mypage">
+	<!--  <section class="banner_area" id="banner_mypage">
 		<div class="banner_inner d-flex align-items-center" style="background-color:white;">
 			<div class="container-fluid">
 				<div class="banner_content text-center">
 					<h2 style="color: #777777;">My Page</h2>
+				</div>
+			</div>
+		</div>
+	</section>-->
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center"
+			style="background-color: #57c051;">
+			<div class="container">
+				<div class="banner_content text-center">
+					<h2 style="color: white;">마이페이지</h2>
+					<div class="page_link">
+						<a href="" style="color: white;">홈</a> <a
+							href="" style="color: white;">마이페이지</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -774,10 +814,10 @@ body {
 		<div class="container-fluid">
 			<div class="section-top-border">
 				<ul class="myPageTop">
-					<li><a href="/savings.do" class="menu">마이페이지</a></li>
-					<li><a href="/order_status.do" class="menu">주문/배송</a></li>
-					<li><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
-					<li><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/savings.do" class="menu">마이페이지</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/order_status.do" class="menu">주문/배송</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/mypost.do" class="menu">내가 남긴 글</a></li>
+					<li style="width: 285px; padding-left:0px; padding-right:0px; font-size: 25px"><a href="/modify_info.do" class="menu">회원 정보 수정</a></li>
 				</ul>
 			</div>
 		</div>

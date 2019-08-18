@@ -4,13 +4,30 @@
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+.genric-btn.primary:hover{
+color: #ffffff;
+border: 1px solid #ffffff;
+}
+.page-item.active .page-link{
+background-color: #57c051;
+}
+.cat_page .pagination li:hover a, .cat_page .pagination li.active a{
+background-color: #57c051;
+border-color: #57c051;
+}
+.genric-btn.default{
+color:#ffffff;
+background-color: #57c051;
+}
+.genric-btn.default:hover{
+background-color: #57c051;
+}
 body {
 	font-weight: bold;
 	font-size: 17px;
 }
 
 .order_details_table {
-	width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
@@ -106,7 +123,7 @@ $(document).ready(function(){
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center"
-			style="background-color: #70e270;">
+			style="background-color: #57c051;">
 			<div class="container">
 				<div class="banner_content text-center">
 					<h2 style="color: white;">고객센터</h2>
@@ -119,59 +136,61 @@ $(document).ready(function(){
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
-	
-	<div class="button-group-area mt-40" style="margin-bottom: 30px;">
-		<a href="/faq_list.do" class="genric-btn primary e-large"
-			style="background: #024137; margin-left: 30%; padding: 6px 60px; font-size: 30px; font-weight: bold;">FAQ</a>
-		<a href="/onetoonelist.do" class="genric-btn primary e-large"
-			style="background: #024137; margin-left: 21%; padding: 6px 60px; font-size: 30px; font-weight: bold;">1:1문의</a>
+	<div class="container">
+	<div class="button-group-area mt-40" style="margin-bottom: 30px; text-align:right;">
+		<a href="/faq.do" class="genric-btn primary e-large"
+			style="background: #57c051; font-size: 30px; font-weight: bold; width:15%;">FAQ</a>
+		<a href="/one_to_one_list.do" class="genric-btn primary e-large"
+			style="background: #a0a0a0; font-size: 30px; font-weight: bold; width:15%;">1:1문의</a>
 	</div>
 	
-	<div class="button-group-area mt-40" style="margin-bottom: 20px;">
-		<form name=category>
+	<div class="button-group-area" style="text-align: center;">
 		
-		<a href="/faq_list.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 19.5%">전체보기</a>
-		<a href="/cancel.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >변경/취소</a>
-		<a href="/trade.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >교환/반품</a>
-		<a href="/order.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >주문/조회</a>
-		<a href="/question.do" class="genric-btn primary radius"
-			style="background: #EBDBC4; color: #666666; font-weight: bold; margin-left: 7%" >상품문의</a>
-			
-		</form>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;" >전체보기</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">변경/취소</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">교환/반품</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">주문/조회</a>
+		<a href="#" class="genric-btn primary radius"
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
+			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">상품문의</a>
 	</div>
 	
+	<div class="button-group-area" style="margin-bottom: 20px; text-align: center; margin-top:10px;">
 	<div class="order_details_table" style="margin-top: 0px; padding: 0px;">
 		<!-- <h2 style="text-align: center;">고객센터</h2> -->
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-					<tr style="background: #9FC197;">
+					<tr style="background: #ffffff; color: #000000;">
 						<th style="width: 20%" scope="col">번호</th>
 						<th style="width: 20%"scope="col">카테고리</th>
 						<th style="width: 60%; text-align: center" scope="col">제목</th>
 					</tr>
 				</thead>
-				
+				<tbody>
 				<c:forEach items="${list}" var="FAQ">
 				<tr>
 					<td><c:out value="${FAQ.FAQ_NUM}" /></td>
 					<td><c:out value="${FAQ.FAQ_CATEGORY}" /></td>
 					<td><a class='move' href='<c:out value="${FAQ.FAQ_NUM}"/>'>
 					<c:out value="${FAQ.SUBJECT}" /></a></td>
-					
 				</tr>
-
 				</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</div>
 	
    <table class="paging_area"
-      style="width: 1200px; margin-left: auto; margin-right: auto;">
+      style="width: 1140px; margin-left: auto; margin-right: auto;">
       <tr>
          <td style="padding-left: 370px;">
          
@@ -246,11 +265,9 @@ $(document).ready(function(){
             	</form>
             </div>
          </td>
-         
-         
       </tr>
    </table>
-   		
-   		
+   </div>
+   </div>
 
 <%@ include file="../include/shopping_footer.jsp" %>

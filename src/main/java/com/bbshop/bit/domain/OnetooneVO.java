@@ -11,7 +11,6 @@ public class OnetooneVO {
 	private String one_contents;
 	private String one_file;
 	private String regdate;
-	private long hit;
 	private long user_key;
 	private long seq;
 	private long lev;

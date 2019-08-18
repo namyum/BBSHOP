@@ -263,7 +263,7 @@
 	</selectKey>
 
 	INSERT INTO cart_gd
-	VALUES (#{gd_ct_key}, #{goods.price}, #{qty}, 2000, 0, #{goods.goods_num}, #{user_key}, 1)
+	VALUES (#{gd_ct_key}, #{goods.price}, #{qty}, 2000, 0, #{goods.goods_num}, #{user_key}, #{goods_detail_num})
 </insert>
 
 </mapper>

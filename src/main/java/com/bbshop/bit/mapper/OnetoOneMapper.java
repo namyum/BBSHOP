@@ -16,9 +16,9 @@ public interface OnetoOneMapper {
 	
 	public Integer OnetoOne_insertSelectKey(OnetooneVO board);
 	
-	public OnetooneVO OnetoOne_read(Long ONE_ONE_NUM);
+	public OnetooneVO OnetoOne_read(Long one_one_num);
 	
-	public int OnetoOne_delete(Long ONE_ONE_NUM);
+	public int OnetoOne_delete(Long one_one_num);
 	
 	public int OnetoOne_update(OnetooneVO board);
 	

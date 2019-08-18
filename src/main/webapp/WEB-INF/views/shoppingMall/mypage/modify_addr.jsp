@@ -4,6 +4,16 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.default{
+background :#57c051;
+color: #ffffff;
+}
+.genric-btn.default:hover{
+background: #57c051;
+border: 1px solid #57c051;
+}
+
+
 h3 {
 	font-weight: bold;
 }

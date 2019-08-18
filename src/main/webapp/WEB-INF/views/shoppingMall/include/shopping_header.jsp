@@ -288,7 +288,6 @@ body {
 	height: 10%;
 	z-index: 201;
 	background-color: white; /*#EAD6BD;*/
-	padding: 10px 24px 15px;
 }
 
 .miniCart_footer #view_cart_btn { /* view cart 버튼 */
@@ -299,7 +298,7 @@ body {
 	cursor: pointer;
 	font-size: 25px !important;
 	text-align: center;
-	padding-top: 11px !important;
+	padding-top: 35px !important;
 	display: inherit;
 	font-weight: bold;
 }
@@ -316,7 +315,6 @@ body {
 	animation: fadein .2s;
 	z-index: 100;
 	overflow: auto;
-<<<<<<< HEAD
 }
 
 /* 로그인 모달
@@ -507,7 +505,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq_list.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
@@ -527,13 +525,12 @@ body {
 		</div>
 
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container-fluid">
+			<nav class="navbar navbar-expand-lg navbar-light" style="max-height:80px;">
+				<div class="container-fluid" style="max-height:80px;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
-					<a class="navbar-brand logo_h" href="/shopping_main"> <img
-						src="resources/shoppingMall/img/logo.png" alt=""
-						style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
+					<a class="navbar-brand logo_h" href="/shopping_main.do"> <img
+						src="resources/shoppingMall/img/logo.png" alt="" style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"

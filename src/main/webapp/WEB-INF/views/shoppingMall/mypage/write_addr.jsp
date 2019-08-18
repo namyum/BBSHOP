@@ -4,8 +4,18 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.default{
+	background: #57c051;
+}
+.genric-btn.default:hover{
+	background: #ffffff;
+}
+
 h3 {
 	font-weight: bold;
+}
+body{
+	text-align: none;
 }
 
 .confirm-checkbox input+label {
@@ -16,7 +26,7 @@ h3 {
 	<div class="billing_details">
 		<div class="row">
 			<div class="col-lg-12">
-				<h3 class="mb-30 title_color">새 배송지 등록</h3>
+				<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px;">배송지 등록</h3>
 				<form class="row contact_form" action="/write_userAddr.do" method="post" novalidate="novalidate" id="write_addr">
 					<div class="col-md-3 form-group p_star">
 						<div class="switch-wrap d-flex justify-content-between"

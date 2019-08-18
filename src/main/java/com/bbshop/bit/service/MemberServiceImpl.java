@@ -144,4 +144,12 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.getMemberInfo(user_key);
 	}
 
+	@Override
+	public void updateMemberInfoAfterOrder(MemberVO user) {
+
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		
+		mapper.updateMemberInfoAfterOrder(user);
+	}
+
 }

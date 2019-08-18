@@ -22,4 +22,5 @@ public class MemberVO {
     private Date REGDATE;
     private Date MODDATE;
     private int FLAG;
+    private int TOTAL_BUY;
 }

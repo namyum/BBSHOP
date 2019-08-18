@@ -244,7 +244,7 @@
 
         /*버튼 메뉴(shop,gocommunity)의 색상. */
         .BBSHOP {
-            background-color: hsla(203, 96%, 51%, 0.6);
+            background-color: #57c051;
         }
 
         /*모달창 투명도*/
@@ -372,7 +372,7 @@
                     <div style=" float:left;  margin-right:40px">
                         <Button id="sign_up_btn" class="btn btn-info btn-block">회원가입</Button> </div>
 
-                    <div style=" float:left;"><Button id="find_info_btn" class="btn btn-info btn-block">아이디/비밀번호
+                    <div style=" float:right;"><Button id="find_info_btn" class="btn btn-info btn-block">아이디/비밀번호
                             찾기</Button></div>
 
                 </div>
@@ -557,7 +557,7 @@
                                     <div class="position select">
                                     <select class="form-control" name="POSITION" id="position">
                                     	<option value="position">Position</option>
-                                        <option value="유격수">내야수</option>
+                                        <option value="내야수">내야수</option>
                                         <option value="외야수">외야수</option>
                                         <option value="포수">포수</option>
                                         <option value="투수">투수</option>
