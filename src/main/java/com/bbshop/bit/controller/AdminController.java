@@ -402,7 +402,11 @@ public class AdminController {
 		return "shoppingMall/admin/adminAccount";
 	}
 
-	
+	@RequestMapping("admin_chart.do")
+	public String show_admin_chart() {
+		
+		return "shoppingMall/admin/chart";
+	}	
 	
 	
 }
