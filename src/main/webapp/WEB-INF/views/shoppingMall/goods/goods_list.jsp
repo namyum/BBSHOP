@@ -8,6 +8,10 @@
 
 <style> /*여긴 list의 style*/
 /* 상품 상단 바(product_top_bar) - 오른쪽 (가격 bar) */
+.cat_page .pagination li:hover a, .cat_page .pagination li.active a{
+background: #57c051;
+border-color:#57c051; !important;
+}
 .banner_area .banner_inner{
 background-color: #57c051;
 }

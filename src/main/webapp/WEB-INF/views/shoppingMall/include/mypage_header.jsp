@@ -612,7 +612,7 @@ body {
 		</div>
 		
 		<!-- total -->
-		<div class="miniCart_total" style="display: flex;">
+		<div class="miniCart_total" style="display: flex; margin-bottom: 10px;">
 			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
 			&emsp;&emsp;
 			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>

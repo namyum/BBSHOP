@@ -4,6 +4,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style>
+.order_details .title_confirmation{
+margin-bottom: 120px;
+}
+.order_details_table{
+margin-top:0px;
+}
+.order_details_table{
+background: #ffffff;
+}
 body {
 	font-weight: bold;
 	font-size: 17px;
@@ -21,7 +30,7 @@ body {
 <body>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
-		<div class="banner_inner d-flex align-items-center" style="background-color:#70e270;">
+		<div class="banner_inner d-flex align-items-center" style="background-color:#57c051;">
 			<div class="container">
 				<div class="banner_content text-center">
 					<h2 style="color:white;">주문확인</h2>
@@ -37,10 +46,10 @@ body {
 	<!--================Order Details Area =================-->
 	<section class="order_details p_120" style="padding-top:0px;">
 		<div class="container">
-			<p class="title_confirmation" style="font-weight:bold; font-size:20px">♥주문 완료되었습니다. 감사합니다♥</p>
+			<p class="title_confirmation" style="font-weight:bold; font-size:40px">♥주문 완료되었습니다. 감사합니다♥</p>
 			<div class="row order_d_inner">
-				<div class="col-lg-4" style="margin-left:17%;">
-					<div class="details_item" style="background-color:#e0f0e3;">
+				<div class="col-lg-4">
+					<div class="details_item" style="background-color:#ffffff;">
 						<h4>주문 정보</h4>
 						<ul class="list">
 							<li>
@@ -62,8 +71,8 @@ body {
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="details_item" style="background-color:#b7d2b1; height:162px; width:400px;">
+				<div class="col-lg-4" style="margin-left: 25%;">
+					<div class="details_item" style="background-color:#ffffff; height:162px;">
 						<h4>배송 정보</h4>
 						<ul class="list">
 							<li>
@@ -83,7 +92,7 @@ body {
 				</div>
 			</div>
 			<div class="order_details_table">
-				<h2 style="text-align:center; font-weight:bold;">주문 상세</h2>
+				<h2 style="text-align:center; font-weight:bold; font-size: 30px">주문 상세</h2>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>

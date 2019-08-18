@@ -48,11 +48,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key) {
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key) {
 		
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getReviewList(pagingVO, total, key);
+		return myPageMapper.getReviewList(pagingVO, key);
 	}
 
 	@Override
@@ -154,19 +154,19 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key) {
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
-		return myPageMapper.getOnetooneList(pagingVO, total, key);
+		return myPageMapper.getOnetooneList(pagingVO, key);
 	}
 
 	@Override
-	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long total, long key) {
+	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long key) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 		
-		return myPageMapper.getQnaList(pagingVO, total, key);
+		return myPageMapper.getQnaList(pagingVO, key);
 	}
 
 	@Override

@@ -107,6 +107,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public int deleteOrder(long order_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.deleteOrder(order_num);
+	}
+	
+	@Override
+	public int updateCancelStts(long order_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateCancelStts(order_num);
+	}
+	
+	@Override
 	public int updateGloveStock(int qntty, long glove_num) {
 		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
 		
@@ -142,10 +156,45 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int deleteOrder(long order_num) {
+	public int updateCancledGloveStock(int qntty, long glove_num) {
 		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
 		
-		return mapper.deleteOrder(order_num);
+		return mapper.updateCancledGloveStock(qntty, glove_num);
+	}
+	
+	@Override
+	public int updateCancledBatStock(int qntty, long bat_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateCancledBatStock(qntty, bat_num);
+	}
+	
+	@Override
+	public int updateCancledUniformStock(int qntty, long uniform_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateCancledUniformStock(qntty, uniform_num);
+	}
+	
+	@Override
+	public int updateCancledShoesStock(int qntty, long shoes_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateCancledShoesStock(qntty, shoes_num);
+	}
+	
+	@Override
+	public int updateCancledBallStock(int qntty, long ball_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateCancledBallStock(qntty, ball_num);
+	}
+	
+	@Override
+	public int updateGoodsSales(int qntty, long goods_num) {
+		OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+		
+		return mapper.updateGoodsSales(qntty, goods_num);
 	}
 	
 	@Override

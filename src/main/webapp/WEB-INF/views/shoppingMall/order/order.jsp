@@ -5,6 +5,22 @@
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+
+.main_btn{
+background: #57c051;
+border: 1px solid #57c051;
+}
+.main_btn:hover{
+background:#57c051;
+}
+.genric-btn.default{
+background: #57c051;
+color:#ffffff;
+border: 1px solid #57c051;
+}
+.genric-btn.default:hover{
+background: #57c051;
+}
 body {
    font-weight: bold;
    font-size: 17px;
@@ -90,7 +106,7 @@ li, a {
    <!--================Home Banner Area =================-->
    <section class="banner_area">
       <div class="banner_inner d-flex align-items-center"
-         style="background-color: #70e270;">
+         style="background-color: #57c051;">
          <div class="container">
             <div class="banner_content text-center">
                <h2 style="color: white;">주문하기</h2>
@@ -105,7 +121,7 @@ li, a {
    <!--================End Home Banner Area =================-->
 
    <!--================Order Area =================-->
-   <section class="order_area">
+   <section class="order_area" style="padding-top:0px;">
       <div class="container">
          <div class="cart_inner">
             <h3>
@@ -409,7 +425,7 @@ li, a {
                         <input type="checkbox" id="payAgree"> <label
                            for="f-option4" style="font-size:17px; font-weight:bold;">구매 진행에 동의합니다.(필수)</label>
                      </div>
-                     <a class="main_btn" onclick="goPay(this)">결제하기</a>
+                     <a class="main_btn" onclick="goPay(this)" style="color:#ffffff;">결제하기</a>
                   </div>
                </div>
             </div>

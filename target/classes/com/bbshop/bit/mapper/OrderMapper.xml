@@ -83,6 +83,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		WHERE order_num = #{order_num}
 	</select>
 	
+	<update id="updateCancelStts">
+		UPDATE shop_order 
+		SET stts = 4, cancel = 1 
+		WHERE order_num = #{order_num}
+	</update>
+	
 	<update id="updateGloveStock">
 		UPDATE gd_glove
 		SET stock = stock - #{QNTTY}
@@ -132,6 +138,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		INSERT INTO order_gd(or_gd_key, price, qntty, savings, rtrn_exchn, order_num, goods_num, gd_details)
 		VALUES(#{or_gd_key}, #{price}, #{qntty}, #{savings}, 0, #{order_num}, #{goods_num}, #{gd_details})
 	</insert>	
+	
+	<update id="updateGoodsSales">
+		UPDATE goods 
+		SET sales = sales + #{qntty}
+		WHERE goods_num = #{goods_num}
+	</update>
+	
+	<update id="updateCancledGloveStock">
+		UPDATE gd_glove
+		SET stock = stock + #{QNTTY}
+		WHERE glove_num = #{GLOVE_NUM}
+	</update>
+	
+	<update id="updateCancledBatStock">
+		UPDATE gd_bat
+		SET stock = stock + #{QNTTY}
+		WHERE bat_num = #{BAT_NUM}
+	</update>
+	
+	<update id="updateCancledUniformStock">
+		UPDATE gd_uniform
+		SET stock = stock + #{QNTTY}
+		WHERE uniform_num = #{UNIFORM_NUM}
+	</update>
+	
+	<update id="updateCancledShoesStock">
+		UPDATE gd_shoes
+		SET stock = stock + #{QNTTY}
+		WHERE shoes_num = #{SHOES_NUM}
+	</update>
+	
+	<update id="updateCancledBallStock">
+		UPDATE gd_ball
+		SET stock = stock + #{QNTTY}
+		WHERE ball_num = #{BALL_NUM}
+	</update>
 	
 <!-- 의정 단일상품 -->
 
