@@ -144,7 +144,7 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
 		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 		
