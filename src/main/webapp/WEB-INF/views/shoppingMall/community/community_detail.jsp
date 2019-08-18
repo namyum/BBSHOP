@@ -138,9 +138,7 @@ border: #f7f7ff
 														<b>[<c:out value="${post.TEAM_NAME}" />]
 														</b>
 														<c:out value="${post.TITLE}" />
-													 <a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>"
-													id="go_list" class="genric-btn primary radius"
-													style="float: right; margin-left: 650px; background-color: #57c051">목록보기</a></h2>
+													 </h2>
 												</td>
 											</tr>
 											</tbody>
@@ -188,7 +186,8 @@ border: #f7f7ff
 										첨부파일: 
 										<a href='#'>${post.UPLOADFILE}</a>
 										</c:if>
-									</p></td>
+									</p>
+								</td>
 								<td style="float: right;"><a
 									class="genric-btn primary small" id="reportBtn0"
 									style="float: right; padding: 0 20px; background-color: #f44a40" onclick="report(0)"> 신고하기</a></td>
@@ -196,38 +195,36 @@ border: #f7f7ff
 						</table>
 					</div>
 
-					<div class="comments-area">
-
-						<!-- 댓글 -->
-						
-						<h4 id="getComments"></h4>
-						<div class="comment-list-show">
-
-						</div>
-
-					</div>
-					<div class="comment-list-write" style="padding-bottom:48px;">
-							<div class="single-comment justify-content-between d-flex"
-								style="border-bottom: 1.5px solid #eee;">
-								<div class="user justify-content-between d-flex" style="min-width:100%;">
-									<div class="desc" style="min-width:100%; margin-top:10px;">
-										<h5 id="reply_writer" style="padding-top:10px;">글쓴이</h5>
-										<p class="write_date" style="font-size:13px;color:#cccccc;margin-bottom:13px;">
+					<div class="comment-list-write" style="padding-bottom: 48px;">
+						<div class="single-comment justify-content-between d-flex"
+							style="border-bottom: 1.5px solid #eee;">
+							<div class="user justify-content-between d-flex"
+								style="min-width: 100%;">
+								<div class="desc" style="min-width: 100%; margin-top: 10px;">
+									<h5 id="reply_writer" style="padding-top: 10px;">글쓴이</h5>
+									<p class="write_date"
+										style="font-size: 13px; color: #cccccc; margin-bottom: 13px;">
 										<!-- sysdate 받아와야 함 -->
-										<fmt:formatDate pattern="yyyy-MM-dd" value="${post.REGDATE}" /></p>
-										<input type="text" name="reply_content"
-											id="reply_content" style="width: 100%; height: 100px;" />
-										<div class="reply-btn">
-											<a class="genric-btn primary small" id="reply_submit"
-												style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px; background-color: #57c051;">등록</a>
-										</div>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${post.REGDATE}" />
+									</p>
+									<input type="text" name="reply_content" id="reply_content"
+										style="width: 100%; height: 100px;" />
+									<div class="reply-btn">
+										<a class="genric-btn primary small" id="reply_submit"
+											style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px; background-color: #57c051;">등록</a>
 									</div>
 								</div>
 							</div>
-						<div class="panel-footer">
-						
 						</div>
-						</div>
+					</div>
+
+					<div class="comments-area">
+						<!-- 댓글 -->
+						<h4 id="getComments"></h4>
+						<div class="comment-list-show"></div>
+					</div>
+
+					<div class="panel-footer"></div>
 
 					<!-- 이전글 다음글 버튼 -->
 					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
@@ -251,11 +248,13 @@ border: #f7f7ff
 					<!-- 이전글 다음글 버튼 끝 -->
 
 					<!-- 수정, 삭제, 목록보기 버튼 -->
-					<div style="width: 100%;">
+					<div style="width: 100%; text-align: center;">
 						<div class="button-group-area mt-40">
 							<a href="/community_modify.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>" id="modify_post"
-								class="genric-btn primary radius" style="background-color: #57c051; margin-left: 40%;">수정</a> <a id="delete_post"
+								class="genric-btn primary radius" style="background-color: #57c051;">수정</a> <a id="delete_post"
 								class="genric-btn primary radius" style="background-color: #f44a40;" >삭제</a>
+							<a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>" 
+							id="go_list" class="genric-btn primary radius">목록</a>
 						</div>
 					</div>
 					<!-- 수정, 삭제, 목록보기 버튼 끝 -->
@@ -562,21 +561,21 @@ border: #f7f7ff
 				next = true;
 			}
 			
-			var str = "<ul class='pagination pull-right'>";
+			var str = "<ul class='pagination'>";
 			
 			if(prev){
-				str += "<li class = 'page-item'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a></li>";
+				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a></li>";
 			}
 			
 			for(var i = startNum ; i<= endNum; i++){
 				
 				var active = pageNum == i ? "active":"";
 				
-				str += "<li class='page-item " + active + " '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+				str += "<li class='page-item " + active + " ' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+i+"'>"+i+"</a></li>";
 			}
 			
 			if(next){
-				str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1) +"'>Next</a></li>";
+				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+(endNum + 1) +"'>Next</a></li>";
 			}
 			
 			str += "</ul></div>";
