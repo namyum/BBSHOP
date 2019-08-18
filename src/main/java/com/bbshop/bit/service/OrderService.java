@@ -17,7 +17,7 @@ public interface OrderService {
 	
 	// 지수 카트
 	
-	public List<Cart_GDVO> getCheckedCartList(String[] goods_num_list);
+	public List<Cart_GDVO> getCheckedCartList(String[] goods_num_list, long user_key);
 	
 	public Gd_GloveVO getOptionListGlove(long gd_details);
 	

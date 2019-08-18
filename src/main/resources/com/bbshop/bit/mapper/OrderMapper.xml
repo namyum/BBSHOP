@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		<foreach collection="array" item="goods_num" open="(" close=")" separator=",">
 		#{goods_num}
 		</foreach> 
+		and user_key = #{user_key}
 	</select>
 	
 	<select id="getOptionListGlove" resultType = "com.bbshop.bit.domain.Gd_GloveVO">
