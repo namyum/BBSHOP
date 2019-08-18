@@ -17,7 +17,7 @@ import com.bbshop.bit.domain.Order_GDVO;
 public interface OrderMapper {
 	
 	// 지수 장바구니
-	public List<Cart_GDVO> getCheckedCartList(String[] goods_num_list, long user_key);
+	public List<Cart_GDVO> getCheckedCartList(@Param("goods_num_list") String[] goods_num_list, @Param("user_key") long user_key);
 	
 	public Gd_GloveVO getOptionListGlove(long gd_details);
 	
