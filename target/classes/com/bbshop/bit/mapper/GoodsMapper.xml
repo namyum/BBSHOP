@@ -120,7 +120,7 @@
 	</selectKey>
 
 	insert into qna
-	values(#{qna_num}, #{title}, #{content}, #{attached_file}, sysdate, #{goods_num}, #{user_key}, #{qna_num}, 0, 0)
+	values(#{qna_num}, #{title}, #{content}, #{attached_file}, sysdate, #{goods_num}, #{user_key}, 1, 0, 0)
 </insert>
 
 
