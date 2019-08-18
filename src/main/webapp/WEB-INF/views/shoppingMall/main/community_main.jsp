@@ -47,7 +47,7 @@
 					<td><div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 							data-aos="fade-up">
 							<a href="/community_list.do?TEAM_NAME=kbo"><img
-								src="resources/community/img/kbo_logo2.png"
+								src="resources/community/img/kbo_main.png"
 								alt="Image placeholder" class="img-fluid rounded"
 								style="width: 200px; height: 200px; margin-bottom: 0px; margin-left: 45px;">
 							</a>
