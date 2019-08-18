@@ -4,6 +4,30 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.default:hover{
+border: 1px solid #57c051;
+background: #57c051;
+color: #ffffff;
+}
+.genric-btn.default{
+background: #57c051;
+color: #ffffff;
+}
+.genric-btn.danger{
+font-size: 14px;
+borer: 1px solid #f44a40;
+}
+.genric-btn.danger:hover{
+color:#ffffff;
+background: #f44a40;
+}
+.page-item.active .page-link{
+background-color: #57c051;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+background-color: #57c051;
+border-color: #57c051;
+}
 .goods {
 	width: 50px;
 	height: 30px;
@@ -80,16 +104,16 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문번호</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문일자</th>
-					<th scope="col" style="font-weight: bold;">주문목록</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">결제금액</th>
-					<th scope="col" style="width: 10%; font-weight: bold;">주문상태</th>
-					<th scope="col" style="width: 15%; font-weight: bold;">배송현황</th>
-					<th scope="col" style="width: 15%; font-weight: bold;">주문취소</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문번호</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문일자</th>
+					<th scope="col" style="font-weight: bold; text-align: center;">주문목록</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">결제금액</th>
+					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문상태</th>
+					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">배송현황</th>
+					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">주문취소</th>
 				</tr>
 			</thead>
-			<tbody id="order_table">
+			<tbody id="order_table" style="text-align: center;">
 			</tbody>
 		</table>
 		<div class="text-center">
@@ -120,6 +144,7 @@
 	var order_name = '';
 	var order_msg = '';
 	var receiver = '';
+	var or_addr = '';
 
 	// 주문 취소
 	function fn_cancel_order(order_num) {
@@ -161,6 +186,7 @@
 				list.push('${orderVO.name}')
 				list.push('${orderVO.or_msg}')
 				list.push('${orderVO.receiver}');
+				list.push('${orderVO.or_addr}');
 			}
 			
 		</c:forEach>
@@ -171,6 +197,7 @@
 		order_name = list[3];
 		order_msg = list[4];
 		receiver = list[5];
+		or_addr = list[6];
 	}
 	
 	// 주문 목록 모달 처리
@@ -184,6 +211,7 @@
 			$('#orderer').val(order_name);
 			$('#order_notes').html(order_msg);
 			$('#receiver').val(receiver);
+			$('#address').val(or_addr);
 		});
 
 	});
@@ -269,9 +297,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();
@@ -301,9 +329,7 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-			    
 			},
-			
 			error: function() {
 			
 				alert('ajax 에러!');
@@ -311,7 +337,7 @@
 		});
 	}
 	
-	// 페이지가 로드되면 주문/배송 전체 리스트 불러오기
+	// 페이지가 로드되면 주문/배송 전체 리스트 불러오는 부분
 	$(document).ready(function() {
 		
 		var data = {
@@ -360,7 +386,8 @@
 						
 					} else {
 						
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
 				
@@ -476,9 +503,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+							+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();

@@ -407,7 +407,7 @@ body {
 	vertical-align: bottom;
 	display: inline-block;
 	zoom: 1;
-	*display: inline;
+	display: inline;
 }
 .plan-mouseover .plan-name {
 	background-color: #4e9a06 !important;
@@ -612,7 +612,7 @@ body {
 		</div>
 		
 		<!-- total -->
-		<div class="miniCart_total" style="display: flex;">
+		<div class="miniCart_total" style="display: flex; margin-bottom: 10px;">
 			<h2 style="color: black; font-weight: bold;">총 상품금액 :</h2>
 			&emsp;&emsp;
 			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
@@ -649,7 +649,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq_list.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->

@@ -21,6 +21,8 @@ import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.SavingsVO;
+import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 import com.bbshop.bit.service.KakaoPayService;
@@ -50,10 +52,11 @@ public class OrderController {
 	private KakaoPayService kakaopay;
 	
 	// 회원 user_key를 가져오기 위한 HttpSession
+	@Autowired
 	private HttpSession session;
 	
-	@Autowired(required=true)
 	// 회원 주소록을 가져오기 위한 MyPageService
+	@Autowired(required=true)
 	MyPageService mypageService;
 	
 	List<GoodsVO> goodsList;
@@ -108,10 +111,8 @@ public class OrderController {
 		cartList.add(orderGood);
 		
 		int allPrice = orderGood.getTOTALPRICE();
-
 		
-//		long user_key = (long)session.getAttribute("user_key");
-		long user_key = 950131;
+		long user_key = (long)session.getAttribute("member");
 		MemberVO user = memberService.getMemberInfo(user_key);
 		
 		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
@@ -137,8 +138,7 @@ public class OrderController {
 			
 			String[] goods_num_list = list.split(",");
 			
-//			long user_key = (long)session.getAttribute("user_key");
-			long user_key = 1;
+			long user_key = (long)session.getAttribute("member");
 			MemberVO user = memberService.getMemberInfo(user_key);
 			
 			goodsList = new ArrayList<GoodsVO>();
@@ -212,96 +212,296 @@ public class OrderController {
     }
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
-    public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, HttpSession session) {
-        System.out.println("kakaoPay post............................................");
-		/*
-		 long user_key = (long)session.getAttribute("user_key");
-		 String nickname = (String)session.getAttribute("nickname");
-		 
-		 // 비회원
-		 if(nickname.substring(0,9).equals("noAccount")) {
-		 	// alert("로그인이 필요합니다.");
-		 }
-		 else{
-		 	long user_key = (long)session.getAttribute("user_key");
-		 	qna.setUser_key(user_key);
-		 	}
-		 */
-        
-		String[] goods_num_list = list.split(",");
-		int allPrice = 0;
-		
-        order.setUser_key(1);
-        int res = orderService.insertOrder(order);
-        
-        if(res == 1) {
-        	System.out.println("주문이 등록되었습니다.");
-        } else {
-        	System.out.println("주문 등록에 실패했습니다.");
-        }
-        
-        long order_num = orderService.getLastOrderNum(order.getUser_key());
-		
-		goodsList = new ArrayList<GoodsVO>();
-		
-		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
-		cartList = orderService.getCheckedCartList(goods_num_list);
-		
-		// goods 가져와서 goodsList에 넣어주는 부분
-		 for (String goods_num : goods_num_list ){
-			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-		 }
-		 
-		// 총 결제 금액 구하는 과정
-		for (int i = 0; i < cartList.size(); i++) {
-			Cart_GDVO temp = cartList.get(i);
-			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
-			allPrice += cartList.get(i).getTOTALPRICE();
-		}
-		
-        
-        return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num);
+    public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, 
+    		@RequestParam("shipping_fee") int shipping_fee) {
+    	System.out.println("kakaoPay post............................................");
+
+    	long user_key = (long)session.getAttribute("member");
+    	String nickname = (String)session.getAttribute("nickname");
+
+    	String[] goods_num_list = list.split(",");
+    	int allPrice = (int)order.getPymntamnt();
+
+    	order.setUser_key(user_key);
+
+    	goodsList = new ArrayList<GoodsVO>();
+
+    	// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
+    	cartList = orderService.getCheckedCartList(goods_num_list);
+
+    	// goods 가져와서 goodsList에 넣어주는 부분
+    	for (String goods_num : goods_num_list ){
+    		goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+    	}
+
+    	// 한가지 상품을 구매하는 경우 -> 상품명. 한가지 이상의 상품을 구매하는 경우 -> 1상품명 + 외 n개
+    	if(goods_num_list.length == 1) {
+    		order.setItems(goodsList.get(0).getName());
+    	} else {
+    		order.setItems(goodsList.get(0).getName()+"외"+((goods_num_list.length)-1)+"개");
+    	}
+
+    	// 주문 등록
+    	int res = orderService.insertOrder(order);
+
+    	if(res == 1) {
+    		System.out.println("주문이 등록되었습니다.");
+    	} else {
+    		System.out.println("주문 등록에 실패했습니다.");
+    	}
+
+    	// 방금 order테이블에 insert한 order_num
+    	long order_num = orderService.getLastOrderNum(order.getUser_key());
+
+    	return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee, order.getUser_key());
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,
-    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, @RequestParam("order_num") long order_num) {
+    		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, 
+    		@RequestParam("order_num") long order_num, @RequestParam("shipping_fee") int shipping_fee) {
     	System.out.println("kakaoPaySuccess get............................................");
-    	
-    	System.out.println("order_num="+order_num);
 
     	String[] goods_num_list = list.split(",");
-		
-		goodsList = new ArrayList<GoodsVO>();
-		
-		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
-		cartList = orderService.getCheckedCartList(goods_num_list);
-		
-		// goods 가져와서 goodsList에 넣어주는 부분
-		 for (String goods_num : goods_num_list ){
-			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-		 }   	
-		 
-		for (int i = 0; i < cartList.size(); i++) {
-			Cart_GDVO temp = cartList.get(i);
-			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
-		}
 
-    	model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, allPrice));
+    	goodsList = new ArrayList<GoodsVO>();
+    	int totalPrice = 0;
+
+    	// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
+    	cartList = orderService.getCheckedCartList(goods_num_list);
+
+    	// goods 가져와서 goodsList에 넣어주는 부분
+    	for (String goods_num : goods_num_list ){
+    		goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+    	}   	
+
+    	// 각 상품별 결제 금액 set
+    	for (int i = 0; i < cartList.size(); i++) {
+    		Cart_GDVO temp = cartList.get(i);
+    		temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+    		cartList.set(i, temp);
+    		totalPrice += cartList.get(i).getTOTALPRICE();
+    	}
+
+    	OrderVO order = orderService.getOrderList(order_num);
+    	String[] addr_list = order.getOr_addr().split(",");
+
+    	// 주문한 개수만큼 재고에서 빼기
+    	for(int i=0; i<goodsList.size();i++) {
+    		switch(goodsList.get(i).getCategory()) {
+
+    		// 글러브
+    		case 1 : 
+    			orderService.updateGloveStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+    			break;
+
+    			// 배트
+    		case 2 : 
+    			orderService.updateBatStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+    			break;
+
+    			// 유니폼
+    		case 3 : 
+    			orderService.updateUniformStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+    			break;
+
+    			// 야구화
+    		case 4 : 
+    			orderService.updateShoesStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+    			break;
+
+    			// 야구공
+    		case 5 : 
+    			orderService.updateBallStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+    			break;
+    		}
+    		System.out.println("재고 업데이트 완료!");
+    	}
+
+    	// 주문 성공시, 적립금 추가 및 누적 금액 변화, 그에 따른 등급 변화
+    	long user_key = (long)session.getAttribute("member");
+    	MemberVO user = memberService.getMemberInfo(user_key);
+
+    	// 주문한 상품의 이름 바인딩
+    	String order_items = goodsList.get(0).getName();
+
+    	long savings_curr = 0;
+    	int total_buy_curr = user.getTOTAL_BUY();
+    	String grade_curr = user.getGRADE();
+    	long savings_used = 0; // 임시로 사용한 적립금 변수를 만듬. 아직 미구현.
+
+    	// 등급에 따른 적립금 업데이트
+    	if (grade_curr.equals("bronze")) {
+    		savings_curr = ((long)allPrice / 100) * 3;
+    	} else if (grade_curr.equals("silver")) {
+    		savings_curr = ((long)allPrice / 100) * 5;
+    	} else if (grade_curr.equals("gold")) {
+    		savings_curr = ((long)allPrice / 100) * 7;
+    	} else {
+    		savings_curr = ((long)allPrice / 100) * 10;
+    	}
+
+    	user.setSAVINGS(user.getSAVINGS() + savings_curr);
+
+    	// 적립금 테이블 insert
+    	SavingsVO savings = new SavingsVO(savings_curr, order_num, savings_used, order_items);
+    	mypageService.insertSavings(savings, user_key);
+
+    	// 누적 금액 업데이트
+    	total_buy_curr += allPrice;
+    	user.setTOTAL_BUY(total_buy_curr);
+
+    	// 등급 업데이트
+    	if (total_buy_curr < 200000) {	
+    		user.setGRADE("bronze");
+    	} else if (total_buy_curr < 500000) {
+    		user.setGRADE("silver");
+    	} else if (total_buy_curr < 1000000) {
+    		user.setGRADE("gold");
+    	} else {
+    		user.setGRADE("diamond");
+    	}
+
+    	memberService.updateMemberInfoAfterOrder(user);
+
+    	// order_gd 테이블에 insert!
+    	for(int i=0;i<cartList.size();i++) {
+    		Order_GDVO order_gd = new Order_GDVO();
+    		order_gd.setPrice(cartList.get(i).getTOTALPRICE());
+    		order_gd.setQntty(cartList.get(i).getQNTTY());
+    		order_gd.setSavings(cartList.get(i).getSAVINGS());
+    		order_gd.setOrder_num(order_num);
+    		order_gd.setGoods_num(cartList.get(i).getGOODS_NUM());
+    		order_gd.setGd_details(cartList.get(i).getGD_DETAILS());
+
+    		orderService.insertOrderGD(order_gd);
+    	}
+
+    	// kakaoPayInfo로부터 return 받는 tid를 update
+    	int res = orderService.updateTid(kakaopay.kakaoPayInfo(pg_token, allPrice, order_num, order.getUser_key()).getTid(), order_num);
+
+    	if(res == 1) {
+    		System.out.println("tid가 업데이트 되었습니다.");
+    	} else {
+    		System.out.println("tid 업데이트에 실패했습니다.");
+    	}
+
     	model.addAttribute("goodsList",goodsList);
-		model.addAttribute("orderList",cartList);
-    	
+    	model.addAttribute("orderList",cartList);
+    	model.addAttribute("order",order);
+    	model.addAttribute("addr_list",addr_list);
+    	model.addAttribute("shipping_fee",shipping_fee);
+    	model.addAttribute("totalPrice",totalPrice);
+
     	return "shoppingMall/order/order_confirmation";
+
+    }
+    
+    // 카카오페이 결제 시도 실패 시
+    @RequestMapping("/pay.do")
+    public String pay(@RequestParam("order_num") long order_num) {
+    	System.out.println("결제 실패");
+    	
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";
         
     }
     
-    // 뷰 생성 예정
-    @RequestMapping("/pay.do")
-    public String pay() {
-    	System.out.println("결제 실패");
+    // 사용자 측에서 결제 중 취소 시
+    @RequestMapping("/kakaoPayCancel.do")
+    public String kakaoPayCancel(@RequestParam("order_num") long order_num) {
+    	System.out.println("결제 취소");
     	
-    	return " ";
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";
         
     }
-
+    
+    // 시간초과 등으로 인한 fail
+    @RequestMapping("/kakaoPaySuccessFail.do")
+    public String kakaoPaySuccessFail(@RequestParam("order_num") long order_num) {
+    	System.out.println("결제 오류");
+    	
+    	int res = orderService.deleteOrder(order_num);
+    	
+    	if(res == 1) {
+    		System.out.println("삭제 완료");
+    	} else {
+    		System.out.println("삭제 실패");
+    	}
+    	
+    	return "shoppingMall/main/shopping_main";  
+    }
+    
+    // 사용자가 결제 이후 취소 시
+    @RequestMapping("/kakaoPayCancelOrder.do")
+    public String kakaoPayCancelOrder(@RequestParam("order_num") long order_num,
+    		Model model) {
+    	System.out.println("결제건을 취소합니다");
+    	
+    	OrderVO order = orderService.getOrderList(order_num);
+    	
+    	int allPrice = (int)order.getPymntamnt();
+    	
+    	String[] addr_list = order.getOr_addr().split(",");
+    	
+    	// 주문 취소 시 주문 상태 = 취소, 주문_취소 = 취소 o 로 변경
+    	orderService.updateCancelStts(order_num);
+    	
+    	// 결제 취소한 상품의 개수만큼 재고 추가 -> 나중 구현
+    	/*
+    	for(int i=0; i<goodsList.size();i++) {
+			switch(goodsList.get(i).getCategory()) {
+			
+			// 글러브
+			case 1 : 
+				orderService.updateGloveStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 배트
+			case 2 : 
+				orderService.updateBatStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 유니폼
+			case 3 : 
+				orderService.updateUniformStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구화
+			case 4 : 
+				orderService.updateShoesStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구공
+			case 5 : 
+				orderService.updateBallStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			}
+			System.out.println("재고 업데이트 완료!");
+		}
+		*/
+    	
+    	
+    	// 결제 취소하려는 주문의 tid와 구매 가격이 일치해야 취소 가능
+    	model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
+    	model.addAttribute("order",order);
+    	model.addAttribute("addr_list",addr_list);
+    	
+    	return "shoppingMall/order/order_cancellation";  
+    }
 }

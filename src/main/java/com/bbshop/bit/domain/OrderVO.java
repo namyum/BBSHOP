@@ -2,6 +2,9 @@ package com.bbshop.bit.domain;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class OrderVO {
 
 	private long order_num;
@@ -20,6 +23,7 @@ public class OrderVO {
 	private String name; // 주문자
 	private String items; // 추가: 주문내역
 	private String receiver; // 추가: 수취인
+	private String tid; // 추가: 19/08/17 카카오페이 결제시 필요
 	
 	public long getOrder_num() {
 		return order_num;
@@ -117,6 +121,12 @@ public class OrderVO {
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 	
 	@Override
 	public String toString() {
@@ -125,6 +135,4 @@ public class OrderVO {
 				+ ", or_date=" + or_date + ", stts=" + stts + ", ship_nmbr=" + ship_nmbr + ", ship_date=" + ship_date
 				+ ", user_key=" + user_key + ", name=" + name + ", items=" + items + ", receiver=" + receiver + "]";
 	}
-	
-	
 }

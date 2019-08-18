@@ -4,6 +4,10 @@
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+.genric-btn.primary:hover{
+color: #ffffff;
+border: 1px solid #ffffff;
+}
 .page-item.active .page-link{
 background-color: #57c051;
 }
@@ -146,48 +150,47 @@ $(document).ready(function(){
 			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
 			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;" >전체보기</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
 			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">변경/취소</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
 			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">교환/반품</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
 			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">주문/조회</a>
 		<a href="#" class="genric-btn primary radius"
-			style="background: #a0a0a0; color: #ffffff; font-weight: bold; width:19.6%;
+			style="background: #57c051; color: #ffffff; font-weight: bold; width:19.6%;
 			padding-right: 0px;margin-right: 0px;border-right-width: 0px;padding-left: 0px; border-left-width: 0px; margin-left: 0px;">상품문의</a>
 	</div>
 	
-	<div class="button-group-area" style="margin-bottom: 20px; text-align: center;">
+	<div class="button-group-area" style="margin-bottom: 20px; text-align: center; margin-top:10px;">
 	<div class="order_details_table" style="margin-top: 0px; padding: 0px;">
 		<!-- <h2 style="text-align: center;">고객센터</h2> -->
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-					<tr style="background: #9FC197;">
+					<tr style="background: #ffffff; color: #000000;">
 						<th style="width: 20%" scope="col">번호</th>
 						<th style="width: 20%"scope="col">카테고리</th>
 						<th style="width: 60%; text-align: center" scope="col">제목</th>
 					</tr>
 				</thead>
-				
+				<tbody>
 				<c:forEach items="${list}" var="FAQ">
 				<tr>
 					<td><c:out value="${FAQ.FAQ_NUM}" /></td>
 					<td><c:out value="${FAQ.FAQ_CATEGORY}" /></td>
 					<td><a class='move' href='<c:out value="${FAQ.FAQ_NUM}"/>'>
 					<c:out value="${FAQ.SUBJECT}" /></a></td>
-					
 				</tr>
-
 				</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</div>
 	
    <table class="paging_area"
-      style="width: 1200px; margin-left: auto; margin-right: auto;">
+      style="width: 1140px; margin-left: auto; margin-right: auto;">
       <tr>
          <td style="padding-left: 370px;">
          
@@ -264,7 +267,6 @@ $(document).ready(function(){
          </td>
       </tr>
    </table>
-   </div>
    </div>
    </div>
 

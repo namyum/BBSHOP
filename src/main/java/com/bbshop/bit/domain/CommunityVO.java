@@ -18,8 +18,5 @@ public class CommunityVO {
 	private Date MODDATE;
 	private long REPLY_COUNT;	 // 댓글 개수
 	private long REPORT_NUM;	
-	private long USER_KEY;	
-	private long SEQ;	
-	private long LEV;	
-	private long DEP;
+	private long USER_KEY;
 }

@@ -69,4 +69,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	from sh_user
 	where user_key = #{user_key}
 </select>
+
+<update id="updateMemberInfoAfterOrder">
+	UPDATE sh_user 
+	SET 
+		savings = #{SAVINGS},
+		total_buy = #{TOTAL_BUY},
+		grade = #{GRADE}
+	WHERE user_key = #{USER_KEY}
+</update>
 </mapper>

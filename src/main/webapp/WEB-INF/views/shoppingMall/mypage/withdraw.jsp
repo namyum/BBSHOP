@@ -5,9 +5,11 @@
 <style>
 .genric-btn.default{
 	background: #57c051;
+	color:#ffffff;
 }
 .genric-btn.default:hover{
-	background: #ffffff;
+	background: #57c051;
+	color:#ffffff;;
 }
 .generic-blockquote{
 border-left: none;
@@ -16,7 +18,7 @@ border-left: none;
 <div class="container">
 
 	<div class="section-top-border">
-		<h3 class="mb-30 title_color" style="font-size: 30px;">회원 탈퇴 신청</h3>
+		<h3 class="mb-30 title_color" style="font-size: 30px; text-align: center;">회원 탈퇴 신청</h3>
 		<div class="row">
 			<div class="col-lg-12">
 				<blockquote class="generic-blockquote" style="padding-left:0px;margin-bottom: 0px;padding-bottom: 0px;">

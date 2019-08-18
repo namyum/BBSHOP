@@ -37,7 +37,7 @@
 <body>
 	<section class="section visit-section" id="next-section">
 		<div
-			style="background-color: #70e270; width: 100%; min-height: 200px;">
+			style="background-color: #57c051; width: 100%; min-height: 200px;">
 			<table align="center">
 				<!-- 전체 게시판으로 이동 -->
 				<tr>
@@ -47,7 +47,7 @@
 					<td><div class="col-lg-2.5 col-md-5.5 visit mb-2.5"
 							data-aos="fade-up">
 							<a href="/community_list.do?TEAM_NAME=kbo"><img
-								src="resources/community/img/kbo_main.png"
+								src="resources/community/img/kbo_logo2.png"
 								alt="Image placeholder" class="img-fluid rounded"
 								style="width: 200px; height: 200px; margin-bottom: 0px; margin-left: 45px;">
 							</a>

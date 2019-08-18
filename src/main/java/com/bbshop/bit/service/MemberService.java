@@ -21,4 +21,7 @@ public interface MemberService {
 	public String memberPw(MemberVO member);
 	
 	public MemberVO getMemberInfo(long user_key);
+	
+	// 주문 후에 회원 정보 업데이트
+	public void updateMemberInfoAfterOrder(MemberVO user);
 }

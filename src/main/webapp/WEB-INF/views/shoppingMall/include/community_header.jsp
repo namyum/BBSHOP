@@ -108,7 +108,7 @@ body {
 					<ul class="right_side">
 						<li><a href="/savings.do"> 마이페이지 </a></li>
 						<li><a href="/shopping_main.do"> 쇼핑몰 </a></li>
-						<li><a href="/faq.do"> 고객센터 </a></li>
+						<li><a href="/faq_list.do"> 고객센터 </a></li>
 					</ul>
 				</div>
 			</div>

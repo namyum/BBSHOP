@@ -28,6 +28,229 @@
 a {
 	text-decoration: none;
 }
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	color: #933835;
+	text-decoration: none;
+}
+
+.pricing-table-title {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 2.6em;
+	color: #63676c;
+	margin-top: 15px;
+	text-align: left;
+	margin-bottom: 25px;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table-title a {
+	font-size: 0.6em;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	height: 0;
+	width: 0;
+	clear: both;
+}
+/** ========================
+ * Contenedor
+ ============================*/
+.pricing-wrapper {
+	width: 100%;
+	margin: 20px auto 0;
+	font-size: 62.5%;
+	font-family: font-family: 'Montserrat', sans-serif;
+}
+
+.pricing-table {
+	margin: 0 10px;
+	text-align: center;
+	width: 23%;
+	float: left;
+	-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.4);
+	box-shadow: 0 0 15px rgba(0,0,0,0.4);
+	-webkit-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.pricing-table:hover {
+	-webkit-transform: scale(1.06);
+	-ms-transform: scale(1.06);
+	-o-transform: scale(1.06);
+	transform: scale(1.06);
+}
+
+.pricing-title {
+	color: #403E3D;
+	background: #cd7f32;
+	padding: 20px 0;
+	font-size: 2em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+#silvercolor {
+  background-color:#c0c0c0;
+}
+
+.pricing-table.recommended .pricing-title {
+	background: #ffd700;
+}
+
+.pricing-table.recommended .pricing-action {
+	background: #ffd700;
+}
+
+.pricing-table .price {
+	background: #e9efec;
+	font-size: 2.6em;
+	font-weight: 700;
+	padding: 20px 0;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table .price sup {
+	font-size: 0.5em;
+	position: relative;
+	left: 5px;
+}
+
+.table-list {
+	background: #FFF;
+	color: #403d3a;
+}
+
+.table-list li {
+	font-size: 1.4em;
+	font-weight: 700;
+	padding: 12px 8px;
+}
+
+.table-list li:before {
+	content: "\f00c";
+	font-family: 'FontAwesome';
+	color: #3fab91;
+	display: inline-block;
+	position: relative;
+	right: 5px;
+	font-size: 16px;
+} 
+
+.table-list li span {
+	font-weight: 400;
+  	color: #3fab91
+}
+
+
+
+.table-list li:nth-child(2n) {
+	background: #F0F0F0;
+}
+
+.table-buy {
+	background: #FFF;
+	padding: 15px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.table-buy p {
+	float: left;
+	color: #37353a;
+	font-weight: 700;
+	font-size: 2.4em;
+}
+
+.table-buy p sup {
+	font-size: 0.5em;
+	position: relative;
+	left: 5px;
+}
+
+.table-buy .pricing-action {
+	float: right;
+	color: #FFF;
+	background: #403E3D;
+	padding: 10px 16px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-weight: 700;
+	font-size: 1.4em;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+	-webkit-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.table-buy .pricing-action:hover {
+	background: #cf4f3e;
+}
+
+.recommended .table-buy .pricing-action:hover {
+	background: #228799;	
+}
+
+/** ================
+ * Responsive
+ ===================*/
+ @media only screen and (min-width: 768px) and (max-width: 959px) {
+ 	.pricing-wrapper {
+ 		width: 768px;
+ 	}
+
+ 	.pricing-table {
+ 		width: 236px;
+ 	}
+	
+	.table-list li {
+		font-size: 1.3em;
+	}
+
+ }
+
+ @media only screen and (max-width: 767px) {
+ 	.pricing-wrapper {
+ 		width: 420px;
+ 	}
+
+ 	.pricing-table {
+ 		display: block;
+ 		float: none;
+ 		margin: 0 0 20px 0;
+ 		width: 80%;
+ 	}
+ }
+
+@media only screen and (max-width: 479px) {
+	.pricing-wrapper {
+		width: 300px;
+	}
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 100%;
+    margin: 30px auto;
+  }
+}
 </style>
 <div class="container">
 	<div class="section-top-border" style="display: flex;">
@@ -36,8 +259,8 @@ a {
 			<aside class="single_sidebar_widget author_widget"
 				style="color: white;">
 				<p></p>
-				<h4>강민구</h4>
-				<p>mangoJuiceDeli</p>
+				<h4>${user.NICKNAME }</h4>
+				<p>${user.MEMBER_ID }</p>
 				<br> <br>
 				<div class="br"></div>
 			</aside>
@@ -54,7 +277,14 @@ a {
 						<i class="fas fa-won-sign"></i>
 					</p>
 					<span>보유 적립금</span>
-					<h4>￦ ${savings_list["0"].or_savings_total }</h4>
+					<h4>
+						<c:choose>
+						<c:when test="${savings_list['0'].or_savings_total eq null}">
+						￦ 0
+						</c:when>
+						<c:otherwise>￦ ${savings_list['0'].or_savings_total}</c:otherwise>
+						</c:choose>
+					</h4>
 				</div>
 				<div class="col-md-4" style="color: white;">
 					<p>
@@ -73,7 +303,20 @@ a {
 					<i class="fas fa-medal"></i>
 				</p>
 				<span>회원 등급</span>
-				<h1 style="margin-top: 10px; color: #abae46;">Gold</h1>
+				<c:choose>
+					<c:when test="${user.GRADE eq 'bronze'}">
+						<h1 style="margin-top: 10px; color: #cd7f32;">${user.GRADE }</h1>
+					</c:when>
+					<c:when test="${user.GRADE eq 'silver'}">
+						<h1 style="margin-top: 10px; color: #29a1bc;">${user.GRADE }</h1>
+					</c:when>
+					<c:when test="${user.GRADE eq 'gold'}">
+						<h1 style="margin-top: 10px; color: #ffd700;">${user.GRADE }</h1>
+					</c:when>
+					<c:otherwise>
+						<h1 style="margin-top: 10px; color: #b9f2ff;">${user.GRADE }</h1>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div style="padding: 30px; background: #b7d2b1; height: 150px;">
 				<p>
@@ -82,8 +325,8 @@ a {
 				<h4>
 					<span>멤버십 혜택 안내</span>
 				</h4>
-				<span><a href="#" style="color: #777777;" data-toggle="tooltip" data-placement="bottom"
-							title="멤버십 등급 및 혜택 출력 될 것임">자세히 보기</a></span>
+				<span><a href="#" style="color: #777777;" data-toggle="modal" 
+				data-target="#exampleModal">자세히 보기</a></span>
 			</div>
 		</div>
 		<div class="col-sm-3 col-md-3 text-center"
@@ -92,17 +335,17 @@ a {
 				<div class="blog_info text-center">
 					<ul class="blog_meta list" style="clear: both">
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="2019/07/12"><span>가입일</span> <i
-								class="lnr lnr-calendar-full"></i> </a></li>
+							title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>"><span>가입일</span>
+								<i class="lnr lnr-calendar-full"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ 50,000"><span>누적 구매액</span> <i class="lnr lnr-eye"></i>
-						</a></li>
+							title="￦ ${user.TOTAL_BUY }"><span>누적 구매액</span> <i
+								class="lnr lnr-eye"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ 25,000"><span>다음 등급까지 남은 구매액</span> <i
+							title="￦ ${pymnt_toNextGrade }"><span>다음 등급까지 남은 구매액</span> <i
 								class="lnr lnr-bubble"></i> </a></li>
 						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="회원님은 경고 횟수 0회 입니다."><span>누적 경고</span> <i
-								class="lnr lnr-user"></i> </a></li>
+							title="회원님은 경고 횟수 ${user.CAUTION } 회 입니다."><span>누적 경고</span>
+								<i class="lnr lnr-user"></i> </a></li>
 					</ul>
 				</div>
 			</div>
@@ -113,8 +356,7 @@ a {
 		<div class="areaBox">
 			<div class="myOrderBox">
 				<div class="myOrderCon" style="border-right:none; border-left:none; border-bottom:none; border-top:none;">
-					<div class="row"
-						style="width: 1000px; margin: 0 auto; padding-left: 100px">
+					<div class="row" style="width: 1000px; margin: 0 auto; padding-left: 100px">
 
 						<div class="col-sm-2 col-md-2"
 							style="width: 150px; text-align: center;">
@@ -229,6 +471,79 @@ a {
 			</form>
 		</div>
 	</div>
+
+	<!-- 멤버십 모달 -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="pricing-wrapper clearfix">
+						<!-- Title -->
+						<h1 class="pricing-table-title">멤버십 안내</h1>
+
+						<div class="pricing-table">
+							<h3 class="pricing-title">브론즈</h3>
+							<div class="price">
+								￦ 0<sup> / 누적 금액</sup>
+							</div>
+
+							<!-- Characteristics-->
+							<ul class="table-list">
+								<li>적립 : 구매 금액의 3%</li>
+								<li>할인 : 상품 금액의 3%</li>
+							</ul>
+						</div>
+
+						<!-- Second -->
+						<div class="pricing-table">
+							<h3 class="pricing-title" id="silvercolor">실버</h3>
+							<div class="price">
+								￦ 200,000<sup> / 누적 금액</sup>
+							</div>
+							<!-- Characteristics -->
+							<ul class="table-list">
+								<li>적립 : 구매 금액의 5%</li>
+								<li>할인 : 상품 금액의 5%</li>
+							</ul>
+						</div>
+						<!-- gold grade -->
+						<div class="pricing-table recommended">
+							<h3 class="pricing-title">골드</h3>
+							<div class="price">
+								￦ 500,000<sup> / 누적 금액</sup>
+							</div>
+							<!-- Characteristics-->
+							<ul class="table-list" style="margin-bottom: 0px;">
+								<li>적립 : 구매 금액의 7%</li>
+								<li>할인 : 상품 금액의 7%</li>
+								<li>배송비 <span>무료</span></li>
+							</ul>
+						</div>
+						<div class="pricing-table">
+							<h3 class="pricing-title" style="background-color: #b9f2ff;">다이아</h3>
+							<div class="price">
+								￦ 1,000,000<sup> / 누적 금액</sup>
+							</div>
+							<!-- Characteristics -->
+							<ul class="table-list">
+								<li>적립 : 구매 금액의 10%</li>
+								<li>할인 : 상품 금액의 10%</li>
+								<li>배송비 <span>무료</span></li>
+								<li>분기별 <span>야구 관람권</span> 증정
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 멤버십 모달 끝 -->
 </div>
 
 <script type="text/javascript">
@@ -240,7 +555,6 @@ a {
 		
 		var amount = actionForm.find("input[name='amount']").val();
 		var pageNum = actionForm.find("input[name='pageNum']").val();
-
 		var data = {
 			pageNum : pageNum,
 			amount : amount
@@ -256,14 +570,13 @@ a {
 
 				var start = ${pageMaker.startPage};
 				var end = ${pageMaker.endPage};
-				
 				var str = '';
 				var paging = '';
 
 				$.each(result, function(index, value) {
 
 					str += '<tr><td><h5>' + result[index].or_date
-							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + result[index].order_items
 							+ '</h5></td><td><h5>' + '￦ '
 							+ result[index].or_savings + '</h5></td><td><h5>'
 							+ '￦ ' + result[index].or_savings_total
@@ -326,7 +639,7 @@ a {
 				$.each(result, function(index, value) {
 
 					str += '<tr><td><h5>' + result[index].or_date
-							+ '</h5></td><td><h5>' + result[index].or_items
+							+ '</h5></td><td><h5>' + result[index].order_items
 							+ '</h5></td><td><h5>' + '￦ '
 							+ result[index].or_savings + '</h5></td><td><h5>'
 							+ '￦ ' + result[index].or_savings_total

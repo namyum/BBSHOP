@@ -5,6 +5,22 @@
 <%@ include file="../include/shopping_header.jsp" %>
 
 <style>
+
+.main_btn{
+background: #57c051;
+border: 1px solid #57c051;
+}
+.main_btn:hover{
+background:#57c051;
+}
+.genric-btn.default{
+background: #57c051;
+color:#ffffff;
+border: 1px solid #57c051;
+}
+.genric-btn.default:hover{
+background: #57c051;
+}
 body {
    font-weight: bold;
    font-size: 17px;
@@ -90,7 +106,7 @@ li, a {
    <!--================Home Banner Area =================-->
    <section class="banner_area">
       <div class="banner_inner d-flex align-items-center"
-         style="background-color: #70e270;">
+         style="background-color: #57c051;">
          <div class="container">
             <div class="banner_content text-center">
                <h2 style="color: white;">주문하기</h2>
@@ -105,7 +121,7 @@ li, a {
    <!--================End Home Banner Area =================-->
 
    <!--================Order Area =================-->
-   <section class="order_area">
+   <section class="order_area" style="padding-top:0px;">
       <div class="container">
          <div class="cart_inner">
             <h3>
@@ -303,7 +319,7 @@ li, a {
                            placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="phone2" placeholder="연락처2">
+                        <input type="text" class="form-control" id="phone2" placeholder="추가 연락처를 입력해주세요.">
                      </div>
                      <div class="col-md-12 form-group">
                         <input type="text" class="form-control" id="id"
@@ -323,7 +339,7 @@ li, a {
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="deli_phone1"
-                           name="phone" placeholder="연락처1">
+                           name="phone1" placeholder="연락처1">
                      </div>
                      <div class="col-md-6 form-group p_star">
                         <input type="text" class="form-control" id="deli_phone2"
@@ -346,7 +362,7 @@ li, a {
                               <td><p style="font-weight:bold; color:black;">주소</p></td>
                            </tr>
                            <tr>
-                              <td><input type="text" class="form-control" id="zipcode_input" style="width: 100px;"></td>
+                              <td><input type="text" class="form-control" id="zipcode_input" style="width: 100px;" readonly></td>
                               <td><a href="javascript:execDaumPostcode()"
                      class="genric-btn default radius"> <span
                      style="font-weight: bold;">우편번호 검색</span></a></td>
@@ -354,14 +370,15 @@ li, a {
                         </table>
                      </div>
                      <div class="col-md-7 form-group p_star">
-                        <input type="text" class="form-control" id="addr1" placeholder="도로명 주소">
+                        <input type="text" class="form-control" id="addr1" placeholder="기본 주소">
                      </div>
                      <div class="col-md-5 form-group p_star">
                         <input type="text" class="form-control" id="addr2" placeholder="상세 주소">
                      </div>
                      <!-- hidden form -->
-                     <input type="hidden" name="or_addr" value=""/>
+                     <input type="hidden" name="or_addr" id="or_addr"/>
                      <input type="hidden" name="pymntamnt" value="${allPrice}"/>
+                     <input type="hidden" name="shipping_fee" value="${shipping_fee}"/>
                      <div class="col-md-12 form-group">
                         <textarea class="form-control" name="or_msg" id="msg" rows="1" placeholder="주문메세지"></textarea>
                      </div>
@@ -398,7 +415,6 @@ li, a {
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
                               src="resources/shoppingMall/img/product/single-product/kakaopay.jpg"
                               alt="" style="width:70px;height:30px;">
-                           <input type="hidden" name="pymntmthd" value="kakaoPay"/>
                            <div class="check"></div>
                         </div>
                      </div>
@@ -406,7 +422,7 @@ li, a {
                         <input type="checkbox" id="payAgree"> <label
                            for="f-option4" style="font-size:17px; font-weight:bold;">구매 진행에 동의합니다.(필수)</label>
                      </div>
-                     <a class="main_btn" onclick="goPay(this)">결제하기</a>
+                     <a class="main_btn" onclick="goPay(this)" style="color:#ffffff;">결제하기</a>
                   </div>
                </div>
             </div>
@@ -622,8 +638,8 @@ li, a {
       }
       // 구매 동의 체크박스가 선택되었는지 확인
       function goPay(button) {
-         
         var goods_num = new Array();
+        var addrList = new Array();
          
          if (payAgree.checked == false) {
             alert('구매 동의 체크박스가 선택되어야 합니다.');
@@ -633,39 +649,17 @@ li, a {
                 var num = $(this).val();
                 goods_num.push(num);
           });
-            alert(goods_num);
           $("#GOODS_NUM_LIST").val(goods_num);
+          
+          // 우편번호+주소1+주소2를 합쳐서 or_addr에 저장한다.
+          addrList.push($("#zipcode_input").val()+" ");
+          addrList.push($("#addr1").val()+" ");
+          addrList.push($("#addr2").val());
+          $("#or_addr").val(addrList);
           $("#orderInfo").submit();
          }
       }
-      
-      function getForm(){
-         
-         var nameList = new Array();
-         
-          var form = $('<form></form>');
-           form.attr('action', url);
-           form.attr('method', 'post');
-           form.appendTo('body');
-           $("input[name='name']").each(function(){
-              var name = $(this).val();
-              nameList.push(name);
-           });
-           alert(nameList);
-      }
-           
-   //             var num = $(this).val();
-      //          goods_num.push(num);
-      //    });
-    //       var idx = $("<input type='hidden' value="+idx+" name='idx'>");
-    //       var pwd = $("<input type='hidden' value="+pw+" name='password'>");
-    //       var mode = $("<input type='hidden' value='educomPw' name='mode'>");
-    //       form.append(idx);
-    //       form.append(pwd);
-    //       form.append(mode);
-   //        form.submit();
-           
-      
+               
       // 우편주소검색 창 띄우기
       function openZipcode(joinform) {
          var url = "/zipcode"
