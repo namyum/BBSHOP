@@ -2,6 +2,7 @@ package com.bbshop.bit.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.service.AdminService;
 
 @Controller
@@ -281,7 +283,22 @@ public class AdminController {
 	
 
 	@RequestMapping("refund.do")
-	public String refund() {
+	public String refund(Model model) {
+		
+		List<Order_GDVO> order_gd_list = adminService.getRtrnExchnOrderGD();
+		List<String> user_id_list = new ArrayList<String>();
+		List<Date> ship_date = new ArrayList<Date>();
+		
+		// 교환/환불 신청 상태인 회원의 아이디와 배송날짜 불러오기
+		for(int i=0;i<order_gd_list.size();i++) {
+			user_id_list.add(adminService.getRtrnExchnMemberId(order_gd_list.get(i).getOr_gd_key()));
+			ship_date.add(adminService.getShipDate(order_gd_list.get(i).getOrder_num()));
+		}
+		
+		model.addAttribute("order_gd_list", order_gd_list);
+		model.addAttribute("user_id_list", user_id_list);
+		model.addAttribute("ship_date", ship_date);
+		
 		return "shoppingMall/admin/refund";
 	}
 

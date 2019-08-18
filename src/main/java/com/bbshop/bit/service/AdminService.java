@@ -1,11 +1,13 @@
 package com.bbshop.bit.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface AdminService {
 
@@ -20,4 +22,7 @@ public interface AdminService {
 	public void ModifyFAQ(FAQVO faq);
 	public List<OrderVO> getAllOrders();
 	public String getUserId(long user_key);
+	public List<Order_GDVO> getRtrnExchnOrderGD();
+	public String getRtrnExchnMemberId(long or_gd_key);
+	public Date getShipDate(long order_num);
 }

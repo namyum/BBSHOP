@@ -1,5 +1,6 @@
 package com.bbshop.bit.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface AdminMapper {
 
@@ -35,4 +37,7 @@ public interface AdminMapper {
 	public void ModifyFAQ(FAQVO faq);
 	public List<OrderVO> getAllOrders();
 	public String getUserId(long user_key);
+	public List<Order_GDVO> getRtrnExchnOrderGD();
+	public String getRtrnExchnMemberId(long or_gd_key);
+	public Date getShipDate(long order_num);
 }
