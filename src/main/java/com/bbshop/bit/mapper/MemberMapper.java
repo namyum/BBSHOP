@@ -16,4 +16,6 @@ public interface MemberMapper {
 	public int getId(MemberVO vo);
 	public int getNickname(MemberVO vo);
 	public MemberVO getMemberInfo(long user_key);
+	
+	public void updateMemberInfoAfterOrder(MemberVO member);
 }

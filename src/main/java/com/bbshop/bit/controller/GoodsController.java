@@ -315,7 +315,6 @@ public class GoodsController {
 
 		return "shoppingMall/main/shopping_main";
 	}
-
 	
 	@RequestMapping("addGoodsToCart.do")
 	@ResponseBody

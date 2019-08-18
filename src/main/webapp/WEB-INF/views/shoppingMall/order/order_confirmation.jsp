@@ -45,38 +45,38 @@ body {
 						<ul class="list">
 							<li>
 								<a href="#none">
-									<span>주문 번호</span> : 60235</a>
+									<span>주문 번호</span> : ${order.order_num}</a>
 							</li>
 							<li>
 								<a>
-									<span>주문 날짜</span> : <fmt:formatDate pattern="yyyy-MM-dd" value="${info.approved_at}" /></a>
+									<span>주문 날짜</span> : ${order.or_date}</a>
 							</li>
 							<li>
 								<a href="#none">
-									<span>총 결제금액</span> : ${info.amount.total}</a>
+									<span>총 결제금액</span> : ${order.pymntamnt}</a>
 							</li>
 							<li>
 								<a href="#none">
-									<span>결제 방식</span> : 카카오페이</a>
+									<span>결제 방식</span> : ${order.pymntmthd}</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4">
-					<div class="details_item" style="background-color:#b7d2b1; height:162px;">
+					<div class="details_item" style="background-color:#b7d2b1; height:162px; width:400px;">
 						<h4>배송 정보</h4>
 						<ul class="list">
 							<li>
 								<a href="#none">
-									<span>우편번호</span> : 123-456</a>
+									<span>우편번호</span> : ${addr_list[0]}</a>
 							</li>
 							<li>
 								<a href="#none">
-									<span>주소</span> : 주소시 주소구 주소동 123</a>
+									<span>주소</span> : ${addr_list[1]}</a>
 							</li>
 							<li>
 								<a href="#none">
-									<span>상세주소</span> : 1234호</a>
+									<span>상세주소</span> : ${addr_list[2]}</a>
 							</li>
 						</ul>
 					</div>
@@ -115,7 +115,7 @@ body {
 									<h5></h5>
 								</td>
 								<td>
-									<p style="text-align:center;"></p>
+									<p style="text-align:center;">${totalPrice}</p>
 								</td>
 							</tr>
 							<tr>
@@ -126,7 +126,7 @@ body {
 									<h5></h5>
 								</td>
 								<td>
-									<p style="text-align:center;">0원</p>
+									<p style="text-align:center;">${shipping_fee}</p>
 								</td>
 							</tr>
 							<tr>
@@ -137,7 +137,7 @@ body {
 									<h5></h5>
 								</td>
 								<td>
-									<p style="text-align:center;">${info.amount.total}</p>
+									<p style="text-align:center;">${order.pymntamnt}</p>
 								</td>
 							</tr>
 						</tbody>

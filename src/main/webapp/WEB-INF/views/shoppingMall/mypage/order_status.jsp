@@ -120,6 +120,7 @@
 	var order_name = '';
 	var order_msg = '';
 	var receiver = '';
+	var or_addr = '';
 
 	// 주문 취소
 	function fn_cancel_order(order_num) {
@@ -161,6 +162,7 @@
 				list.push('${orderVO.name}')
 				list.push('${orderVO.or_msg}')
 				list.push('${orderVO.receiver}');
+				list.push('${orderVO.or_addr}');
 			}
 			
 		</c:forEach>
@@ -171,6 +173,7 @@
 		order_name = list[3];
 		order_msg = list[4];
 		receiver = list[5];
+		or_addr = list[6];
 	}
 	
 	// 주문 목록 모달 처리
@@ -184,6 +187,7 @@
 			$('#orderer').val(order_name);
 			$('#order_notes').html(order_msg);
 			$('#receiver').val(receiver);
+			$('#address').val(or_addr);
 		});
 
 	});
@@ -269,9 +273,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();
@@ -301,9 +305,7 @@
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-			    
 			},
-			
 			error: function() {
 			
 				alert('ajax 에러!');
@@ -311,7 +313,7 @@
 		});
 	}
 	
-	// 페이지가 로드되면 주문/배송 전체 리스트 불러오기
+	// 페이지가 로드되면 주문/배송 전체 리스트 불러오는 부분
 	$(document).ready(function() {
 		
 		var data = {
@@ -360,7 +362,8 @@
 						
 					} else {
 						
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
+						+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
 				
@@ -476,9 +479,9 @@
 							
 					} else {
 							
-						str += '</td></tr>';
+						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+							+ '<span>주문 취소</span></button></td></tr>';
 					}
-					
 				});
 				
 				$('#order_table').empty();

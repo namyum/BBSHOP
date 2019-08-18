@@ -277,9 +277,11 @@
 								<div class="p-3 p-lg-2 border">
 									<table class="table site-block-order-table mb-5">
 										<thead>
-											<th>상품</th>
-											<th>수량</th>
-											<th>금액</th>
+											<tr>
+												<th>상품</th>
+												<th>수량</th>
+												<th>금액</th>
+											</tr>
 										</thead>
 										<tbody>
 											<tr>

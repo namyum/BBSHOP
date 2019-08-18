@@ -505,7 +505,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/faq.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq_list.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->

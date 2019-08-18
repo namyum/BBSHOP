@@ -112,6 +112,7 @@ body{font-family:NanumBarunpen, sans-serif}
 
 								<input type="hidden" value="${goodsList[status.index].goods_num}" id="GOODS_NUM${status.index}"/>
 								<input type="hidden" name="GOODS_NUM_LIST" id="GOODS_NUM_LIST"/>
+								<input type="hidden" name="order_name" id="order_name" value="${goodsList[status.index].name}">
 								</td>
 								<td>
 											<img src="<c:out value='${goodsList[status.index].main_img}'/>" width="145" height="98" alt="">
@@ -239,12 +240,7 @@ body{font-family:NanumBarunpen, sans-serif}
 											<a class="main_btn" onclick="getProduct(${status.index})">결제하기</a>
 											
 											<a class="genric-btn default-border radius e-large" href="/goods_list.do">계속 쇼핑하기</a>
-										</div>
-											
-								
-							
-							
-							
+										</div>		
 				</div>
 			</div>
 		</div>
@@ -281,6 +277,15 @@ body{font-family:NanumBarunpen, sans-serif}
 		          var id = $("#GOODS_NUM"+num[1]).val();
 		          product.push(id);
 		    });
+		    
+		    // 상품 체크 하지 않았을 시 경고창
+		    if (!product[0]) {
+		    	
+		    	alert('결제하실 상품을 선택해주세요.');
+		    	return false;
+		    }
+		    
+		    console.log('product : ' + product);
 		    
 		    $("#GOODS_NUM_LIST").val(product);
 		    $("#orderForm").submit();

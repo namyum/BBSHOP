@@ -2,6 +2,8 @@ package com.bbshop.bit.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
@@ -9,6 +11,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface OrderService {
 	
@@ -29,6 +32,24 @@ public interface OrderService {
 	public int insertOrder(OrderVO order);
 	
 	public long getLastOrderNum(long user_key);
+	
+	public OrderVO getOrderList(long order_num);
+	
+	public int updateGloveStock(int qntty, long glove_num);
+	
+	public int updateBatStock(int qntty, long bat_num);
+	
+	public int updateUniformStock(int qntty, long uniform_num);
+	
+	public int updateShoesStock(int qntty, long shoes_num);
+	
+	public int updateBallStock(int qntty, long ball_num);
+	
+	public int deleteOrder(long order_num);
+	
+	public int updateTid(String tid, long order_num);
+	
+	public int insertOrderGD(Order_GDVO order_gd);
 	
 	// 의정 단일상품
 

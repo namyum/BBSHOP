@@ -127,7 +127,7 @@ public class MemberController {
 		else {
 			System.out.println("아이디가 없으니 이쪽으로 들어오니??");
 			vo.setMEMBER_PW("kakao");
-			vo.setGRADE("silver");
+			vo.setGRADE("bronze");
 			vo.setNAME(vo.getNICKNAME());
 			vo.setPHONE("kakao");
 			
@@ -140,7 +140,7 @@ public class MemberController {
 	
 	@RequestMapping(value="register.do",method=RequestMethod.POST)
 	public String register(Model model, MemberVO vo, HttpServletRequest request) {
-		vo.setGRADE("silver");
+		vo.setGRADE("bronze");
 		System.out.println(vo.toString());
 			
 		try {
@@ -166,7 +166,7 @@ public class MemberController {
 	@RequestMapping(value="moredetails.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String moredetails(MemberVO vo, MoreDetailsVO md, HttpServletRequest request) {
 				
-		vo.setGRADE("silver"); // 등급 설정
+		vo.setGRADE("bronze"); // 등급 설정
 		
 		System.out.println("moredetails 컨트롤러에서의 vo : " + vo.toString());
 		System.out.println("moredetails 컨트롤러에서의 md : " + md.toString());

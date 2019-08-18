@@ -388,6 +388,7 @@ body {
 				// 댓글이 없는 경우
 				if(list == null || list.length == 0){
 					replyDIV.html("<p style='text-align:center;'>등록된 댓글이 없습니다.</p>");
+					totalCommentNumH4.empty();
 					return;
 				}
 				for(var i = 0, len = list.length || 0; i < len; i++){
