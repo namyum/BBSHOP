@@ -159,9 +159,9 @@ public class OrderController {
 			allPrice = totalPrice + shipping_fee;
 			
 			// goods 가져와서 goodsList에 넣어주는 부분
-			for (String goods_num : goods_num_list ){
-				goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
-			}
+			 for (String goods_num : goods_num_list ){
+				 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+			 }
 			 
 			// 상품 옵션 불러오는 부분
 			for(int i=0; i<goodsList.size();i++) {
@@ -192,9 +192,8 @@ public class OrderController {
 					optionList.add(orderService.getOptionListBall(cartList.get(i).getGD_DETAILS()));
 					break;
 				}
+
 			}
-			
-			List<AddrVO> userAddr = mypageService.getAddrList(user_key);
 
 			model.addAttribute("goodsList",goodsList);
 			model.addAttribute("orderList",cartList);
@@ -202,7 +201,6 @@ public class OrderController {
 			model.addAttribute("totalPrice",totalPrice);
 			model.addAttribute("allPrice",allPrice);
 			model.addAttribute("shipping_fee", shipping_fee);
-			model.addAttribute("userAddr", userAddr);
 			model.addAttribute("user", user);
 			
 			return "shoppingMall/order/order";
@@ -457,12 +455,53 @@ public class OrderController {
     	
     	OrderVO order = orderService.getOrderList(order_num);
     	
-    	System.out.println("order="+order.toString());
-    	
     	int allPrice = (int)order.getPymntamnt();
-    	//model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
-    	System.out.println("info="+kakaopay.kakaoPayCancel(allPrice, order.getTid()));
     	
-    	return "shoppingMall/main/shopping_main";  
+    	String[] addr_list = order.getOr_addr().split(",");
+    	
+    	// 주문 취소 시 주문 상태 = 취소, 주문_취소 = 취소 o 로 변경
+    	orderService.updateCancelStts(order_num);
+    	
+    	// 결제 취소한 상품의 개수만큼 재고 추가 -> 나중 구현
+    	/*
+    	for(int i=0; i<goodsList.size();i++) {
+			switch(goodsList.get(i).getCategory()) {
+			
+			// 글러브
+			case 1 : 
+				orderService.updateGloveStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 배트
+			case 2 : 
+				orderService.updateBatStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			
+			// 유니폼
+			case 3 : 
+				orderService.updateUniformStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구화
+			case 4 : 
+				orderService.updateShoesStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+				
+			// 야구공
+			case 5 : 
+				orderService.updateBallStock(cartList.get(i).getQNTTY(), cartList.get(i).getGD_DETAILS());
+				break;
+			}
+			System.out.println("재고 업데이트 완료!");
+		}
+		*/
+    	
+    	
+    	// 결제 취소하려는 주문의 tid와 구매 가격이 일치해야 취소 가능
+    	model.addAttribute("info", kakaopay.kakaoPayCancel(allPrice, order.getTid()));
+    	model.addAttribute("order",order);
+    	model.addAttribute("addr_list",addr_list);
+    	
+    	return "shoppingMall/order/order_cancellation";  
     }
 }

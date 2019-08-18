@@ -122,7 +122,7 @@ body{font-family:NanumBarunpen, sans-serif}
 					<table class="table">
 						<thead>
 							<tr>
-								<th width="4%"><input type='checkbox' class='check' id='check_all'></th>
+								<th width="4%"><input type='checkbox' class='check' id='check_all' checked="checked"></th>
 								<th scope="col" >GoodsNum</th>
 								<th scope="col" style="width:4%" >Photo</th>
 								<th style='text-align:center' scope="col">Product</th>
@@ -137,7 +137,7 @@ body{font-family:NanumBarunpen, sans-serif}
 				
 							<tr>
 								<td>
-								<input type='checkbox' class='check' name='checking' id='pd_check${status.index}'>
+								<input type='checkbox' class='check' name='checking' id='pd_check${status.index}' checked="checked">
 								</td>
 								
 								<td><h5>${goodsList[status.index].goods_num}</h5>
@@ -303,23 +303,20 @@ body{font-family:NanumBarunpen, sans-serif}
 		function getProduct(){
 			var product = new Array();
 			
-		    $("input[name='checking']:checked").each(function() {
-		          var num = $(this).attr('id').split('check');
-		          var id = $("#GOODS_NUM"+num[1]).val();
-		          product.push(id);
-		    });
-		    
-		    // 상품 체크 하지 않았을 시 경고창
-		    if (!product[0]) {
-		    	
-		    	alert('결제하실 상품을 선택해주세요.');
-		    	return false;
-		    }
-		    
-		    console.log('product : ' + product);
-		    
-		    $("#GOODS_NUM_LIST").val(product);
-		    $("#orderForm").submit();
+			if($("input:checkbox[name='checking']").is(":checked") == false){
+				alert('구매하실 상품을 체크해주세요.')
+				return false;
+			} else{
+			
+		  	  $("input[name='checking']:checked").each(function() {
+			          var num = $(this).attr('id').split('check');
+			          var id = $("#GOODS_NUM"+num[1]).val();
+			          product.push(id);
+			    });
+
+			    $("#GOODS_NUM_LIST").val(product);
+			    $("#orderForm").submit();
+				}
 		}
 		
 		// 상품 금액 * 수량을 계산한 totalPrice를 controller에 배열 형태로 보내준다.

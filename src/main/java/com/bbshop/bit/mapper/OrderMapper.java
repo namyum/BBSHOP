@@ -17,8 +17,11 @@ import com.bbshop.bit.domain.Order_GDVO;
 public interface OrderMapper {
 	
 	// 지수 장바구니
+	
+	// 장바구니 목록 중 체크된 상품 불러오기
 	public List<Cart_GDVO> getCheckedCartList(String[] goods_num_list);
 	
+	// 상품 상세 옵션 불러오기
 	public Gd_GloveVO getOptionListGlove(long gd_details);
 	
 	public Gd_BatVO getOptionListBat(long gd_details);
@@ -29,12 +32,18 @@ public interface OrderMapper {
 	
 	public Gd_BallVO getOptionListBall(long gd_details);
 	
+	// 오더 테이블 관련
 	public int insertOrder(OrderVO order);
 	
 	public long getLastOrderNum(long user_key);
 	
 	public OrderVO getOrderList(long order_num);
 	
+	public int deleteOrder(long order_num);
+	
+	public int updateCancelStts(long order_num);
+	
+	// 재고 관련
 	public int updateGloveStock(@Param("QNTTY") int qntty,
 			@Param("GLOVE_NUM") long glove_num);
 	
@@ -50,11 +59,30 @@ public interface OrderMapper {
 	public int updateBallStock(@Param("QNTTY") int qntty,
 			@Param("BALL_NUM") long ball_num);
 	
-	public int deleteOrder(long order_num);
+	public int updateCancledGloveStock(@Param("QNTTY") int qntty,
+			@Param("GLOVE_NUM") long glove_num);
 	
+	public int updateCancledBatStock(@Param("QNTTY") int qntty,
+			@Param("BAT_NUM") long bat_num);
+	
+	public int updateCancledUniformStock(@Param("QNTTY") int qntty,
+			@Param("UNIFORM_NUM") long uniform_num);
+	
+	public int updateCancledShoesStock(@Param("QNTTY") int qntty,
+			@Param("SHOES_NUM") long shoes_num);
+	
+	public int updateCancledBallStock(@Param("QNTTY") int qntty,
+			@Param("BALL_NUM") long ball_num);
+	
+	// goods 테이블에 판매 수량 업데이트
+	public int updateGoodsSales(@Param("qntty") int qntty,
+			@Param("goods_num") long goods_num);
+	
+	// tid 값 추가
 	public int updateTid(@Param("tid") String tid,
 			@Param("order_num") long order_num);
 	
+	// 주문_상품별 테이블에 insert
 	public int insertOrderGD(Order_GDVO order_gd);
 
 	// 의정 단일상품
