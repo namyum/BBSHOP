@@ -123,7 +123,7 @@ function goodsList_Ajax() {
 				<div class="banner_content text-center">
 					<h2>${categoryString }</h2>	<!-- 카테고리(String) 출력 -->
 					<div class="page_link">
-						<a href="/shopping_main">쇼핑몰</a>
+						<a href="/shopping_main.do">쇼핑몰</a>
 						<!-- url에 카테고리값 전달, view에 카테고리(String) 출력 -->
 						<a href="/goods_list.do?category=${categoryInt }">${categoryString }</a>
 					</div>
@@ -147,6 +147,9 @@ function goodsList_Ajax() {
 								<option id="lowPrice" 	value="lowPrice">낮은가격</option>
 								<option id="highPrice" 	value="highPrice">높은가격</option>
 							</select>
+							<form id="sortingForm">
+								<input type="hidden" name="sorting" value="">
+							</form>
 						</div>
 						<!-- end 정렬 -->
 						<!-- price bar -->

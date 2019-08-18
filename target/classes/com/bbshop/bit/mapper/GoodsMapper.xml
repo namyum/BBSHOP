@@ -15,8 +15,7 @@
 		</if>
 		<if test='positions != null and positions.size != 0'>
 			AND gg.position IN
-			<foreach item="val" index="index" collection="positions"
-				open="(" separator="," close=")">
+			<foreach item="val" index="index" collection="positions" open="(" separator="," close=")">
 				#{val}
 			</foreach>
 		</if>
@@ -59,22 +58,22 @@
 	SELECT *
 	FROM 
 		(
-		SELECT ROWNUM RN, goods_num, category, name, main_img, price, best, regdate
+		SELECT ROWNUM RN, goods_num, category, name, brand, main_img, price, best, regdate
 		FROM (
 ]]>
 			<include refid="criteria"></include>
 <![CDATA[	
 			)
 		WHERE ROWNUM <= #{pagingVO.pageNum, jdbcType=INTEGER} * #{pagingVO.amount, jdbcType=INTEGER}
-		AND PRICE >= #{min_amount, jdbcType=INTEGER}
-		AND PRICE <= #{max_amount, jdbcType=INTEGER}
 ]]>
 		<if test='category != null and category != 0'>
 		AND CATEGORY = #{category, jdbcType=INTEGER}
 		</if>
-		)
 <![CDATA[
-	WHERE rn > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
+		AND PRICE >= #{min_amount, jdbcType=INTEGER}
+		AND PRICE <= #{max_amount, jdbcType=INTEGER}
+		)
+	WHERE RN > (#{pagingVO.pageNum, jdbcType=INTEGER}-1) * #{pagingVO.amount, jdbcType=INTEGER}
 ]]>	
 </select>
 

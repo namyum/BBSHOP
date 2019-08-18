@@ -63,9 +63,6 @@ public class GoodsController {
 		
 		System.out.println("컨트롤러에서의 category : " + category);
 		
-		// String id = (String)session.getAttribute("id");
-		// id = "noAccount";
-		
 		model.addAttribute("categoryInt", category);
 		model.addAttribute("categoryString", service.category(category));
 		
@@ -112,10 +109,6 @@ public class GoodsController {
 			max_amount = (String)map.get("max_amount");
 		}
 		
-		if (map.get("search") != null) {
-			search = (String)map.get("search");
-		}
-		
 		List<String> positions_list = new ArrayList<String>();
 		List<String> colors_list = new ArrayList<String>();
 		List<String> brands_list = new ArrayList<String>();
@@ -127,8 +120,8 @@ public class GoodsController {
 			pagingVO.setKeyword(search);
 		}
 		
-		if (map.get("postions") != null) {
-			positions_list = (List<String>)map.get("postions");
+		if (map.get("positions") != null) {
+			positions_list = (List<String>)map.get("positions");
 		}
 		
 		if (map.get("colors") != null) {
@@ -139,8 +132,9 @@ public class GoodsController {
 			brands_list = (List<String>)map.get("brands");
 		}
 		
-		int total = service.getTotalCountAjax(category, pagingVO, sorting, min_amount, max_amount, 
-				positions_list, colors_list, brands_list);
+// 구현은 민구님이 하셨으나, total을 쓰는곳이 없어서 노란줄떠있길래 주석처리 하였습니다.
+//		int total = service.getTotalCountAjax(category, pagingVO, sorting, min_amount, max_amount, 
+//				positions_list, colors_list, brands_list);
 		
 		
 		// 상세 검색이 아니면 빈 배열을 넘긴다.
