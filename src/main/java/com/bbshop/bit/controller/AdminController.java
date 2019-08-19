@@ -29,6 +29,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.service.AdminService;
@@ -46,7 +47,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("userlist.do")
-	public String userList() {
+	public String userList(Model model) {
+		
+		List<MemberVO> userList = adminService.getAllMembers();
+		
+		model.addAttribute("userList", userList);
+		
 		return "shoppingMall/admin/userlist";
 	}
 

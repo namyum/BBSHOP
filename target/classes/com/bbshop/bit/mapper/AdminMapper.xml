@@ -187,6 +187,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	WHERE order_num = #{order_num}
 </select>
 
+<select id="getAllMembers" resultType="com.bbshop.bit.domain.MemberVO">
+	SELECT *
+	FROM sh_user
+	ORDER BY caution DESC
+</select>
+
 
 
 </mapper>

@@ -16,6 +16,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.mapper.AdminMapper;
@@ -269,5 +270,12 @@ public class AdminServiceImpl implements AdminService {
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		
 		return mapper.getShipDate(order_num);
+	}
+	
+	@Override
+	public List<MemberVO> getAllMembers(){
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getAllMembers();
 	}
 }

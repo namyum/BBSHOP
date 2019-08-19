@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
 
@@ -25,4 +26,5 @@ public interface AdminService {
 	public List<Order_GDVO> getRtrnExchnOrderGD();
 	public String getRtrnExchnMemberId(long or_gd_key);
 	public Date getShipDate(long order_num);
+	public List<MemberVO> getAllMembers();
 }
