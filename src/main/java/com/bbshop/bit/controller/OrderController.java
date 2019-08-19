@@ -150,6 +150,88 @@ public class OrderController {
 		return "shoppingMall/order/order";
 	}
 	
+	// 쇼핑몰 - 주문 - 주문하기
+	@RequestMapping("/order_cart.do")
+	public String order_cart(Model model, @RequestParam("GOODS_NUM_LIST") String list, 
+			 @RequestParam("SHIPPING_FEE") int shipping_fee) {
+		
+		String[] goods_num_list = list.split(",");
+		
+		long user_key = (long)session.getAttribute("member");
+		MemberVO user = memberService.getMemberInfo(user_key);
+		
+		goodsList = new ArrayList<GoodsVO>();
+		List<Object> optionList = new ArrayList<Object>();
+		int totalPrice = 0, allPrice = 0;
+		
+		// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
+		cartList = orderService.getCheckedCartList(goods_num_list, user_key);
+		
+		// totalPrice 넣어주는 과정
+		for(int i=0;i<cartList.size();i++) {
+			Cart_GDVO temp = cartList.get(i);
+			temp.setTOTALPRICE(temp.getPRICE()*temp.getQNTTY());
+			cartList.set(i, temp);
+			totalPrice += cartList.get(i).getTOTALPRICE();
+		}
+		
+		allPrice = totalPrice + shipping_fee;
+		
+		// goods 가져와서 goodsList에 넣어주는 부분
+		 for (String goods_num : goods_num_list ){
+			 goodsList.add(cartService.getGoods(Long.parseLong(goods_num)));
+		 }
+		 
+		// 상품 옵션 불러오는 부분
+		for(int i=0; i<goodsList.size();i++) {
+			switch(goodsList.get(i).getCategory()) {
+			
+			// 글러브
+			case 1 : 
+				optionList.add(orderService.getOptionListGlove(cartList.get(i).getGD_DETAILS()));
+				break;
+			
+			// 배트
+			case 2 : 
+				optionList.add(orderService.getOptionListBat(cartList.get(i).getGD_DETAILS()));
+				break;
+			
+			// 유니폼
+			case 3 : 
+				optionList.add(orderService.getOptionListUniform(cartList.get(i).getGD_DETAILS()));
+				break;
+				
+			// 야구화
+			case 4 : 
+				optionList.add(orderService.getOptionListShoes(cartList.get(i).getGD_DETAILS()));
+				break;
+				
+			// 야구공
+			case 5 : 
+				optionList.add(orderService.getOptionListBall(cartList.get(i).getGD_DETAILS()));
+				break;
+			}
+
+		}
+
+		List<AddrVO> userAddr = mypageService.getAddrList(user_key);
+		System.out.println("userAddr.toString() : " + userAddr.toString());
+		
+		model.addAttribute("goodsList",goodsList);
+		model.addAttribute("orderList",cartList);
+		model.addAttribute("optionList", optionList);
+		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("allPrice",allPrice);
+		model.addAttribute("shipping_fee", shipping_fee);
+		model.addAttribute("userAddr", userAddr);
+		model.addAttribute("user", user);
+//		model.addAttribute("from", "cart");
+//		model.addAttribute("qty", "");
+//		model.addAttribute("optionNumber", "");
+		
+		return "shoppingMall/order/order";
+}
+	
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.GET)
     public void kakaoPayGet() {
