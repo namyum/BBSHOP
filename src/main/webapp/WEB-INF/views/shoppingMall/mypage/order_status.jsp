@@ -109,7 +109,7 @@ border-color: #57c051;
 					<th scope="col" style="font-weight: bold; text-align: center;">주문목록</th>
 					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">결제금액</th>
 					<th scope="col" style="width: 10%; font-weight: bold; text-align: center;">주문상태</th>
-					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">배송현황</th>
+					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">주문현황</th>
 					<th scope="col" style="width: 15%; font-weight: bold; text-align: center;">주문취소</th>
 				</tr>
 			</thead>
@@ -243,8 +243,6 @@ border-color: #57c051;
 		data["pageNum"] = pageNum;
 		data["amount"] = amount;
 		
-		console.log('ajax에서 컨트롤러로 보낼 데이터 : ' + data);
-		
 		$.ajax({
 			type: "POST",	    
 			url : "/orderListCheck.do",
@@ -269,16 +267,12 @@ border-color: #57c051;
 				var values = result.orders_list;
 					
 				$.each(values, function(index, value) {
-										
+					
 					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
 					str += '</h5></td><td><h5>';
-					str += '<a href="' + values[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
-					str += ' onclick="showModal(' + cnt + ');">';
-					str += values[index].items + '</a></h5></td><td><h5>';
-					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
-							
-					cnt = cnt + 1;
-					
+					str += values[index].items + '</h5></td><td><h5>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td>';
+												
 					switch(values[index].stts) {
 						
 						case 0 : str += '결제완료'; break;
@@ -288,17 +282,21 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 						
-					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + cnt + ');">';
+					str += '주문 조회</button></td>';
+					
+					cnt = cnt + 1;
 					
 					if (values[index].stts == 0) {
 							
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + values[index].order_num + ')">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + values[index].order_num + ')">'
 						+ '<span>주문 취소</span></button></td></tr>';
 							
 					} else {
 							
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
-						+ '<span>주문 취소</span></button></td></tr>';
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+							+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
 				
@@ -363,10 +361,8 @@ border-color: #57c051;
 										
 					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date;
 					str += '</h5></td><td><h5>';
-					str += '<a href="' + result[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
-					str += ' onclick="showModal(' + index + ');">';
-					str += result[index].items + '</a></h5></td><td><h5>';
-					str += '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
+					str += result[index].items + '</h5></td><td><h5>';
+					str += '￦ ' + result[index].pymntamnt + '</h5></td><td>';
 						
 					switch(result[index].stts) {
 					
@@ -377,16 +373,18 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 					
-					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + index + ');">';
+					str += '주문 조회</button></td>';
 					
 					if (result[index].stts == 0) {
 						
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + result[index].order_num + ')">'
 						+ '<span>주문 취소</span></button></td></tr>';
 						
 					} else {
 						
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
 						+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
@@ -472,19 +470,12 @@ border-color: #57c051;
 				var values = result.orders_list;
 					
 				$.each(values, function(index, value) {
-					
-					console.log(index);
-					
 										
 					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
 					str += '</h5></td><td><h5>';
-					str += '<a href="' + values[index].items + '" data-toggle="modal" data-target="#modal_order_detail" style="color: #222222;"';
-					str += ' onclick="showModal(' + cnt + ');">';
-					str += values[index].items + '</a></h5></td><td><h5>';
-					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
-					
-					cnt = cnt + 1;
-							
+					str += values[index].items + '</h5></td><td><h5>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td>';
+												
 					switch(values[index].stts) {
 						
 						case 0 : str += '결제완료'; break;
@@ -494,16 +485,20 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 						
-					str += '</h5></td><td>' + '<button type="button" id="see_order" class="genric-btn default radius"><span>배송 조회</span></button></td><td>';
+					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += ' onclick="showModal(' + cnt + ');">';
+					str += '주문 조회</button></td>';
+					
+					cnt = cnt + 1;
 					
 					if (values[index].stts == 0) {
 							
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + values[index].order_num + ')">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" onClick="fn_cancel_order(' + values[index].order_num + ')">'
 						+ '<span>주문 취소</span></button></td></tr>';
 							
 					} else {
 							
-						str += 	'<button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
 							+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
@@ -535,9 +530,7 @@ border-color: #57c051;
 				
 				$('.page-item').removeClass("active");
 				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
-			    
 			},
-			
 			error: function() {
 			
 				alert("error = " + errorThrown);
