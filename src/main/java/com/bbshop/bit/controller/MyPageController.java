@@ -174,7 +174,7 @@ public class MyPageController {
 		long user_key = (long)session.getAttribute("member");
 		
 		total = myPageService.getTotal(pagingVO, "review", user_key);
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, user_key);
 		
 		PageDTO pageMaker = new PageDTO(pagingVO, total);
 		
@@ -470,21 +470,21 @@ public class MyPageController {
 				
 		if (category.equals("review")) {
 			
-			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
+			listMap.put("review", myPageService.getReviewList(pagingVO, user_key));
 			listMap.put("total", total);
 			
 			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
-			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
+			listMap.put("qna", myPageService.getQnaList(pagingVO, user_key));
 			listMap.put("total", total);
 
 			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
-			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, user_key));
 			listMap.put("total", total);
 
 			return listMap;
@@ -496,15 +496,15 @@ public class MyPageController {
 			pagingVO.setPageNum(0); // 전체 게시글을 출력하기 위해 pageNum을 0으로 설정한다.
 			
 			total = myPageService.getTotal(pagingVO, "review", user_key);
-			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, user_key);
 			sum += total;
 
 			total = myPageService.getTotal(pagingVO, "qna", user_key);
-			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
+			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, user_key);
 			sum += total;
 			
 			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
+			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, user_key);			
 			sum += total;
 			
 			List<Object> total_list = new ArrayList<Object>();

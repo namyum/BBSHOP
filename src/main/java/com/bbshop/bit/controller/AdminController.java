@@ -430,7 +430,7 @@ public class AdminController {
 
 	@RequestMapping("report.do")
 	public String report() {
-		return "shoppingMall/admin/community_Report";
+		return "shoppingMall/admin/report";
 	}
 
 	@RequestMapping("adminAccount.do")
@@ -438,7 +438,9 @@ public class AdminController {
 		return "shoppingMall/admin/adminAccount";
 	}
 
-	
-	
-	
+	@RequestMapping("admin_chart.do")
+	public String show_admin_chart() {
+		
+		return "shoppingMall/admin/chart";
+	}	
 }

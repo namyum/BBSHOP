@@ -274,7 +274,7 @@ li, a {
                         </c:otherwise>
                    </c:choose>
                         <td>
-                           <h5><c:out value="${order.TOTALPRICE}"/></h5>
+                           <h5><c:out value="${order.TOTALPRICE}"/>원</h5>
                         </td>
                      </tr>
                     
@@ -289,7 +289,7 @@ li, a {
                            <h5>총 상품 금액</h5>
                         </td>
                         <td>
-                           <h5>${totalPrice}원</h5>
+                           <h5>${totalPrice }원</h5>
                         </td>
                      </tr>
                   </tbody>

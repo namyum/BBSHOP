@@ -43,7 +43,7 @@
 		</selectKey>
 		
 		insert into ONETOONE (one_one_num, one_category, one_title, one_file, regdate, seq, lev, dep)
-		values (seq_board.nextval, #{one_one_num},#{one_category},#{one_title},#{one_file}, sysdate,#{seq},#{lev},#{dep})
+		values (seq_board.nextval, #{one_one_num}, #{one_category}, #{one_title}, #{one_file}, sysdate, #{seq}, #{lev}, #{dep})
 	
 	</insert>
 	
