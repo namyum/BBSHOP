@@ -301,11 +301,11 @@ public class MyPageController {
 	
 	// 회원 탈퇴
 	@RequestMapping("/secede.do")
-	public String secede() {
+	public String secede(@RequestParam String reason) {
 		
 		long user_key = (long)session.getAttribute("member");
-
-		myPageService.deleteUserInfo(user_key);
+		
+		myPageService.deleteUserInfo(user_key, reason);
 		
 		return "shoppingMall/main/shopping_main";
 	}
