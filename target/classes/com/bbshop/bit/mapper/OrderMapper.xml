@@ -219,4 +219,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		SALES_UNIT = #{sales_unit}
 </select>
 
+<update id="updateSavings_used">
+	UPDATE savings
+	SET savings_used = savings_used + #{useSavings}
+	WHERE order_num = #{order_num}
+</update>
+
+<update id="update_usedUser_savings">
+	UPDATE sh_user
+	SET savings = savings - #{useSavings}
+	WHERE user_key = #{user_key}
+</update>
+
 </mapper>

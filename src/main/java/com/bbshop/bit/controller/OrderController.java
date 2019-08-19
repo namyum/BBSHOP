@@ -3,6 +3,7 @@ package com.bbshop.bit.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.bbshop.bit.domain.AddrVO;
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.Gd_BallVO;
@@ -21,14 +24,15 @@ import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OrderVO;
-import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.SavingsVO;
 import com.bbshop.bit.service.CartService;
 import com.bbshop.bit.service.GoodsService;
 import com.bbshop.bit.service.KakaoPayService;
 import com.bbshop.bit.service.MemberService;
 import com.bbshop.bit.service.MyPageService;
 import com.bbshop.bit.service.OrderService;
+
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -216,13 +220,14 @@ public class OrderController {
     
     @RequestMapping(value="/kakaoPay.do", method=RequestMethod.POST)
     public String kakaoPay(Model model, OrderVO order, @RequestParam("GOODS_NUM_LIST") String list, 
-    		@RequestParam("shipping_fee") int shipping_fee) {
+    		@RequestParam("shipping_fee") int shipping_fee, @RequestParam("useSavings") long useSavings) {
     	System.out.println("kakaoPay post............................................");
 
     	long user_key = (long)session.getAttribute("member");
     	String nickname = (String)session.getAttribute("nickname");
 
     	String[] goods_num_list = list.split(",");
+    	order.setPymntamnt(order.getPymntamnt() - useSavings);
     	int allPrice = (int)order.getPymntamnt();
 
     	order.setUser_key(user_key);
@@ -256,13 +261,14 @@ public class OrderController {
     	// 방금 order테이블에 insert한 order_num
     	long order_num = orderService.getLastOrderNum(order.getUser_key());
 
-    	return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee, order.getUser_key());
+    	return "redirect:" + kakaopay.kakaoPayReady(goodsList, cartList, allPrice, list, order_num, shipping_fee, order.getUser_key(),useSavings);
     }
     
     @RequestMapping(value="/kakaoPaySuccess.do", method=RequestMethod.GET)
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,
     		@RequestParam("allPrice") int allPrice, @RequestParam("list") String list, 
-    		@RequestParam("order_num") long order_num, @RequestParam("shipping_fee") int shipping_fee) {
+    		@RequestParam("order_num") long order_num, @RequestParam("shipping_fee") int shipping_fee,
+    		@RequestParam("useSavings") long useSavings) {
     	System.out.println("kakaoPaySuccess get............................................");
 
     	String[] goods_num_list = list.split(",");
@@ -388,6 +394,14 @@ public class OrderController {
     	} else {
     		System.out.println("tid 업데이트에 실패했습니다.");
     	}
+    	
+    	// 적립금을 사용한 경우
+    	if(useSavings != 0) {
+    		// savings 테이블 -> savings_used 업데이트
+    		orderService.updateSavings_used(useSavings, order_num);
+    		// sh_user 테이블 -> savings 업데이트
+    		orderService.update_usedUser_savings(useSavings, user_key);
+    	}
 
     	model.addAttribute("goodsList",goodsList);
     	model.addAttribute("orderList",cartList);
@@ -395,6 +409,7 @@ public class OrderController {
     	model.addAttribute("addr_list",addr_list);
     	model.addAttribute("shipping_fee",shipping_fee);
     	model.addAttribute("totalPrice",totalPrice);
+    	model.addAttribute("useSavings", useSavings);
 
     	return "shoppingMall/order/order_confirmation";
 
@@ -507,4 +522,29 @@ public class OrderController {
     	
     	return "shoppingMall/order/order_cancellation";  
     }
+    
+	@ResponseBody
+	@RequestMapping(value="useSavings.do" , method=RequestMethod.GET)
+	public String useSavings(@RequestParam("useSavings") long useSavings, @RequestParam("mySavings") long mySavings,
+			@RequestParam("allPrice") int allPrice, Model model, HttpServletRequest request) {
+		
+		// 1. 총 사용 가능 적립금을 불러온다
+		// 2. 1 - useSavings < 0 -> fail
+		// 3. 사용 가능 시 총 결제금액 - useSavings의 값을 리턴해준다
+		int success = 0;
+		
+		if(mySavings - useSavings < 0) {
+			success = 0;
+		}
+		else {
+			success = 1;
+		}
+		
+		allPrice -= useSavings;
+		
+		if(success == 1) {
+			return Integer.toString(allPrice);
+		} else
+			return Integer.toString(0);
+	}
 }

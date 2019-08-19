@@ -424,7 +424,7 @@ public class AdminController {
 
 	@RequestMapping("report.do")
 	public String report() {
-		return "shoppingMall/admin/report";
+		return "shoppingMall/admin/community_Report";
 	}
 
 	@RequestMapping("adminAccount.do")
