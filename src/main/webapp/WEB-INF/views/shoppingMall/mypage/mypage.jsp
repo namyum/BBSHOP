@@ -314,7 +314,7 @@ a {
 						<h1 style="margin-top: 10px; color: #ffd700;">${user.GRADE }</h1>
 					</c:when>
 					<c:otherwise>
-						<h1 style="margin-top: 10px; color: #b9f2ff;">${user.GRADE }</h1>
+						<h1 style="margin-top: 10px; color: #44a8bf;">${user.GRADE }</h1>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -521,7 +521,7 @@ a {
 							</ul>
 						</div>
 						<div class="pricing-table">
-							<h3 class="pricing-title" style="background-color: #b9f2ff;">다이아</h3>
+							<h3 class="pricing-title" style="background-color: #44a8bf;">다이아</h3>
 							<div class="price">
 								￦ 1,000,000<sup> / 누적 금액</sup>
 							</div>
