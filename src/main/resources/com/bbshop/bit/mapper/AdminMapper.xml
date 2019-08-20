@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<result property ="dtl_img2" column ="dtl_img2"/>
 	<result property ="best" column ="best"/>
 	<result property ="discount" column ="discount"/>
-	<result property ="SAILS" column ="SAILS"/>
+	<result property ="sales" column ="sales"/>
 	<result property ="regdate" column ="regdate"/>
 	<result property ="brand" column ="brand"/>
 </resultMap>
