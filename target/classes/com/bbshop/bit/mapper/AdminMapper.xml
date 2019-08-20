@@ -146,7 +146,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <update id="ModifyFAQ" parameterType="com.bbshop.bit.domain.FAQVO">
 	update service_FAQ set faq_category=#{FAQ_CATEGORY} , subject=#{SUBJECT} , content=#{CONTENT}
 	where faq_num=#{FAQ_NUM}
+</update>
 
+
+<!-- 의정 - 후기관리 -->
+<!-- 후기 목록 출력 -->
+<select id="getReviewList" resultType="com.bbshop.bit.domain.ReviewVO">
+	SELECT *
+	FROM (
+		SELECT /*+INDEX_DESC(review idx_review_regdate) */
+			ROWNUM RN, REVIEW.*
+		FROM REVIEW
+<![CDATA[
+		WHERE ROWNUM <= #{criteria.pageNum} * #{criteria.amount}
+		AND RE_DATE > '19/01/01'
+]]> 	
+		<if test='score != null and score != 0'>
+		WHERE SCORE = #{score}
+		</if>
+		)
+<![CDATA[
+	WHERE RN > #{criteria.pageNum}-1 * #{criteria.amount}
+]]>
+</select>
+<!-- 후기 개수 -->
+<select id="getReviewCount" resultType="int">
+	SELECT COUNT(*)
+	FROM REVIEW
+	<if test='score != null and score != 0'>
+	WHERE SCORE = #{score}
+	</if>
+</select>
+<!-- 후기 목록에 출력할 회원 아이디 -->
+<select id="getID" resultType="String">
+	SELECT MEMBER_ID
+	FROM SH_USER
+	WHERE USER_KEY = #{user_key}
+</select>
+
+<!-- 의정 - 회원관리 - 회원탈퇴 -->
+<!-- 휴면유저 불러오기 -->
+<select id="getDormantUsers" resultType="com.bbshop.bit.domain.DormantUserVO">
+	SELECT rownum rn, x.*
+	FROM (
+		SELECT u.user_key, u.member_id, u.grade, u.flag, w.wi_date, w.reason
+		FROM sh_user u, withdrawal w
+		WHERE u.user_key = w.user_key
+		ORDER BY w.wi_date desc
+		)x
+	WHERE rownum between (#{criteria.pageNum}*#{criteria.amount}-4) and (#{criteria.pageNum}*#{criteria.amount})
+</select>
+<!-- 휴면> 탈퇴 -->
+<update id="modifyFlag">
+	update sh_user set flag = 2
+	where user_key = #{user_key}
 </update>
 
 </mapper>

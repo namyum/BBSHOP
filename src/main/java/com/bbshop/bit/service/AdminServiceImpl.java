@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
@@ -15,6 +17,7 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.mapper.AdminMapper;
 
 @Service("adminService")
@@ -231,5 +234,55 @@ public class AdminServiceImpl implements AdminService {
 			System.out.println("수정 실패");
 		}
 		
+	}
+
+	/* 의정 - 후기관리 */
+	// 후기 목록 출력
+	@Override
+	public List<ReviewVO> getReviewList(Criteria criteria, long score) {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		
+		List<ReviewVO> reviewList = adminMapper.getReviewList(criteria, score);
+		
+		// user_key로 아이디 가져오고 닉네임변수에 넣을거다..(아이디변수 따로 안만드려고..), date는 년/월/일 만 나오게끔 자른다.
+		for(int i=0; i<reviewList.size(); i++) {
+			reviewList.get(i).setNickname(adminMapper.getID(reviewList.get(i).getUser_key()));
+			
+			String re_date = reviewList.get(i).getRe_date().substring(0,10);
+			reviewList.get(i).setRe_date(re_date);
+		}
+		
+		return reviewList;
+	}
+	// 후기 개수
+	@Override
+	public int getReviewCount(long score) {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		return adminMapper.getReviewCount(score);
+	}
+	
+	/* 의정 - 회원관리 - 회원탈퇴 */
+	// 휴면유저 출력
+	@Override
+	public List<DormantUserVO> getDormantUsers(Criteria criteria) {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		
+		List<DormantUserVO> dormantList = adminMapper.getDormantUsers(criteria);
+		
+		// date는 년/월/일 만 나오게끔 자른다.
+		for(int i=0; i<dormantList.size(); i++) {
+			String wi_date = dormantList.get(i).getWI_DATE().substring(0,10);
+			dormantList.get(i).setWI_DATE(wi_date);
+			System.out.println(dormantList.get(i).getMEMBER_ID());
+		}
+
+		return dormantList;
+	}
+	// 휴면 > 탈퇴
+	@Override
+	public void modifyFlag(long user_key) {
+		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
+		
+		adminMapper.modifyFlag(user_key);
 	}
 }
