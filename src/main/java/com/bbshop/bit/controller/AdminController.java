@@ -32,10 +32,13 @@ import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
+import com.bbshop.bit.service.MemberService;
+import com.bbshop.bit.service.MyPageService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -46,6 +49,12 @@ public class AdminController {
 	
 	@Autowired(required=false)
 	AdminService adminService;
+	
+	@Autowired(required=false)
+	MemberService memberService;
+	
+	@Autowired(required=false)
+	MyPageService myPageService;
 	
 	@RequestMapping("admin_main.do")
 	public String admin_main() {
@@ -536,5 +545,21 @@ public class AdminController {
 		
 		return "shoppingMall/admin/chart";
 	}	
-
+	
+	@ResponseBody
+	@RequestMapping(value="getMember.do" , method=RequestMethod.GET)
+	public MemberVO getMember(@RequestParam("user_key") long user_key) {
+		MemberVO member = memberService.getMemberInfo(user_key);
+		
+		return member;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getDetails.do" , method=RequestMethod.GET)
+	public MoreDetailsVO getDetails(@RequestParam("user_key") long user_key) {
+		
+		MoreDetailsVO details = myPageService.getDetail(user_key);
+		
+		return details;
+	}
 }
