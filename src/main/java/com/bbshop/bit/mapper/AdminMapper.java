@@ -1,5 +1,6 @@
 package com.bbshop.bit.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface AdminMapper {
 
@@ -54,4 +57,12 @@ public interface AdminMapper {
 	// 휴면 > 탈퇴
 	public void modifyFlag(@Param("user_key") long user_key);
 	
+
+	/* 지수 - 회원관리 - 회원목록 */
+	public List<OrderVO> getAllOrders();
+	public String getUserId(long user_key);
+	public List<Order_GDVO> getRtrnExchnOrderGD();
+	public String getRtrnExchnMemberId(long or_gd_key);
+	public Date getShipDate(long order_num);
+	public List<MemberVO> getAllMembers();
 }

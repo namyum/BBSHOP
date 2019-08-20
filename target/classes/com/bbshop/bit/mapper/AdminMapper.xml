@@ -202,4 +202,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	where user_key = #{user_key}
 </update>
 
+<select id="getAllOrders" resultType="com.bbshop.bit.domain.OrderVO">
+	SELECT * 
+	FROM shop_order 
+	ORDER BY or_date DESC
+</select>
+
+<select id="getUserId" resultType="String">
+	SELECT member_id
+	FROM sh_user
+	WHERE user_key = #{user_key}
+</select>
+
+<select id="getRtrnExchnOrderGD" resultType="com.bbshop.bit.domain.Order_GDVO">
+	SELECT *
+	FROM order_gd
+	WHERE rtrn_exchn = 1 OR rtrn_exchn = 2
+	ORDER BY rtrn_exchn_date DESC
+</select>
+
+<select id="getRtrnExchnMemberId" resultType="String">
+	SELECT member_id 
+	FROM sh_user WHERE user_key = 
+		(
+        SELECT user_key FROM shop_order 
+        	WHERE order_num = 
+        	(
+            	SELECT order_num FROM order_gd 
+            	WHERE or_gd_key = #{or_gd_key}
+            )
+      	)
+</select>
+
+<select id="getShipDate" resultType="Date">
+	SELECT ship_date 
+	FROM shop_order 
+	WHERE order_num = #{order_num}
+</select>
+
+<select id="getAllMembers" resultType="com.bbshop.bit.domain.MemberVO">
+	SELECT *
+	FROM sh_user
+	ORDER BY caution DESC
+</select>
+
+
+
 </mapper>

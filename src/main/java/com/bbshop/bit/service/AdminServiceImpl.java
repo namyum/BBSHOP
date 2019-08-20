@@ -1,6 +1,7 @@
 package com.bbshop.bit.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,10 @@ import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
+
 import com.bbshop.bit.mapper.AdminMapper;
 
 @Service("adminService")
@@ -284,5 +289,48 @@ public class AdminServiceImpl implements AdminService {
 		AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
 		
 		adminMapper.modifyFlag(user_key);
+	}
+
+	/* 지수 - 회원관리 - 회원목록 */
+	@Override
+	public List<OrderVO> getAllOrders(){
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getAllOrders();
+	}
+	
+	@Override
+	public String getUserId(long user_key) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getUserId(user_key);
+	}
+	
+	@Override
+	public List<Order_GDVO> getRtrnExchnOrderGD() {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getRtrnExchnOrderGD();
+	}
+	
+	@Override
+	public String getRtrnExchnMemberId(long or_gd_key) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getRtrnExchnMemberId(or_gd_key);
+	}
+	
+	@Override
+	public Date getShipDate(long order_num) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getShipDate(order_num);
+	}
+	
+	@Override
+	public List<MemberVO> getAllMembers(){
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getAllMembers();
 	}
 }

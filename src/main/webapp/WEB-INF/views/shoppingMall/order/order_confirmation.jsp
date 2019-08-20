@@ -140,6 +140,17 @@ body {
 							</tr>
 							<tr>
 								<td>
+									<p>사용 적립금</p>
+								</td>
+								<td>
+									<h5></h5>
+								</td>
+								<td>
+									<p style="text-align:center;">${useSavings}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									<p>총 결제금액</p>
 								</td>
 								<td>
