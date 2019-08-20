@@ -2,6 +2,7 @@ package com.bbshop.bit.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bbshop.bit.domain.AdminPageDTO;
 import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
@@ -28,8 +31,15 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Controller
 @RequestMapping("*.do")
 public class AdminController {
@@ -43,12 +53,68 @@ public class AdminController {
 	}
 	
 	@RequestMapping("userlist.do")
-	public String userList() {
+	public String userList(Model model) {
+		
+		List<MemberVO> userList = adminService.getAllMembers();
+		
+		model.addAttribute("userList", userList);
+		
 		return "shoppingMall/admin/userlist";
 	}
 
+	/* 의정 - 회원탈퇴 관리 */
+	// admin - withdrawal.jsp
 	@RequestMapping("withdrawal.do")
-	public String withdrawal() {
+	public String withdrawal(Model model) {
+		log.info("AdminController - withdrawal.do");
+		
+		Criteria criteria = new Criteria();
+		
+		// 임시.. 페이징 xxxx
+		int total = 1;
+		
+		AdminPageDTO adminPageMaker = new AdminPageDTO(criteria, total);
+		
+		model.addAttribute("adminPageMaker", adminPageMaker);
+		
+		return "shoppingMall/admin/withdrawal";
+	}
+	// 탈퇴신청 목록 출력 withdrawal - ajax
+	@ResponseBody
+	@RequestMapping(value="adminWithdrawalList_Ajax.do", consumes = "application/json")
+	public Map<String, Object> adminWithdrawalList(@RequestBody Map<String, Object> map) {
+		log.info("AdminController - adminWithdrawalList_Ajax.do");
+
+		Criteria criteria = new Criteria();
+		criteria.setPageNum((int) map.get("pageNum"));
+		criteria.setAmount((int)map.get("amount"));
+		Map<String, Object> withdrawalMap = new HashMap<>();
+
+		List<DormantUserVO> withdrawalList = adminService.getDormantUsers(criteria);
+		System.out.println(withdrawalList);
+		withdrawalMap.put("withdrawalList", withdrawalList);
+		
+		int total = 10;	//임시
+		withdrawalMap.put("total", total);
+		
+		return withdrawalMap;
+	}
+	// 휴면계정에서 탈퇴계정으로
+	@RequestMapping("adminApprovalWithdraw.do")
+	public String adminApproval(@RequestParam long user_key ,Model model) {
+		log.info("휴면 > 탈퇴");
+
+		adminService.modifyFlag(user_key);
+		
+		Criteria criteria = new Criteria();
+
+		// 임시.. 페이징 xxxx
+		int total = 1;
+
+		AdminPageDTO adminPageMaker = new AdminPageDTO(criteria, total);
+
+		model.addAttribute("adminPageMaker", adminPageMaker);
+
 		return "shoppingMall/admin/withdrawal";
 	}
 	
@@ -260,23 +326,86 @@ public class AdminController {
 		return msg;
 	}
 	
-	@RequestMapping("order.do")
-	public String order() {
+	@RequestMapping("admin_order.do")
+	public String admin_order(Model model) {
+		
+		List<OrderVO> orderList = adminService.getAllOrders();
+		List<String> user_id_list = new ArrayList<String>();
+		
+		// orderList 순서에  해당하는 user_key로 id 불러오기
+		for(int i=0;i<orderList.size();i++) {
+			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
+		}
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("user_id_list", user_id_list);
+		
 		return "shoppingMall/admin/order";
 	}
 
 	
 
 	@RequestMapping("refund.do")
-	public String refund() {
+	public String refund(Model model) {
+		
+		List<Order_GDVO> order_gd_list = adminService.getRtrnExchnOrderGD();
+		List<String> user_id_list = new ArrayList<String>();
+		List<Date> ship_date = new ArrayList<Date>();
+		
+		// 교환/환불 신청 상태인 회원의 아이디와 배송날짜 불러오기
+		for(int i=0;i<order_gd_list.size();i++) {
+			user_id_list.add(adminService.getRtrnExchnMemberId(order_gd_list.get(i).getOr_gd_key()));
+			ship_date.add(adminService.getShipDate(order_gd_list.get(i).getOrder_num()));
+		}
+		
+		model.addAttribute("order_gd_list", order_gd_list);
+		model.addAttribute("user_id_list", user_id_list);
+		model.addAttribute("ship_date", ship_date);
+		
 		return "shoppingMall/admin/refund";
 	}
 
+	/* 의정 - 후기관리 */
+	// admin - review.jsp
 	@RequestMapping("review.do")
-	public String admin_review() {
+	public String admin_review(Model model) {
+		log.info("AdminController - review.do");
+		
+		Criteria criteria = new Criteria();
+		
+		int total = adminService.getReviewCount(0);	// 0은 전체
+		
+		AdminPageDTO adminPageMaker = new AdminPageDTO(criteria, total);
+		
+		model.addAttribute("adminPageMaker", adminPageMaker);
+		
 		return "shoppingMall/admin/review";
 	}
-
+	// review - ajax
+	@ResponseBody
+	@RequestMapping(value="adminReviewList_Ajax.do", consumes = "application/json")
+	public Map<String, Object> adminReviewList(@RequestBody Map<String, Object> map) {
+		log.info("AdminController - adminReviewList_Ajax.do");
+		
+		Criteria criteria = new Criteria();
+		criteria.setPageNum((int) map.get("pageNum"));
+		criteria.setAmount((int)map.get("amount"));
+		
+		int score = (int) map.get("score");
+		
+		Map<String, Object> reviewMap = new HashMap<>();
+		
+		List<ReviewVO> reviewList = adminService.getReviewList(criteria, (int) score);
+		reviewMap.put("reviewList", reviewList);
+		System.out.println(reviewList);
+		
+		int total = adminService.getReviewCount((long) score);
+		reviewMap.put("total", total);
+		
+		return reviewMap;
+	}
+	
+	
 	@RequestMapping("service_FAQ.do")
 	public String service_FAQ(Model model , Criteria cri,HttpServletRequest request) {
 		List<FAQVO> FAQList = adminService.getFAQList();
@@ -407,6 +536,5 @@ public class AdminController {
 		
 		return "shoppingMall/admin/chart";
 	}	
-	
-	
+
 }

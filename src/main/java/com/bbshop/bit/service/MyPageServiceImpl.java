@@ -96,11 +96,12 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void deleteUserInfo(long key) {
+	public void deleteUserInfo(long key, String reason) {
 
 		MyPageMapper myPageMapper = sqlSession.getMapper(MyPageMapper.class);
 
 		myPageMapper.deleteUserInfo(key);
+		myPageMapper.insertWithdrawal(key, reason);
 	}
 
 	@Override

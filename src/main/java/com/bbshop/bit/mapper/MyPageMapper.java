@@ -42,6 +42,8 @@ public interface MyPageMapper {
 
 	public void deleteUserInfo(long key);
 	
+	public void insertWithdrawal(@Param("key") long key, @Param("reason") String reason);
+	
 	// 배송지 관련 매퍼
 	
 	public void updateAddrInfo(AddrVO addrVO);

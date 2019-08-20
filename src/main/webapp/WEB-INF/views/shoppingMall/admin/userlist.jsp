@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,7 +153,7 @@ body {
                     
                   <tr style='text-align:right'>
                   <td><label for=category>회원 등급</label>
-                  <td><input type="checkbox" id='check_all'>전체</td>
+                  <td><input type="checkbox" id='check_all' checked="checked">전체</td>
                   <td><input type="checkbox" id='check_bronze'>브론즈</td>
                   <td><input type="checkbox" id='check_silver'>실버</td>
                   <td><input type="checkbox" id='check_gold'>골드</td>
@@ -174,73 +176,56 @@ body {
                           ID
                         </th>
                         <th style='text-align:center'>
-                          닉네임
+                      	    닉네임
                         </th>
                         <th style='text-align:center'>
-                          이름
+                       	   이름
                         </th>
                         <th style='text-align:center'>
-                          전화번호
+                      	    전화번호
                         </th>
                         <th style='text-align:center'>
-                          등급
+                    	      등급
                         </th>
                         <th style='text-align:center'>
-                          적립금                   
+                    	      적립금                   
                         </th>
                         <th style='text-align:center'>
-                          누적경고
+                      	    누적경고
                         </th>
                         <th style='text-align:center'>
-                          가입일자
-                        </th>
-                        <th style='text-align:center'>
-                          주문조회
-                        </th>
-                        <th style='text-align:center'>
-                          문의조회
-                        </th>
-                        <th style='text-align:center'>
-                          삭제
+                     	     가입일자
                         </th>
                       </thead>
                       <tbody>
+                      <c:forEach var="userList" items="${userList}" varStatus="status">
                         <tr>
                           <td  class="text-primary" style='text-align:center'>
-                            <button id="modal_id" class='btn btn-link'>user1</button>
+                            <button id="modal_id" class='btn btn-link' onclick="openMemberModal(${userList.USER_KEY})">${userList.MEMBER_ID}</button>
+                          </td>
+                          <td style='text-align:center;width:80px;'>
+                            ${userList.NICKNAME}
+                          </td>
+                          <td style='text-align:center;width:80px;'>
+                          	  ${userList.NAME}
                           </td>
                           <td style='text-align:center'>
-                            nick
+                            ${userList.PHONE}
                           </td>
                           <td style='text-align:center'>
-                            서지훈
+                           	 ${userList.GRADE}
+                          </td>
+                          <td style='text-align:center;width:80px;'>
+                            ${userList.SAVINGS}
+                          </td>
+                          <td style='text-align:center;width:90px;'>
+                            ${userList.CAUTION}
                           </td>
                           <td style='text-align:center'>
-                            1234
-                          </td>
-                          <td style='text-align:center'>
-                            골드
-                          </td>
-                          <td style='text-align:center'>
-                            1000원
-                          </td>
-                          <td style='text-align:center'>
-                            1회
-                          </td>
-                          <td style='text-align:center'>
-                            2019.03.03
-                          </td>
-                          <td style='text-align:center'>
-                            <input type="button" class='btn btn-success btn-sm' value="주문조회">
-                          </td>
-                          <td style='text-align:center'>
-                            <input type="button" class='btn btn-success btn-sm' value="문의조회">
-                          </td>
-                          <td style='text-align:center'>
-                            <input type="button" class='btn btn-danger btn-sm' value="삭제">
-                          </td>
-                          
+                            <fmt:formatDate pattern="yyyy-MM-dd" value="${userList.REGDATE}" />
+                          </td>                 
                         </tr>
+                        </c:forEach>
                           <table id='table_footer'width="100%">
                       	<tr>
                       	
@@ -360,8 +345,10 @@ body {
       </ul>
     </div>
   </div>
+  
+  <!-- ===============================모달================================================ -->
   <!-- The Modal -->
-  <div id="myModal" class="modal">
+  <div id="order_Modal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -373,8 +360,6 @@ body {
           <h4 class="modal-title" align="center"></h4>
        </div>
      <!-- body -->
-     <form id="reportForm" name="report" role="form" action="./home.jsp"
-     >
      <div class="modal-body">
         <table>
            <tr class="report_content">
@@ -461,7 +446,7 @@ class="form-control"/></td>
        </form>
     </div>
  </div>
-  
+
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -640,7 +625,7 @@ class="form-control"/></td>
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
-    var btn = document.getElementById("modal_id");
+    var btn = document.getElementById("btn-sm");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -669,6 +654,11 @@ class="form-control"/></td>
           modal.style.display = "none";
        }
     }
+    
+    // 주문 조회 모달
+    function openMemberModal(num){
+		$("#order_Modal").modal();
+	}
  </script>
 </body>
 

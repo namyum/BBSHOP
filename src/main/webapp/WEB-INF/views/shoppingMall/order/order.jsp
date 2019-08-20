@@ -379,9 +379,7 @@ li, a {
                      <input type="hidden" name="or_addr" id="or_addr"/>
                      <input type="hidden" name="pymntamnt" value="${allPrice}"/>
                      <input type="hidden" name="shipping_fee" value="${shipping_fee}"/>
-<%--                      <input type="hidden" name="from" value="${from }"/> --%>
-<%--                      <input type="hidden" name="qty" value="${qty }"/> --%>
-<%--                      <input type="hidden" name="optionNumber" value="${optionNumber }" /> --%>
+                     <input type="hidden" id="useSavings" name="useSavings"/>
                      <div class="col-md-12 form-group">
                         <textarea class="form-control" name="or_msg" id="msg" rows="1" placeholder="주문메세지"></textarea>
                      </div>
@@ -406,9 +404,56 @@ li, a {
                         </p></li>
                         <li><p>배송비 <span><c:out value="${shipping_fee}원" /></span>
                         </p></li>
-                        <li><p>총 결제금액 <span><c:out value="${allPrice}원" /></span>
+                        <li><p>적립금사용 <input type="text" id="inputSavings" style="width:15%;height:10%;" value="0">원 
+                        <input type="button" class="main_btn" id="submitPoint" value="사용" style="width:20px;height:30px;color:#ffffff;line-height:10px;
+                        display:inline-block;padding-left:10px;">
+                        <input type="button" class="main_btn" id="submitAllPoint" value="전액사용" style="width:65px;height:30px;color:#ffffff;line-height:10px;
+                        display:inline-block;padding-left:10px;">
+                        <span>(총 사용 가능 적립금: <b>${user.SAVINGS}</b>원)</span> </p></li>
+                        <li><p>총 결제금액 <span id="allPrice"><c:out value="${allPrice}원" /></span>
                         </p></li>
                      </ul>
+                     <script>
+                     // 적립금 사용하는 부분
+						$('#submitPoint').click(function(){
+							var useSavings = $('#inputSavings').val();
+							var mySavings = ${user.SAVINGS};
+							var allPrice = ${allPrice};
+							//get방식을 이용해서 값을 보냄
+							$.ajax({
+				        			url:"useSavings.do?useSavings="+useSavings+"&mySavings="+mySavings+"&allPrice="+allPrice,
+				        			type:"GET",
+				        			dataType:"text",
+				        			success : function(data) {
+				        				var result = data;
+				        				$("#allPrice").html(result+"원");
+									}, error : function() {
+											console.log("실패");
+									}
+								});
+							});
+                     
+                     // 적립금 전액 사용하는 부분
+                       $('#submitAllPoint').click(function(){
+                    	    var allSavings = ${user.SAVINGS};
+                    	    $('#inputSavings').val(allSavings);
+							var useSavings = $('#inputSavings').val();
+							var mySavings = ${user.SAVINGS};
+							var allPrice = ${allPrice};
+							//get방식을 이용해서 값을 보냄
+							$.ajax({
+				        			url:"useSavings.do?useSavings="+useSavings+"&mySavings="+mySavings+"&allPrice="+allPrice,
+				        			type:"GET",
+				        			dataType:"text",
+				        			success : function(data) {
+				        				var result = data;
+				        				$("#allPrice").html(result+"원");
+									}, error : function() {
+											console.log("실패");
+									}
+							});
+					  });
+                     </script>
                      <div class="payment_item">
                         <h3>결제 수단</h3>
                      </div>
@@ -693,6 +738,7 @@ li, a {
       function goPay(button) {
         var goods_num = new Array();
         var addrList = new Array();
+        var inputSavings = $("#inputSavings").val();
          
          if (payAgree.checked == false) {
             alert('구매 동의 체크박스가 선택되어야 합니다.');
@@ -709,6 +755,7 @@ li, a {
           addrList.push($("#addr1").val()+" ");
           addrList.push($("#addr2").val());
           $("#or_addr").val(addrList);
+          $("#useSavings").val(inputSavings);
           $("#orderInfo").submit();
          }
       }
@@ -723,10 +770,6 @@ li, a {
       }
       // 주소록 목록 모달에서 주소 값 받아오기
       function putAddress(id) {
-    	  
-    	 console.log(id); 
-    	 
-    	 console.log(id.charAt(id.length - 1));
     	  
          if (id.charAt(id.length - 1) == 1) {
         	 deli_addr1.value = addr_arr1[0].innerHTML.trim();

@@ -1,8 +1,13 @@
 package com.bbshop.bit.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.Gd_BallVO;
 import com.bbshop.bit.domain.Gd_BatVO;
@@ -10,6 +15,10 @@ import com.bbshop.bit.domain.Gd_GloveVO;
 import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
+import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.domain.OrderVO;
+import com.bbshop.bit.domain.Order_GDVO;
 
 public interface AdminMapper {
 
@@ -32,4 +41,28 @@ public interface AdminMapper {
 	public void deleteFAQ(Map<String, Object> deleteMap);
 	public FAQVO getFAQ(int faq_num);
 	public void ModifyFAQ(FAQVO faq);
+	
+	
+	/* 의정 - 후기관리 */
+	// 후기 목록 출력
+	public List<ReviewVO> getReviewList(@Param("criteria") Criteria criteria, @Param("score") long score);
+	// 후기 개수
+	public int getReviewCount(@Param("score") long score);
+	// 후기 목록에 출력할 회원 아이디
+	public String getID(@Param("user_key") long user_key);
+	
+	/* 의정 - 회원관리 - 회원탈퇴 */
+	// 휴면유저 불러오기 
+	public List<DormantUserVO> getDormantUsers(@Param("criteria") Criteria criteria);
+	// 휴면 > 탈퇴
+	public void modifyFlag(@Param("user_key") long user_key);
+	
+
+	/* 지수 - 회원관리 - 회원목록 */
+	public List<OrderVO> getAllOrders();
+	public String getUserId(long user_key);
+	public List<Order_GDVO> getRtrnExchnOrderGD();
+	public String getRtrnExchnMemberId(long or_gd_key);
+	public Date getShipDate(long order_num);
+	public List<MemberVO> getAllMembers();
 }

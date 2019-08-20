@@ -24,7 +24,7 @@ import com.bbshop.bit.service.CartService;
 @RequestMapping("*.do")
 public class CartController {
 	
-	List<Cart_GDVO> cartList;
+	List<Cart_GDVO> cartList ;
 	List<GoodsVO> goodsList;
 	
 	@Autowired(required=true)
@@ -110,21 +110,21 @@ public class CartController {
 		temp.setQNTTY(qnt);
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
 		
-		cartList.set(index, temp);
-		shipping_fee=calcShipping_fee(allPrice);
-		
 		cartService.modify(temp);
+		cartList.set(index, temp);
+		
 		System.out.println(temp);
 		for(int i = 0 ; i<cartList.size();i++) {
 			allPrice +=cartList.get(i).getTOTALPRICE(); 
 		}
+		shipping_fee=calcShipping_fee(allPrice);
 
 		return ""+temp.getTOTALPRICE()+","+allPrice+","+shipping_fee;
 	}
 	
 	public int calcShipping_fee(int allPrice) {
 		int shipping_fee=0;
-		if(allPrice>=2000000) {
+		if(allPrice>=50000) {
 			shipping_fee=0;
 		}
 		else {
