@@ -8,6 +8,8 @@
 
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script src="http://demo.dongledongle.com/Scripts/jquery-1.10.2.min.js"></script>
+<script src="http://demo.dongledongle.com/Scripts/jquery.signalR-2.2.1.min.js"></script>
 
 <%
 	String title = (String) request.getAttribute("title");
@@ -126,6 +128,10 @@ border: #f7f7ff
 
 caption, .date {
 	display: none;
+}
+
+ul.list_news li a {
+	target: _blank;
 }
 </style>
 
@@ -283,47 +289,26 @@ caption, .date {
 					style="margin-right: auto; margin-left: auto;">
 					<div class="left_sidebar_area">
 						<aside class="left_widgets cat_widgets">
-							<div class="l_w_title"
-								style="text-align: center; background: white;">
-								<h3
-									style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
+							<div class="l_w_title" style="text-align: center; background: white;">
+								<h3 style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
 								${element}
 							</div>
 						</aside>
 					</div>
-						<!-- 채팅창 -->
-						<div id="_chatbox" style="width: 100%; height: 500px; border: 4px solid #d7e2d4; margin: auto; margin-top: 70px; background: #fff; display: none;">
-						<div class="name"
-							style="height: 50px; background: #57c051; margin-bottom: 20px; color: #fff; text-align: center; line-height: 1.9em; font-size: 24px">
+					<!-- 채팅방 -->
+					<div class="name" style="height: 50px; background: #57c051; margin-top: 70px; color: #fff; text-align: center; line-height: 1.9em; font-size: 24px">
 							BB 채팅방</div>
-						<fieldset>
-							<div id="messageWindow"></div>
-						</fieldset>
-						<input id="inputMessage" type="text" onkeyup="enterkey()" style="width: 82%"/>
-								<input type="submit" value="send" onclick="send()" />
-						</div>
-						<img class="chat" src="resources/shoppingMall/img/chat.png" style="float: right;"/>
-				</div>
-
-				<div class="col-lg-2.5" style="margin-right: auto; margin-left: auto; float: left;">
-					<div class="left_sidebar_area">
-						<aside class="left_widgets cat_widgets">
-							<!-- 로그인한 상태일 경우와 비로그인 상태일 경우의 chat_id설정 -->
-							<c:if test="${(member ne '') and !(empty member)}">
-								<input type="hidden" value='${member }' id='chat_id' />
-							</c:if>
-							<c:if test="${(member eq '') or (empty member)}">
-								<input type="hidden" value='<%=session.getId().substring(0, 6)%>' id='chat_id' />
-							</c:if>
-
-						</aside>
+					<ul id="discussion" style="width: 100%; height: 500px; border: 4px solid #d7e2d4; margin: auto; background: #fff;"></ul>
+					<div class="wrapper">
+						<input type="hidden" id="userid" value="${nickname }">
+						<input type="text" id="message" style="order: 1; float: left; width: 84%;" onkeyup="enterkey()">
+						<input type="button" id="btnSend" value="전송" style="order: 2; float: left;">
 					</div>
 				</div>
 
 				<div class="col-lg-12" style="margin-top: 40px;">
 					<div class="l_w_title">
-						<h3
-							style="text-align: center; font-size: 17px; font-weight: bold; color: lightcoral;">스포츠
+						<h3 style="text-align: center; font-size: 17px; font-weight: bold; color: lightcoral;">스포츠
 							뉴스</h3>
 					</div>
 				</div>
@@ -332,15 +317,12 @@ caption, .date {
 					<div>
 						<p style="text-align: center;">해외야구</p>
 						${element2}
-
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div>
 						<p style="text-align: center;">국내야구</p>
 						${element1}
-
-						</ul>
 					</div>
 				</div>
 			</div>
@@ -628,20 +610,10 @@ caption, .date {
 			
 			showList(pageNum);
 		}); // end replyPageFooter onclick
-		
-		// 댓글 툴팁
-		$(document).ready(function(){
-			
-			$('[data-toggle="tooltip"]').tooltip();   
-		});
 	</script>
 	
 	<!-- 신고하기 버튼 처리 -->
 	<script>
-		
-//	$('#report_modal').on("show.bs.modal", function (event) {
-//		alert('hi');
-//	})
 
 	function report(num){
 	
@@ -676,92 +648,52 @@ caption, .date {
     		return false;
     	}
     });
-
 	</script>
 	
 	<script>
-	    $(".chat").on({
-	        "click" : function() {
-	            if ($(this).attr("src") == "resources/shoppingMall/img/chat.png") {
-	                $(".chat").attr("src", "resources/shoppingMall/img/chathide.png");
-	                $("#_chatbox").css("display", "block");
-	            } else if ($(this).attr("src") == "resources/shoppingMall/img/chathide.png") {
-	                $(".chat").attr("src", "resources/shoppingMall/img/chat.png");
-	                $("#_chatbox").css("display", "none");
-	            }
-	        }
-	    });
+	$('ul.list_news li a').attr('target', '_blank');
+	
+	// 댓글 툴팁
+	$(document).ready(function(){
+		
+		$('[data-toggle="tooltip"]').tooltip();   
+	});
 	</script>
+	
+	<!-- HTML WebSocket 채팅 -->
 	<script type="text/javascript">
-	    var textarea = document.getElementById("messageWindow");
-	    var webSocket = new WebSocket('ws://localhost:8080/BBSHOP/broadcasting');
-	    var inputMessage = document.getElementById('inputMessage');
-	    webSocket.onerror = function(event) {
-	        onError(event)
-	    };
-	    webSocket.onopen = function(event) {
-	        onOpen(event)
-	    };
-	    webSocket.onmessage = function(event) {
-	        onMessage(event)
-	    };
-	    function onMessage(event) {
-	        var message = event.data.split("|");
-	        var sender = message[0];
-	        var content = message[1];
-	        if (content == "") {
-	            
-	        } else {
-	            if (content.match("/")) {
-	                if (content.match(("/" + $("#chat_id").val()))) {
-	                    var temp = content.replace("/" + $("#chat_id").val(), "(귓속말) :").split(":");
-	                    if (temp[1].trim() == "") {
-	                    } else {
-	                        $("#messageWindow").html($("#messageWindow").html() + "<p class='whisper'>"
-	                            + sender + content.replace("/" + $("#chat_id").val(), "(귓속말) :") + "</p>");
-	                    }
-	                } else {
-	                }
-	            } else {
-	                if (content.match("!")) {
-	                    $("#messageWindow").html($("#messageWindow").html()
-	                        + "<p class='chat_content'><b class='impress'>" + sender + " : " + content + "</b></p>");
-	                } else {
-	                    $("#messageWindow").html($("#messageWindow").html()
-	                        + "<p class='chat_content'>" + sender + " : " + content + "</p>");
-	                }
-	            }
-	        }
-	    }
-	    function onOpen(event) {
-	        $("#messageWindow").html("<p class='chat_content'>채팅에 참여하였습니다.</p>");
-	    }
-	    function onError(event) {
-	        console.log(event.data);
-	    }
-	    function send() {
-	        if (inputMessage.value == "") {
-	        } else {
-	            $("#messageWindow").html($("#messageWindow").html()
-	                + "<p class='chat_content'>나 : " + inputMessage.value + "</p>");
-	        }
-	        webSocket.send($("#chat_id").val() + "|" + inputMessage.value);
-	        inputMessage.value = "";
-	    }
-	    //     엔터키를 통해 send함
-	    function enterkey() {
+        var connection = $.hubConnection('http://demo.dongledongle.com/');
+        var chat = connection.createHubProxy('chatHub');
+
+        $(document).ready(function () {
+
+            chat.on('addNewMessageToPage', function (name, message) {
+                $('#discussion').append('<li><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</li>');
+            });
+
+            $('#message').focus();
+
+            connection.start({ jsonp: true }).done(function () {
+
+                $('#btnSend').click(function () {
+                    chat.invoke('send', $('#userid').val(), $('#message').val());
+                    $('#message').val('').focus();
+                });
+            });
+        });
+
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+        
+        function enterkey() {
 	        if (window.event.keyCode == 13) {
-	            send();
+	        	$('#btnSend').click();
 	        }
 	    }
-	    //     채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
-	    window.setInterval(function() {
-	        var elem = document.getElementById('messageWindow');
-	        elem.scrollTop = elem.scrollHeight;
-	    }, 0);
-	</script>
+    </script>
 
 	<%@ include file="../include/community_footer.jsp"%>
 </body>
-
 </html>
