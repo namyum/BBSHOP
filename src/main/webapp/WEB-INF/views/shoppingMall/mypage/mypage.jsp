@@ -341,10 +341,8 @@ a:hover {
 							<i class="lnr lnr-calendar-full"></i>&nbsp;&nbsp;&nbsp;가입일</a></li>
 						<li><a href="#" data-toggle="tooltip" title="￦ ${user.TOTAL_BUY }">
 							<i class="lnr lnr-eye"></i>&nbsp;&nbsp;&nbsp;누적 구매액</a></li>
-						<li><a href="#" data-toggle="tooltip"
-							title="￦ ${pymnt_toNextGrade }"><i class="lnr lnr-bubble"></i>&nbsp;&nbsp;&nbsp;다음 등급까지 남은 구매액</a></li>
-						<li><a href="#" data-toggle="tooltip"
-							title="회원님은 경고 횟수 ${user.CAUTION }회 입니다."><i class="lnr lnr-user"></i>
+						<li><a href="#" data-toggle="tooltip" title="￦ ${pymnt_toNextGrade }"><i class="lnr lnr-bubble"></i>&nbsp;&nbsp;&nbsp;다음 등급까지 남은 구매액</a></li>
+						<li><a href="#" data-toggle="tooltip" title="회원님은 경고 횟수 ${user.CAUTION }회 입니다."><i class="lnr lnr-user"></i>
 							&nbsp;&nbsp;&nbsp;누적 경고</a></li>
 					</ul>
 				</div>

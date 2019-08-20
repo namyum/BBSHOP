@@ -27,7 +27,7 @@ body {
 	font-weight: bold;
 }
 b, sup, sub, u, del{
-color:#57c051;
+color:#2d8b28;
 }
 .comments-area .btn-report {
 	background-color: #fff;
@@ -114,6 +114,10 @@ border: #f7f7ff
 	font-size: 16px;
 	font-weight: bold;
 	color: white !important;
+}
+
+#wrapper {
+  display: flex;
 }
 </style>
 
@@ -428,29 +432,31 @@ border: #f7f7ff
 					str += "</div>";
 					str += "</div>";
 					str += "<div class='reply-btn'>";
-					str += "<a class='genric-btn primary small'";
-					str += "id='reportBtn"+list[i].reply_num+"'";
-					str += "style='float: right; padding: 0 20px'";
-			//		str += "href='.report_modal'";
-			//		str += "data-toggle='modal'"
-			//		str += ">신고하기</a>";
-					str += "onclick='report("+list[i].reply_num+")'>신고하기</a>";
-					str += "<a class='genric-btn primary small'";
-					str += "style='font-weight: bold;font-size:17px;'"
-					str += "onclick='modify("+list[i].reply_num+")'>수정</a>";
+					str += "<a class='lnr lnr-pencil' ";
+					str += "data-toggle='tooltip' title='수정' ";
+					str += "style='font-weight: bold; padding-right: 20px;'"
+					str += "onclick='modify("+list[i].reply_num+")'></a>";
+					str += "<a class='lnr lnr-trash' ";
+					str += "data-toggle='tooltip' title='삭제' ";
+					str += "style='font-weight: bold; padding-right: 20px;' "
+					str += "id='"+list[i].reply_num+"delete_replyBtn' ";
+					str += "onclick='modify("+list[i].reply_num+")'></a>";
+					str += "<a class='lnr lnr-flag' ";
+					str += "data-toggle='tooltip' title='신고' ";
+					str += "id='reportBtn"+list[i].reply_num+"' ";
+					str += "style='font-weight: bold;' ";
+					str += "onclick='report("+list[i].reply_num+")'></a>";
 					str += "</div>";
 					str += "</div>";
+					str += "<div id='wrapper'>";
 					str += "<input type='text'";
 					str += "class='"+list[i].reply_num+"content'";
-					str += "style='margin-bottom:20px;width:50%;padding-bottom:20px;display:none;'>";
-					str += "<button class='genric-btn danger radius'";
-					str += "id='"+list[i].reply_num+"delete_replyBtn'";
-					str += "style='display:none;float:right;line-height:24px;margin-top:3%;margin-right:20%;'>삭제</button>"
+					str += "style='order:1;width:50%;padding-bottom:20px;display:none;'>";
 					str += "<button type='submit'";
 					str += "class='genric-btn default radius'";
 					str += "id='"+list[i].reply_num+"modify_replyBtn'";
-					str += "style='display:none;float:right;line-height:24px;margin-top:3%;'>수정</button>"
-					str += "</div>";
+					str += "style='order:2;display:none;line-height:24px;'>수정</button>"
+					str += "</div></div>";
 				}
 				str2 += "<h4 id='getComments'>"+replyCnt+" Comments</h4>"
 				replyDIV.html(str);
@@ -495,13 +501,13 @@ border: #f7f7ff
 			
 		//	$("."+reply_num+"content").toggle();
 		
-		$("."+reply_num+"content").toggle();
-		$("#"+reply_num+"delete_replyBtn").toggle();
-		$("#"+reply_num+"modify_replyBtn").toggle();
+			$("."+reply_num+"content").toggle();
+			$("#"+reply_num+"modify_replyBtn").toggle();
 
 			var modalInputContent = $("."+reply_num+"content");
 			
 			replyService.get(reply_num, function(reply){
+				
 				modalInputContent.val(reply.reply_content);
 			});
 			
@@ -510,7 +516,6 @@ border: #f7f7ff
 			// 수정하기 버튼 
 			
 			$("#"+reply_num+"modify_replyBtn").on("click", function(e){
-				
 				
 				if(confirm("댓글을 수정하시겠습니까?") == true){
 					var reply = {reply_num : reply_num, reply_content : modalInputContent.val()};
@@ -595,6 +600,12 @@ border: #f7f7ff
 			
 			showList(pageNum);
 		}); // end replyPageFooter onclick
+		
+		// 댓글 툴팁
+		$(document).ready(function(){
+			
+			$('[data-toggle="tooltip"]').tooltip();   
+		});
 	</script>
 	
 	<!-- 신고하기 버튼 처리 -->
