@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/community_header.jsp"%>
@@ -9,6 +10,9 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 
 <%
+	String title = (String) request.getAttribute("title");
+	ArrayList<String> list_text = (ArrayList<String>) request.getAttribute("list_text");
+	ArrayList<String> list_link = (ArrayList<String>) request.getAttribute("list_link");
 	String url = request.getRequestURL().toString() + "?BOARD_NUM=" + request.getParameter("BOARD_NUM");
 %>
 
@@ -119,6 +123,10 @@ border: #f7f7ff
 #wrapper {
   display: flex;
 }
+
+caption, .date {
+	display: none;
+}
 </style>
 
 <body>
@@ -127,7 +135,7 @@ border: #f7f7ff
 	<section class="cat_product_area section_gap">
 		<div class="container-fluid">
 			<div class="row flex-row-reverse">
-				<div class="col-lg-9" style="margin-left:auto;margin-right:auto;">
+				<div class="col-lg-9" style="margin-left: auto; margin-right: auto;">
 					<div class="single-post row">
 
 						<div class="col-lg-12  col-md-12">
@@ -136,15 +144,15 @@ border: #f7f7ff
 									<li>
 										<table>
 											<tbody>
-											<tr>
-												<td>
-													<h2>
-														<b>[<c:out value="${post.TEAM_NAME}" />]
-														</b>
-														<c:out value="${post.TITLE}" />
-													 </h2>
-												</td>
-											</tr>
+												<tr>
+													<td>
+														<h2>
+															<b>[<c:out value="${post.TEAM_NAME}" />]
+															</b>
+															<c:out value="${post.TITLE}" />
+														</h2>
+													</td>
+												</tr>
 											</tbody>
 										</table>
 									</li>
@@ -152,20 +160,25 @@ border: #f7f7ff
 									<li>
 										<table>
 											<tr>
-												<td><p class="bno" style="margin-right: 10px;">글
-														번호: <c:out value="${post.BOARD_NUM}" /></p></td>
+												<td><p class="bno" style="margin-right: 10px;">
+														글 번호:
+														<c:out value="${post.BOARD_NUM}" />
+													</p></td>
 												<td><p class="title" style="margin-right: 10px;">
-														<i class="lnr lnr-user"></i> <c:out value="${post.WRITER}" />
+														<i class="lnr lnr-user"></i>
+														<c:out value="${post.WRITER}" />
 													</p></td>
 												<td>
 													<p class="regdate" style="margin-right: 10px;">
-														<i class="lnr lnr-calendar-full"></i> <fmt:formatDate pattern="yyyy-MM-dd"
-														value="${post.REGDATE}" />
+														<i class="lnr lnr-calendar-full"></i>
+														<fmt:formatDate pattern="yyyy-MM-dd"
+															value="${post.REGDATE}" />
 													</p>
 												</td>
 												<td>
 													<p class="hit" style="margin-right: 10px;">
-														<i class="lnr lnr-eye"></i><c:out value="${post.HIT}" />
+														<i class="lnr lnr-eye"></i>
+														<c:out value="${post.HIT}" />
 													</p>
 												</td>
 											</tr>
@@ -176,13 +189,36 @@ border: #f7f7ff
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details"
-							style="min-width: 100%;margin-bottom:20px; height: 250px; border-bottom: black;">
+							style="min-width: 100%; margin-bottom: 20px; height: 250px; border-bottom: black;">
 							<c:out value="${post.BOARD_CONTENT}" />
 
 						</div>
 					</div>
-					<div class="fileUpload-area"
-						style="border-top: 0.5px solid; border-color: #6c757d6b;">
+										<!-- 이전글 다음글 버튼 -->
+					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
+						<div class="row">
+							<div
+								class="col-lg-12 col-md-12 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+								<div class="thumb" style="width: 100%;">
+									<a
+										href="/communityGetPrevPostNumAction.do?
+									TEAM_NAME=<c:out value='${post.TEAM_NAME}'/>
+									&BOARD_NUM=<c:out value='${post.BOARD_NUM}'/>">
+										<img class="img-fluid"
+										src="resources/shoppingMall/img/left_arrow.png" alt=""
+										style="width: 30px; float: left;">
+									</a> <a
+										href="/communityGetNextPostNumAction.do?TEAM_NAME=<c:out value='${post.TEAM_NAME}'/>
+									&BOARD_NUM=<c:out value='${post.BOARD_NUM}'/>"><img
+										class="img-fluid"
+										src="resources/shoppingMall/img/right_arrow.png" alt=""
+										style="width: 30px; float: right;"> </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 이전글 다음글 버튼 끝 -->
+					<div class="fileUpload-area" style="border-top: 0.5px solid; border-color: #6c757d6b;">
 						<table style="width: 100%; margin-top: 15px;">
 							<tr>
 								<td><p>
@@ -190,32 +226,43 @@ border: #f7f7ff
 										첨부파일: 
 										<a href='#'>${post.UPLOADFILE}</a>
 										</c:if>
-									</p>
+									</p></td>
+								<td style="float: right;">
+								<a href="/community_modify.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>"
+									id="modify_post" class="genric-btn primary radius"
+									style="background-color: #57c051;">수정</a>
+								<a id="delete_post" class="genric-btn primary radius"
+									style="background-color: #f44a40;">삭제</a>
+								<a class="genric-btn primary radius" id="reportBtn0"
+									style="background-color: #a03730;"
+									onclick="report(0)">신고</a>
+								<a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>"
+									id="go_list" class="genric-btn primary radius"
+									style="background-color: #827b7b;">목록</a>
 								</td>
-								<td style="float: right;"><a
-									class="genric-btn primary small" id="reportBtn0"
-									style="float: right; padding: 0 20px; background-color: #f44a40" onclick="report(0)"> 신고하기</a></td>
 							</tr>
 						</table>
 					</div>
 
-					<div class="comment-list-write" style="padding-bottom: 48px;">
+					<div class="comment-list-write">
 						<div class="single-comment justify-content-between d-flex"
 							style="border-bottom: 1.5px solid #eee;">
 							<div class="user justify-content-between d-flex"
 								style="min-width: 100%;">
-								<div class="desc" style="min-width: 100%; margin-top: 10px;">
+								<div class="desc" style="min-width: 100%; margin-top: 10px; margin-bottom: 40px;">
 									<h5 id="reply_writer" style="padding-top: 10px;">글쓴이</h5>
 									<p class="write_date"
 										style="font-size: 13px; color: #cccccc; margin-bottom: 13px;">
 										<!-- sysdate 받아와야 함 -->
 										<fmt:formatDate pattern="yyyy-MM-dd" value="${post.REGDATE}" />
 									</p>
-									<input type="text" name="reply_content" id="reply_content"
-										style="width: 100%; height: 100px;" />
-									<div class="reply-btn">
-										<a class="genric-btn primary small" id="reply_submit"
-											style="float: right; padding: 0 20px; margin-top: 20px; margin-bottom: 30px; background-color: #57c051;">등록</a>
+									<div id="wrapper">
+										<div style="order: 1; width: 100%;">
+											<input type="text" name="reply_content" id="reply_content" style="width: 100%; height: 100px;" />
+										</div>
+										<div class="reply-btn" style="float: left; order: 2; text-align: center;">
+											<input type="button" class="genric-btn primary radius" id="reply_submit" style="background-color: #57c051; height: 100%;" value="등록"/>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -229,97 +276,49 @@ border: #f7f7ff
 					</div>
 
 					<div class="panel-footer"></div>
-
-					<!-- 이전글 다음글 버튼 -->
-					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
-						<div class="row">
-							<div class="col-lg-12 col-md-12 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-								<div class="thumb" style="width:100%;">
-									<a href="/communityGetPrevPostNumAction.do?
-									TEAM_NAME=<c:out value='${post.TEAM_NAME}'/>
-									&BOARD_NUM=<c:out value='${post.BOARD_NUM}'/>"> <img class="img-fluid"
-										src="resources/shoppingMall/img/left_arrow.png" alt=""
-										style="width: 30px;float:left;">
-									</a> <a href="/communityGetNextPostNumAction.do?TEAM_NAME=<c:out value='${post.TEAM_NAME}'/>
-									&BOARD_NUM=<c:out value='${post.BOARD_NUM}'/>"><img class="img-fluid"
-										src="resources/shoppingMall/img/right_arrow.png" alt=""
-										style="width: 30px;float:right;">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 이전글 다음글 버튼 끝 -->
-
-					<!-- 수정, 삭제, 목록보기 버튼 -->
-					<div style="width: 100%; text-align: center;">
-						<div class="button-group-area mt-40">
-							<a href="/community_modify.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>" id="modify_post"
-								class="genric-btn primary radius" style="background-color: #57c051;">수정</a> <a id="delete_post"
-								class="genric-btn primary radius" style="background-color: #f44a40;" >삭제</a>
-							<a href="/community_list.do?TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>" 
-							id="go_list" class="genric-btn primary radius">목록</a>
-						</div>
-					</div>
-					<!-- 수정, 삭제, 목록보기 버튼 끝 -->
 				</div>
 
 				<!-- 왼쪽 사이드 바 -->
-				<div class="col-lg-2" style="margin-right:auto; margin-left:auto;">
+				<div class="col-lg-2.5"
+					style="margin-right: auto; margin-left: auto;">
 					<div class="left_sidebar_area">
 						<aside class="left_widgets cat_widgets">
-							<div class="l_w_title"
-								style="text-align: center; background: white;">
-								<h3
-									style="font-size: 20px; font-weight: bold; color: lightcoral;">순위보기</h3>
-								<p>
-									SK <br> 키움 <br> 두산 <br> LG <br> NC <br>
-									KT <br> 삼성 <br> KIA <br> 한화 <br> 롯데 <br>
-							</div>
-							<div class="widgets_inner">
-								<p>
+							<div class="l_w_title" style="text-align: center; background: white;">
+								<h3 style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
+								${element}
 							</div>
 						</aside>
-						<aside class="left_widgets p_filter_widgets">
-							<div class="l_w_title">
-								<h3
-									style="text-align: center; font-size: 17px; font-weight: bold; color: lightcoral;">스포츠
-									뉴스</h3>
-							</div>
-							<div class="widgets_inner">
-								<ul>
-									<li><p>크롤링 구현 예정입니다.</p></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=144&aid=0000621625">
-											[단독] 프로야구선수협, FA ‘4년 80억’ 상한제 수용키로</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=109&aid=0004052054">
-											"이명기는 통산 타율 3할 타자" 트레이드 효과는 이제부터</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=076&aid=0003443645">
-											[SC집중분석]레전드 넘어서는 최정. 467홈런 이승엽 넘기가 가능할까</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=468&aid=0000536149">
-											한선태가 새긴 유강남의 조언 "마운드에선 네가 왕이다"</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=382&aid=0000747370">
-											완전체 앞둔 LG 타선, 새로운 고민 된 외야 조합</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=241&aid=0002938146">
-											LG 윌슨·켈리, '1989년생·9승·원투펀치' 복덩이</a></li>
-									<li><a
-										href="https://sports.news.naver.com/kbaseball/news/read.nhn?oid=241&aid=0002938915">
-											'왕조의 연결고리' 김강민이 말하는 2019년의 SK</a></li>
-								</ul>
-							</div>
-						</aside>
+					</div>
+				</div>
+				<!-- 왼쪽 사이드 바 -->
+				<div class="col-lg-12" style="margin-top: 40px;">
+					<div class="l_w_title">
+						<h3
+							style="text-align: center; font-size: 17px; font-weight: bold; color: lightcoral;">스포츠
+							뉴스</h3>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div>
+						<p style="text-align: center;">해외야구</p>
+						${element2}
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div>
+						<p style="text-align: center;">국내야구</p>
+						${element1}
+
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
-		<!-- ===============신고 모달 Area ==================== -->
+
+	<!-- ===============신고 모달 Area ==================== -->
 	<div class="modal fade" id="report_modal" tabindex="-1" role="dialog"
 		aria-labelledby="report_modal_label" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -448,7 +447,7 @@ border: #f7f7ff
 					str += "onclick='report("+list[i].reply_num+")'></a>";
 					str += "</div>";
 					str += "</div>";
-					str += "<div id='wrapper'>";
+					str += "<div id='wrapper' style='margin-bottom: 28px;'>";
 					str += "<input type='text'";
 					str += "class='"+list[i].reply_num+"content'";
 					str += "style='order:1;width:50%;padding-bottom:20px;display:none;'>";

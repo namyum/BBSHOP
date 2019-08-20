@@ -1557,7 +1557,6 @@ a:hover, a:focus {
 	background: #fafaff;
 	border: 1px solid #eee;
 	padding: 50px 30px;
-	margin-top: 50px;
 }
 
 @media ( max-width : 414px) {
