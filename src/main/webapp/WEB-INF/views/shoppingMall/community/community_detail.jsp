@@ -283,14 +283,43 @@ caption, .date {
 					style="margin-right: auto; margin-left: auto;">
 					<div class="left_sidebar_area">
 						<aside class="left_widgets cat_widgets">
-							<div class="l_w_title" style="text-align: center; background: white;">
-								<h3 style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
+							<div class="l_w_title"
+								style="text-align: center; background: white;">
+								<h3
+									style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
 								${element}
 							</div>
 						</aside>
 					</div>
+						<!-- 채팅창 -->
+						<div id="_chatbox" style="width: 100%; height: 500px; border: 4px solid #d7e2d4; margin: auto; margin-top: 70px; background: #fff; display: none;">
+						<div class="name"
+							style="height: 50px; background: #57c051; margin-bottom: 20px; color: #fff; text-align: center; line-height: 1.9em; font-size: 24px">
+							BB 채팅방</div>
+						<fieldset>
+							<div id="messageWindow"></div>
+						</fieldset>
+						<input id="inputMessage" type="text" onkeyup="enterkey()" style="width: 82%"/>
+								<input type="submit" value="send" onclick="send()" />
+						</div>
+						<img class="chat" src="resources/shoppingMall/img/chat.png" style="float: right;"/>
 				</div>
-				<!-- 왼쪽 사이드 바 -->
+
+				<div class="col-lg-2.5" style="margin-right: auto; margin-left: auto; float: left;">
+					<div class="left_sidebar_area">
+						<aside class="left_widgets cat_widgets">
+							<!-- 로그인한 상태일 경우와 비로그인 상태일 경우의 chat_id설정 -->
+							<c:if test="${(member ne '') and !(empty member)}">
+								<input type="hidden" value='${member }' id='chat_id' />
+							</c:if>
+							<c:if test="${(member eq '') or (empty member)}">
+								<input type="hidden" value='<%=session.getId().substring(0, 6)%>' id='chat_id' />
+							</c:if>
+
+						</aside>
+					</div>
+				</div>
+
 				<div class="col-lg-12" style="margin-top: 40px;">
 					<div class="l_w_title">
 						<h3
@@ -648,6 +677,88 @@ caption, .date {
     	}
     });
 
+	</script>
+	
+	<script>
+	    $(".chat").on({
+	        "click" : function() {
+	            if ($(this).attr("src") == "resources/shoppingMall/img/chat.png") {
+	                $(".chat").attr("src", "resources/shoppingMall/img/chathide.png");
+	                $("#_chatbox").css("display", "block");
+	            } else if ($(this).attr("src") == "resources/shoppingMall/img/chathide.png") {
+	                $(".chat").attr("src", "resources/shoppingMall/img/chat.png");
+	                $("#_chatbox").css("display", "none");
+	            }
+	        }
+	    });
+	</script>
+	<script type="text/javascript">
+	    var textarea = document.getElementById("messageWindow");
+	    var webSocket = new WebSocket('ws://localhost:8080/BBSHOP/broadcasting');
+	    var inputMessage = document.getElementById('inputMessage');
+	    webSocket.onerror = function(event) {
+	        onError(event)
+	    };
+	    webSocket.onopen = function(event) {
+	        onOpen(event)
+	    };
+	    webSocket.onmessage = function(event) {
+	        onMessage(event)
+	    };
+	    function onMessage(event) {
+	        var message = event.data.split("|");
+	        var sender = message[0];
+	        var content = message[1];
+	        if (content == "") {
+	            
+	        } else {
+	            if (content.match("/")) {
+	                if (content.match(("/" + $("#chat_id").val()))) {
+	                    var temp = content.replace("/" + $("#chat_id").val(), "(귓속말) :").split(":");
+	                    if (temp[1].trim() == "") {
+	                    } else {
+	                        $("#messageWindow").html($("#messageWindow").html() + "<p class='whisper'>"
+	                            + sender + content.replace("/" + $("#chat_id").val(), "(귓속말) :") + "</p>");
+	                    }
+	                } else {
+	                }
+	            } else {
+	                if (content.match("!")) {
+	                    $("#messageWindow").html($("#messageWindow").html()
+	                        + "<p class='chat_content'><b class='impress'>" + sender + " : " + content + "</b></p>");
+	                } else {
+	                    $("#messageWindow").html($("#messageWindow").html()
+	                        + "<p class='chat_content'>" + sender + " : " + content + "</p>");
+	                }
+	            }
+	        }
+	    }
+	    function onOpen(event) {
+	        $("#messageWindow").html("<p class='chat_content'>채팅에 참여하였습니다.</p>");
+	    }
+	    function onError(event) {
+	        console.log(event.data);
+	    }
+	    function send() {
+	        if (inputMessage.value == "") {
+	        } else {
+	            $("#messageWindow").html($("#messageWindow").html()
+	                + "<p class='chat_content'>나 : " + inputMessage.value + "</p>");
+	        }
+	        webSocket.send($("#chat_id").val() + "|" + inputMessage.value);
+	        inputMessage.value = "";
+	    }
+	    //     엔터키를 통해 send함
+	    function enterkey() {
+	        if (window.event.keyCode == 13) {
+	            send();
+	        }
+	    }
+	    //     채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
+	    window.setInterval(function() {
+	        var elem = document.getElementById('messageWindow');
+	        elem.scrollTop = elem.scrollHeight;
+	    }, 0);
 	</script>
 
 	<%@ include file="../include/community_footer.jsp"%>
