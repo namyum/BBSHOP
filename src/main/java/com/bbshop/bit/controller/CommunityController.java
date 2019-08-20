@@ -56,7 +56,7 @@ public class CommunityController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("teamName", teamName);
 		
-		return "shoppingMall/community/chatting_test";
+		return "shoppingMall/community/community_form";
 	}
 	
 	// 커뮤니티 - 글 상세
@@ -92,7 +92,6 @@ public class CommunityController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
  
         Elements element = doc.select("div.scoreBoard");
         Elements element1 = doc1.select("div.news_newest").select("ul.list_news");
@@ -104,30 +103,6 @@ public class CommunityController {
 		model.addAttribute("element", element);
         model.addAttribute("element1", element1);
         model.addAttribute("element2", element2);
-
-		
-//		String url = "https://sports.media.daum.net/sports/baseball/";
-//		Document doc = Jsoup.connect(url).post();
-//
-//		Elements element = doc.select("div.home_news");
-//		String title = element.select("h2").text().substring(0, 4);
-//      
-//		ArrayList<String> list_text = new ArrayList<String>(); 
-//		ArrayList<String> list_link = new ArrayList<String>(); 
-//		
-//		for (Element el : element.select("li")) { 
-//		
-//			String text = el.text().toString();
-//			String link = "https://sports.news.naver.com" + el.select("a").attr("href");
-//			
-//		    list_text.add(text);
-//		    list_link.add(link);
-//		}
-//		
-//		model.addAttribute("title", title);
-//		model.addAttribute("list_text", list_text);
-//		model.addAttribute("list_link", list_link);
-//		model.addAttribute("element", element);
 		
 		return "shoppingMall/community/community_detail";
 	}
@@ -161,6 +136,42 @@ public class CommunityController {
 			
 			System.out.println("vo : " + vo.toString());
 		}
+		
+		// 크롤링
+		String url = "http://mlbpark.donga.com/mp/b.php?b=kbotown";
+        Document doc = null;
+        
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url1 = "https://sports.media.daum.net/sports/baseball/";
+        Document doc1 = null;
+        
+        try {
+            doc1 = Jsoup.connect(url1).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url2 = "https://sports.media.daum.net/sports/worldbaseball/";
+        Document doc2 = null;
+        
+        try {
+            doc2 = Jsoup.connect(url2).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
+        Elements element = doc.select("div.scoreBoard");
+        Elements element1 = doc1.select("div.news_newest").select("ul.list_news");
+        Elements element2 = doc2.select("div.news_newest").select("ul.list_news");
+        		
+		model.addAttribute("element", element);
+        model.addAttribute("element1", element1);
+        model.addAttribute("element2", element2);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingvo, total));
 		

@@ -22,7 +22,7 @@
 .genric-btn.default{
 background: #57c051;
 border: 1px solid #57c051;
-color: #ffffff;
+/* color: #ffffff; */
 }
 .genric-btn.danger:hover{
 color: #ffffff;
@@ -48,7 +48,7 @@ color:#2d8b28;
 .comments-area{
 padding-top:0px;
 padding-bottom:0px;
-background: #f7f7ff;
+background: none;
 border: #f7f7ff
 }
 .report_modal {
@@ -130,12 +130,24 @@ caption, .date {
 	display: none;
 }
 
+.scoreBoard table {
+	width: 100%;
+}
+
 ul.list_news li a {
 	target: _blank;
 }
 
 #message:focus {
 	outline: none;
+}
+
+thead tr {
+	background: #e6e6e6;
+}
+
+a {
+	color: #777777;
 }
 
 /* 채팅 ui */
@@ -282,7 +294,6 @@ img{ max-width:100%;}
 			<div class="row flex-row-reverse">
 				<div class="col-lg-9" style="margin-left: auto; margin-right: auto;">
 					<div class="single-post row">
-
 						<div class="col-lg-12  col-md-12">
 							<div class="blog_info text-left" style="padding-top: 0px;">
 								<ul class="blog_meta list">
@@ -332,18 +343,15 @@ img{ max-width:100%;}
 								</ul>
 							</div>
 						</div>
-
 						<div class="col-lg-9 col-md-9 blog_details"
 							style="min-width: 100%; margin-bottom: 20px; height: 250px; border-bottom: black;">
 							<c:out value="${post.BOARD_CONTENT}" />
-
 						</div>
 					</div>
-										<!-- 이전글 다음글 버튼 -->
+					<!-- 이전글 다음글 버튼 -->
 					<div class="navigation-area" style="margin-top: 0px; width: 100%;">
 						<div class="row">
-							<div
-								class="col-lg-12 col-md-12 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+							<div class="col-lg-12 col-md-12 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 								<div class="thumb" style="width: 100%;">
 									<a
 										href="/communityGetPrevPostNumAction.do?
@@ -424,18 +432,17 @@ img{ max-width:100%;}
 				</div>
 
 				<!-- 왼쪽 사이드 바 -->
-				<div class="col-lg-2.5"
-					style="margin-right: auto; margin-left: auto;">
+				<div class="col-lg-3" style="margin-right: auto; margin-left: auto;">
 					<div class="left_sidebar_area">
 						<aside class="left_widgets cat_widgets">
-							<div class="l_w_title" style="text-align: center; background: white;">
-								<h3 style="font-size: 20px; font-weight: bold; color: lightcoral; text-align: center;">순위보기</h3>
+							<div style="text-align: center; background: white; padding-bottom: 20px;">
+								<h3 style="font-size: 24px; font-weight: bold; color: lightcoral; text-align: center;">KBO리그 순위</h3>
 								${element}
 							</div>
 						</aside>
 					</div>
 					<!-- 채팅방 -->
-					<div class="name" style="height: 50px; background: #57c051; margin-top: 70px; color: #fff; text-align: center; line-height: 1.9em; font-size: 24px">
+					<div class="name" style="height: 50px; background: #57c051; margin-top: 50px; color: #fff; text-align: center; line-height: 1.9em; font-size: 24px">
 							BB 채팅방</div>
 					<div class="mesgs">
 						<input type="hidden" id="userid" value="${nickname }">
@@ -449,7 +456,7 @@ img{ max-width:100%;}
 						</div>
 					</div>
 				</div>
-
+				<!-- 뉴스 크롤링 -->
 				<div class="col-lg-12" style="margin-top: 40px;">
 					<div class="l_w_title">
 						<h3 style="text-align: center; font-size: 17px; font-weight: bold; color: lightcoral;">스포츠
@@ -612,7 +619,7 @@ img{ max-width:100%;}
 					str += "style='order:2;display:none;line-height:24px;'>수정</button>"
 					str += "</div></div>";
 				}
-				str2 += "<h4 id='getComments'>"+replyCnt+" Comments</h4>"
+				str2 += "<h4 id='getComments'>댓글 "+replyCnt+"개</h4>"
 				replyDIV.html(str);
 				totalCommentNumH4.html(str2);
 				showReplyPage(replyCnt);
@@ -797,7 +804,6 @@ img{ max-width:100%;}
 	<script>
 	$('ul.list_news li a').attr('target', '_blank');
 	
-	<!-- 댓글 툴팁-->
 	$(document).ready(function(){
 		
 		$('[data-toggle="tooltip"]').tooltip();   
@@ -808,11 +814,30 @@ img{ max-width:100%;}
 	<script type="text/javascript">
         var connection = $.hubConnection('http://demo.dongledongle.com/');
         var chat = connection.createHubProxy('chatHub');
+        var sentMsg = '';
 
         $(document).ready(function () {
 
             chat.on('addNewMessageToPage', function (name, message) {
-                $('#discussion').append('<li><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</li>');
+            	
+            	if (htmlEncode(name) == '${nickname}') {
+            	
+	            	sentMsg += '<div class="outgoing_msg">';
+	            	sentMsg += '<div class="sent_msg">';
+	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
+	            	sentMsg += '</div></div>';
+            	
+            	} else {
+            		
+            		sentMsg += '<div class="incoming_msg">';
+	            	sentMsg += '<div class="received_msg">';
+	            	sentMsg += '<div class="received_withd_msg">';
+	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
+	            	sentMsg += '</div></div></div>';
+            	}
+            	
+                $('#discussion').append(sentMsg);
+                sentMsg = '';
             });
 
             $('#message').focus();
@@ -831,7 +856,6 @@ img{ max-width:100%;}
             return encodedValue;
         }
         
-
 	    function enterkey() {
 		    if (window.event.keyCode == 13) {
 		    	$('#btnSend').click();
