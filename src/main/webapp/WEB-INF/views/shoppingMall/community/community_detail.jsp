@@ -258,7 +258,7 @@ caption, .date {
 									</p>
 									<div id="wrapper">
 										<div style="order: 1; width: 100%;">
-											<input type="text" name="reply_content" id="reply_content" style="width: 100%; height: 100px;" />
+											<input type="text" name="reply_content" id="reply_content" placeholder="댓글을 입력하세요." style="width: 100%; height: 100px;" />
 										</div>
 										<div class="reply-btn" style="float: left; order: 2; text-align: center;">
 											<input type="button" class="genric-btn primary radius" id="reply_submit" style="background-color: #57c051; height: 100%;" value="등록"/>
