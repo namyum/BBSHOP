@@ -56,7 +56,7 @@ public class CommunityController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("teamName", teamName);
 		
-		return "shoppingMall/community/community_form";
+		return "shoppingMall/community/chatting_test";
 	}
 	
 	// 커뮤니티 - 글 상세
