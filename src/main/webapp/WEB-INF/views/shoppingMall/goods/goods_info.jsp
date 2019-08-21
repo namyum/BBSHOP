@@ -486,7 +486,7 @@ function reviewScore_Ajax() {
 									<label for="glove_taming"><span class="option">길들이기</span></label>
 									<select id="glove_taming" class="glove">
 										<option value="0">선택안함</option>
-										<option value="1">볼집+각잡기(+15000)</option>
+										<option value="1">볼집+각잡기</option>
 									</select>
 								</a>
 							</li>
