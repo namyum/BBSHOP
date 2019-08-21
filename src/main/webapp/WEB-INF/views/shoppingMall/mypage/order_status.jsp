@@ -145,6 +145,11 @@ border-color: #57c051;
 	var order_msg = '';
 	var receiver = '';
 	var or_addr = '';
+	var pymntamnt = '';
+	var phone1 = '';
+	var phone2 = '';
+	var per_pymntamnt = '';
+	var pymntmthd = '';
 
 	// 주문 취소
 	function fn_cancel_order(order_num) {
@@ -187,6 +192,10 @@ border-color: #57c051;
 				list.push('${orderVO.or_msg}')
 				list.push('${orderVO.receiver}');
 				list.push('${orderVO.or_addr}');
+				list.push('${orderVO.pymntamnt }');
+				list.push('${orderVO.phone1 }');
+				list.push('${orderVO.phone2 }');
+				list.push('${orderVO.pymntmthd}');
 			}
 			
 		</c:forEach>
@@ -198,6 +207,11 @@ border-color: #57c051;
 		order_msg = list[4];
 		receiver = list[5];
 		or_addr = list[6];
+		pymntamnt = list[7];
+		per_pymntamnt = list[7];
+		phone1 = list[8];
+		phone2 = list[9];
+		pymntmthd = list[10];
 	}
 	
 	// 주문 목록 모달 처리
@@ -212,6 +226,11 @@ border-color: #57c051;
 			$('#order_notes').html(order_msg);
 			$('#receiver').val(receiver);
 			$('#address').val(or_addr);
+			$('#pymntamnt').html('￦' + pymntamnt);
+			$('#per_pymntamnt').html('￦' + per_pymntamnt);
+			$('#phone1').val(phone1);
+			$('#phone2').val(phone2);
+			$('#pymntmthd').val(pymntmthd);
 		});
 
 	});
