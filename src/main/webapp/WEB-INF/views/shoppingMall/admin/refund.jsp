@@ -174,7 +174,7 @@ body {
                              						</td>
 													<td>￦${order_gd_list.savings}</td>
 													<td><fmt:formatDate pattern="yyyy/MM/dd" value="${order_gd_list.rtrn_exchn_date}" /></td>
-													<td><a href="#pablo" class="btn btn-success btn-sm">완  료</a></td>
+													<td><a href="#pablo" onclick="changeStts(${status.index})" class="btn btn-success btn-sm" id="Btn${status.index}">완  료</a></td>
 												</tr>
 											</c:forEach>
 						  <table id='table_footer'width="100%">
@@ -631,6 +631,19 @@ body {
 																});
 											});
 						});
+	</script>
+	
+	<!-- 버튼 처리 -->
+	<script>
+	function changeStts(num){
+		if( $("#Btn"+num).attr('class') == 'btn btn-success btn-sm'){
+			 $("#Btn"+num).attr('class','btn btn-danger btn-sm');
+			 $("#Btn"+num).text('미완료');
+		} else{
+			 $("#Btn"+num).attr('class','btn btn-success btn-sm');
+			 $("#Btn"+num).text('완료');
+		}
+	}
 	</script>
 </body>
 
