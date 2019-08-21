@@ -105,7 +105,11 @@ body {
 	<!--================Header Menu Area =================-->
 	<header class="header_area">
 		<div class="top_menu row m0">
+<<<<<<< HEAD
 			<div class="container-fluid" style="max-width:1900px;">
+=======
+			<div class="container-fluid">
+>>>>>>> merge
 				<div class="float-left">
 				</div>
 				<div class="float-right">
@@ -119,7 +123,11 @@ body {
 		</div>
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
+<<<<<<< HEAD
 				<div class="container-fluid" style="max-width:1900px;">
+=======
+				<div class="container-fluid">
+>>>>>>> merge
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- 로고 주석 처리
 					<a class="navbar-brand logo_h" href="/community_main">

@@ -67,6 +67,7 @@ public class CartController {
 		}
 		
 		shipping_fee=calcShipping_fee(allPrice);
+		allPrice += shipping_fee;
 		model.addAttribute("shipping_fee", shipping_fee);
 		model.addAttribute("allPrice", allPrice);
 		

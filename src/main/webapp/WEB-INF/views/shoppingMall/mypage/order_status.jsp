@@ -170,7 +170,7 @@ border-color: #57c051;
 			document.body.appendChild(formObj);
 
 			formObj.method = "post";
-			formObj.action = "/order_cancel.do";
+			formObj.action = "/kakaoPayCancelOrder.do";
 
 			formObj.submit();
 		}
@@ -290,7 +290,7 @@ border-color: #57c051;
 					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
 					str += '</h5></td><td><h5>';
 					str += values[index].items + '</h5></td><td><h5>';
-					str += '￦ ' + values[index].pymntamnt + '</h5></td><td>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
 												
 					switch(values[index].stts) {
 						
@@ -301,7 +301,7 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 						
-					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += '</h5></td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
 					str += ' onclick="showModal(' + cnt + ');">';
 					str += '주문 조회</button></td>';
 					
@@ -314,7 +314,7 @@ border-color: #57c051;
 							
 					} else {
 							
-						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #b3a9a9;">'
 							+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
@@ -381,7 +381,7 @@ border-color: #57c051;
 					str += '<tr><td><h5>' + result[index].order_num + '</h5></td><td><h5>' + result[index].or_date;
 					str += '</h5></td><td><h5>';
 					str += result[index].items + '</h5></td><td><h5>';
-					str += '￦ ' + result[index].pymntamnt + '</h5></td><td>';
+					str += '￦ ' + result[index].pymntamnt + '</h5></td><td><h5>';
 						
 					switch(result[index].stts) {
 					
@@ -392,7 +392,7 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 					
-					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += '</h5></td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
 					str += ' onclick="showModal(' + index + ');">';
 					str += '주문 조회</button></td>';
 					
@@ -403,7 +403,7 @@ border-color: #57c051;
 						
 					} else {
 						
-						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;" disabled>'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #b3a9a9;" disabled>'
 						+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});
@@ -493,7 +493,7 @@ border-color: #57c051;
 					str += '<tr><td><h5>' + values[index].order_num + '</h5></td><td><h5>' + values[index].or_date;
 					str += '</h5></td><td><h5>';
 					str += values[index].items + '</h5></td><td><h5>';
-					str += '￦ ' + values[index].pymntamnt + '</h5></td><td>';
+					str += '￦ ' + values[index].pymntamnt + '</h5></td><td><h5>';
 												
 					switch(values[index].stts) {
 						
@@ -504,7 +504,7 @@ border-color: #57c051;
 						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
 					}
 						
-					str += '</td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
+					str += '</h5></td><td><button type="button" data-toggle="modal" class="genric-btn default radius" data-target="#modal_order_detail" style="color: #222222;"';
 					str += ' onclick="showModal(' + cnt + ');">';
 					str += '주문 조회</button></td>';
 					
@@ -517,7 +517,7 @@ border-color: #57c051;
 							
 					} else {
 							
-						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #5b5656;">'
+						str += '<td><button type="button" id="cancel_order" class="genric-btn danger radius" style="background: #b3a9a9;">'
 							+ '<span>주문 취소</span></button></td></tr>';
 					}
 				});

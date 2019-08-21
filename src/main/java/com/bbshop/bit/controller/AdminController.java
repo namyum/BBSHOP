@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bbshop.bit.domain.AdminPageDTO;
+import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.Criteria;
 import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
@@ -33,8 +34,10 @@ import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.MoreDetailsVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
 import com.bbshop.bit.service.MemberService;
@@ -55,11 +58,6 @@ public class AdminController {
 	
 	@Autowired(required=false)
 	MyPageService myPageService;
-	
-	@RequestMapping("admin_main.do")
-	public String admin_main() {
-		return "shoppingMall/admin/admin_main";
-	}
 	
 	@RequestMapping("userlist.do")
 	public String userList(Model model) {
@@ -125,6 +123,102 @@ public class AdminController {
 		model.addAttribute("adminPageMaker", adminPageMaker);
 
 		return "shoppingMall/admin/withdrawal";
+	}
+	
+	@RequestMapping("admin_order.do")
+	public String admin_order(Model model) {
+		
+		List<OrderVO> orderList = adminService.getAllOrders();
+		List<String> user_id_list = new ArrayList<String>();
+		
+		// orderList 순서에  해당하는 user_key로 id 불러오기
+		for(int i=0;i<orderList.size();i++) {
+			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
+		}
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("user_id_list", user_id_list);
+		
+		return "shoppingMall/admin/order";
+	}
+
+	
+
+	@RequestMapping("refund.do")
+	public String refund(Model model) {
+		
+		List<Order_GDVO> order_gd_list = adminService.getRtrnExchnOrderGD();
+		List<String> user_id_list = new ArrayList<String>();
+		List<Date> ship_date = new ArrayList<Date>();
+		
+		// 교환/환불 신청 상태인 회원의 아이디와 배송날짜 불러오기
+		for(int i=0;i<order_gd_list.size();i++) {
+			user_id_list.add(adminService.getRtrnExchnMemberId(order_gd_list.get(i).getOr_gd_key()));
+			ship_date.add(adminService.getShipDate(order_gd_list.get(i).getOrder_num()));
+		}
+		
+		model.addAttribute("order_gd_list", order_gd_list);
+		model.addAttribute("user_id_list", user_id_list);
+		model.addAttribute("ship_date", ship_date);
+		
+		return "shoppingMall/admin/refund";
+	}
+
+	/* 의정 - 후기관리 */
+	// admin - review.jsp
+	@RequestMapping("review.do")
+	public String admin_review(Model model) {
+		log.info("AdminController - review.do");
+		
+		Criteria criteria = new Criteria();
+		
+		int total = adminService.getReviewCount(0);	// 0은 전체
+		
+		AdminPageDTO adminPageMaker = new AdminPageDTO(criteria, total);
+		
+		model.addAttribute("adminPageMaker", adminPageMaker);
+		
+		return "shoppingMall/admin/review";
+	}
+	// review - ajax
+	@ResponseBody
+	@RequestMapping(value="adminReviewList_Ajax.do", consumes = "application/json")
+	public Map<String, Object> adminReviewList(@RequestBody Map<String, Object> map) {
+		log.info("AdminController - adminReviewList_Ajax.do");
+		
+		Criteria criteria = new Criteria();
+		criteria.setPageNum((int) map.get("pageNum"));
+		criteria.setAmount((int)map.get("amount"));
+		
+		int score = (int) map.get("score");
+		
+		Map<String, Object> reviewMap = new HashMap<>();
+		
+		List<ReviewVO> reviewList = adminService.getReviewList(criteria, (int) score);
+		reviewMap.put("reviewList", reviewList);
+		System.out.println(reviewList);
+		
+		int total = adminService.getReviewCount((long) score);
+		reviewMap.put("total", total);
+		
+		return reviewMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getMember.do" , method=RequestMethod.GET)
+	public MemberVO getMember(@RequestParam("user_key") long user_key) {
+		MemberVO member = memberService.getMemberInfo(user_key);
+		
+		return member;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getDetails.do" , method=RequestMethod.GET)
+	public MoreDetailsVO getDetails(@RequestParam("user_key") long user_key) {
+		
+		MoreDetailsVO details = myPageService.getDetail(user_key);
+		
+		return details;
 	}
 	
 	@RequestMapping(value="goodsList.do", method= {RequestMethod.POST,RequestMethod.GET})
@@ -334,87 +428,7 @@ public class AdminController {
 		String msg = "삭제성공";
 		return msg;
 	}
-	
-	@RequestMapping("admin_order.do")
-	public String admin_order(Model model) {
-		
-		List<OrderVO> orderList = adminService.getAllOrders();
-		List<String> user_id_list = new ArrayList<String>();
-		
-		// orderList 순서에  해당하는 user_key로 id 불러오기
-		for(int i=0;i<orderList.size();i++) {
-			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
-		}
-		
-		model.addAttribute("orderList", orderList);
-		model.addAttribute("user_id_list", user_id_list);
-		
-		return "shoppingMall/admin/order";
-	}
 
-	
-
-	@RequestMapping("refund.do")
-	public String refund(Model model) {
-		
-		List<Order_GDVO> order_gd_list = adminService.getRtrnExchnOrderGD();
-		List<String> user_id_list = new ArrayList<String>();
-		List<Date> ship_date = new ArrayList<Date>();
-		
-		// 교환/환불 신청 상태인 회원의 아이디와 배송날짜 불러오기
-		for(int i=0;i<order_gd_list.size();i++) {
-			user_id_list.add(adminService.getRtrnExchnMemberId(order_gd_list.get(i).getOr_gd_key()));
-			ship_date.add(adminService.getShipDate(order_gd_list.get(i).getOrder_num()));
-		}
-		
-		model.addAttribute("order_gd_list", order_gd_list);
-		model.addAttribute("user_id_list", user_id_list);
-		model.addAttribute("ship_date", ship_date);
-		
-		return "shoppingMall/admin/refund";
-	}
-
-	/* 의정 - 후기관리 */
-	// admin - review.jsp
-	@RequestMapping("review.do")
-	public String admin_review(Model model) {
-		log.info("AdminController - review.do");
-		
-		Criteria criteria = new Criteria();
-		
-		int total = adminService.getReviewCount(0);	// 0은 전체
-		
-		AdminPageDTO adminPageMaker = new AdminPageDTO(criteria, total);
-		
-		model.addAttribute("adminPageMaker", adminPageMaker);
-		
-		return "shoppingMall/admin/review";
-	}
-	// review - ajax
-	@ResponseBody
-	@RequestMapping(value="adminReviewList_Ajax.do", consumes = "application/json")
-	public Map<String, Object> adminReviewList(@RequestBody Map<String, Object> map) {
-		log.info("AdminController - adminReviewList_Ajax.do");
-		
-		Criteria criteria = new Criteria();
-		criteria.setPageNum((int) map.get("pageNum"));
-		criteria.setAmount((int)map.get("amount"));
-		
-		int score = (int) map.get("score");
-		
-		Map<String, Object> reviewMap = new HashMap<>();
-		
-		List<ReviewVO> reviewList = adminService.getReviewList(criteria, (int) score);
-		reviewMap.put("reviewList", reviewList);
-		System.out.println(reviewList);
-		
-		int total = adminService.getReviewCount((long) score);
-		reviewMap.put("total", total);
-		
-		return reviewMap;
-	}
-	
-	
 	@RequestMapping("service_FAQ.do")
 	public String service_FAQ(Model model , Criteria cri,HttpServletRequest request) {
 		List<FAQVO> FAQList = adminService.getFAQList();
@@ -454,11 +468,6 @@ public class AdminController {
 		
 		System.out.println(pagingList);
 		return pagingList;
-	}
-	
-	@RequestMapping(value="service_FAQ_write.do")
-	public String service_FAQ_write() {
-		return "shoppingMall/admin/service_FAQ_write";
 	}
 	
 	@RequestMapping(value="write_FAQ.do" ,method=RequestMethod.GET)
@@ -515,51 +524,210 @@ public class AdminController {
 	}
 	
 	@RequestMapping("service_OneToOne.do")
-	public String onetoone() {
+	public String onetoone(Model model,Criteria cri) {
+		
+		List<OnetooneVO> onetooneList =adminService.getOnetoone();
+		System.out.println(onetooneList);
+		
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,onetooneList.size());
+		
+		
+		
+		model.addAttribute("onetoone",onetooneList);
+		model.addAttribute("PageMaker",temp);
+		return "shoppingMall/admin/service_OneToOne";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="service_OnetoonePaging.do", consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
+	public Map<String,Object> OnetooneListPaging(Model model , Criteria cri,HttpServletRequest request) {
+		System.out.println("FAQ 페이지 입니다.");
+		List<OnetooneVO> onetooneList = adminService.getOnetoone();
+		System.out.println(onetooneList);
+		
+		cri.setAmount(5);
+		
+		
+		//post방식으로 넘어온 pageNum을 출력하고 그값을 criteria객체에 넣어준다.
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+	
+		
+		AdminPageDTO temp = new AdminPageDTO(cri,onetooneList.size());
+		System.out.println(temp);
+		System.out.println(cri);
+		//json으로 전달하기 위해 맵형식으로 바꿔준다.
+		Map<String,Object> pagingList = new HashMap<String,Object>();
+		pagingList.put("oto", onetooneList);
+		pagingList.put("PageMaker",temp);
+		
+		System.out.println(pagingList);
+		return pagingList;
+	}
+	@RequestMapping(value="searchOtoCategory.do")
+	public String searchOtoCategory (HttpServletRequest request ,Model model,Criteria cri) {
+		String [] category = request.getParameterValues("Category");
+		List<String> searchList = new ArrayList<String>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(int i = 0 ; i < category.length;i++) {
+
+			searchList.add(i,category[i]);
+		}
+		map.put("search", searchList);
+		List<OnetooneVO> resultList=adminService.searchOtoCategory(map);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,resultList.size());
+		
+		model.addAttribute("onetoone" ,resultList);
+		model.addAttribute("PageMaker",temp);
+		
+		return "shoppingMall/admin/service_OneToOne";
+	}
+	
+	@RequestMapping("searchOtoAnswer.do")
+	public String searchOtoAnswer(HttpServletRequest request, Model model,Criteria cri) {
+		String answer = request.getParameter("Answer");
+		
+	
+		System.out.println("답변하기 리스트"+answer);
+		
+		List<OnetooneVO> resultList = adminService.searchOtoAnswer(answer);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,resultList.size());
+		
+		model.addAttribute("onetoone" ,resultList);
+		model.addAttribute("PageMaker",temp);
+		
 		return "shoppingMall/admin/service_OneToOne";
 	}
 
-	@RequestMapping("service_QNA.do")
-	public String QNA() {
-		return "shoppingMall/admin/service_QNA";
+	@RequestMapping("community_Board.do")
+	public String community_Notice(Model model, Criteria cri) {
+		
+		List<CommunityVO> boardList = adminService.getBoardAll();
+		System.out.println(boardList);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,boardList.size());
+		
+		model.addAttribute("boardList",boardList);
+		model.addAttribute("PageMaker",temp);
+		return "shoppingMall/admin/community_Board";
 	}
 
-	@RequestMapping("community_Notice.do")
-	public String community_Notice() {
-		return "shoppingMall/admin/community_Notice";
+
+	@RequestMapping("community_Report.do")
+	public String report(Model model,Criteria cri) {
+		List<ReportBoardVO> reportList = adminService.getReportBoard();
+		//Map<String,Object> reportMap = new HashMap<String,Object>();
+		System.out.println(reportList);
+		List<CommunityVO> boardList = adminService.getBoard(reportList);
+		
+		System.out.println("reportList.toString() 컨트롤러 : " + reportList.toString());
+		
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,reportList.size());
+		model.addAttribute("reportList",reportList);
+		model.addAttribute("boardList",boardList);
+		model.addAttribute("PageMaker",temp);
+		
+		return "shoppingMall/admin/community_Report";
 	}
-
-
-	@RequestMapping("report.do")
-	public String report() {
-		return "shoppingMall/admin/report";
+	@ResponseBody
+	@RequestMapping(value="boardListPaging.do" , consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
+	public Map<String,Object> boardListPaging(Model model, Criteria cri, HttpServletRequest request) {
+		List<CommunityVO> boardList = adminService.getBoardAll();
+		cri.setAmount(5);
+		//Get방식으로 넘어온 pageNum을 출력하고 그값을 criteria객체에 넣어준다.
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+		AdminPageDTO temp = new AdminPageDTO(cri,boardList.size());
+		System.out.println(temp);
+		System.out.println(cri);
+		//json으로 전달하기 위해 맵형식으로 바꿔준다.
+		Map<String,Object> pagingList = new HashMap<String,Object>();
+		pagingList.put("board",boardList);
+		pagingList.put("PageMaker",temp);
+		
+		System.out.println(pagingList);
+		return pagingList;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectBoardDelete.do" ,method=RequestMethod.POST)
+	public String selectBoardDelete(HttpServletRequest request){
+	List<Integer> delnum = new ArrayList<Integer>();
+	Map<String,Object> deleteMap = new HashMap<String,Object>();
+	String[] num = request.getParameterValues("boardnum");
+	
+	for(int i = 0 ; i <num.length;i++) {
+		delnum.add(Integer.parseInt(num[i]));
+	}
+	System.out.println(delnum);
+	deleteMap.put("delnum", delnum);
+	
+	adminService.deleteBoard(deleteMap);
+	String msg = "삭제성공";
+	return msg;
+}
+	@RequestMapping(value="searchBoardCategory.do")
+	public String searchBoardCategory(Model model, HttpServletRequest request,Criteria cri) {
+		String [] category = request.getParameterValues("category");
+		List<String> searchList = new ArrayList<String>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(int i = 0 ; i < category.length;i++) {
 
-	@RequestMapping("adminAccount.do")
+			searchList.add(i,category[i]);
+		}
+		map.put("search", searchList);
+		List<CommunityVO> resultList=adminService.searchBoardCategory(map);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,resultList.size());
+		
+		model.addAttribute("boardList" ,resultList);
+		model.addAttribute("PageMaker",temp);
+		
+		return "shoppingMall/admin/community_Board";
+	}
+	
+	@RequestMapping(value="searchReportCategory.do")
+	public String searchReportCategory(Model model, HttpServletRequest request,Criteria cri) {
+		String [] category = request.getParameterValues("category");
+		List<String> searchList = new ArrayList<String>();
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(int i = 0 ; i < category.length;i++) {
+
+			searchList.add(i,category[i]);
+		}
+		map.put("search", searchList);
+		List<ReportBoardVO> resultList=adminService.searchReportCategory(map);
+		List<CommunityVO> boardList = adminService.getBoard(resultList);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,resultList.size());
+		
+		model.addAttribute("reportList" ,resultList);
+		model.addAttribute("boardList",boardList);
+		model.addAttribute("PageMaker",temp);
+		
+		return "shoppingMall/admin/community_Report";
+	}
+	
+	@RequestMapping(value="adminAccount.do" ,method=RequestMethod.POST)
 	public String adminAccount() {
 		return "shoppingMall/admin/adminAccount";
 	}
 
-	@RequestMapping("admin_chart.do")
-	public String show_admin_chart() {
+	@RequestMapping(value="sanctions.do" ,method=RequestMethod.GET)
+	public String sanctionsUser(@RequestParam("writer")String user, @RequestParam("board_num") String board_num) {
+		System.out.println("신고당한 유저 닉네임:"+user);
+		System.out.println("신고당한 게시글 번호:"+board_num);
 		
-		return "shoppingMall/admin/chart";
-	}	
-	
-	@ResponseBody
-	@RequestMapping(value="getMember.do" , method=RequestMethod.GET)
-	public MemberVO getMember(@RequestParam("user_key") long user_key) {
-		MemberVO member = memberService.getMemberInfo(user_key);
+		adminService.sanctionsUser(user ,board_num);
 		
-		return member;
+		return "forward:/community_Report.do";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="getDetails.do" , method=RequestMethod.GET)
-	public MoreDetailsVO getDetails(@RequestParam("user_key") long user_key) {
-		
-		MoreDetailsVO details = myPageService.getDetail(user_key);
-		
-		return details;
-	}
+
 }

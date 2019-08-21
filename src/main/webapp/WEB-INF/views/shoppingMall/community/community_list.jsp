@@ -263,27 +263,20 @@ img {
 <section id="tabs" class="project-tab">
 	<div class="container-fluid" style="margin: auto;">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" style="margin-bottom: 80px;">
 				<nav style="width: 100%; transform: translateX(-25px);">
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"
 						style="margin-top: 120px;">
 
 					</div>
 				</nav>
-					<div style="text-align: right; padding: 30px 0; width: auto;">
-						<input type="button" class="genric-btn primary radius"
-							onclick="location.href='/community_form.do?TEAM_NAME=${teamName}'"
-							value="글쓰기" style="background-color: #57c051;">
-					</div>
 			</div>
 			<!-- 왼쪽 사이드 바 -->
 			<div class="col-lg-3" style="margin-right: auto; margin-left: auto;">
 				<div class="left_sidebar_area">
 					<aside class="left_widgets cat_widgets">
-						<div
-							style="text-align: center; background: white; padding-bottom: 20px;">
-							<h3
-								style="font-size: 24px; font-weight: bold; color: lightcoral; text-align: center;">KBO리그 순위</h3>
+						<div style="text-align: center; background: white; padding-bottom: 20px;">
+							<h3 style="font-size: 24px; font-weight: bold; color: lightcoral; text-align: center;">KBO리그 순위</h3>
 							${element}
 						</div>
 					</aside>
@@ -337,9 +330,14 @@ img {
 							</tbody>
 						</table>
 					</div>
-					<div style="display: flex; float: right;">
+					<div style="display: flex;">
+						<div style="text-align: left; width: 50%; ">
+							<input type="button" class="genric-btn primary radius"
+								onclick="location.href='/community_form.do?TEAM_NAME=${teamName}'"
+								value="글쓰기" style="background-color: #57c051;">
+						</div>
 						<!-- 페이지 출력 - script 항상 같이 따라가야함 -->
-						<div style="padding-right: 250px;">
+						<div style="width: 30%;">
 							<nav class="cat_page mx-auto"
 								aria-label="Page navigation example">
 								<ul class="pagination">
@@ -368,7 +366,7 @@ img {
 						<!-- 검색 조건과 키워드-->
 						<div class="single-element-widget">
 							<div class="default-select" id="default-select">
-								<form id="searchForm" action="/community_list.do">
+								<form id="searchForm" action="/community_list.do" style="display: flex;">
 									<select name="type">
 										<option value=""
 											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>--</option>

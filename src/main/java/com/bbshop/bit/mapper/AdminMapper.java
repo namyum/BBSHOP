@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.Criteria;
 import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
@@ -16,9 +17,11 @@ import com.bbshop.bit.domain.Gd_ShoesVO;
 import com.bbshop.bit.domain.Gd_UniformVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.MemberVO;
-import com.bbshop.bit.domain.ReviewVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.ReportBoardVO;
+import com.bbshop.bit.domain.ReviewVO;
 
 public interface AdminMapper {
 
@@ -41,8 +44,18 @@ public interface AdminMapper {
 	public void deleteFAQ(Map<String, Object> deleteMap);
 	public FAQVO getFAQ(int faq_num);
 	public void ModifyFAQ(FAQVO faq);
-	
-	
+	public List<OnetooneVO> getOnetoone();
+	public List<OnetooneVO> searchOtoCategory(Map<String,Object> map);
+	public List<OnetooneVO> searchOtoAnswer(String answer);
+	public List<ReportBoardVO> getReportBoard();
+	public List<CommunityVO> getBoard(Map<String, Object> map);
+	public List<CommunityVO> getBoardAll();
+	public void deleteBoard(Map<String, Object> deleteMap);
+	public List<CommunityVO> searchBoardCategory(Map<String, Object> map);
+	public List<ReportBoardVO> searchReportCategory(Map<String, Object> map);
+	public void sanctionUser(String user);
+	public void sanctionBoard(int board_num);
+
 	/* 의정 - 후기관리 */
 	// 후기 목록 출력
 	public List<ReviewVO> getReviewList(@Param("criteria") Criteria criteria, @Param("score") long score);
@@ -56,8 +69,6 @@ public interface AdminMapper {
 	public List<DormantUserVO> getDormantUsers(@Param("criteria") Criteria criteria);
 	// 휴면 > 탈퇴
 	public void modifyFlag(@Param("user_key") long user_key);
-	
-
 	/* 지수 - 회원관리 - 회원목록 */
 	public List<OrderVO> getAllOrders();
 	public String getUserId(long user_key);
@@ -65,4 +76,5 @@ public interface AdminMapper {
 	public String getRtrnExchnMemberId(long or_gd_key);
 	public Date getShipDate(long order_num);
 	public List<MemberVO> getAllMembers();
+
 }

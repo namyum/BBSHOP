@@ -337,12 +337,12 @@ a:hover {
 			<div style="padding: 50px 40px 50px 40px;">
 				<div class="blog_info text-center">
 					<ul class="blog_meta list">
-						<li><a href="#" data-toggle="tooltip" title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>">
+						<li><a href="#" data-toggle="tooltip" data-placement="right" title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>">
 							<i class="lnr lnr-calendar-full"></i>&nbsp;&nbsp;&nbsp;가입일</a></li>
 						<li><a href="#" data-toggle="tooltip" title="￦ ${user.TOTAL_BUY }">
 							<i class="lnr lnr-eye"></i>&nbsp;&nbsp;&nbsp;누적 구매액</a></li>
 						<li><a href="#" data-toggle="tooltip" title="￦ ${pymnt_toNextGrade }"><i class="lnr lnr-bubble"></i>&nbsp;&nbsp;&nbsp;다음 등급까지 남은 구매액</a></li>
-						<li><a href="#" data-toggle="tooltip" title="회원님은 경고 횟수 ${user.CAUTION }회 입니다."><i class="lnr lnr-user"></i>
+						<li><a href="#" data-toggle="tooltip" title="${user.CAUTION }회"><i class="lnr lnr-user"></i>
 							&nbsp;&nbsp;&nbsp;누적 경고</a></li>
 					</ul>
 				</div>
@@ -489,7 +489,6 @@ a:hover {
 							<!-- Characteristics-->
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 3%</li>
-								<li>할인 : 상품 금액의 3%</li>
 							</ul>
 						</div>
 
@@ -502,7 +501,6 @@ a:hover {
 							<!-- Characteristics -->
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 5%</li>
-								<li>할인 : 상품 금액의 5%</li>
 							</ul>
 						</div>
 						<!-- gold grade -->
@@ -514,7 +512,6 @@ a:hover {
 							<!-- Characteristics-->
 							<ul class="table-list" style="margin-bottom: 0px;">
 								<li>적립 : 구매 금액의 7%</li>
-								<li>할인 : 상품 금액의 7%</li>
 								<li>배송비 <span>무료</span></li>
 							</ul>
 						</div>
@@ -526,7 +523,6 @@ a:hover {
 							<!-- Characteristics -->
 							<ul class="table-list">
 								<li>적립 : 구매 금액의 10%</li>
-								<li>할인 : 상품 금액의 10%</li>
 								<li>배송비 <span>무료</span></li>
 								<li>분기별 <span>야구 관람권</span> 증정
 								</li>
@@ -670,12 +666,13 @@ a:hover {
 				alert('AJAX 요청 실패!');
 			}
 		});
-	});
+	});	
+</script>
+<script>
+$(document).ready(function(){
 	
-	$(document).ready(function(){
-		
-		$('[data-toggle="tooltip"]').tooltip();   
-	});
+	$('[data-toggle="tooltip"]').tooltip();   
+});
 </script>
 
 <%@ include file="../include/mypage_footer.jsp"%>
