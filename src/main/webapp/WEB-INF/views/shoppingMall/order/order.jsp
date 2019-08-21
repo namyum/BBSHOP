@@ -50,7 +50,7 @@ label[for="confirm-radio"] {
    padding: 10px;
    border: 1px solid #888;
    width: 75%; /* Could be more or less, depending on screen size */
-   height: 65%;
+   height: 50%;
 }
 /* The Close Button */
 #addressModal #closeModal {
@@ -65,7 +65,7 @@ label[for="confirm-radio"] {
    cursor: pointer;
 }
 #addressModal {
-   opacity: 0.9;
+   opacity: 1;
 }
 #addressModal .modal-footer {
    margin-top: 20px;
