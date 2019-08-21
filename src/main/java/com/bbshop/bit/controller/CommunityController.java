@@ -123,6 +123,7 @@ public class CommunityController {
 	public String list(PagingVO pagingvo, Model model, @RequestParam("TEAM_NAME") String teamName) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		pagingvo.setAmount(15);
 		map.put("pagingVO", pagingvo);
 		map.put("teamName", teamName);
 		int total = communityService.getTotal(map);

@@ -50,7 +50,7 @@ label[for="confirm-radio"] {
    padding: 10px;
    border: 1px solid #888;
    width: 75%; /* Could be more or less, depending on screen size */
-   height: 50%;
+   height: 55%;
 }
 /* The Close Button */
 #addressModal #closeModal {
@@ -72,10 +72,6 @@ label[for="confirm-radio"] {
 }
 #addressModal .modal-body {
    align: center;
-}
-#addressBtn {
-   opacity: 0.9;
-   border: 1px solid #888;
 }
 .order_box { .list { li{ overflow:hidden;
    text-overflow: ellipsis;
@@ -354,7 +350,7 @@ li, a {
                       <!--  <label><input TYPE='radio' id="new_input"
                           name="addr_input" value='new_addr' />신규 입력</label> <label><input TYPE='radio'
                            id="user_input" name="addr_input" value='user_addr' />사용자 지정</label> --> <input
-                           type="button" id="addressBtn" value="배송지 목록" />
+                           type="button" id="addressBtn" class="genric-btn default radius" value="배송지 목록" style="color: #ffffff; font-weight: bold;"/>
                      </div>
                      <div class="col-md-12 form-group p_star">
                         <table>
@@ -362,7 +358,7 @@ li, a {
                               <td><p style="font-weight:bold; color:black;">주소</p></td>
                            </tr>
                            <tr>
-                              <td><input type="text" class="form-control" id="zipcode_input" style="width: 100px;" readonly></td>
+                              <td><input type="text" class="form-control" id="zipcode_input" style="width: 100px;" placeholder="우편번호" readonly></td>
                               <td><a href="javascript:execDaumPostcode()"
                      class="genric-btn default radius"> <span
                      style="font-weight: bold;">우편번호 검색</span></a></td>
@@ -392,8 +388,8 @@ li, a {
                         <li><p>상품 <span>총합</span></p></li>
                      <c:forEach var="order" items="${orderList}" varStatus="status">
                      <li>
-                        <p class="product_name"><c:out value="${goodsList[status.index].name}" />
-                        <span class="middle"><c:out value="x${order.QNTTY }" /></span>
+                        <p class="product_name" style="color: #777777;"><c:out value="${goodsList[status.index].name}" />
+                        <span class="middle" style="color: #777777;"><c:out value="x${order.QNTTY }" /></span>
                         <span class="last"><c:out value="${order.TOTALPRICE }" /></span></p>
                      </li>
                      </c:forEach>
@@ -463,7 +459,7 @@ li, a {
                               for="kakaoPay" style="font-size:17px; font-weight:bold;z-index:1; margin-top:-15px;">카카오페이 </label> <img
                               src="resources/shoppingMall/img/product/single-product/kakaopay.jpg"
                               alt="" style="width:70px;height:30px;">
-                           <div class="check"></div>
+                           <div class="check" style="z-index: 1;"></div>
                         </div>
                      </div>
                      <div class="creat_account">
@@ -704,9 +700,6 @@ li, a {
       // 주소록 3의 정보 배열로 받아오기
       var addr_arr3 = document.getElementsByClassName('modal_addr3');
       
-      $(document).ready(function() {
-         $('p.product_name:not(.middle,.last)').css('color','green');
-        });
       // When the user clicks on the button, open the modal 
       btn.onclick = function() {
          modal.style.display = "block";

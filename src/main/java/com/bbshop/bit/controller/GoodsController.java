@@ -78,9 +78,10 @@ public class GoodsController {
 	@RequestMapping(value="/getGoodsList_Ajax.do", consumes="application/json")
 	@ResponseBody
 	public List<GoodsVO> getGoodsList_Ajax(@RequestBody Map<String, Object> map){
-		log.info("Controller...goods_list.jsp...goodsListAjax");
+		log.info("Controller...goods_list.jsp...goodsListAjax11111");
 		
 		System.out.println("컨트롤러에서의 map : " + map.toString());
+		System.out.println("하이하이1");
 		
 		String sorting = "";
 		String min_amount = "";
@@ -94,7 +95,6 @@ public class GoodsController {
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.setPageNum((int) map.get("pageNum"));
 		pagingVO.setAmount((int) map.get("amount"));
-		
 		
 		// 상품 상세인 경우 해당 값들이 전부 들어오지 않으므로 null 체크를 해준다.
 		if (map.get("sorting") != null) {
@@ -145,7 +145,7 @@ public class GoodsController {
 			
 			System.out.println("db에서 불러온 goodsList : " + goods.toString());
 		}
-
+		System.out.println("하이하이");
 		return goodsList;
 	}
 	
@@ -335,9 +335,9 @@ public class GoodsController {
 		// 상품 상세 번호를 구할 때 필요한 변수들
 		int category = (int)map.get("category");
 		int option1 = Integer.parseInt((String)map.get("option1"));
-		int option2 = Integer.parseInt((String)map.get("option2"));
 		
 		if (category == 1) {
+			int option2 = Integer.parseInt((String)map.get("option2"));
 			Gd_GloveVO gd_GloveVO = orderService.getGloveOption(goods_num, option1, option2);
 			goods_detail_num = gd_GloveVO.getGLOVE_NUM();
 		}
@@ -350,6 +350,7 @@ public class GoodsController {
 			goods_detail_num = gd_UniformVO.getUNIFORM_NUM();
 		}
 		else if(category == 4) {
+			int option2 = Integer.parseInt((String)map.get("option2"));
 			Gd_ShoesVO gd_ShoesVO = orderService.getShoesOption(goods_num, option1, option2);
 			goods_detail_num = gd_ShoesVO.getSHOES_NUM();
 		}

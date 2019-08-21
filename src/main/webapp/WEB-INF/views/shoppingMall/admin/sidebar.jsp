@@ -84,8 +84,8 @@
               
             </a>
             <div class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdownProfile'>
-            	<a class='dropdown-item' href='community_Notice.do' style='color:indianred'>공지사항</a>
-            	<a class='dropdown-item' href='report.do' style='color:indianred'>신      고</a>
+            	<a class='dropdown-item' href='community_Board.do' style='color:indianred'>게시글 관리</a>
+            	<a class='dropdown-item' href='community_Report.do' style='color:indianred'>신      고</a>
             	
             </div>
           </li>

@@ -32,7 +32,7 @@
 						<div class="form-select" id="default-select" >
 							<select name="one_to_one_category">	
 								<option value="--" >--</option>
-								<option value="주문배송">주문배송</option>
+								<option value="주문/배송">주문배송</option>
 								<option value="상품관련">상품관련</option>
 								<option value="결제관련">결제관련</option>
 								<option value="기타">기타</option>
@@ -87,10 +87,16 @@
 			}, //boolean
 			fOnAppLoad : function() {
 				//예제 코드
-				//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+				oEditors.getById["ir1"].exec("PASTE_HTML", ["<c:out value='${board.one_contents}'/>"]);
 			},
 			fCreator : "createSEditor2"
 		});
+	</script>
+	
+	<script>
+	// 카테고리 불러와서 select 옵션 적용하는 과정
+	$('select').find("option[value='${board.one_category}']").prop("selected", true);
+	
 	</script>
 </body>
 

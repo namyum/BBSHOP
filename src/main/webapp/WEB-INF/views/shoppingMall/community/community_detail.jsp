@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ include file="../include/community_header.jsp"%>
+<%@ include file="../include/community_header2.jsp"%>
 <jsp:useBean id="today" class="java.util.Date"/>
 
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->

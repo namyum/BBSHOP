@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
-<%@ include file="../include/community_header.jsp"%>
+<%@ include file="../include/community_header2.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -263,93 +263,20 @@ img {
 <section id="tabs" class="project-tab">
 	<div class="container-fluid" style="margin: auto;">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" style="margin-bottom: 80px;">
 				<nav style="width: 100%; transform: translateX(-25px);">
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"
 						style="margin-top: 120px;">
-						<a class="nav-item nav-link" id="nav-home-tab" name="kbo"
-							data-toggle="tab" role="tab" aria-controls="nav-home"
-							aria-selected="true"
-							onclick="location.href='/community_list.do?TEAM_NAME=kbo'"> <img
-							src="resources/community/img/kbo_main.png" width="50" height="50"
-							class="img-fluid rounded"></a> <a
-							class="nav-item nav-link link" id="nav-contact-tab" name="lg"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-home" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=lg'"> <img
-							src="resources/community/img/lgtwins_main.png" width="70"
-							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" name="lotte"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=lotte'">
-							<img src="resources/community/img/lottegiants_main.png"
-							width="80" height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="hanwha"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=hanwha'">
-							<img src="resources/community/img/hanwhaeagles_main.png"
-							width="80" height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="kia"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=kia'"> <img
-							src="resources/community/img/kiatigers_main.png" width="80"
-							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="doosan"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=doosan'">
-							<img src="resources/community/img/doosanbears_main.png"
-							width="70" height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="nc"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=nc'"> <img
-							src="resources/community/img/ncdinos_main.png" width="80"
-							height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="samsung"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=samsung'">
-							<img src="resources/community/img/samsunglions_main.png"
-							width="75" height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="kiwoom"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=kiwoom'">
-							<img src="resources/community/img/kiwoomheroes_main.png"
-							width="80" height="70" class="img-fluid rounded">
-						</a> <a class="nav-item nav-link" id="nav-contact-tab" name="sk"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=sk'"> <img
-							src="resources/community/img/skwyverns_main.png" width="70"
-							height="70" class="img-fluid rounded"></a> <a
-							class="nav-item nav-link" id="nav-contact-tab" name="kt"
-							data-toggle="tab" href="#nav-contact" role="tab"
-							aria-controls="nav-contact" aria-selected="false"
-							onclick="location.href='/community_list.do?TEAM_NAME=kt'"> <img
-							src="resources/community/img/ktwiz_main.png" width="70"
-							height="70" class="img-fluid rounded">
-						</a>
+
 					</div>
 				</nav>
-					<div style="text-align: right; padding: 30px 0; width: auto;">
-						<input type="button" class="genric-btn primary radius"
-							onclick="location.href='/community_form.do?TEAM_NAME=${teamName}'"
-							value="글쓰기" style="background-color: #57c051;">
-					</div>
 			</div>
 			<!-- 왼쪽 사이드 바 -->
 			<div class="col-lg-3" style="margin-right: auto; margin-left: auto;">
 				<div class="left_sidebar_area">
 					<aside class="left_widgets cat_widgets">
-						<div
-							style="text-align: center; background: white; padding-bottom: 20px;">
-							<h3
-								style="font-size: 24px; font-weight: bold; color: lightcoral; text-align: center;">KBO리그 순위</h3>
+						<div style="text-align: center; background: white; padding-bottom: 20px;">
+							<h3 style="font-size: 24px; font-weight: bold; color: lightcoral; text-align: center;">KBO리그 순위</h3>
 							${element}
 						</div>
 					</aside>
@@ -403,9 +330,14 @@ img {
 							</tbody>
 						</table>
 					</div>
-					<div style="display: flex; float: right;">
+					<div style="display: flex;">
+						<div style="text-align: left; width: 50%; ">
+							<input type="button" class="genric-btn primary radius"
+								onclick="location.href='/community_form.do?TEAM_NAME=${teamName}'"
+								value="글쓰기" style="background-color: #57c051;">
+						</div>
 						<!-- 페이지 출력 - script 항상 같이 따라가야함 -->
-						<div style="padding-right: 250px;">
+						<div style="width: 30%;">
 							<nav class="cat_page mx-auto"
 								aria-label="Page navigation example">
 								<ul class="pagination">
@@ -434,7 +366,7 @@ img {
 						<!-- 검색 조건과 키워드-->
 						<div class="single-element-widget">
 							<div class="default-select" id="default-select">
-								<form id="searchForm" action="/community_list.do">
+								<form id="searchForm" action="/community_list.do" style="display: flex;">
 									<select name="type">
 										<option value=""
 											<c:out value="${pageMaker.pagingVO.type == null? 'selected':''}"/>>--</option>

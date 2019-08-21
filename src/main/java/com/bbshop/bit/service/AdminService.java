@@ -4,16 +4,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.bbshop.bit.domain.CommunityVO;
 import com.bbshop.bit.domain.Criteria;
 import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.FAQVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.domain.MemberVO;
+import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.ReportBoardVO;
+import com.bbshop.bit.domain.ReviewVO;
+
 
 
 public interface AdminService {
@@ -27,6 +29,16 @@ public interface AdminService {
 	public void deleteFAQ(Map<String, Object> deleteMap);
 	public FAQVO getFAQ(int faq_num);
 	public void ModifyFAQ(FAQVO faq);
+	public List<OnetooneVO> getOnetoone();
+	public List<OnetooneVO> searchOtoCategory(Map<String, Object> map);
+	public List<OnetooneVO> searchOtoAnswer(String answer);
+	public List<ReportBoardVO> getReportBoard();
+	public List<CommunityVO> getBoard(List<ReportBoardVO> reportList);
+	public List<CommunityVO> getBoardAll();
+	public void deleteBoard(Map<String, Object> deleteMap);
+	public List<CommunityVO> searchBoardCategory(Map<String, Object> map);
+	public List<ReportBoardVO> searchReportCategory(Map<String, Object> map);
+	public void sanctionsUser(String user, String board_num);
 
 	
 	/* 의정 - 후기관리 */

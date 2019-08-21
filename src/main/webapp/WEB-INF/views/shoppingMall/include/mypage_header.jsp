@@ -672,8 +672,8 @@ body {
 				<div class="container-fluid" style="max-height:80px;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
-					<a class="navbar-brand logo_h" href="/shopping_main.do">
-						<img src="resources/shoppingMall/img/logo.png" alt="" style="visibility : hidden">	<!-- 일단 로고 안보이게 -->
+					<a class="navbar-brand logo_h" href="/shopping_main.do" style="height:-webkit-fill-available; padding:0px;">
+						<img src="resources/shoppingMall/img/BB_SHOP.png" style="height: -webkit-fill-available;" alt="">	<!-- 일단 로고 안보이게 -->
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
