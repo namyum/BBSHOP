@@ -157,7 +157,7 @@ public class CartController {
 		else {
 			cartService.deleteAll();
 		}
-		return "cart.do";
+		return "redirect:/cart.do";
 	}
 	
 	// 헤더의 장바구니 버튼을 클릭시 ajax 요청을 응답하는 컨트롤러

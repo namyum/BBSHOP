@@ -51,13 +51,6 @@ $(document).ready(function(){
 	
 	var operForm = $("#operForm");
 	
-	$('#go_list').on("click", function(e){
-	
-		operForm.find("#FAQ_NUM").remove();
-		operForm.attr("action","/faq_list.do")
-		operForm.submit();
-	});
-	
 /* var formObj = $("form");
 	
 	$('button').on("click", function(e){

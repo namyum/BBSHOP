@@ -49,21 +49,11 @@ public class CommunityController {
 	@RequestMapping("/community_form.do")
 	public String community_form(Model model, @RequestParam("TEAM_NAME") String teamName, HttpSession session) {
 		
-		/*
-		 long user_key = (long)session.getAttribute("user_key");
-		 String nickname = (String)session.getAttribute("nickname");
-		 
-		 // 비회원
-		 if(nickname.substring(0,9).equals("noAccount")) {
-		 	// alert("로그인이 필요합니다.");
-		 }
-		 else{
-		 	long user_key = (long)session.getAttribute("user_key");
-		 	qna.setUser_key(user_key);
-		 	}
-		 */
+		long user_key = (long)session.getAttribute("member");
+		String nickname = (String)session.getAttribute("nickname");
+		
 		System.out.println("등록 폼 진입");
-		model.addAttribute("nickname",communityService.getNickname(1));
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("teamName", teamName);
 		
 		return "shoppingMall/community/community_form";
@@ -71,10 +61,48 @@ public class CommunityController {
 	
 	// 커뮤니티 - 글 상세
 	@RequestMapping("/community_detail.do")
-	public String community_detail(Model model, @RequestParam("BOARD_NUM") long board_num) {
+	public String community_detail(Model model, @RequestParam("BOARD_NUM") long board_num) throws IOException {
 		
 		communityService.updateHit(board_num);		
+		model.addAttribute("post", communityService.getPost((long)board_num));
+
+		String url = "http://mlbpark.donga.com/mp/b.php?b=kbotown";
+        Document doc = null;
+        
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url1 = "https://sports.media.daum.net/sports/baseball/";
+        Document doc1 = null;
+        
+        try {
+            doc1 = Jsoup.connect(url1).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url2 = "https://sports.media.daum.net/sports/worldbaseball/";
+        Document doc2 = null;
+        
+        try {
+            doc2 = Jsoup.connect(url2).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
+        Elements element = doc.select("div.scoreBoard");
+        Elements element1 = doc1.select("div.news_newest").select("ul.list_news");
+        Elements element2 = doc2.select("div.news_newest").select("ul.list_news");
+        
+		communityService.updateHit(board_num);
+		
 		model.addAttribute("post", communityService.getPost((long) board_num));
+		model.addAttribute("element", element);
+        model.addAttribute("element1", element1);
+        model.addAttribute("element2", element2);
 		
 		return "shoppingMall/community/community_detail";
 	}
@@ -108,6 +136,42 @@ public class CommunityController {
 			
 			System.out.println("vo : " + vo.toString());
 		}
+		
+		// 크롤링
+		String url = "http://mlbpark.donga.com/mp/b.php?b=kbotown";
+        Document doc = null;
+        
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url1 = "https://sports.media.daum.net/sports/baseball/";
+        Document doc1 = null;
+        
+        try {
+            doc1 = Jsoup.connect(url1).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        String url2 = "https://sports.media.daum.net/sports/worldbaseball/";
+        Document doc2 = null;
+        
+        try {
+            doc2 = Jsoup.connect(url2).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
+        Elements element = doc.select("div.scoreBoard");
+        Elements element1 = doc1.select("div.news_newest").select("ul.list_news");
+        Elements element2 = doc2.select("div.news_newest").select("ul.list_news");
+        		
+		model.addAttribute("element", element);
+        model.addAttribute("element1", element1);
+        model.addAttribute("element2", element2);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingvo, total));
 		

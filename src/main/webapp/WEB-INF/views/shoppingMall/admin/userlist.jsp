@@ -100,8 +100,8 @@ body {
    margin: 8% auto; /* 15% from the top and centered */
    padding: 10px;
    border: 1px solid #888;
-   width: 20%; /* Could be more or less, depending on screen size */
-   height: 72%;
+   width: 30%; /* Could be more or less, depending on screen size */
+   height: 74%;
 }
 /* The Close Button */
 .close {
@@ -223,7 +223,7 @@ body {
                           </td>
                           <td style='text-align:center'>
                             <fmt:formatDate pattern="yyyy-MM-dd" value="${userList.REGDATE}" />
-                          </td>                 
+                          </td>             
                         </tr>
                         </c:forEach>
                           <table id='table_footer'width="100%">
@@ -354,6 +354,7 @@ body {
     <div class="modal-content">
        <!-- header -->
        <div class="modal-header">
+       	  <h4 class="text-black" style="font-weight: bold;">회원정보</h4>
           <!-- 닫기(x) 버튼 -->
           <span class="close">&times;</span>
           <!-- header title -->
@@ -361,89 +362,97 @@ body {
        </div>
      <!-- body -->
      <div class="modal-body">
-        <table>
+        <table style="margin-left:auto; margin-right:auto; width:100%;">
            <tr class="report_content">
               <td><p>ID: </p></td>
-              <td><input type="text" name="writer"
-                 class="form-control"/></td>
+              <td><input type="text" id="id"
+                  class="form-control"/></td>
            </tr>
            <tr class="report_content">
              <td><p>PW: </p></td>
-             <td><input type="text" name="writer"
-                class="form-control"/></td>
+             <td><input type="text" id="pw"
+                 class="form-control"/></td>
           </tr>
           <tr class="report_content">
            <td><p>이름: </p></td>
-           <td><input type="text" name="writer"
-              class="form-control"/></td>
-        </tr>
-        <tr class="report_content">
-         <td><p>닉네임: </p></td>
-         <td><input type="text" name="writer"
-            class="form-control"/></td>
-      </tr>
-      <tr class="report_content">
-       <td><p>전화번호: </p></td>
-       <td><input type="text" name="writer"
-          class="form-control"/></td>
-    </tr>
-    <tr class="report_content">
-     <td><p>생일: </p></td>
-     <td><input type="text" name="writer"
-        class="form-control"/></td>
-  </tr>
-  <tr class="report_content">
-   <td><p>등급: </p></td>
-   <td><input type="text" name="writer"
-      class="form-control"/></td>
-</tr>
-<tr class="report_content">
- <td><p>적립금: </p></td>
- <td><input type="text" name="writer"
-    class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>누적경고: </p></td>
-<td><input type="text" name="writer"
-  class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>가입일자: </p></td>
-<td><input type="text" name="writer"
-class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>수정일자: </p></td>
-<td><input type="text" name="writer"
-class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>추가1: </p></td>
-<td><input type="text" name="writer"
-class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>추가2: </p></td>
-<td><input type="text" name="writer"
-class="form-control"/></td>
-</tr>
-<tr class="report_content">
-<td><p>추가3: </p></td>
-<td><input type="text" name="writer"
-class="form-control"/></td>
-</tr>          
+           <td><input type="text" id="name"
+               class="form-control"/></td>
+       	   </tr>
+       	   <tr class="report_content">
+             <td><p>닉네임: </p></td>
+        	 <td><input type="text" id="nickname"
+             class="form-control"/></td>
+           </tr>
+    	   <tr class="report_content">
+     	    <td><p>전화번호: </p></td>
+     	    <td><input type="text" id="phone"
+           class="form-control"/></td>
+           </tr>
+		    <tr class="report_content">
+		     <td><p>생일: </p></td>
+		     <td><input type="text" id="birth"
+		      class="form-control"/></td>
+		  </tr>
+		  <tr class="report_content">
+		   <td><p>등급: </p></td>
+		   <td><input type="text" id="grade"
+		      class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			 <td><p>적립금: </p></td>
+		 	<td><input type="text" id="savings"
+		    class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>누적경고: </p></td>
+			<td><input type="text" id="caution"
+		  	class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>가입일자: </p></td>
+			<td><input type="text" id="regdate"
+			class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>수정일자: </p></td>
+			<td><input type="text" id="moddate"
+			class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>선호브랜드1: </p></td>
+			<td><input type="text" id="moredetails1"
+			class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>선호브랜드2: </p></td>
+			<td><input type="text" id="moredetails2"
+			class="form-control"/></td>
+		</tr>
+		<tr class="report_content">
+			<td><p>선호브랜드3: </p></td>
+			<td><input type="text" id="moredetails3"
+			class="form-control"/></td>
+		</tr>   
+		<tr>
+			<td><p>선호 구단: </p></td>
+			<td><input type="text" id="team"
+			class="form-control"/></td>
+		</tr>
+		<tr>
+			<td><p>포지션: </p></td>
+			<td><input type="text" id="position"
+			class="form-control"/></td>
+		</tr>       
         </table>
      </div>
      <!-- Footer -->
-          <div class="modal-footer">
+          <div class="modal-footer" style="margin-top:0px;">
              <table align="center">
                 <tr>
-                   <td><button type="button" class="btn btn-info btn-block">닫기</button></td>
-                   <td><input type="submit" class="btn btn-info btn-primary" value="제출" /></td>
+                   <td><button type="button" class="btn btn-info btn-block" id="confirmation">확인</button></td>
                 </tr>
              </table>
           </div>
-       </form>
     </div>
  </div>
 
@@ -622,31 +631,7 @@ class="form-control"/></td>
     });
   </script>
   <script>
-    var modal = document.getElementById('myModal');
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("btn-sm");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // 닫기 버튼 불러오기
-    var close = document.getElementsByClassName("btn-block")[0];
-
-    // When the user clicks on the button, open the modal 
-    btn.onclick = function() {
-       modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-       modal.style.display = "none";
-    }
-
-    // 닫기 버튼을 누른 경우 display none.(창 없앰)
-    close.onclick = function() {
-       modal.style.display = "none";
-    }
+    var modal = document.getElementById('order_Modal');;
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -656,9 +641,68 @@ class="form-control"/></td>
     }
     
     // 주문 조회 모달
-    function openMemberModal(num){
-		$("#order_Modal").modal();
+    function openMemberModal(num){	
+		$.ajax({
+			url:"getMember.do?user_key="+num,
+			type:"GET",
+			dataType:"json",
+			success : function(data) {
+				var result = data;
+				// 가입날짜
+				var time1 = new Date(result.regdate).getTime();
+				var regdate = new Date(time1);
+				var formatRegdate = regdate.getFullYear()+"년 "+(regdate.getMonth() + 1)+"월 "+regdate.getDate()+"일";
+				
+				// 수정날짜
+				var time2 = new Date(result.moddate).getTime();
+				var moddate = new Date(time2);
+				var formatModdate = moddate.getFullYear()+"년 "+(moddate.getMonth() + 1)+"월 "+moddate.getDate()+"일";
+				
+				$('#id').val(result.member_ID);
+				$('#pw').val(result.member_PW);
+				$('#name').val(result.name);
+				$('#nickname').val(result.nickname);
+				$('#phone').val(result.phone);
+				$('#birth').val(result.birth);
+				$('#grade').val(result.grade);
+				$('#savings').val(result.savings);
+				$('#caution').val(result.caution);
+				$('#regdate').val(formatRegdate);
+				$('#moddate').val(formatModdate);
+			}, error : function() {
+					console.log("실패");
+			}
+		});
+		
+		$.ajax({
+			url:"getDetails.do?user_key="+num,
+			type:"GET",
+			dataType:"json",
+			success : function(data) {
+				var detailResult = data;
+				$('#moredetails1').val(detailResult.brand1);
+				$('#moredetails2').val(detailResult.brand2);
+				$('#moredetails3').val(detailResult.brand3);
+				$('#team').val(detailResult.team);
+				$('#position').val(detailResult.position);
+				
+			}, error : function() {
+					console.log("실패");
+			}
+		});
+		
+		modal.style.display = "block";
 	}
+    
+    // x 버튼
+    $(".close")[0].onclick = function(){
+       modal.style.display = "none";
+    }
+    
+    // 확인 버튼
+    $("#confirmation")[0].onclick = function(){
+        modal.style.display = "none";
+     }
  </script>
 </body>
 

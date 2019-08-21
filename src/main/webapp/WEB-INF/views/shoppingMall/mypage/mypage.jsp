@@ -208,6 +208,9 @@ a {
 	background: #228799;	
 }
 
+a:hover {
+	text-decoration: none;
+}
 /** ================
  * Responsive
  ===================*/
@@ -314,7 +317,7 @@ a {
 						<h1 style="margin-top: 10px; color: #ffd700;">${user.GRADE }</h1>
 					</c:when>
 					<c:otherwise>
-						<h1 style="margin-top: 10px; color: #b9f2ff;">${user.GRADE }</h1>
+						<h1 style="margin-top: 10px; color: #44a8bf;">${user.GRADE }</h1>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -333,19 +336,14 @@ a {
 			style="float: left; background: #dde8e1; height: 300px;">
 			<div style="padding: 50px 40px 50px 40px;">
 				<div class="blog_info text-center">
-					<ul class="blog_meta list" style="clear: both">
-						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>"><span>가입일</span>
-								<i class="lnr lnr-calendar-full"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ ${user.TOTAL_BUY }"><span>누적 구매액</span> <i
-								class="lnr lnr-eye"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="￦ ${pymnt_toNextGrade }"><span>다음 등급까지 남은 구매액</span> <i
-								class="lnr lnr-bubble"></i> </a></li>
-						<li><a href="#" data-toggle="tooltip" data-placement="right"
-							title="회원님은 경고 횟수 ${user.CAUTION } 회 입니다."><span>누적 경고</span>
-								<i class="lnr lnr-user"></i> </a></li>
+					<ul class="blog_meta list">
+						<li><a href="#" data-toggle="tooltip" title="<fmt:formatDate value="${user.REGDATE }" type="date" pattern="yyyy-MM-dd"/>">
+							<i class="lnr lnr-calendar-full"></i>&nbsp;&nbsp;&nbsp;가입일</a></li>
+						<li><a href="#" data-toggle="tooltip" title="￦ ${user.TOTAL_BUY }">
+							<i class="lnr lnr-eye"></i>&nbsp;&nbsp;&nbsp;누적 구매액</a></li>
+						<li><a href="#" data-toggle="tooltip" title="￦ ${pymnt_toNextGrade }"><i class="lnr lnr-bubble"></i>&nbsp;&nbsp;&nbsp;다음 등급까지 남은 구매액</a></li>
+						<li><a href="#" data-toggle="tooltip" title="회원님은 경고 횟수 ${user.CAUTION }회 입니다."><i class="lnr lnr-user"></i>
+							&nbsp;&nbsp;&nbsp;누적 경고</a></li>
 					</ul>
 				</div>
 			</div>
@@ -521,7 +519,7 @@ a {
 							</ul>
 						</div>
 						<div class="pricing-table">
-							<h3 class="pricing-title" style="background-color: #b9f2ff;">다이아</h3>
+							<h3 class="pricing-title" style="background-color: #44a8bf;">다이아</h3>
 							<div class="price">
 								￦ 1,000,000<sup> / 누적 금액</sup>
 							</div>
@@ -672,6 +670,11 @@ a {
 				alert('AJAX 요청 실패!');
 			}
 		});
+	});
+	
+	$(document).ready(function(){
+		
+		$('[data-toggle="tooltip"]').tooltip();   
 	});
 </script>
 
