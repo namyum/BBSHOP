@@ -13,3 +13,5 @@ public class ReportReplyVO {
 	private String URI;
 	private int SEQ_REPORT;
 }
+
+ 
