@@ -177,36 +177,36 @@ body {
 											<th>주문상태</th>
 											<th>송장번호</th>
 										</thead>
-										<tbody>
-											<c:forEach var="orderList" items="${orderList}"
-												varStatus="status">
-												<tr style="text-align: center;">
-													<td>${orderList.or_date}</td>
-													<td>${orderList.order_num}</td>
-													<td>${user_id_list[status.index]}</td>
-													<td>￦${orderList.pymntamnt}</td>
-													<td>${orderList.pymntmthd}</td>
-													<td>￦${orderList.savings}</td>
-													<td><c:choose>
-															<c:when test="${orderList.stts eq 0 }">
-                                							 결제완료
-                             							 </c:when>
-															<c:when test="${orderList.stts eq 1 }">
-                                							배송준비중
-                             							 </c:when>
-															<c:when test="${orderList.stts eq 2 }">
-                                							 배송중
-                             							 </c:when>
-															<c:when test="${orderList.stts eq 3 }">
-                                							 배송완료
-                             							 </c:when>
-															<c:otherwise>
-                                 							주문취소
-                             							 </c:otherwise>
-														</c:choose></td>
-													<td>${orderList.ship_nmbr}</td>
-												</tr>
-											</c:forEach>
+										<tbody id="order_table">
+<%-- 											<c:forEach var="orderList" items="${orderList}" --%>
+<%-- 												varStatus="status"> --%>
+<!-- 												<tr style="text-align: center;"> -->
+<%-- 													<td>${orderList.or_date}</td> --%>
+<%-- 													<td>${orderList.order_num}</td> --%>
+<%-- 													<td>${user_id_list[status.index]}</td> --%>
+<%-- 													<td>￦${orderList.pymntamnt}</td> --%>
+<%-- 													<td>${orderList.pymntmthd}</td> --%>
+<%-- 													<td>￦${orderList.savings}</td> --%>
+<%-- 													<td><c:choose> --%>
+<%-- 															<c:when test="${orderList.stts eq 0 }"> --%>
+<!--                                 							 결제완료 -->
+<%--                              							 </c:when> --%>
+<%-- 															<c:when test="${orderList.stts eq 1 }"> --%>
+<!--                                 							배송준비중 -->
+<%--                              							 </c:when> --%>
+<%-- 															<c:when test="${orderList.stts eq 2 }"> --%>
+<!--                                 							 배송중 -->
+<%--                              							 </c:when> --%>
+<%-- 															<c:when test="${orderList.stts eq 3 }"> --%>
+<!--                                 							 배송완료 -->
+<%--                              							 </c:when> --%>
+<%-- 															<c:otherwise> --%>
+<!--                                  							주문취소 -->
+<%--                              							 </c:otherwise> --%>
+<%-- 														</c:choose></td> --%>
+<%-- 													<td>${orderList.ship_nmbr}</td> --%>
+<!-- 												</tr> -->
+<%-- 											</c:forEach> --%>
 										</tbody>
 									</table>
 								</div>
@@ -222,14 +222,6 @@ body {
 														id="btn_${num }"><a href="${num}" class="page-link">${num}</a>
 													</li>
 												</c:forEach>
-												<!-- 										<li class="page-item disabled"><a class="page-link" -->
-												<!-- 											href="#">이전</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">1</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">2</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">3</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">4</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">5</a></li> -->
-												<!-- 										<li class="page-item"><a class="page-link" href="#">다음</a></li> -->
 											</ul>
 										</td>
 										<!-- 검색 -->
@@ -258,6 +250,13 @@ body {
 											</div>
 									</tr>
 								</table>
+								<!-- 페이징 버튼 처리를 위한 히든 폼 -->
+								<form id="actionForm" action="admin_order.do">
+									<input type="hidden" name="pageNum"
+										value="${pageMaker.pagingVO.pageNum }"> <input
+										type="hidden" name="amount"
+										value="${pageMaker.pagingVO.amount }">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -665,6 +664,290 @@ body {
 																});
 											});
 						});
+	</script>
+	
+	<script>
+	
+	var actionForm = $("#actionForm");
+	var user_id_list = new Array();
+	
+	// 유저 id를 배열에 받음
+	$(document).ready(function() {
+		
+		<c:forEach items="${user_id_list}" var="user_id" varStatus="status">
+			user_id_list['${status.index}'] = '${user_id}';
+		</c:forEach>
+	})
+
+	// 페이지가 로드되면 주문/배송 전체 리스트 불러오는 부분
+	$(document).ready(function() {
+		
+		var data = {
+			pageNum: actionForm.find("input[name='pageNum']").val(), 
+			amount: actionForm.find("input[name='amount']").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/admin_orderListPaging.do",
+			data : JSON.stringify(data),
+			dataType : "json",
+			contentType: "application/json",
+			success : function(result) {
+				
+				var start = ${pageMaker.startPage};
+				var end = ${pageMaker.endPage};
+				var str = '';
+				var paging = '';
+								
+				$.each(result, function(index, value){
+										
+					str += '<tr><td>' + result[index].or_date + '</td><td>' + result[index].order_num + '</td><td>';
+					str += user_id_list[index] + '</td><td>';
+					str += '￦ ' + result[index].pymntamnt + '</td><td>';
+					str += result[index].pymntmthd + '</td><td>';
+					str += result[index].savings + '</td><td>';
+						
+					switch(result[index].stts) {
+					
+						case 0 : str += '<span style="color: blue;">결제완료</span>'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '배송완료'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</td><td>';
+					str += result[index].ship_nmbr + '</td><td>';
+				});
+				
+				$('#order_table').empty();
+				$('#order_table').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			},
+			error : function() {
+				
+				alert('AJAX 요청 실패!');
+			}
+		});
+	})
+	
+	// 페이징 버튼 클릭시 페이징 함수
+	$(document).on("click", ".page-item a", function(e) {
+
+		e.preventDefault();
+		
+		var checkValues = new Array();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		
+		if ($("input[name='stts']:checked").length == 0) {
+			
+			checkValues.push('5'); // 체크된 버튼이 없을시에 전체 주문을 불러온다.
+			
+		} else {
+		
+			$("input[name='stts']:checked").each(function(){
+		    				
+				checkValues.push($(this).val());
+			});
+		}
+		
+		var pageNum = actionForm.find("input[name='pageNum']").val();
+		var amount = actionForm.find("input[name='amount']").val();
+		
+		var data = {};  
+		data["stts"] = checkValues;
+		data["pageNum"] = pageNum;
+		data["amount"] = amount;
+		
+		$.ajax({
+			type: "POST",	    
+			url : "/admin_orderListCheck.do",
+			data : JSON.stringify(data),    
+			dataType: "json",			
+			contentType:"application/json",			
+			success : function(result) {
+							
+				var str = '';
+				var end = (Math.ceil(pageNum / 10.0)) * 10;
+				var start = end - 9;
+				var total = result.length;
+				var paging = '';
+
+				var realEnd = (Math.ceil((result.total * 1.0) / amount));
+				
+				if (realEnd < end) {
+					end = realEnd;
+				}
+																		
+				var values = result.orders_list;
+					
+				$.each(values, function(index, value){
+					
+					str += '<tr><td>' + values[index].or_date + '</td><td>' + values[index].order_num + '</td><td>';
+					str += user_id_list[index] + '</td><td>';
+					str += '￦ ' + values[index].pymntamnt + '</td><td>';
+					str += values[index].pymntmthd + '</td><td>';
+					str += values[index].savings + '</td><td>';
+						
+					switch(values[index].stts) {
+					
+						case 0 : str += '<span style="color: blue;">결제완료</span>'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '배송완료'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</td><td>';
+					str += values[index].ship_nmbr + '</td><td>';
+				});
+				
+				$('#order_table').empty();
+				$('#order_table').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			},
+			error: function() {
+			
+				alert("error = " + errorThrown);
+			}
+		});
+	});
+	
+	// 주문 배송 상태에 따른 체크박스 클릭시의 함수
+	function showOrderList(checkbox) {
+		
+		var checkValues = new Array();
+		
+		actionForm.find("input[name='pageNum']").val(1); // 어떠한 카테고리든 선택시에는 1페이지부터 보이게 고정한다.
+		
+		if ($("input[name='stts']:checked").length == 0) {
+			
+			checkValues.push('5'); // 체크된 버튼이 없을시에 전체 주문을 불러온다.
+			
+		} else {
+		
+			$("input[name='stts']:checked").each(function(){
+				
+				checkValues.push($(this).val());
+			});
+		}
+		
+		var pageNum = actionForm.find("input[name='pageNum']").val();
+		var amount = actionForm.find("input[name='amount']").val();
+		
+		var data = {};	  
+		data["stts"] = checkValues;
+		data["pageNum"] = pageNum;
+		data["amount"] = amount;
+		
+		$.ajax({
+			type: "POST",	    
+			url : "/admin_orderListCheck.do",
+			data : JSON.stringify(data),    
+			dataType: "json",			
+			contentType:"application/json",			
+			success : function(result) {
+							
+				var str = '';
+				var end = (Math.ceil(pageNum / 10.0)) * 10;
+				var start = end - 9;
+				var total = result.length;
+				var paging = '';
+
+				var realEnd = (Math.ceil((result.total * 1.0) / amount));
+				
+				if (realEnd < end) {
+					end = realEnd;
+				}
+																		
+				var values = result.orders_list;
+					
+				$.each(values, function(index, value){
+					
+					console.log(values[index].pymntmthd);
+					
+					str += '<tr><td>' + values[index].or_date + '</td><td>' + values[index].order_num + '</td><td>';
+					str += user_id_list[index] + '</td><td>';
+					str += '￦ ' + values[index].pymntamnt + '</td><td>';
+					str += values[index].pymntmthd + '</td><td>';
+					str += values[index].savings + '</td><td>';
+						
+					switch(values[index].stts) {
+					
+						case 0 : str += '<span style="color: blue;">결제완료</span>'; break;
+						case 1 : str += '배송준비중'; break;
+						case 2 : str += '배송중'; break;
+						case 3 : str += '배송완료'; break;
+						case 4 : str += '<span style="color: red;">주문취소</span>'; break;
+					}
+					
+					str += '</td><td>';
+					str += values[index].ship_nmbr + '</td><td>';
+				});
+				
+				$('#order_table').empty();
+				$('#order_table').append(str);
+				
+				// 페이징 버튼 AJAX 처리
+				for (var i = start; i <= end; i++) {
+					
+					paging += '<li class="page-item ';
+					
+					if (${pageMaker.pagingVO.pageNum} == i)
+						paging += 'active';
+					
+					paging += '" id="btn_' + i + '">';
+					paging += '<a href="' + i + '" class="page-link">' + i + '</a></li>';
+				}
+				
+				$('.pagination').empty();
+				$('.pagination').append(paging);
+				
+				$('.page-item').removeClass("active");
+				$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+			},
+			error: function() {
+			
+				alert("error = " + errorThrown);
+			}
+		});
+	}
 	</script>
 </body>
 
