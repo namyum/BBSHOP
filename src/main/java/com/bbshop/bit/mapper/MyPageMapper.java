@@ -1,6 +1,7 @@
 package com.bbshop.bit.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +25,7 @@ public interface MyPageMapper {
 
 	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
-	public List<OrderVO> getOrdersListStss(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key, @Param("stts_list") List<String> stts_list);
+	public List<OrderVO> getOrdersListStss(Map<String, Object> map);
 	
 	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
@@ -62,7 +63,7 @@ public interface MyPageMapper {
 
 	public int nickCheck(String nickname);
 
-	public List<OrderVO> getAllOrdersList(long key);
+	public List<OrderVO> getAllOrdersList(Map<String, Object> map);
 
 	public void insertSavings(@Param("savings") SavingsVO savings, @Param("user_key") long user_key);
 }
