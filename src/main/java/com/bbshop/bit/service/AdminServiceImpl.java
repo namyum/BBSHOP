@@ -24,6 +24,7 @@ import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.mapper.AdminMapper;
@@ -467,10 +468,10 @@ public class AdminServiceImpl implements AdminService {
 
 	/* 지수 - 회원관리 - 회원목록 */
 	@Override
-	public List<OrderVO> getAllOrders(){
+	public List<OrderVO> getAllOrders(PagingVO pagingVO){
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		
-		return mapper.getAllOrders();
+		return mapper.getAllOrders(pagingVO);
 	}
 	
 	@Override
@@ -509,7 +510,6 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-
 	@Override
 	public void answerOTO(OnetooneVO oto) {
 		// TODO Auto-generated method stub
@@ -522,5 +522,13 @@ public class AdminServiceImpl implements AdminService {
 		catch(Exception e) {
 			System.out.println("답변 실패...");
 		}
+	}
+		
+	@Override
+	public long getTotal(String table) {
+		
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.getTotal(table);
 	}
 }

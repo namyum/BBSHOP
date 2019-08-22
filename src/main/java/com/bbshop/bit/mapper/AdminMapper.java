@@ -20,6 +20,7 @@ import com.bbshop.bit.domain.MemberVO;
 import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 
@@ -70,12 +71,15 @@ public interface AdminMapper {
 	// 휴면 > 탈퇴
 	public void modifyFlag(@Param("user_key") long user_key);
 	/* 지수 - 회원관리 - 회원목록 */
-	public List<OrderVO> getAllOrders();
+	public List<OrderVO> getAllOrders(PagingVO pagingVO);
 	public String getUserId(long user_key);
 	public List<Order_GDVO> getRtrnExchnOrderGD();
 	public String getRtrnExchnMemberId(long or_gd_key);
 	public Date getShipDate(long order_num);
 	public List<MemberVO> getAllMembers();
 	public void answerOTO(OnetooneVO oto);
+	
+	/* 민구 - 테이블 데이터 개수 구하기 */
+	public long getTotal(@Param("table") String table);
 
 }

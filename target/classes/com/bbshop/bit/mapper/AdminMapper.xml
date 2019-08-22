@@ -203,9 +203,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 </update>
 
 <select id="getAllOrders" resultType="com.bbshop.bit.domain.OrderVO">
-	SELECT * 
-	FROM shop_order 
-	ORDER BY or_date DESC
+	SELECT *
+	FROM
+	( SELECT rownum rn, order_num, or_addr, pymntmthd, pymntamnt, phone1, phone2, savings, or_msg, cancel, or_date, 
+		stts, ship_nmbr, ship_date, user_key, name, items, receiver, tid 
+	  FROM 
+		( SELECT s.* 
+		  FROM shop_order s
+		  WHERE cancel = 0
+		  ORDER BY order_num desc )
+	<![CDATA[
+		WHERE rownum <= #{pageNum} * #{amount} )
+	WHERE rn > (#{pageNum} - 1) * #{amount}
+	]]>
 </select>
 
 <select id="getUserId" resultType="String">
@@ -330,5 +340,10 @@ delete from community where board_num=#{board_num}
 	update onetoone
 	set one_contents =#{one_contents}, lev=lev+1 where one_one_num=#{one_one_num}
 </update>
+
+<select id="getTotal" resultType="java.lang.Long">
+	SELECT count(*)
+	FROM ${table}
+</select>
 
 </mapper>
