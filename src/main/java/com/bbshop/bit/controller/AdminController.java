@@ -37,6 +37,8 @@ import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.PageDTO;
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
@@ -158,16 +160,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin_order.do")
-	public String admin_order(Model model) {
+	public String admin_order(Model model, PagingVO pagingVO) {
 		
-		List<OrderVO> orderList = adminService.getAllOrders();
+		pagingVO.setAmount(10); // admin 주문 관리에서는 주문 목록을 10개씩 뿌려준다.
+		
+		List<OrderVO> orderList = adminService.getAllOrders(pagingVO);
 		List<String> user_id_list = new ArrayList<String>();
-		
+		long total = adminService.getTotal("shop_order"); // 주문 테이블 데이터 개수를 구한다.
+
 		// orderList 순서에  해당하는 user_key로 id 불러오기
 		for(int i=0;i<orderList.size();i++) {
 			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
 		}
 		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("user_id_list", user_id_list);
 		

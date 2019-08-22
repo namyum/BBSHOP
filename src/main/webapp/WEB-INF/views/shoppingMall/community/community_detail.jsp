@@ -403,7 +403,7 @@ img{ max-width:100%;}
 							<div class="user justify-content-between d-flex"
 								style="min-width: 100%;">
 								<div class="desc" style="min-width: 100%; margin-top: 10px; margin-bottom: 40px;">
-									<h5 id="reply_writer" style="padding-top: 10px;">글쓴이</h5>
+									<h5 id="reply_writer" style="padding-top: 10px;">테스터</h5>
 									<p class="write_date"
 										style="font-size: 13px; color: #cccccc; margin-bottom: 13px;">
 										<!-- sysdate 받아와야 함 -->
@@ -831,7 +831,7 @@ img{ max-width:100%;}
             	var currDate = new Date();
             	
             	if (htmlEncode(name) == '${nickname}') {
-            	
+            		
 	            	sentMsg += '<div class="outgoing_msg">';
 	            	sentMsg += '<div class="sent_msg">';
 	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
@@ -839,7 +839,7 @@ img{ max-width:100%;}
 	            	sentMsg += '</div></div>';
             	
             	} else {
-            		
+
             		sentMsg += '<div class="incoming_msg">';
 	            	sentMsg += '<div class="received_msg">';
 	            	sentMsg += '<div class="received_withd_msg">';

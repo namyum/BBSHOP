@@ -777,7 +777,6 @@ input[type="checkbox"]:checked+label span {
     	
     	$("#noAccount").click(function(){
     		var toPage = $("#toPage").val();
-    		alert(toPage);
     		location.href="noAccount.do?toPage="+toPage;
     	})
     		
@@ -859,7 +858,6 @@ input[type="checkbox"]:checked+label span {
     	if($('#sign_id').val()!=null &&$('#sign_pwd').val()!=null &&$('#sign_nickname').val()!=null && $('#sign_phone').val()!=null){
     		 
     		$('#sign_birth').blur(function(){
-    			 
     		
     			$sign_btn = $('#sign_btn').attr('disabled',false);
     		
