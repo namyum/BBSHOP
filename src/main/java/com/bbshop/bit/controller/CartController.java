@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.service.CartService;
+import com.bbshop.bit.service.GoodsService;
 
 @Controller
 @RequestMapping("*.do")
@@ -29,6 +30,9 @@ public class CartController {
 	
 	@Autowired(required=true)
 	CartService cartService;
+	
+	@Autowired(required=true)
+	GoodsService goodsService;
 	
 	@Autowired
 	private HttpSession session;
@@ -88,6 +92,11 @@ public class CartController {
 		temp.setQNTTY(qnt);		
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
 		
+		// 적립금도 다시 계산 - 의정추가
+		long user_key = (long)session.getAttribute("member");
+		int savings = goodsService.getSavings(temp.getTOTALPRICE(), user_key);
+		temp.setSAVINGS(savings);
+		
 		System.out.println(temp.getTOTALPRICE());
 		cartService.modify(temp);
 		cartList.set(index, temp);
@@ -110,6 +119,11 @@ public class CartController {
 
 		temp.setQNTTY(qnt);
 		temp.setTOTALPRICE(temp.getPRICE()*qnt);
+		
+		// 적립금도 다시 계산 - 의정추가
+		long user_key = (long)session.getAttribute("member");
+		int savings = goodsService.getSavings(temp.getTOTALPRICE(), user_key);
+		temp.setSAVINGS(savings);
 		
 		cartService.modify(temp);
 		cartList.set(index, temp);
