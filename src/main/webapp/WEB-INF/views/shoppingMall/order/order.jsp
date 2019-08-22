@@ -50,7 +50,7 @@ label[for="confirm-radio"] {
    padding: 10px;
    border: 1px solid #888;
    width: 75%; /* Could be more or less, depending on screen size */
-   height: 55%;
+   height: 80%;
 }
 /* The Close Button */
 #addressModal #closeModal {

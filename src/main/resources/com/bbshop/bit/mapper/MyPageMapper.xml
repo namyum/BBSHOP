@@ -177,7 +177,7 @@
 	
 	<!-- 배송지 정보 관련 쿼리 -->
 	<insert id="insertAddrInfo">
-		INSERT into address(user_key, ze_key, num, name, roadAddress, addr, contact)
+		INSERT into address(user_key, zc_key, num, name, roadAddress, addr, contact)
 		VALUES (#{user_key}, #{zc_key}, #{num}, #{name}, #{roadAddress}, #{addr}, #{contact})
 	</insert>
 
