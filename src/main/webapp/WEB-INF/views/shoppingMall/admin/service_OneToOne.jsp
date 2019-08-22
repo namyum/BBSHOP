@@ -188,10 +188,7 @@ label{
 					    <th style="text-align: center">
                           답변여부
                         </th>
-                      <th style="text-align: center">
-                          답변하기
-                        </th>
-                        
+                    
                       </thead>	
                       <tbody id="OnetooneListTable">
                       <c:forEach var="oto" items="${onetoone}" varStatus="status" begin="${PageMaker.cri.pageNum*5-5 }" end="${PageMaker.cri.pageNum*5-1 }">
@@ -200,7 +197,7 @@ label{
                       		<tr>
                       		<td style='text-align:center'>${oto.one_one_num}</td>
                       		<td style='text-align:center'>${oto.one_category}</td>
-                      		<td style='text-align:center'><Button id="info_FAQ${status.index}" type="button" class="btn btn-link" align=center>${oto.one_title}</Button></td>
+                      		<td style='text-align:center'><Button id="info_OTO${status.index}" type="button" class="btn btn-link" align=center>${oto.one_title}</Button></td>
                       		<td style='text-align:center'>${oto.user_key}</td>
                       		<td style='text-align:center'>${oto.regdate }</td>
                       		<td style='text-align:center'>
@@ -208,12 +205,12 @@ label{
                           	<c:when test="${oto.lev==0}">
                               <button class='btn btn-default btn-sm' value='답변 없음'>답변없음</button>
                             </c:when>
-                                   	<c:when test="${oto.lev==1}">
+                                   	<c:when test="${oto.lev>=1}">
                               <button class='btn btn-success btn-sm' value='답변 보기'>답변보기</button>
                             </c:when>
                                         
                           </c:choose></td>
-                      		<td style='text-align:center'><input type='button' id='goanswer' class='btn btn-info btn-sm' value='답변하기' onclick="location.href='answerOnetoone.do?answer=${oto.one_one_num}'"></td>
+                      		
                       	</tr>
                       	</c:forEach>
                       </tbody>
@@ -287,46 +284,52 @@ label{
 			<span class='close'>&times;</span>
 			<h4 align =center>글조회</h4>
 			<div class='modal_body' style='padding:40px 50px;'>
-			<table width=100%>
-				<tr>
-					<td>
-						<label for='writer'>작성자</label><input type='text' class=form-control id='content_writer' name='content_writer'></td> 
-				</tr>
-				<tr>
-					<td>
-						<label for='title'>제목</label><input type='text' class=form-control id='content_title' name='content_title'></td>
-				</tr>
-				<tr>
-					<td>
-						<label for='title'>말머리</label><select name='category_team'>
-														<option value='Kia'>Kia</option>
-														<option value='Samsung'>Samsung</option>
-														<option value='SK'>SK</option>
-														<option value='KT'>KT</option>
-														<option value='LG'>LG</option>
-														<option value='NC'>NC</option>
-														<option value='Kiwoom'>Kiwoom</option>
-														<option value='Hanwha'>Hanwha</option>
-														<option value='Doosan'>Doosan</option>
-														<option value='Lotte'>Lotte</option>
-														</select>
-														</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_date'>작성일</label>
-						<input type='text' id='write_date' name='write_date' class='form-control'>
-						</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_content'>내용</label>
-						<input width='70%'  type='text' id='write_content' name='write_content' class='form-control'></td>
-				</tr>
+				<form action='answerOTO.do' method="get">
+					<table width=100% style="text-align:center" align=center>
+	
+						<tr>
+							<td>
+								<label for='writer'>작성자</label></td>
+							<td><text id="one_one_num"></text></td> 
+						</tr>
+						<tr>
+							<td>
+								<label for='writer'>회원 번호</label></td>
+							<td><text id="user_key"></text></td> 
+						</tr>
+						<tr>
+							<td>
+								<label for='title'>제목</label></td>
+							<td><text id="title"></text></td>
+						</tr>
+						<tr>
+							<td>
+								<label for='goodsCategory'>카테고리</label></td>
+							<td><text id="category"></text></td>
+						</tr>
+						<tr>
+							<td>
+								<label for='write_date'>작성일</label></td>
+							<td><text id="regdate"></text></td>
+						</tr>
+						<tr>
+							<td>
+								<label for='write_content'>내용</label>
+							</td>
+							<td><textarea id="contents"rows="10" cols="40" name="one_contents"></textarea></td>
+						</tr>
 				
-			</table>
+				</table>
+				<table width=100%>
+					<tr>
+						<td style='text-align:center'>
+						<button class='btn btn-info'>취소</button>
+						<input type=submit id='submit' class="btn btn-success" value="답변하기"/>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="one_one_num" value="" id="hiddenOTONum"/>
 			</form>
-			
 			</div>
 		</div>
 	 </div>
@@ -335,56 +338,122 @@ label{
     var info = document.getElementById('info_modal');
     var span = document.getElementsByClassName('close')[0];
 
-    $('#info_FAQ0').click(function(){
-      info.style.display = "block";
-    })
+    $('#info_OTO0').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[0].one_one_num}")
+	      $('#user_key').html("${onetoone[0].user_key}")
+	      $('#title').html("${onetoone[0].one_title}");
+	      $('#regdate').html("${onetoone[0].regdate}")
+	      $('#contents').html("${onetoone[0].one_contents}");
+	      $('#category').html("${onetoone[0].one_category}");
+	      $('#hiddenOTONum').val("${onetoone[0].one_one_num}");
+	      
+	    });
+    $('#info_OTO1').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[1].one_one_num}")
+	      $('#user_key').html("${onetoone[1].user_key}")
+	      $('#title').html("${onetoone[1].one_title}");
+	      $('#regdate').html("${onetoone[1].regdate}")
+	      $('#contents').html("${onetoone[1].one_contents}");
+	      $('#category').html("${onetoone[1].one_category}");
+	      
+	    });
+  
+    $('#info_OTO2').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[2].one_one_num}")
+	      $('#user_key').html("${onetoone[2].user_key}")
+	      $('#title').html("${onetoone[2].one_title}");
+	      $('#regdate').html("${onetoone[2].regdate}")
+	      $('#contents').html("${onetoone[2].one_contents}");
+	      $('#category').html("${onetoone[2].one_category}");
+	      
+	    });
+  
+    $('#info_OTO3').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[3].one_one_num}")
+	      $('#user_key').html("${onetoone[3].user_key}")
+	      $('#title').html("${onetoone[3].one_title}");
+	      $('#regdate').html("${onetoone[3].regdate}")
+	      $('#contents').html("${onetoone[3].one_contents}");
+	      $('#category').html("${onetoone[3].one_category}");
+	      
+	    });
+    $('#info_OTO4').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[4].one_one_num}")
+	      $('#user_key').html("${onetoone[4].user_key}")
+	      $('#title').html("${onetoone[4].one_title}");
+	      $('#regdate').html("${onetoone[4].regdate}")
+	      $('#contents').html("${onetoone[4].one_contents}");
+	      $('#category').html("${onetoone[4].one_category}");
+	      
+	    });
+    
+    $('#info_OTO0').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[0].one_one_num}")
+	      $('#user_key').html("${onetoone[0].user_key}")
+	      $('#title').html("${onetoone[0].one_title}");
+	      $('#regdate').html("${onetoone[0].regdate}")
+	      $('#contents').html("${onetoone[0].one_contents}");
+	      $('#category').html("${onetoone[0].one_category}");
+	      
+	    });
+  $('#info_OTO1').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[1].one_one_num}")
+	      $('#user_key').html("${onetoone[1].user_key}")
+	      $('#title').html("${onetoone[1].one_title}");
+	      $('#regdate').html("${onetoone[1].regdate}")
+	      $('#contents').html("${onetoone[1].one_contents}");
+	      $('#category').html("${onetoone[1].one_category}");
+	      
+	    });
 
-    window.onclick = function (event){
+  $('#info_OTO2').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[2].one_one_num}")
+	      $('#user_key').html("${onetoone[2].user_key}")
+	      $('#title').html("${onetoone[2].one_title}");
+	      $('#regdate').html("${onetoone[2].regdate}")
+	      $('#contents').html("${onetoone[2].one_contents}");
+	      $('#category').html("${onetoone[2].one_category}");
+	      
+	    });
+
+  $('#info_OTO3').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[3].one_one_num}")
+	      $('#user_key').html("${onetoone[3].user_key}")
+	      $('#title').html("${onetoone[3].one_title}");
+	      $('#regdate').html("${onetoone[3].regdate}")
+	      $('#contents').html("${onetoone[3].one_contents}");
+	      $('#category').html("${onetoone[3].one_category}");
+	      
+	    });
+  $('#info_OTO4').click(function(){
+	      info.style.display = "block";
+	      $('#one_one_num').html("${onetoone[4].one_one_num}")
+	      $('#user_key').html("${onetoone[4].user_key}")
+	      $('#title').html("${onetoone[4].one_title}");
+	      $('#regdate').html("${onetoone[4].regdate}")
+	      $('#contents').html("${onetoone[4].one_contents}");
+	      $('#category').html("${onetoone[4].one_category}");
+	      
+	    });
+  
+    
+  window.onclick = function (event){
       if(event.target == info){
         info.style.display="none";
       }
     }
+    
 	
-    $('#info_FAQ1').click(function(){
-        info.style.display = "block";
-      })
-
-      window.onclick = function (event){
-        if(event.target == info){
-          info.style.display="none";
-        }
-      }
-
-    $('#info_FAQ2').click(function(){
-        info.style.display = "block";
-      })
-
-      window.onclick = function (event){
-        if(event.target == info){
-          info.style.display="none";
-        }
-      }
-
-    $('#info_FAQ3').click(function(){
-        info.style.display = "block";
-      })
-
-      window.onclick = function (event){
-        if(event.target == info){
-          info.style.display="none";
-        }
-      }
-
-    $('#info_FAQ4').click(function(){
-        info.style.display = "block";
-      })
-
-      window.onclick = function (event){
-        if(event.target == info){
-          info.style.display="none";
-        }
-      }
-
+   
   </script>
   
   <script>
@@ -439,15 +508,10 @@ label{
                             else{
                       			str+= " <button class='btn btn-success btn-sm' value='답변 보기'>답변보기</button></td>";
                       		}
-                            
-                      		str+="<td style='text-align:center'><input type='button' id='goanswer' class='btn btn-info btn-sm' value='답변' onclick='location.href='"+"answerOnetoone.do?answer=${oto.one_one_num}></td></tr>";
-                      	
-  								
+                        	
   								//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
   							if(data.oto[i+1]==null)
   								break;
-  								
-  							
   						}
   						$('#OnetooneListTable').empty();
   						$('#OnetooneListTable').append(str);

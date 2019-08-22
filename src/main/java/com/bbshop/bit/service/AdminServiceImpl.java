@@ -508,4 +508,19 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.getAllMembers();
 
 	}
+
+
+	@Override
+	public void answerOTO(OnetooneVO oto) {
+		// TODO Auto-generated method stub
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		sqlSession.getMapper(AdminMapper.class);
+		try {
+			mapper.answerOTO(oto);
+			System.out.println("답변완료");
+		}
+		catch(Exception e) {
+			System.out.println("답변 실패...");
+		}
+	}
 }

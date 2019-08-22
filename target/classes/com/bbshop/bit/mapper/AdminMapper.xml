@@ -326,4 +326,9 @@ where
 delete from community where board_num=#{board_num}
 </delete>
 
+<update id="answerOTO">
+	update onetoone
+	set one_contents =#{one_contents}, lev=lev+1 where one_one_num=#{one_one_num}
+</update>
+
 </mapper>
