@@ -347,7 +347,7 @@ function reviewList_Ajax() {
 				output += "<td>" + list[index].re_date + "</td></tr>";
 				
 				output += "<tr class='table_content' style='display:none;'>";
-				output += "<td colspan='4'><div class='view'><p>" + list[index].contents + "</p></div></td></tr>";
+				output += "<td colspan='4'><div class='view'><img src='" + list[index].re_img + "' style='width:300px;'><br><br><br><p>" + list[index].contents + "</p></div></td></tr>";
 				
 				$('#review_list').append(output);
 			});
@@ -873,7 +873,7 @@ function reviewScore_Ajax() {
 								<span class="modal_close close">&times;</span>	<!-- X버튼 -->
 								<h4 align="center">후기 작성하기</h4>
 
-								<form class="row review_form contact_form" action="/registerReview.do" method="post" 
+								<form class="row review_form contact_form" enctype="multipart/form-data" action="/registerReview.do" method="post" 
 									id="reviewForm" novalidate="novalidate" onsubmit="return checkMember();">
 								<div id="star_review" style="width:-webkit-fill-available; text-align:center;">
 									<input type="radio" name="score" value="5" checked>
