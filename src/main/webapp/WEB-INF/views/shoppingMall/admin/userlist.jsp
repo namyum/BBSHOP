@@ -171,7 +171,9 @@ body {
               <table class="table" style="background-color: rgba(230, 236, 236, 0.4)">
                       <thead class=" text-primary">
                   
-                   
+                      <th style='text-align:center'>
+                          	회원번호
+                        </th>
                         <th style='text-align:center'>
                           ID
                         </th>
@@ -197,9 +199,12 @@ body {
                      	     가입일자
                         </th>
                       </thead>
-                      <tbody>
-                      <c:forEach var="userList" items="${userList}" varStatus="status">
+                      <tbody id="userListTable">
+                      <c:forEach var="userList" items="${userList}" varStatus="status" begin="${PageMaker.cri.pageNum*5-5 }" end="${PageMaker.cri.pageNum*5-1 }">
                         <tr>
+                        	<td style='text-align:center;width:80px;'>
+                            ${userList.USER_KEY}
+                          </td>
                           <td  class="text-primary" style='text-align:center'>
                             <button id="modal_id" class='btn btn-link' onclick="openMemberModal(${userList.USER_KEY})">${userList.MEMBER_ID}</button>
                           </td>
@@ -232,15 +237,23 @@ body {
                    
                       	<td style='text-align:center'>
                       		<ul class="pagination">
+										<c:if test="${PageMaker.prev}">
 										<li class="page-item disabled"><a class="page-link"
-											href="#">이전</a></li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item"><a class="page-link" href="#">4</a></li>
-										<li class="page-item"><a class="page-link" href="#">5</a></li>
-										<li class="page-item"><a class="page-link" href="#">다음</a></li>
+											href="${PageMaker.startPage -1 }">이전</a></li>
+										</c:if>
+										<c:forEach var="num" begin="${PageMaker.startPage}" end="${PageMaker.endPage}">
+										<li class="page-item ${PageMaker.cri.pageNum==num?"active":"" }" id="btn_${num}">
+										<a class="page-link" href="<c:out value="${num}"/>"><c:out value="${num}"/></a></li>
+										</c:forEach>
+										<c:if test="${PageMaker.next}">
+										<li class="page-item"><a class="page-link"
+											href="${PageMaker.endPage+1 }">다음</a></li>
+										</c:if>
 									</ul>
+							<form id='pageForm' action="goodsList.do" method='POST'>
+								<input type='hidden' name='pageNum' value='${PageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${PageMaker.cri.amount}'>
+							</form>
                       	</td>
                       		
                       	<td style='text-align:right;' width=30%>
@@ -275,74 +288,6 @@ body {
               </div>
             </div>
       
-    </div>
-  </div>
-  <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
-        <li class="button-container">
-          <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-        </li>
-        <!-- <li class="header-title">Want more components?</li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                  Get the pro version
-                </a>
-            </li> -->
-        <li class="button-container">
-          <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-            View Documentation
-          </a>
-        </li>
-        <li class="button-container github-star">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-        </li>
-        <li class="header-title">Thank you for 95 shares!</li>
-        <li class="button-container text-center">
-          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-          <br>
-          <br>
-        </li>
-      </ul>
     </div>
   </div>
   
@@ -459,6 +404,75 @@ body {
   <script>
     $(document).ready(function() {
       $().ready(function() {
+    	//페이지 이동부분
+   		 var actionForm =$("#pageForm");
+  	
+   		  $(".page-item a").on("click",function(e){
+  				e.preventDefault(); //페이지 이동이없도록 처리한다.
+  				console.log("click");
+  				//FORM에 있는 pageNum값을 클릭한 페이지의 숫자로 바꿔주기 위한 코드.
+  				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+  				var data = {
+  						//form의 페이지 넘과 어마운트를 받아온다(amount는 없어도 상관없다.)
+  						pageNum: actionForm.find("input[name='pageNum']").val(), 
+  						amount: actionForm.find("input[name='amount']").val()
+  					};
+  				console.log("pageNum="+data.pageNum);
+  				var str = '';
+  				var end = ${PageMaker.endPage};
+  				var start = ${PageMaker.startPage};
+  				var paging = '';
+  	
+  				$.ajax({
+  					url:"UserListPaging.do",
+  					type:"GET",
+  					data:data,
+  					dataType:"json",
+  					contentType:"application/json",
+  					success:function(data){
+  						console.log("성공!");
+  						//여러가지 데이터 타입을 받아옴.
+  						console.log(data);
+  						console.log(data.userList);
+  						console.log(data.PageMaker.cri.pageNum);
+  						var count=0;
+  						//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
+  						for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
+  							var values=data.userList[i];
+  							
+  							console.log(values);
+  							str+= "<tr>"
+  								  +"<td style='text-align:center; width:80px;'>"+values.user_KEY+"</td>"
+                            	  +"<td  class='text-primary' style='text-align:center'><button id='modal_id' class='btn btn-link' onclick='openMemberModal("+values.user_KEY+")'' >"+values.member_ID+"</button></td>"
+                          		  +"<td style='text-align:center;width:80px;'>"+values.nickname+"</td>"
+                          		  +"<td style='text-align:center;width:80px;'>"+values.name+"</td>"
+                          		  +"<td style='text-align:center'>"+values.phone+"</td>"
+                          		  +"<td style='text-align:center'>"+values.grade+"</td>"
+                          		  +"<td style='text-align:center;width:80px;'>"+values.savings+"</td>"
+                           	 	  +"<td style='text-align:center;width:90px;'>"+values.caution+"</td>"
+                          		  +"<td style='text-align:center'>"+values.regdate+"</td></tr>";    
+                          		  count++;
+  							//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
+  							if(data.userList[i+1]==null)
+  								break;
+  								
+  							
+  						}
+  						$('#userListTable').empty();
+  						$('#userListTable').append(str);
+  						
+  						// 페이징 버튼 AJAX 처리
+  						
+ 						$('.page-item').removeClass("active");
+ 						$('#btn_' + actionForm.find("input[name='pageNum']").val()).addClass("active");
+ 					},
+ 					error:function(){
+ 						console.log("실패");
+ 					}
+ 					});
+ 				
+ 			  });
+  
     	  
     	  $(".sidebar-wrapper li").eq(1).addClass('active');
     	  
@@ -627,8 +641,9 @@ body {
           }, 1000);
 
         });
-      });
-    });
+  				});
+   		  });
+   
   </script>
   <script>
     var modal = document.getElementById('order_Modal');;
@@ -640,7 +655,7 @@ body {
        }
     }
     
-    // 주문 조회 모달
+    // 회원 조회 모달
     function openMemberModal(num){	
 		$.ajax({
 			url:"getMember.do?user_key="+num,
