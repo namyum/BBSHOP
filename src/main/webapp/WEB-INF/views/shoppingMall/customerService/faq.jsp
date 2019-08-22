@@ -163,7 +163,7 @@ $(document).ready(function(){
 	<div class="button-group-area mt-40" style="margin-bottom: 30px; text-align:right;">
 		<a href="/faq_list.do" class="genric-btn primary e-large"
 			style="background: #57c051; font-size: 30px; font-weight: bold; width:15%;">FAQ</a>
-		<a href="/one_to_one_list.do" class="genric-btn primary e-large"
+		<a href="/onetoonelist.do" class="genric-btn primary e-large"
 			style="background: #a0a0a0; font-size: 30px; font-weight: bold; width:15%;">1:1문의</a>
 	</div>
 	
