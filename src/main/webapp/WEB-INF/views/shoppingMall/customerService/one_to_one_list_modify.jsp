@@ -24,7 +24,12 @@
 						<input type="hidden" name="one_one_num" value="${board.one_one_num}"/>
 					</div>
 					<div class="mt-10">
+<<<<<<< HEAD
 						<input type="text" name="one_title" value="${board.one_title}" required class="single-input">
+=======
+						<input type="text" name="subject" value="${board.one_title}" required class="single-input">
+						<input type="hidden" name="one_one_num" value="${board.one_one_num}"/>
+>>>>>>> kakao userkey 수정
 					</div>
 					<div class="input-group-icon mt-10">
 						<div class="icon">

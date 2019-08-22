@@ -156,7 +156,7 @@ body {
 	/* 15% from the top and centered */
 	padding: 20px;
 	border: 1px solid #888;
-	width: 30%;
+	width: 40%;
 	/* Could be more or less, depending on screen size */
 }
 /*아이디 찾기 모달에 나오는 내용*/
@@ -795,13 +795,13 @@ input[type="checkbox"]:checked+label span {
         			console.log("1: 중복이란다  0: 없는 아이디 란다 ="+data);
         			
         			if(data=='success'){
-        				$("#id_check").text("사용중이란다");
+        				$("#id_check").text("사용중입니다.");
         				$("#id_check").css("color","red");
         				$("#auth_Email").attr("disabled",true);
         				$("#sign_id").focus();
         				
         			}else {
-						$("#id_check").text("사용 가능하단다");
+						$("#id_check").text("사용 가능합니다.");
 						$("#id_check").css("color","green");
 						$("#auth_Email").attr("disabled",false);
 					}
@@ -836,12 +836,12 @@ input[type="checkbox"]:checked+label span {
     			console.log("success: 중복이란다  false: 없는 닉네임 이란다 ="+data);
     			
     			if(data=='success'){
-    				$("#nick_check").text("사용중이란다");
+    				$("#nick_check").text("사용중입니다.");
     				$("#nick_check").css("color","red");
     				$("#sign_nickname").focus();
     				
     			}else {
-					$("#nick_check").text("사용 가능하단다");
+					$("#nick_check").text("사용 가능합니다.");
 					$("#nick_check").css("color","green");
 					
 				}
@@ -881,7 +881,7 @@ input[type="checkbox"]:checked+label span {
     var emailcheck_Modal = document.getElementById('emailcheck');
         var emailAvailCheck = function () {
             var userid = $('input[id=sign_id]').val();
-            alert(userid);
+          
             if (userid == '') {
                 alert("메일 주소를 정확히 입력 해 주십시오");
                 return false;
@@ -905,7 +905,6 @@ input[type="checkbox"]:checked+label span {
     			data : {MEMBER_ID:userid},    			
     			dataType : "text",
     			success : function(authkey_rand){
-    				alert(authkey_rand);
     				//인증키를 authkey 변수에 넣어줌.
     				authkey=authkey_rand;
     			},
@@ -919,7 +918,7 @@ input[type="checkbox"]:checked+label span {
         var checkAuthkey = function(){
         	var insertkey = $('input[id=insertkey]').val();
         	if(authkey==insertkey){
-        		alert("인증키가 일치합니다OOOOOOOOO.")
+        		alert("인증키가 일치합니다.")
         		       		
         		emailcheck_Modal.style.display="none";
         		
@@ -1012,7 +1011,7 @@ input[type="checkbox"]:checked+label span {
     			dataType : "text",
     			success : function(){
     				
-    				alert("통신완료!");
+    				alert("회원가입이 완료되었습니다!");
     			},
     			error:function(){
     				
