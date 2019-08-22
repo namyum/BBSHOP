@@ -446,7 +446,7 @@ img{ max-width:100%;}
 							BB 채팅방</div>
 					<div class="mesgs">
 						<input type="hidden" id="userid" value="${nickname }">
-						<ul id="discussion" style="width: 100%; height: 500px; border: 4px solid #d7e2d4; margin: auto; padding-left: 20px; background: #fff;"></ul>
+						<ul id="discussion" style="width: 100%; height: 500px; border: 4px solid #d7e2d4; margin: auto; padding-left: 0px; background: #fff;"></ul>
 						<div class="type_msg">
 							<div class="input_msg_write">
 								<input type="text" class="write_msg" id="message" placeholder="메세지를 입력하세요." onkeyup="enterkey()">
@@ -820,11 +820,14 @@ img{ max-width:100%;}
 
             chat.on('addNewMessageToPage', function (name, message) {
             	
+            	var currDate = new Date();
+            	
             	if (htmlEncode(name) == '${nickname}') {
             	
 	            	sentMsg += '<div class="outgoing_msg">';
 	            	sentMsg += '<div class="sent_msg">';
 	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
+	            	sentMsg += '<span class="time_date">' + htmlEncode(name) + " " + getTimeStamp() + '</span>';
 	            	sentMsg += '</div></div>';
             	
             	} else {
@@ -833,6 +836,7 @@ img{ max-width:100%;}
 	            	sentMsg += '<div class="received_msg">';
 	            	sentMsg += '<div class="received_withd_msg">';
 	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
+	            	sentMsg += '<span class="time_date">' + htmlEncode(name) + " " + getTimeStamp() + '</span>';
 	            	sentMsg += '</div></div></div>';
             	}
             	
@@ -851,17 +855,44 @@ img{ max-width:100%;}
             });
         });
 
+        // 시간 포맷 함수
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
-        
-	    function enterkey() {
-		    if (window.event.keyCode == 13) {
-		    	$('#btnSend').click();
-		    }
+
+		function getTimeStamp() {
+			
+			var d = new Date();
+			var s = leadingZeros(d.getFullYear(), 4) + '-'
+					+ leadingZeros(d.getMonth() + 1, 2) + '-'
+					+ leadingZeros(d.getDate(), 2) + ' ' 
+					+ leadingZeros(d.getHours(), 2) + ':'
+					+ leadingZeros(d.getMinutes(), 2) + ':'
+					+ leadingZeros(d.getSeconds(), 2);
+
+			return s;
 		}
-    </script>
+
+		function leadingZeros(n, digits) {
+			
+			var zero = '';
+			n = n.toString();
+
+			if (n.length < digits) {
+				for (i = 0; i < digits - n.length; i++)
+					zero += '0';
+			}
+			return zero + n;
+		}
+
+		// 엔터키 눌렀을 때 메세지 입력되게 하는 함수
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+				$('#btnSend').click();
+			}
+		}
+	</script>
 
 	<%@ include file="../include/community_footer.jsp"%>
 </body>
