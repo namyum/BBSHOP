@@ -307,7 +307,7 @@ public class MyPageController {
 		
 		myPageService.deleteUserInfo(user_key, reason);
 		
-		return "shoppingMall/main/shopping_main";
+		return "shoppingMall/main/index";
 	}
 	
 	// 추가 사항 수정하기
