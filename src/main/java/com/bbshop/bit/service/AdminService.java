@@ -60,5 +60,6 @@ public interface AdminService {
 	public String getRtrnExchnMemberId(long or_gd_key);
 	public Date getShipDate(long order_num);
 	public List<MemberVO> getAllMembers();
+	public void answerOTO(OnetooneVO oto);
 
 }

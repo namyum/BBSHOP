@@ -60,13 +60,45 @@ public class AdminController {
 	MyPageService myPageService;
 	
 	@RequestMapping("userlist.do")
-	public String userList(Model model) {
-		
+	public String userList(Model model , Criteria cri,HttpServletRequest request) {
 		List<MemberVO> userList = adminService.getAllMembers();
+		System.out.println("유저 리스트 불러옴");
+		System.out.println(userList);
+		cri.setAmount(5);
+		AdminPageDTO temp = new AdminPageDTO(cri,userList.size());
 		
+		model.addAttribute("PageMaker",temp);
 		model.addAttribute("userList", userList);
 		
 		return "shoppingMall/admin/userlist";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="UserListPaging.do", consumes = "application/json", method= {RequestMethod.POST,RequestMethod.GET})
+	public Map<String,Object> UserListPaging(Model model , Criteria cri,HttpServletRequest request) {
+		
+		List<MemberVO> userList = adminService.getAllMembers();
+		System.out.println(userList);
+		
+		cri.setAmount(5);
+		
+		
+		//post방식으로 넘어온 pageNum을 출력하고 그값을 criteria객체에 넣어준다.
+			System.out.println("pageNum:"+request.getParameter("pageNum"));
+			cri.setAmount(5);
+			cri.setPageNum(Integer.parseInt(request.getParameter("pageNum")));
+	
+		
+		AdminPageDTO temp = new AdminPageDTO(cri,userList.size());
+		System.out.println(temp);
+		System.out.println(cri);
+		//json으로 전달하기 위해 맵형식으로 바꿔준다.
+		Map<String,Object> pagingList = new HashMap<String,Object>();
+		pagingList.put("userList", userList);
+		pagingList.put("PageMaker",temp);
+		
+		System.out.println(pagingList);
+		return pagingList;
 	}
 
 	/* 의정 - 회원탈퇴 관리 */
@@ -566,6 +598,14 @@ public class AdminController {
 		System.out.println(pagingList);
 		return pagingList;
 	}
+	
+	@RequestMapping(value="answerOTO.do",method=RequestMethod.GET)
+	public String answerOTO(HttpServletRequest request,OnetooneVO oto ) {
+		System.out.println(oto);
+		adminService.answerOTO(oto);
+		return "forward:service_OneToOne.do";
+	}
+	
 	@RequestMapping(value="searchOtoCategory.do")
 	public String searchOtoCategory (HttpServletRequest request ,Model model,Criteria cri) {
 		String [] category = request.getParameterValues("Category");
