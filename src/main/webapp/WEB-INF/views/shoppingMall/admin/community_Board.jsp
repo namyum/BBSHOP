@@ -588,7 +588,7 @@ label{
  			  });
   
     	  
-    	  $(".sidebar-wrapper li").eq(7).addClass('active');
+    	  $(".sidebar-wrapper li").eq(5).addClass('active');
     	  
     	  
         $sidebar = $('.sidebar');

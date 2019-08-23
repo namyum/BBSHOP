@@ -206,7 +206,7 @@ label{
                               <button class='btn btn-default btn-sm' value='답변 없음'>답변없음</button>
                             </c:when>
                                    	<c:when test="${oto.lev>=1}">
-                              <button class='btn btn-success btn-sm' value='답변 보기'>답변보기</button>
+                              <button class='btn btn-success btn-sm' value='답변 보기'>답변완료</button>
                             </c:when>
                                         
                           </c:choose></td>
@@ -530,7 +530,7 @@ label{
   					});
   				
   			  });
-    	$(".sidebar-wrapper li").eq(5).addClass('active');
+    	$(".sidebar-wrapper li").eq(4).addClass('active');
     	  
     	  $sidebar = $('.sidebar');
 

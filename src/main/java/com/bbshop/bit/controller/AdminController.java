@@ -407,8 +407,8 @@ public class AdminController {
 		//String uploadPath = request.getSession().getServletContext().getRealPath("/");
 		//원래 프로젝트 String uploadPath="C:\\Users\\dntjr\\Documents\\workspace-sts-3.9.8.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BBSHOP\\resources\\shoppingMall\\img\\goods\\glove\\";
 		//깃에 있는 프로젝트경로
-		
-		String uploadPath="C:\\Users\\dntjr\\GITHUB\\BBSHOP-1\\src\\main\\webapp\\resources\\shoppingMall\\img\\goods\\glove\\";
+	
+		String uploadPath="C:\\Users\\Mingu\\git\\BBSHOP\\src\\main\\webapp\\resources\\shoppingMall\\img\\goods\\glove\\";
 		System.out.println("실제경로"+uploadPath);
 		String [] originalFileExtension = new String [mf.size()];
 		String [] storedFileName = new String[mf.size()];

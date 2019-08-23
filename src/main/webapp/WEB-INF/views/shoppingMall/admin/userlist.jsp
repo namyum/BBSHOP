@@ -156,7 +156,7 @@ body {
 	                  <td><input type="checkbox" id='check_bronze'>브론즈</td>
 	                  <td><input type="checkbox" id='check_silver'>실버</td>
 	                  <td><input type="checkbox" id='check_gold'>골드</td>
-	                  <td><input type="checkbox" id='check_platinum'>플레티넘</td>
+	                  <td><input type="checkbox" id='check_platinum'>다이아</td>
               		<div style='float:right'>    
                   	<select class='form-control'>
                       <option> 누적경고 순</option>
@@ -225,7 +225,7 @@ body {
                           <td style='text-align:center;width:90px;'>
                             ${userList.CAUTION}
                           </td>
-                          <td style='text-align:center'>
+                          <td style='text-align:center' id="regdate">
                             <fmt:formatDate pattern="yyyy-MM-dd" value="${userList.REGDATE}" />
                           </td>             
                         </tr>
@@ -404,6 +404,12 @@ body {
   							var values=data.userList[i];
   							
   							console.log(values);
+  							
+  							// 가입날짜
+  							var time1 = new Date(values.regdate).getTime();
+  							var regdate = new Date(time1);
+  							var formatRegdate = regdate.getFullYear()+"-0"+(regdate.getMonth() + 1)+"-"+regdate.getDate();
+  							
   							str+= "<tr>"
   								  +"<td style='text-align:center; width:80px;'>"+values.user_KEY+"</td>"
                             	  +"<td  class='text-primary' style='text-align:center'><button id='modal_id' class='btn btn-link' onclick='openMemberModal("+values.user_KEY+")'' >"+values.member_ID+"</button></td>"
@@ -413,7 +419,8 @@ body {
                           		  +"<td style='text-align:center'>"+values.grade+"</td>"
                           		  +"<td style='text-align:center;width:80px;'>"+values.savings+"</td>"
                            	 	  +"<td style='text-align:center;width:90px;'>"+values.caution+"</td>"
-                          		  +"<td style='text-align:center'>"+values.regdate+"</td></tr>";    
+                          		  +"<td style='text-align:center' id='regdate'>" + formatRegdate + "</td></tr>";
+                          		  
                           		  count++;
   							//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
   							if(data.userList[i+1]==null)
@@ -437,7 +444,7 @@ body {
  			  });
   
     	  
-    	  $(".sidebar-wrapper li").eq(1).addClass('active');
+    	  $(".sidebar-wrapper li").eq(0).addClass('active');
     	  
         $sidebar = $('.sidebar');
 

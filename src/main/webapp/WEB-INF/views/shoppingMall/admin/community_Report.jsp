@@ -19,8 +19,7 @@
   <!-- CSS Files -->
   <link href="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <!-- 스마트 에디터 -->
-  <script type="text/javascript" src="${pageContext.request.contextPath }/resources/smarteditor/js/HuskyEZCreator.js"></script>
+
   <!--   Core JS Files   -->
    <link href="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" /> 
   <script src="${pageContext.request.contextPath }/resources/admin_bootstrap/assets/js/core/popper.min.js"></script>
@@ -148,7 +147,6 @@ label{
 								<td><input type='checkbox' id='Report_sex' name='category' value='음란물'>음란물&nbsp;&nbsp;&nbsp;</td>
 								<td><input type='submit' id='Report_submit' name='Report_category_submit' value='조회' class='btn btn-info btn-sm'>
 								
-							
 							</tr>
 				  </table>
 						</form>
@@ -179,14 +177,25 @@ label{
                      <c:forEach var='report' items="${reportList}" varStatus="status">
                       	<tr>
                       		<td style='text-align:center'><input type='checkbox' class='check'>
-                      		<td style='text-align:center'>${report.BOARD_NUM }</td>
+                      		
+                      		<td style='text-align:center'>
+                      		
+                      		 <c:choose>
+	                      			<c:when test='${boardList[status.index]  !=null }'>
+	                      			${boardList[status.index].BOARD_NUM}
+	                      			</c:when>
+	                      		<c:otherwise>
+	                      				삭제되었습니다.
+	                      		</c:otherwise>
+                      		</c:choose>
+                      		</td>
                       		<td style='text-align:center'><Button id="info_Report${status.index}" type="button" class="btn btn-link" align=center>
                       		<c:choose>
-	                      			<c:when test='${boardList[status.index].BOARD_NUM != null}'>
+	                      			<c:when test='${boardList[status.index].TITLE !=null }'>
 	                      				${boardList[status.index].TITLE}
 	                      			</c:when>
 	                      		<c:otherwise>
-	                      			삭제되었습니다.
+	                      				삭제되었습니다.
 	                      		</c:otherwise>
                       		</c:choose>
                       		</Button></td>
@@ -310,6 +319,7 @@ label{
 	 </div>
 
   <script type="text/javascript">
+  
     var info = document.getElementById('info_modal');
     var span = document.getElementsByClassName('close')[0];
 
@@ -370,33 +380,11 @@ label{
   <script>
     $(document).ready(function() {
     	
-    	 var editor_object=[];
-    		
-    		nhn.husky.EZCreator.createInIFrame({
-    			oAppRef:editor_object,
-    			elPlaceHolder: "report_contents",
-    			sSkinURI:"${pageContext.request.contextPath}/resources/smarteditor/SmartEditor2Skin.html",
-    			fCreator: "createSEditor2",
-    			htParams:{
-    				//툴바 사용 여부 true는 사용,false는 사용하지 않음.
-    				bUseToolbar:true,
-    				//입력창 크기 조절바 사용 여부 true는 사용 false는 사용하지 않음.
-    				bUserVerticalResizer:true,
-    				//모드 탭(editor/html/text) 사용여부 (true사용 false는 사용하지 않음)
-    				bUserModeChanger:true,	
-    			}
-    		});
-    	 
-    		$('#anserSubmit').click(function(){
-    			//id가 contents인 textarea에 에디터에서 대입해온다
-    			editor_object.getById['contents'].exec("UPDATE_CONTENTS_FILED",[]);
-    			//이부분에서 서브밋발생
-    			$('answerForm').submit();	
-    		});
+    
     	 
       $().ready(function() {
     	
-    	$(".sidebar-wrapper li").eq(7).addClass('active');
+    	$(".sidebar-wrapper li").eq(5).addClass('active');
     	  
         $sidebar = $('.sidebar');
 

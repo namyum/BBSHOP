@@ -564,7 +564,7 @@ th{
     	   
     	  
     	  
-    	  $(".sidebar-wrapper li").eq(2).addClass('active');
+    	  $(".sidebar-wrapper li").eq(1).addClass('active');
     	 
        	
     	    

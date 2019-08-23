@@ -58,9 +58,9 @@ public class OnetoOneController {
 		long user_key = (long)session.getAttribute("member");
 		
 		board.setUser_key(user_key);
-		board.setSeq((long)1);
-		board.setDep((long)1);
-		board.setLev((long)1);
+		board.setSeq((long)0);
+		board.setDep((long)0);
+		board.setLev((long)0);
 			
 		onetooneservice.OnetoOne_register(board);
 		
