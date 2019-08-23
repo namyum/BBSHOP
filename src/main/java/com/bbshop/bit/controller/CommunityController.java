@@ -1,10 +1,13 @@
 
 package com.bbshop.bit.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +21,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bbshop.bit.domain.CommunityVO;
+import com.bbshop.bit.domain.Gd_BallVO;
+import com.bbshop.bit.domain.Gd_BatVO;
+import com.bbshop.bit.domain.Gd_GloveVO;
+import com.bbshop.bit.domain.Gd_ShoesVO;
+import com.bbshop.bit.domain.Gd_UniformVO;
+import com.bbshop.bit.domain.GoodsVO;
 import com.bbshop.bit.domain.PageDTO;
 import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.service.CommunityService;
@@ -178,6 +189,7 @@ public class CommunityController {
 		return "shoppingMall/community/community_list";
 	}
 	
+	/*
 	@RequestMapping("/communityWriteAction.do")
 	public String communityWriteAction(CommunityVO community, Model model) throws Exception{
 		
@@ -198,6 +210,55 @@ public class CommunityController {
 		return "redirect:/community_detail.do";
 		
 	}
+	*/
+	
+	@RequestMapping(value="communityWriteAction.do", method=RequestMethod.POST)
+	public String communityWriteAction(MultipartHttpServletRequest request, Model model) throws Exception{
+		
+		long user_key = (long)session.getAttribute("member");
+		
+		CommunityVO community = new CommunityVO();
+		
+		List<MultipartFile> mf = request.getFiles("IMG");
+		
+		String uploadPath="C:\\Users\\angel\\git\\BBSHOP\\src\\main\\webapp\\resources\\community\\img\\upload\\";
+
+		String [] originalFileExtension = new String [mf.size()];
+		String [] storedFileName = new String[mf.size()];
+		for(int i = 0 ; i < mf.size();i++) {
+		originalFileExtension[i] = mf.get(i).getOriginalFilename();
+		storedFileName[i]= UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension[i];
+		
+		}
+		
+		for(int i = 0; i<mf.size();i++) {
+			if(mf.get(i).getSize()!=0)
+				//암호화해서 파일을 저장한다.
+			//mf.get(i).transferTo(new File(uploadPath+storedFileName[i]));
+				mf.get(i).transferTo(new File(uploadPath+originalFileExtension[i]));
+		}
+		
+		community.setBOARD_CONTENT(request.getParameter("BOARD_CONTENT").replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		community.setUSER_KEY(user_key);
+		community.setWRITER(request.getParameter("WRITER"));
+		community.setTITLE(request.getParameter("TITLE"));
+		community.setTEAM_NAME(request.getParameter("TEAM_NAME"));
+		community.setUPLOADFILE("resources/community/img/upload/"+originalFileExtension[0]);
+		
+		int res = communityService.insertPost(community);
+		
+		if(res == 1) {
+			System.out.println("글이 등록되었습니다.");
+		} else {
+			System.out.println("글 등록에 실패하였습니다.");
+		}
+		
+		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
+		
+		return "redirect:/community_detail.do";
+		
+		
+	}
 	
 	@RequestMapping("/communityDeleteAction.do")
 	public String communityDeleteAction(@RequestParam("BOARD_NUM") long board_num, @RequestParam("TEAM_NAME") String teamName) {
@@ -213,6 +274,7 @@ public class CommunityController {
 		return "redirect:/community_list.do?TEAM_NAME="+teamName;
 	}
 	
+	/*
 	@RequestMapping("/communityUpdateAction.do")
 	public String communityUpdateAction(CommunityVO community, Model model) {
 
@@ -232,6 +294,53 @@ public class CommunityController {
 		}
 		
 		return "redirect:/community_detail.do";
+	}
+	*/
+	
+	@RequestMapping("/communityUpdateAction.do")
+	public String communityUpdateAction(MultipartHttpServletRequest request, Model model) throws Exception{
+		
+		long user_key = (long)session.getAttribute("member");
+		
+		CommunityVO community = new CommunityVO();
+		
+		List<MultipartFile> mf = request.getFiles("IMG");
+		
+		String uploadPath="C:\\Users\\angel\\git\\BBSHOP\\src\\main\\webapp\\resources\\community\\img\\upload\\";
+
+		String [] originalFileExtension = new String [mf.size()];
+		String [] storedFileName = new String[mf.size()];
+		for(int i = 0 ; i < mf.size();i++) {
+		originalFileExtension[i] = mf.get(i).getOriginalFilename();
+		storedFileName[i]= UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension[i];
+		
+		}
+		
+		for(int i = 0; i<mf.size();i++) {
+			if(mf.get(i).getSize()!=0)
+				//암호화해서 파일을 저장한다.
+			//mf.get(i).transferTo(new File(uploadPath+storedFileName[i]));
+				mf.get(i).transferTo(new File(uploadPath+originalFileExtension[i]));
+		}
+		
+		community.setBOARD_CONTENT(request.getParameter("BOARD_CONTENT").replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		community.setUSER_KEY(user_key);
+		community.setTITLE(request.getParameter("TITLE"));
+		community.setTEAM_NAME(request.getParameter("TEAM_NAME"));
+		community.setUPLOADFILE("resources/community/img/upload/"+originalFileExtension[0]);
+		
+		int res = communityService.updatePost(community);
+		
+		if(res == 1) {
+			System.out.println("글이 수정되었습니다.");
+		} else {
+			System.out.println("글 수정에 실패했습니다.");
+		}
+		
+		model.addAttribute("BOARD_NUM",communityService.getBoardNum(user_key));
+		
+		return "redirect:/community_detail.do";
+	
 	}
 	
 	@RequestMapping(value = "/crawlRank.do", method = RequestMethod.GET)
