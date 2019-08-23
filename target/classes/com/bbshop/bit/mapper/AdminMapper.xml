@@ -346,4 +346,10 @@ delete from community where board_num=#{board_num}
 	FROM ${table}
 </select>
 
+<update id="updateTitle">
+	UPDATE community
+	SET title = '삭제된 게시글입니다.'
+	WHERE board_num = #{board_num}
+</update>
+
 </mapper>

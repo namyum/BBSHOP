@@ -531,4 +531,12 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.getTotal(table);
 	}
+	
+	@Override
+	public int updateTitle(long board_num) {
+		
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		
+		return mapper.updateTitle(board_num);
+	}
 }
