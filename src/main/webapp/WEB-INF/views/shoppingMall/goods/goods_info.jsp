@@ -325,7 +325,7 @@ function reviewList_Ajax() {
 			// 출력할 데이터가 없을 경우, 없다는 글 출력..
 			if(list.length == 0) {
 				var output = "";
-				output += "<tr><td colspan='4'><p><h2 style='color:black;'>REVIEW가 없습니다.</h2></p></td></tr>";
+				output += "<tr><td colspan='5'><p><h2 style='color:black;'>REVIEW가 없습니다.</h2></p></td></tr>";
 				$('#review_list').append(output);
 			}
 			
@@ -334,7 +334,12 @@ function reviewList_Ajax() {
 				var output = "";
 
 				output += "<tr class='table_item'>";
-//				output += "<td>" + data[index].rv_num + "</td>";
+				if(list[index].re_img == null) {
+					output += "<td>일반후기</td>";
+				}
+				else {
+					output += "<td style='color:blue;'>포토후기</td>";
+				}
 				output += "<td>" + list[index].title + "</td>";
 				
 				output += "<td>";
@@ -347,8 +352,13 @@ function reviewList_Ajax() {
 				output += "<td>" + list[index].re_date + "</td></tr>";
 				
 				output += "<tr class='table_content' style='display:none;'>";
-				output += "<td colspan='4'><div class='view'><img src='" + list[index].re_img + "' style='width:300px;'><br><br><br><p>" + list[index].contents + "</p></div></td></tr>";
 				
+				if(list[index].re_img == null) {
+					output += "<td colspan='5'><div class='view'><p>" + list[index].contents + "</p></div></td></tr>";
+				}
+				else {
+					output += "<td colspan='5'><div class='view'><img src='" + list[index].re_img + "' style='width:300px;'><br><br><br><p>" + list[index].contents + "</p></div></td></tr>";
+				}
 				$('#review_list').append(output);
 			});
 			
@@ -834,7 +844,7 @@ function reviewScore_Ajax() {
 							<table border="0" style="width : -webkit-fill-available;">
 									<thead>
 										<tr>
-<!-- 										<th scope="col" class="review_number">번호</th> -->
+ 											<th scope="col" class="review_number">일반/포토</th>
 											<th scope="col" class="review_title" style="width:50%;">제목</th>
 											<th scope="col" class="review_score">별점</th>
 											<th scope="col" class="review_nickname">닉네임</th>
