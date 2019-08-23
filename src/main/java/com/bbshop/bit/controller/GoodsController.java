@@ -246,7 +246,12 @@ public class GoodsController {
 			file.transferTo(new File(uploadPath + originalFileExtension));
 		
 		// img를 vo에 넣어주기
-		review.setRe_img("resources/shoppingMall/img/review/" + originalFileExtension);
+		if(originalFileExtension.equals("")) {
+			review.setRe_img("");
+		}
+		else {
+			review.setRe_img("resources/shoppingMall/img/review/" + originalFileExtension);
+		}
 		
 		// 후기 테이블에 insert!
 		service.insertReview(review);
