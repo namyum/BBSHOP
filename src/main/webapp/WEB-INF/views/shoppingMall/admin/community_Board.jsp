@@ -407,10 +407,10 @@ label{
 	var card = document.getElementsByClassName('card-header card-header-primary');
 	$('#info_board0').click(function(){
 	      info.style.display = "block";
-	      $('#writer').html("${boardList[0].WRITER}")
+	      $('#writer').html("${boardList[0].WRITER}");
 	      $('#subject').html("${boardList[0].TITLE}");
-	      $('#team').html("${boardList[0].TEAM_NAME}")
-	      $('#regdate').html("${boardList[0].REGDATE}")
+	      $('#team').html("${boardList[0].TEAM_NAME}");
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[0].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[0].BOARD_CONTENT}");
 	    });
 	$('#info_board1').click(function(){
@@ -419,7 +419,7 @@ label{
 	      $('#writer').html("${boardList[1].WRITER}")
 	      $('#subject').html("${boardList[1].TITLE}");
 	      $('#team').html("${boardList[1].TEAM_NAME}")
-	      $('#regdate').html("${boardList[1].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[1].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[1].BOARD_CONTENT}");});
 	$('#info_board2').click(function(){
 	      info.style.display = "block";
@@ -427,7 +427,7 @@ label{
 	      $('#writer').html("${boardList[2].WRITER}")
 	      $('#subject').html("${boardList[2].TITLE}");
 	      $('#team').html("${boardList[2].TEAM_NAME}")
-	      $('#regdate').html("${boardList[2].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[2].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[2].BOARD_CONTENT}");});
 	$('#info_board3').click(function(){
 	      info.style.display = "block";
@@ -435,7 +435,7 @@ label{
 	      $('#writer').html("${boardList[3].WRITER}")
 	      $('#subject').html("${boardList[3].TITLE}");
 	      $('#team').html("${boardList[3].TEAM_NAME}")
-	      $('#regdate').html("${boardList[3].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[3].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[3].BOARD_CONTENT}");});
 	$('#info_board4').click(function(){
 	      info.style.display = "block";
@@ -443,7 +443,7 @@ label{
 	      $('#writer').html("${boardList[4].WRITER}")
 	      $('#subject').html("${boardList[4].TITLE}");
 	      $('#team').html("${boardList[4].TEAM_NAME}")
-	      $('#regdate').html("${boardList[4].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[4].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[4].BOARD_CONTENT}");})
 	    
 
