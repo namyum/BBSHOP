@@ -99,8 +99,10 @@ public class OnetoOneController {
 
 		String nickname = (String)session.getAttribute("nickname");
 		onetooneservice.OnetoOne_modify(onetooneVO);
+		
+		OnetooneVO board = onetooneservice.OnetoOne_get(onetooneVO.getOne_one_num());
 
-		model.addAttribute("board", onetooneVO);
+		model.addAttribute("board", board);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("one_one_num", onetooneVO.getOne_one_num());
 		

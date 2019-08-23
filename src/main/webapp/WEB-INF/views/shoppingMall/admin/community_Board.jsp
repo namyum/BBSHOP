@@ -328,54 +328,47 @@ label{
           </div>
         </div>
       </div>
-      <div id='info_modal' class='info_modal'>
-      	<div class='info_modal_content'>
+	<div id='info_modal' class='info_modal'>
+		<div class='info_modal_content'>
 			<span class='close'>&times;</span>
-			<h4 align =center>글조회</h4>
-			<div class='modal_body' style='padding:40px 50px;'>
-			<table width=100% style="text-align:center">
-				<tr>
-					<td>
-						<label for='writer'>작성자</label></td>
-						<td><text id="writer"></text></td> 
-				</tr>
-				<tr>
-					<td>
-						<label for='title'>제목</label></td>
+			<h4 align=center>글조회</h4>
+			<div class='modal_body' style='padding: 40px 50px;'>
+				<table width=100% style="text-align: center">
+					<tr>
+						<td><label for='writer'>작성자</label></td>
+						<td><text id="writer"></text></td>
+					</tr>
+					<tr>
+						<td><label for='title'>제목</label></td>
 						<td><text id="subject"></text></td>
-				</tr>
-				<tr>
-					<td>
-						<label for='goodsCategory'>구단</label></td>
-						<td>
-						<text id="team"></text>
-														</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_date'>작성일</label></td>
-						<td>
-						<text id="regdate"></text>
-						</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_content'>내용</label>
-						</td>
-						<td><textarea id="contents"rows="10" cols="40"></textarea></td>
-				</tr>
-				
-				
-				
-				
-			</table>
-		
-			
+					</tr>
+					<tr>
+						<td><label for='goodsCategory'>구단</label></td>
+						<td><text id="team"></text></td>
+					</tr>
+					<tr>
+						<td><label for='write_date'>작성일</label></td>
+						<td><text id="regdate"></text></td>
+					</tr>
+					<tr>
+						<td><label for='write_content'>내용</label></td>
+						<td><textarea id="contents" rows="10" cols="40"></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer" style="margin-top: 0px;">
+				<table align="center">
+					<tr>
+						<td><button type="button" class="btn btn-info btn-block"
+								id="confirmation">확인</button></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
- 
-  <script >
+
+	<script >
 
 	var editor_object=[];
 	
@@ -765,6 +758,16 @@ label{
         });
       });
     });
+    
+    // x 버튼
+    $(".close")[0].onclick = function(){
+    	info_modal.style.display = "none";
+    }
+    
+    // 확인 버튼
+    $("#confirmation")[0].onclick = function(){
+    	info_modal.style.display = "none";
+     }
   </script>
 </body>
 

@@ -305,7 +305,7 @@ body {
           <h4 class="modal-title" align="center"></h4>
        </div>
      <!-- body -->
-<div class="modal-body">
+	 <div class="modal-body">
         <table style="margin-left:auto; margin-right:auto; width:100%;">
            <tr class="report_content">
               <td><p>ID: </p></td>
