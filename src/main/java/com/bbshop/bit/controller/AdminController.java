@@ -727,10 +727,9 @@ public class AdminController {
 	public String report(Model model,Criteria cri) {
 		List<ReportBoardVO> reportList = adminService.getReportBoard();
 		//Map<String,Object> reportMap = new HashMap<String,Object>();
-		System.out.println(reportList);
+		System.out.println("reportList : " + reportList.toString());
 		List<CommunityVO> boardList = adminService.getBoard(reportList);
-		
-		System.out.println("reportList.toString() 컨트롤러 : " + reportList.toString());
+		System.out.println("boardList : " + boardList.toString());		
 		
 		cri.setAmount(5);
 		AdminPageDTO temp = new AdminPageDTO(cri,reportList.size());

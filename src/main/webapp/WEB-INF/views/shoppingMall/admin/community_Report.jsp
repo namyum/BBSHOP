@@ -168,7 +168,7 @@ label{
                          신고 사유
                         </th>
 					   <th style="text-align: center">
-                          신고자
+                          글 작성자
                         </th>                
 				      
                         
@@ -181,7 +181,7 @@ label{
                       		<td style='text-align:center'>
                       		
                       		 <c:choose>
-	                      			<c:when test='${boardList[status.index]  !=null }'>
+	                      			<c:when test='${boardList[status.index] != null }'>
 	                      			${boardList[status.index].BOARD_NUM}
 	                      			</c:when>
 	                      		<c:otherwise>
@@ -191,7 +191,7 @@ label{
                       		</td>
                       		<td style='text-align:center'><Button id="info_Report${status.index}" type="button" class="btn btn-link" align=center>
                       		<c:choose>
-	                      			<c:when test='${boardList[status.index].TITLE !=null }'>
+	                      			<c:when test='${boardList[status.index].TITLE != null }'>
 	                      				${boardList[status.index].TITLE}
 	                      			</c:when>
 	                      		<c:otherwise>
@@ -199,7 +199,22 @@ label{
 	                      		</c:otherwise>
                       		</c:choose>
                       		</Button></td>
-                      		<td style='text-align:center'>${report.RE_CATEGORY}</td>
+                      		<td style='text-align:center'>
+                      			<c:choose>
+	                      			<c:when test="${report.RE_CATEGORY eq 'swear' }">
+	                      				욕설
+	                      			</c:when>
+	         	                    <c:when test="${report.RE_CATEGORY eq 'flood' }">
+	                      				도배
+	                      			</c:when>
+	                      			<c:when test="${report.RE_CATEGORY eq 'advertisement' }">
+	                      				광고
+	                      			</c:when>
+	                      			<c:when test="${report.RE_CATEGORY eq 'pornography' }">
+	                      				음란물
+	                      			</c:when>
+                      			</c:choose>
+                      		</td>
                       		<td style='text-align:center'>${report.WRITER}</td>
                       		
                        	</tr>
