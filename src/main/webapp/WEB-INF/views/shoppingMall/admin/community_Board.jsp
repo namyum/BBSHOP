@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.bbshop.bit.domain.*"%>
 <!DOCTYPE html>
@@ -259,7 +260,8 @@ label{
                       		<td style='text-align:center'>${board.TEAM_NAME}</td>
                       		<td style='text-align:center'><Button id="info_board${status.index}" type="button" class="btn btn-link" align=center>${board.TITLE }</Button></td>
                       		<td style='text-align:center'>${board.WRITER}</td>
-                      		<td style='text-align:center'>${board.REGDATE}</td>
+                      		<td style='text-align:center'>
+                      			<fmt:formatDate pattern="yyyy-MM-dd" value='${board.REGDATE}'/></td>
                       		<td style='text-align:center'>${board.HIT}</td>
                   			
                       	</tr>
@@ -543,24 +545,25 @@ label{
  					dataType:"json",
  					contentType:"application/json",
  					success:function(data){
- 						console.log("성공!");
- 						//여러가지 데이터 타입을 받아옴.
- 						console.log(data);
- 						console.log(data.board);
- 						console.log(data.board[0]);
- 						console.log(data.PageMaker.cri.pageNum);
+ 						
  						var count=0;
+ 						
  						//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
  						for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
+ 							
  							var values=data.board[i];
  							
- 							console.log(values);
+ 	  						// 가입날짜
+ 	  						var time1 = new Date(values.regdate).getTime();
+ 	  						var regdate = new Date(time1);
+ 	  						var formatRegdate = regdate.getFullYear()+"-0"+(regdate.getMonth() + 1)+"-"+regdate.getDate();
+ 							
  							str+="<tr><td style='text-align:center'><input type='checkbox' class='check'></td>"
                       			+"<td style='text-align:center'><text id='board_numbtn"+count+"'>"+values.board_NUM+"</text></td>"
                       			+"<td style='text-align:center'>"+values.team_NAME+"</td>"
                       			+"<td style='text-align:center'><Button id='info_QNA' type='button' class='btn btn-link' align=center>"+values.title+"</Button></td>"
                       			+"<td style='text-align:center'>"+values.writer+"</td>"
-                      			+"<td style='text-align:center'>"+values.regdate+"</td>"
+                      			+"<td style='text-align:center'>" + formatRegdate + "</td>"
                       			+"<td style='text-align:center'>"+values.hit+"</td></tr>";
                       		count++;
  							//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.

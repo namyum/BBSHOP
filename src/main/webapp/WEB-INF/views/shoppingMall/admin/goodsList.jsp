@@ -426,9 +426,6 @@ th{
 			goodsnum.push($('#modifygoods_numbtn'+listindex[index]).text());
 			});
 		var ajaxarr={"goodsnum":goodsnum}
-		alert(listindex);
-		alert(goodsnum);
-		alert(ajaxarr);
 		$.ajaxSettings.traditional = true;
 		$.ajax({
 			url:"selectGoodsDelete.do",

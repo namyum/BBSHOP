@@ -393,17 +393,13 @@ body {
   					dataType:"json",
   					contentType:"application/json",
   					success:function(data){
-  						console.log("성공!");
-  						//여러가지 데이터 타입을 받아옴.
-  						console.log(data);
-  						console.log(data.userList);
-  						console.log(data.PageMaker.cri.pageNum);
+  						
   						var count=0;
+  						
   						//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
   						for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
+  						
   							var values=data.userList[i];
-  							
-  							console.log(values);
   							
   							// 가입날짜
   							var time1 = new Date(values.regdate).getTime();

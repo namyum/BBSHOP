@@ -210,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	  FROM 
 		( SELECT s.* 
 		  FROM shop_order s
-		  WHERE cancel = 0
+		  
 		  ORDER BY order_num desc )
 	<![CDATA[
 		WHERE rownum <= #{pageNum} * #{amount} )
