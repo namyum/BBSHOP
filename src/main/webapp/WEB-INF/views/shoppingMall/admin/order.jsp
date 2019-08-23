@@ -118,6 +118,10 @@ body {
 .pagination {
 	margin-left: 450px;
 }
+
+.addr_chk {
+	color: black;
+}
 </style>
 </head>
 
@@ -156,11 +160,6 @@ body {
 													type="checkbox" name="stts" value="4" id="cancel"
 													onclick="showOrderList()"> <label for="cancel"
 													class="addr_chk">주문취소</label>
-												<!-- 													<input type="checkbox" checked="checked">전체 <input type="checkbox" -->
-												<!-- 														style="margin-left: 10px;">결제 완료 <input -->
-												<!-- 														type="checkbox" style="margin-left: 10px;">배송 준비중 -->
-												<!-- 													<input type="checkbox" style="margin-left: 10px;">배송중 -->
-												<!-- 													<input type="checkbox" style="margin-left: 10px;">배송완료 -->
 											</div>
 										</div>
 									</div>
@@ -177,37 +176,7 @@ body {
 											<th>주문상태</th>
 											<th>송장번호</th>
 										</thead>
-										<tbody id="order_table">
-<%-- 											<c:forEach var="orderList" items="${orderList}" --%>
-<%-- 												varStatus="status"> --%>
-<!-- 												<tr style="text-align: center;"> -->
-<%-- 													<td>${orderList.or_date}</td> --%>
-<%-- 													<td>${orderList.order_num}</td> --%>
-<%-- 													<td>${user_id_list[status.index]}</td> --%>
-<%-- 													<td>￦${orderList.pymntamnt}</td> --%>
-<%-- 													<td>${orderList.pymntmthd}</td> --%>
-<%-- 													<td>￦${orderList.savings}</td> --%>
-<%-- 													<td><c:choose> --%>
-<%-- 															<c:when test="${orderList.stts eq 0 }"> --%>
-<!--                                 							 결제완료 -->
-<%--                              							 </c:when> --%>
-<%-- 															<c:when test="${orderList.stts eq 1 }"> --%>
-<!--                                 							배송준비중 -->
-<%--                              							 </c:when> --%>
-<%-- 															<c:when test="${orderList.stts eq 2 }"> --%>
-<!--                                 							 배송중 -->
-<%--                              							 </c:when> --%>
-<%-- 															<c:when test="${orderList.stts eq 3 }"> --%>
-<!--                                 							 배송완료 -->
-<%--                              							 </c:when> --%>
-<%-- 															<c:otherwise> --%>
-<!--                                  							주문취소 -->
-<%--                              							 </c:otherwise> --%>
-<%-- 														</c:choose></td> --%>
-<%-- 													<td>${orderList.ship_nmbr}</td> --%>
-<!-- 												</tr> -->
-<%-- 											</c:forEach> --%>
-										</tbody>
+										<tbody id="order_table"></tbody>
 									</table>
 								</div>
 								<table id='table_footer' width="100%">
@@ -706,7 +675,7 @@ body {
 					str += user_id_list[index] + '</td><td>';
 					str += '￦ ' + result[index].pymntamnt + '</td><td>';
 					str += result[index].pymntmthd + '</td><td>';
-					str += result[index].savings + '</td><td>';
+					str += '￦ ' + result[index].savings + '</td><td>';
 						
 					switch(result[index].stts) {
 					
@@ -806,7 +775,7 @@ body {
 					str += user_id_list[index] + '</td><td>';
 					str += '￦ ' + values[index].pymntamnt + '</td><td>';
 					str += values[index].pymntmthd + '</td><td>';
-					str += values[index].savings + '</td><td>';
+					str += '￦ ' + values[index].savings + '</td><td>';
 						
 					switch(values[index].stts) {
 					
@@ -900,13 +869,11 @@ body {
 					
 				$.each(values, function(index, value){
 					
-					console.log(values[index].pymntmthd);
-					
 					str += '<tr><td>' + values[index].or_date + '</td><td>' + values[index].order_num + '</td><td>';
 					str += user_id_list[index] + '</td><td>';
 					str += '￦ ' + values[index].pymntamnt + '</td><td>';
 					str += values[index].pymntmthd + '</td><td>';
-					str += values[index].savings + '</td><td>';
+					str += '￦ ' + values[index].savings + '</td><td>';
 						
 					switch(values[index].stts) {
 					
