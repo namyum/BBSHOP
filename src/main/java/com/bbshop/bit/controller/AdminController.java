@@ -835,5 +835,10 @@ public class AdminController {
 		return "forward:/community_Report.do";
 	}
 	
+	@RequestMapping(value="admin_chart.do")
+	public String admin_chart() {
+		
+		return "shoppingMall/admin/chart";
+	}
 
 }
