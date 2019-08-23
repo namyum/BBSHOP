@@ -170,32 +170,32 @@ body {
               <table class="table" style="background-color: rgba(230, 236, 236, 0.4)">
                       <thead class=" text-primary">
                   
-                      <th style='text-align:center'>
-                          	회원번호
+                      	<th style='text-align:center'>
+                        	회원번호
                         </th>
                         <th style='text-align:center'>
-                          ID
+                        	ID
                         </th>
                         <th style='text-align:center'>
                       	    닉네임
                         </th>
                         <th style='text-align:center'>
-                       	   이름
+                       		이름
                         </th>
                         <th style='text-align:center'>
-                      	    전화번호
+                      		전화번호
                         </th>
                         <th style='text-align:center'>
-                    	      등급
+                    		등급
                         </th>
                         <th style='text-align:center'>
-                    	      적립금                   
+                    		적립금                   
                         </th>
                         <th style='text-align:center'>
                       	    누적경고
                         </th>
                         <th style='text-align:center'>
-                     	     가입일자
+                     		가입일자
                         </th>
                       </thead>
                       <tbody id="userListTable">
@@ -305,7 +305,7 @@ body {
           <h4 class="modal-title" align="center"></h4>
        </div>
      <!-- body -->
-     <div class="modal-body">
+<div class="modal-body">
         <table style="margin-left:auto; margin-right:auto; width:100%;">
            <tr class="report_content">
               <td><p>ID: </p></td>
@@ -321,72 +321,41 @@ body {
            <td><p>이름: </p></td>
            <td><input type="text" id="name"
                class="form-control"/></td>
-       	   </tr>
-       	   <tr class="report_content">
-             <td><p>닉네임: </p></td>
-        	 <td><input type="text" id="nickname"
-             class="form-control"/></td>
-           </tr>
-    	   <tr class="report_content">
-     	    <td><p>전화번호: </p></td>
-     	    <td><input type="text" id="phone"
-           class="form-control"/></td>
-           </tr>
-		    <tr class="report_content">
-		     <td><p>생일: </p></td>
-		     <td><input type="text" id="birth"
-		      class="form-control"/></td>
-		  </tr>
-		  <tr class="report_content">
-		   <td><p>등급: </p></td>
-		   <td><input type="text" id="grade"
-		      class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			 <td><p>적립금: </p></td>
-		 	<td><input type="text" id="savings"
-		    class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>누적경고: </p></td>
-			<td><input type="text" id="caution"
-		  	class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>가입일자: </p></td>
-			<td><input type="text" id="regdate"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>수정일자: </p></td>
-			<td><input type="text" id="moddate"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드1: </p></td>
-			<td><input type="text" id="moredetails1"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드2: </p></td>
-			<td><input type="text" id="moredetails2"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드3: </p></td>
-			<td><input type="text" id="moredetails3"
-			class="form-control"/></td>
-		</tr>   
-		<tr>
-			<td><p>선호 구단: </p></td>
-			<td><input type="text" id="team"
-			class="form-control"/></td>
-		</tr>
-		<tr>
-			<td><p>포지션: </p></td>
-			<td><input type="text" id="position"
-			class="form-control"/></td>
-		</tr>       
+
+            <tr class="report_content">
+             <td><p>생일: </p></td>
+             <td><input type="text" id="birth"
+              class="form-control"/></td>
+        <tr class="report_content">
+            <td><p>수정일자: </p></td>
+            <td><input type="text" id="moddate"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드1: </p></td>
+            <td><input type="text" id="moredetails1"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드2: </p></td>
+            <td><input type="text" id="moredetails2"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드3: </p></td>
+            <td><input type="text" id="moredetails3"
+            class="form-control"/></td>
+        </tr>
+        <tr>
+            <td><p>선호 구단: </p></td>
+            <td><input type="text" id="team"
+            class="form-control"/></td>
+        </tr>
+        <tr>
+            <td><p>포지션: </p></td>
+            <td><input type="text" id="position"
+            class="form-control"/></td>
+        </tr>
         </table>
      </div>
      <!-- Footer -->
