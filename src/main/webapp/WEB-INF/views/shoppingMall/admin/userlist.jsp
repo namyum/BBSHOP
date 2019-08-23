@@ -312,11 +312,6 @@ body {
               <td><input type="text" id="id"
                   class="form-control"/></td>
            </tr>
-           <tr class="report_content">
-             <td><p>PW: </p></td>
-             <td><input type="text" id="pw"
-                 class="form-control"/></td>
-          </tr>
           <tr class="report_content">
            <td><p>이름: </p></td>
            <td><input type="text" id="name"
