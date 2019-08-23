@@ -150,20 +150,19 @@ body {
                 <div class="card-body">
                 <div class="table-responsive">
                 <table class="category" >
-                    
                   <tr style='text-align:right'>
-                  <td><label for=category>회원 등급</label>
-                  <td><input type="checkbox" id='check_all' checked="checked">전체</td>
-                  <td><input type="checkbox" id='check_bronze'>브론즈</td>
-                  <td><input type="checkbox" id='check_silver'>실버</td>
-                  <td><input type="checkbox" id='check_gold'>골드</td>
-                  <td><input type="checkbox" id='check_platinum'>플레티넘</td>
+	                  <td><label for=category>회원 등급</label>
+	                  <td><input type="checkbox" id='check_all' checked="checked">전체</td>
+	                  <td><input type="checkbox" id='check_bronze'>브론즈</td>
+	                  <td><input type="checkbox" id='check_silver'>실버</td>
+	                  <td><input type="checkbox" id='check_gold'>골드</td>
+	                  <td><input type="checkbox" id='check_platinum'>플레티넘</td>
               		<div style='float:right'>    
-                  <select class='form-control'>
+                  	<select class='form-control'>
                       <option> 누적경고 순</option>
                       <option> 가입일자 순</option>
-                  </select>
-              </div>
+                  	</select>
+              		</div>
                   </tr>
                 </table>
               </div>

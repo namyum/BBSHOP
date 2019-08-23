@@ -243,7 +243,11 @@ public class OrderController {
     		@RequestParam("shipping_fee") int shipping_fee, @RequestParam("useSavings") long useSavings) {
     	System.out.println("kakaoPay post............................................");
 
+    	System.out.println("kakaoPay.do 컨트롤러에 들어올 때의 OrderVO : " + order.getSavings());
+    	
     	long user_key = (long)session.getAttribute("member");
+
+    	MemberVO user = memberService.getMemberInfo(user_key);
     	String nickname = (String)session.getAttribute("nickname");
 
     	String[] goods_num_list = list.split(",");
@@ -251,8 +255,24 @@ public class OrderController {
     	int allPrice = (int)order.getPymntamnt();
 
     	order.setUser_key(user_key);
+    	
+    	long savings_curr = 0;
+    	String grade_curr = user.getGRADE();
 
     	goodsList = new ArrayList<GoodsVO>();
+    	
+    	// 등급에 따른 적립금 업데이트
+    	if (grade_curr.equals("bronze")) {
+    		savings_curr = ((long)allPrice / 100) * 3;
+    	} else if (grade_curr.equals("silver")) {
+    		savings_curr = ((long)allPrice / 100) * 5;
+    	} else if (grade_curr.equals("gold")) {
+    		savings_curr = ((long)allPrice / 100) * 7;
+    	} else {
+    		savings_curr = ((long)allPrice / 100) * 10;
+    	}
+
+    	order.setSavings(savings_curr);
 
     	// jsp에서 구매 체크한 goods_num을 불러와 해당 cartList에 입력
     	cartList = orderService.getCheckedCartList(goods_num_list, user_key);

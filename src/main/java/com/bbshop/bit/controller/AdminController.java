@@ -37,6 +37,8 @@ import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.OnetooneVO;
 import com.bbshop.bit.domain.OrderVO;
 import com.bbshop.bit.domain.Order_GDVO;
+import com.bbshop.bit.domain.PageDTO;
+import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
@@ -158,20 +160,84 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin_order.do")
-	public String admin_order(Model model) {
+	public String admin_order(Model model, PagingVO pagingVO) {
 		
-		List<OrderVO> orderList = adminService.getAllOrders();
+		pagingVO.setAmount(10); // admin 주문 관리에서는 주문 목록을 10개씩 뿌려준다.
+		
+		List<OrderVO> orderList = adminService.getAllOrders(pagingVO);
 		List<String> user_id_list = new ArrayList<String>();
-		
+		long total = adminService.getTotal("shop_order"); // 주문 테이블 데이터 개수를 구한다.
+
 		// orderList 순서에  해당하는 user_key로 id 불러오기
 		for(int i=0;i<orderList.size();i++) {
 			user_id_list.add(adminService.getUserId(orderList.get(i).getUser_key()));
 		}
 		
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("user_id_list", user_id_list);
 		
 		return "shoppingMall/admin/order";
+	}
+	
+	// ajax로 배송 목록 가져 오기
+	@RequestMapping(value = "/admin_orderListPaging.do", consumes = "application/json")
+	@ResponseBody
+	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
+		
+		List<OrderVO> orderList = adminService.getAllOrders(pagingVO);
+		
+		return orderList;
+	}
+	
+	// ajax로 체크박스 배송 목록 가져 오기
+	@RequestMapping(value = "/admin_orderListCheck.do", consumes = "application/json")
+	@ResponseBody
+	public Map<String, Object> getOrderListCheck(@RequestBody Map<String, Object> map) {
+
+		long total = 0;
+		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
+		long amount = (long)Integer.parseInt((String)map.get("amount"));
+
+		List<String> stts_list = new ArrayList<String>();
+
+		stts_list = (List<String>)map.get("stts");
+
+		Map<String, Object> listMap = new HashMap<>();
+
+		PagingVO pagingVO = new PagingVO(pageNum, amount);
+
+		// 체크가 안되어있는 경우 (전체 주문 출력)
+		if (stts_list.size() == 1 && Integer.parseInt(stts_list.get(0)) == 5) {
+
+			total = adminService.getTotal("shop_order");
+
+			List<OrderVO> orderList = adminService.getAllOrders(pagingVO);
+
+			listMap.put("orders_list", orderList);
+			listMap.put("total", total);
+
+			return listMap;
+		}
+
+		// 특정 주문 체크박스에 체크가 되어 있는 경우
+		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, 0, stts_list);
+		List<OrderVO> all_list = new ArrayList<OrderVO>();
+
+		all_list = myPageService.getAllOrdersList(0);
+
+		// 주문배송 상태와 숫자가 같으면 total 값을 1씩 증가시킨다.
+		for (OrderVO item : all_list) {
+			for (int i = 0; i < stts_list.size(); i++) {
+				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) )
+					total++;
+			}
+		}
+
+		listMap.put("orders_list", orders_list);
+		listMap.put("total", total);
+
+		return listMap;
 	}
 
 	

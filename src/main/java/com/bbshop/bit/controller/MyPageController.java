@@ -392,20 +392,12 @@ public class MyPageController {
 		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
-
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
 		
 		List<String> stts_list = new ArrayList<String>();
 		
-		System.out.println("map.get(\"stts\") : " + map.get("stts"));
-		
 		stts_list = (List<String>)map.get("stts");
-		
-		for (String item : stts_list) {
-			
-			System.out.println("item : " + item);
-		}
 		
 		Map<String, Object> listMap = new HashMap<>();
 		
@@ -417,6 +409,8 @@ public class MyPageController {
 			total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 			
 			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
+			
+			System.out.println(orders_list.toString());
 			
 			listMap.put("orders_list", orders_list);
 			listMap.put("total", total);
@@ -438,8 +432,7 @@ public class MyPageController {
 			}
 		}
 		
-		System.out.println("orders_list : " + orders_list);
-		System.out.println("total : " + total);
+		System.out.println(orders_list.toString());
 		
 		listMap.put("orders_list", orders_list);
 		listMap.put("total", total);

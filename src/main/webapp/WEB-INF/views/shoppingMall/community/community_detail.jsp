@@ -403,7 +403,7 @@ img{ max-width:100%;}
 							<div class="user justify-content-between d-flex"
 								style="min-width: 100%;">
 								<div class="desc" style="min-width: 100%; margin-top: 10px; margin-bottom: 40px;">
-									<h5 id="reply_writer" style="padding-top: 10px;">글쓴이</h5>
+									<h5 id="reply_writer" style="padding-top: 10px;">테스터</h5>
 									<p class="write_date"
 										style="font-size: 13px; color: #cccccc; margin-bottom: 13px;">
 										<!-- sysdate 받아와야 함 -->
@@ -549,7 +549,7 @@ img{ max-width:100%;}
 		showList(-1);
 		
 		// 글 상세 > 글 삭제버튼 클릭 시 동작
-	    $("#delete_post").click(function(){                
+	    $("#delete_post").click(function(){
 	    	if(confirm("글을 삭제하시겠습니까?") == true){
 	    		location.href="/communityDeleteAction.do?BOARD_NUM=<c:out value="${post.BOARD_NUM}"/>&TEAM_NAME=<c:out value="${post.TEAM_NAME}"/>"    
 	    	} else{
@@ -601,7 +601,7 @@ img{ max-width:100%;}
 					str += "data-toggle='tooltip' title='삭제' ";
 					str += "style='font-weight: bold; padding-right: 20px;' "
 					str += "id='"+list[i].reply_num+"delete_replyBtn' ";
-					str += "onclick='modify("+list[i].reply_num+")'></a>";
+					str += "onclick='delete_board("+list[i].reply_num+")'></a>";
 					str += "<a class='lnr lnr-flag' ";
 					str += "data-toggle='tooltip' title='신고' ";
 					str += "id='reportBtn"+list[i].reply_num+"' ";
@@ -624,6 +624,11 @@ img{ max-width:100%;}
 				totalCommentNumH4.html(str2);
 				showReplyPage(replyCnt);
 			}); // end function
+			
+			$(document).ready(function(){
+				
+				$('[data-toggle="tooltip"]').tooltip();   
+			});
 		} // end showList
 		
 		// 댓글 추가
@@ -690,75 +695,78 @@ img{ max-width:100%;}
 				}
 					 
 			}) // end $("#modify_replyBtn").onclick
-				
-			// 댓글 수정 버튼 > input 태크 toggle > 삭제 버튼
-			$("#"+reply_num+"delete_replyBtn").on("click", function(e){
-				
-				if(confirm("댓글을 삭제하시겠습니까?") == true){
-						
-				replyService.remove(reply_num, function(result){
-					showList(pageNum);
-				 });
-				} else{
-					return false;
-				}
-					 
-			})	 // end $("#delete_replyBtn").onclick	
 			
 		} // end function modify;
 		
+
+		function delete_board(reply_num) {
+
+			if (confirm("댓글을 삭제하시겠습니까?") == true) {
+
+				replyService.remove(reply_num, function(result) {
+					showList(pageNum);
+				});
+
+			} else {
+				return false;
+			}
+		}
+
 		// .panel-footer에 페이지 번호 출력하는 로직
 		var pageNum = 1;
 		var replyPageFooter = $(".panel-footer");
-		
-		function showReplyPage(replyCnt){
-			
-			var endNum = Math.ceil(pageNum/10.0) * 10;
-			var startNum = endNum -9;
-			
+
+		function showReplyPage(replyCnt) {
+
+			var endNum = Math.ceil(pageNum / 10.0) * 10;
+			var startNum = endNum - 9;
+
 			var prev = startNum != 1;
 			var next = false;
-			
-			if(endNum * 10 >= replyCnt){
-				endNum = Math.ceil(replyCnt/10.0);
+
+			if (endNum * 10 >= replyCnt) {
+				endNum = Math.ceil(replyCnt / 10.0);
 			}
-			
-			if(endNum * 10 < replyCnt){
+
+			if (endNum * 10 < replyCnt) {
 				next = true;
 			}
-			
+
 			var str = "<ul class='pagination'>";
-			
-			if(prev){
-				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a></li>";
+
+			if (prev) {
+				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"
+						+ (startNum - 1) + "'>Previous</a></li>";
 			}
-			
-			for(var i = startNum ; i<= endNum; i++){
-				
-				var active = pageNum == i ? "active":"";
-				
-				str += "<li class='page-item " + active + " ' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+
+			for (var i = startNum; i <= endNum; i++) {
+
+				var active = pageNum == i ? "active" : "";
+
+				str += "<li class='page-item " + active + " ' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+i+"'>"
+						+ i + "</a></li>";
 			}
-			
-			if(next){
-				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"+(endNum + 1) +"'>Next</a></li>";
+
+			if (next) {
+				str += "<li class='page-item' style='margin-left: auto; margin-right: auto; margin-top: 20px;'><a class='page-link' href='"
+						+ (endNum + 1) + "'>Next</a></li>";
 			}
-			
+
 			str += "</ul></div>";
-			
+
 			replyPageFooter.html(str);
 		} // end showReplyPage
-		
+
 		// 페이지의 번호를 클릭했을 때 새로운 댓글 가져오는 부분
-		
-		replyPageFooter.on("click","li a", function(e){
-			
+
+		replyPageFooter.on("click", "li a", function(e) {
+
 			e.preventDefault();
-			
+
 			var targetPageNum = $(this).attr("href");
-			
+
 			pageNum = targetPageNum;
-			
+
 			showList(pageNum);
 		}); // end replyPageFooter onclick
 	</script>
@@ -823,7 +831,7 @@ img{ max-width:100%;}
             	var currDate = new Date();
             	
             	if (htmlEncode(name) == '${nickname}') {
-            	
+            		
 	            	sentMsg += '<div class="outgoing_msg">';
 	            	sentMsg += '<div class="sent_msg">';
 	            	sentMsg += '<p>' + htmlEncode(message) + '</p>';
@@ -831,7 +839,7 @@ img{ max-width:100%;}
 	            	sentMsg += '</div></div>';
             	
             	} else {
-            		
+
             		sentMsg += '<div class="incoming_msg">';
 	            	sentMsg += '<div class="received_msg">';
 	            	sentMsg += '<div class="received_withd_msg">';
