@@ -84,9 +84,9 @@ body{font-family:NanumBarunpen, sans-serif}
 		
 		//하위 항목중 하나라도 체크가 풀릴시 전체 체크도 풀려야한다.
 		$(".check").click(function(){
-			if($("input[class='check']:checked").length<=${cartList.size()}){
+			if($("input[class='check']:checked").length<='${cartList.size()}'){
 				$("#check_all").prop("checked",false);
-				
+				 
 			}else{
 				$("#check_all").prop("checked",true);
 			}
