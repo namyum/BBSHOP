@@ -407,8 +407,8 @@ public class AdminController {
 		//String uploadPath = request.getSession().getServletContext().getRealPath("/");
 		//원래 프로젝트 String uploadPath="C:\\Users\\dntjr\\Documents\\workspace-sts-3.9.8.RELEASE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BBSHOP\\resources\\shoppingMall\\img\\goods\\glove\\";
 		//깃에 있는 프로젝트경로
-		
-		String uploadPath="C:\\Users\\dntjr\\GITHUB\\BBSHOP-1\\src\\main\\webapp\\resources\\shoppingMall\\img\\goods\\glove\\";
+	
+		String uploadPath="C:\\Users\\Mingu\\git\\BBSHOP\\src\\main\\webapp\\resources\\shoppingMall\\img\\goods\\glove\\";
 		System.out.println("실제경로"+uploadPath);
 		String [] originalFileExtension = new String [mf.size()];
 		String [] storedFileName = new String[mf.size()];
@@ -727,10 +727,9 @@ public class AdminController {
 	public String report(Model model,Criteria cri) {
 		List<ReportBoardVO> reportList = adminService.getReportBoard();
 		//Map<String,Object> reportMap = new HashMap<String,Object>();
-		System.out.println(reportList);
+		System.out.println("reportList : " + reportList.toString());
 		List<CommunityVO> boardList = adminService.getBoard(reportList);
-		
-		System.out.println("reportList.toString() 컨트롤러 : " + reportList.toString());
+		System.out.println("boardList : " + boardList.toString());		
 		
 		cri.setAmount(5);
 		AdminPageDTO temp = new AdminPageDTO(cri,reportList.size());
@@ -825,6 +824,7 @@ public class AdminController {
 		return "shoppingMall/admin/adminAccount";
 	}
 
+
 	@RequestMapping(value="sanctions.do" ,method=RequestMethod.GET)
 	public String sanctionsUser(@RequestParam("writer")String user, @RequestParam("board_num") String board_num) {
 		System.out.println("신고당한 유저 닉네임:"+user);
@@ -835,5 +835,10 @@ public class AdminController {
 		return "forward:/community_Report.do";
 	}
 	
+	@RequestMapping(value="admin_chart.do")
+	public String admin_chart() {
+		
+		return "shoppingMall/admin/chart";
+	}
 
 }

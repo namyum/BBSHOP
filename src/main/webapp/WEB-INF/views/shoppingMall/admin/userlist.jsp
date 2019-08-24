@@ -156,7 +156,7 @@ body {
 	                  <td><input type="checkbox" id='check_bronze'>브론즈</td>
 	                  <td><input type="checkbox" id='check_silver'>실버</td>
 	                  <td><input type="checkbox" id='check_gold'>골드</td>
-	                  <td><input type="checkbox" id='check_platinum'>플레티넘</td>
+	                  <td><input type="checkbox" id='check_platinum'>다이아</td>
               		<div style='float:right'>    
                   	<select class='form-control'>
                       <option> 누적경고 순</option>
@@ -170,32 +170,32 @@ body {
               <table class="table" style="background-color: rgba(230, 236, 236, 0.4)">
                       <thead class=" text-primary">
                   
-                      <th style='text-align:center'>
-                          	회원번호
+                      	<th style='text-align:center'>
+                        	회원번호
                         </th>
                         <th style='text-align:center'>
-                          ID
+                        	ID
                         </th>
                         <th style='text-align:center'>
                       	    닉네임
                         </th>
                         <th style='text-align:center'>
-                       	   이름
+                       		이름
                         </th>
                         <th style='text-align:center'>
-                      	    전화번호
+                      		전화번호
                         </th>
                         <th style='text-align:center'>
-                    	      등급
+                    		등급
                         </th>
                         <th style='text-align:center'>
-                    	      적립금                   
+                    		적립금                   
                         </th>
                         <th style='text-align:center'>
                       	    누적경고
                         </th>
                         <th style='text-align:center'>
-                     	     가입일자
+                     		가입일자
                         </th>
                       </thead>
                       <tbody id="userListTable">
@@ -225,7 +225,7 @@ body {
                           <td style='text-align:center;width:90px;'>
                             ${userList.CAUTION}
                           </td>
-                          <td style='text-align:center'>
+                          <td style='text-align:center' id="regdate">
                             <fmt:formatDate pattern="yyyy-MM-dd" value="${userList.REGDATE}" />
                           </td>             
                         </tr>
@@ -305,88 +305,51 @@ body {
           <h4 class="modal-title" align="center"></h4>
        </div>
      <!-- body -->
-     <div class="modal-body">
+	 <div class="modal-body">
         <table style="margin-left:auto; margin-right:auto; width:100%;">
            <tr class="report_content">
               <td><p>ID: </p></td>
               <td><input type="text" id="id"
                   class="form-control"/></td>
            </tr>
-           <tr class="report_content">
-             <td><p>PW: </p></td>
-             <td><input type="text" id="pw"
-                 class="form-control"/></td>
-          </tr>
           <tr class="report_content">
            <td><p>이름: </p></td>
            <td><input type="text" id="name"
                class="form-control"/></td>
-       	   </tr>
-       	   <tr class="report_content">
-             <td><p>닉네임: </p></td>
-        	 <td><input type="text" id="nickname"
-             class="form-control"/></td>
-           </tr>
-    	   <tr class="report_content">
-     	    <td><p>전화번호: </p></td>
-     	    <td><input type="text" id="phone"
-           class="form-control"/></td>
-           </tr>
-		    <tr class="report_content">
-		     <td><p>생일: </p></td>
-		     <td><input type="text" id="birth"
-		      class="form-control"/></td>
-		  </tr>
-		  <tr class="report_content">
-		   <td><p>등급: </p></td>
-		   <td><input type="text" id="grade"
-		      class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			 <td><p>적립금: </p></td>
-		 	<td><input type="text" id="savings"
-		    class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>누적경고: </p></td>
-			<td><input type="text" id="caution"
-		  	class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>가입일자: </p></td>
-			<td><input type="text" id="regdate"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>수정일자: </p></td>
-			<td><input type="text" id="moddate"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드1: </p></td>
-			<td><input type="text" id="moredetails1"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드2: </p></td>
-			<td><input type="text" id="moredetails2"
-			class="form-control"/></td>
-		</tr>
-		<tr class="report_content">
-			<td><p>선호브랜드3: </p></td>
-			<td><input type="text" id="moredetails3"
-			class="form-control"/></td>
-		</tr>   
-		<tr>
-			<td><p>선호 구단: </p></td>
-			<td><input type="text" id="team"
-			class="form-control"/></td>
-		</tr>
-		<tr>
-			<td><p>포지션: </p></td>
-			<td><input type="text" id="position"
-			class="form-control"/></td>
-		</tr>       
+            <tr class="report_content">
+             <td><p>생일: </p></td>
+             <td><input type="text" id="birth"
+              class="form-control"/></td>
+        <tr class="report_content">
+            <td><p>수정일자: </p></td>
+            <td><input type="text" id="moddate"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드1: </p></td>
+            <td><input type="text" id="moredetails1"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드2: </p></td>
+            <td><input type="text" id="moredetails2"
+            class="form-control"/></td>
+        </tr>
+        <tr class="report_content">
+            <td><p>선호브랜드3: </p></td>
+            <td><input type="text" id="moredetails3"
+            class="form-control"/></td>
+        </tr>
+        <tr>
+            <td><p>선호 구단: </p></td>
+            <td><input type="text" id="team"
+            class="form-control"/></td>
+        </tr>
+        <tr>
+            <td><p>포지션: </p></td>
+            <td><input type="text" id="position"
+            class="form-control"/></td>
+        </tr>
         </table>
      </div>
      <!-- Footer -->
@@ -429,17 +392,19 @@ body {
   					dataType:"json",
   					contentType:"application/json",
   					success:function(data){
-  						console.log("성공!");
-  						//여러가지 데이터 타입을 받아옴.
-  						console.log(data);
-  						console.log(data.userList);
-  						console.log(data.PageMaker.cri.pageNum);
+  						
   						var count=0;
+  						
   						//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
   						for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
+  						
   							var values=data.userList[i];
   							
-  							console.log(values);
+  							// 가입날짜
+  							var time1 = new Date(values.regdate).getTime();
+  							var regdate = new Date(time1);
+  							var formatRegdate = regdate.getFullYear()+"-0"+(regdate.getMonth() + 1)+"-"+regdate.getDate();
+  							
   							str+= "<tr>"
   								  +"<td style='text-align:center; width:80px;'>"+values.user_KEY+"</td>"
                             	  +"<td  class='text-primary' style='text-align:center'><button id='modal_id' class='btn btn-link' onclick='openMemberModal("+values.user_KEY+")'' >"+values.member_ID+"</button></td>"
@@ -449,7 +414,8 @@ body {
                           		  +"<td style='text-align:center'>"+values.grade+"</td>"
                           		  +"<td style='text-align:center;width:80px;'>"+values.savings+"</td>"
                            	 	  +"<td style='text-align:center;width:90px;'>"+values.caution+"</td>"
-                          		  +"<td style='text-align:center'>"+values.regdate+"</td></tr>";    
+                          		  +"<td style='text-align:center' id='regdate'>" + formatRegdate + "</td></tr>";
+                          		  
                           		  count++;
   							//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
   							if(data.userList[i+1]==null)
@@ -473,7 +439,7 @@ body {
  			  });
   
     	  
-    	  $(".sidebar-wrapper li").eq(1).addClass('active');
+    	  $(".sidebar-wrapper li").eq(0).addClass('active');
     	  
         $sidebar = $('.sidebar');
 

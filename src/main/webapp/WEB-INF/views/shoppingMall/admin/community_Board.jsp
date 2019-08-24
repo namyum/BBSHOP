@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.bbshop.bit.domain.*"%>
 <!DOCTYPE html>
@@ -259,7 +260,8 @@ label{
                       		<td style='text-align:center'>${board.TEAM_NAME}</td>
                       		<td style='text-align:center'><Button id="info_board${status.index}" type="button" class="btn btn-link" align=center>${board.TITLE }</Button></td>
                       		<td style='text-align:center'>${board.WRITER}</td>
-                      		<td style='text-align:center'>${board.REGDATE}</td>
+                      		<td style='text-align:center'>
+                      			<fmt:formatDate pattern="yyyy-MM-dd" value='${board.REGDATE}'/></td>
                       		<td style='text-align:center'>${board.HIT}</td>
                   			
                       	</tr>
@@ -328,54 +330,47 @@ label{
           </div>
         </div>
       </div>
-      <div id='info_modal' class='info_modal'>
-      	<div class='info_modal_content'>
+	<div id='info_modal' class='info_modal'>
+		<div class='info_modal_content'>
 			<span class='close'>&times;</span>
-			<h4 align =center>글조회</h4>
-			<div class='modal_body' style='padding:40px 50px;'>
-			<table width=100% style="text-align:center">
-				<tr>
-					<td>
-						<label for='writer'>작성자</label></td>
-						<td><text id="writer"></text></td> 
-				</tr>
-				<tr>
-					<td>
-						<label for='title'>제목</label></td>
+			<h4 align=center>글조회</h4>
+			<div class='modal_body' style='padding: 40px 50px;'>
+				<table width=100% style="text-align: center">
+					<tr>
+						<td><label for='writer'>작성자</label></td>
+						<td><text id="writer"></text></td>
+					</tr>
+					<tr>
+						<td><label for='title'>제목</label></td>
 						<td><text id="subject"></text></td>
-				</tr>
-				<tr>
-					<td>
-						<label for='goodsCategory'>구단</label></td>
-						<td>
-						<text id="team"></text>
-														</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_date'>작성일</label></td>
-						<td>
-						<text id="regdate"></text>
-						</td>
-				</tr>
-				<tr>
-					<td>
-						<label for='write_content'>내용</label>
-						</td>
-						<td><textarea id="contents"rows="10" cols="40"></textarea></td>
-				</tr>
-				
-				
-				
-				
-			</table>
-		
-			
+					</tr>
+					<tr>
+						<td><label for='goodsCategory'>구단</label></td>
+						<td><text id="team"></text></td>
+					</tr>
+					<tr>
+						<td><label for='write_date'>작성일</label></td>
+						<td><text id="regdate"></text></td>
+					</tr>
+					<tr>
+						<td><label for='write_content'>내용</label></td>
+						<td><textarea id="contents" rows="10" cols="40"></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer" style="margin-top: 0px;">
+				<table align="center">
+					<tr>
+						<td><button type="button" class="btn btn-info btn-block"
+								id="confirmation">확인</button></td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
- 
-  <script >
+
+	<script >
 
 	var editor_object=[];
 	
@@ -412,10 +407,10 @@ label{
 	var card = document.getElementsByClassName('card-header card-header-primary');
 	$('#info_board0').click(function(){
 	      info.style.display = "block";
-	      $('#writer').html("${boardList[0].WRITER}")
+	      $('#writer').html("${boardList[0].WRITER}");
 	      $('#subject').html("${boardList[0].TITLE}");
-	      $('#team').html("${boardList[0].TEAM_NAME}")
-	      $('#regdate').html("${boardList[0].REGDATE}")
+	      $('#team').html("${boardList[0].TEAM_NAME}");
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[0].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[0].BOARD_CONTENT}");
 	    });
 	$('#info_board1').click(function(){
@@ -424,7 +419,7 @@ label{
 	      $('#writer').html("${boardList[1].WRITER}")
 	      $('#subject').html("${boardList[1].TITLE}");
 	      $('#team').html("${boardList[1].TEAM_NAME}")
-	      $('#regdate').html("${boardList[1].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[1].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[1].BOARD_CONTENT}");});
 	$('#info_board2').click(function(){
 	      info.style.display = "block";
@@ -432,7 +427,7 @@ label{
 	      $('#writer').html("${boardList[2].WRITER}")
 	      $('#subject').html("${boardList[2].TITLE}");
 	      $('#team').html("${boardList[2].TEAM_NAME}")
-	      $('#regdate').html("${boardList[2].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[2].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[2].BOARD_CONTENT}");});
 	$('#info_board3').click(function(){
 	      info.style.display = "block";
@@ -440,7 +435,7 @@ label{
 	      $('#writer').html("${boardList[3].WRITER}")
 	      $('#subject').html("${boardList[3].TITLE}");
 	      $('#team').html("${boardList[3].TEAM_NAME}")
-	      $('#regdate').html("${boardList[3].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[3].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[3].BOARD_CONTENT}");});
 	$('#info_board4').click(function(){
 	      info.style.display = "block";
@@ -448,7 +443,7 @@ label{
 	      $('#writer').html("${boardList[4].WRITER}")
 	      $('#subject').html("${boardList[4].TITLE}");
 	      $('#team').html("${boardList[4].TEAM_NAME}")
-	      $('#regdate').html("${boardList[4].REGDATE}")
+	      $('#regdate').html("<fmt:formatDate pattern="yyyy-MM-dd" value='${boardList[4].REGDATE}'/></td>");
 	      $('#contents').html("${boardList[4].BOARD_CONTENT}");})
 	    
 
@@ -550,24 +545,25 @@ label{
  					dataType:"json",
  					contentType:"application/json",
  					success:function(data){
- 						console.log("성공!");
- 						//여러가지 데이터 타입을 받아옴.
- 						console.log(data);
- 						console.log(data.board);
- 						console.log(data.board[0]);
- 						console.log(data.PageMaker.cri.pageNum);
+ 						
  						var count=0;
+ 						
  						//한 페이지당 굿즈 리스트를 5개씩 받기위해 설정. 초기에는 pageNum이 1 이고 ajax가 실행될 시기에는 2부터 시작하기에 가능하게만듬.
  						for( var i = data.PageMaker.cri.pageNum*5-5;i<data.PageMaker.cri.pageNum*5;i++){
+ 							
  							var values=data.board[i];
  							
- 							console.log(values);
+ 	  						// 가입날짜
+ 	  						var time1 = new Date(values.regdate).getTime();
+ 	  						var regdate = new Date(time1);
+ 	  						var formatRegdate = regdate.getFullYear()+"-0"+(regdate.getMonth() + 1)+"-"+regdate.getDate();
+ 							
  							str+="<tr><td style='text-align:center'><input type='checkbox' class='check'></td>"
                       			+"<td style='text-align:center'><text id='board_numbtn"+count+"'>"+values.board_NUM+"</text></td>"
                       			+"<td style='text-align:center'>"+values.team_NAME+"</td>"
                       			+"<td style='text-align:center'><Button id='info_QNA' type='button' class='btn btn-link' align=center>"+values.title+"</Button></td>"
                       			+"<td style='text-align:center'>"+values.writer+"</td>"
-                      			+"<td style='text-align:center'>"+values.regdate+"</td>"
+                      			+"<td style='text-align:center'>" + formatRegdate + "</td>"
                       			+"<td style='text-align:center'>"+values.hit+"</td></tr>";
                       		count++;
  							//마지막 페이지에서 증가 사이즈를 5의 폭으로 줬는데 마지막페이지가 5가 안될경우에는 오류가 나기 때문에 goodsList[i+1]가 null일경우 포문을 빠져나간다.
@@ -595,7 +591,7 @@ label{
  			  });
   
     	  
-    	  $(".sidebar-wrapper li").eq(7).addClass('active');
+    	  $(".sidebar-wrapper li").eq(5).addClass('active');
     	  
     	  
         $sidebar = $('.sidebar');
@@ -765,6 +761,16 @@ label{
         });
       });
     });
+    
+    // x 버튼
+    $(".close")[0].onclick = function(){
+    	info_modal.style.display = "none";
+    }
+    
+    // 확인 버튼
+    $("#confirmation")[0].onclick = function(){
+    	info_modal.style.display = "none";
+     }
   </script>
 </body>
 

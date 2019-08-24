@@ -311,7 +311,7 @@ body {
 									.ready(
 											function() {
 
-												$(".sidebar-wrapper li").eq(3)
+												$(".sidebar-wrapper li").eq(2)
 														.addClass('active');
 												$sidebar = $('.sidebar');
 
