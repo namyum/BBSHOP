@@ -78,6 +78,7 @@ public interface AdminMapper {
 	public Date getShipDate(long order_num);
 	public List<MemberVO> getAllMembers();
 	public void answerOTO(OnetooneVO oto);
+	public int updateTitle(long board_num);
 	
 	/* 민구 - 테이블 데이터 개수 구하기 */
 	public long getTotal(@Param("table") String table);

@@ -42,6 +42,7 @@ import com.bbshop.bit.domain.PagingVO;
 import com.bbshop.bit.domain.ReportBoardVO;
 import com.bbshop.bit.domain.ReviewVO;
 import com.bbshop.bit.service.AdminService;
+import com.bbshop.bit.service.CommunityService;
 import com.bbshop.bit.service.MemberService;
 import com.bbshop.bit.service.MyPageService;
 
@@ -60,6 +61,9 @@ public class AdminController {
 	
 	@Autowired(required=false)
 	MyPageService myPageService;
+	
+	@Autowired(required=false)
+	CommunityService communityService;
 	
 	@RequestMapping("userlist.do")
 	public String userList(Model model , Criteria cri,HttpServletRequest request) {
@@ -839,6 +843,19 @@ public class AdminController {
 	public String admin_chart() {
 		
 		return "shoppingMall/admin/chart";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateTitle.do" , method=RequestMethod.GET,  produces = "application/text; charset=utf8")
+	public String updateTitle(@RequestParam("board_num") long board_num) {
+		
+		CommunityVO community = new CommunityVO();
+		
+		adminService.updateTitle(board_num);
+		community = communityService.getPost(board_num);
+		System.out.println("title:"+community.getTITLE());
+		
+		return community.getTITLE();
 	}
 
 }

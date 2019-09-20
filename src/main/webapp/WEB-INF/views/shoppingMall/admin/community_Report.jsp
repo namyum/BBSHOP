@@ -178,25 +178,11 @@ label{
                       		<td style='text-align:center'><input type='checkbox' class='check'>
                       		
                       		<td style='text-align:center'>
-                      		
-                      		 <c:choose>
-	                      			<c:when test='${boardList[status.index] != null }'>
 	                      			${boardList[status.index].BOARD_NUM}
-	                      			</c:when>
-	                      		<c:otherwise>
-	                      				삭제되었습니다.
-	                      		</c:otherwise>
-                      		</c:choose>
+
                       		</td>
                       		<td style='text-align:center'><Button id="info_Report${status.index}" type="button" class="btn btn-link" align=center>
-                      		<c:choose>
-	                      			<c:when test='${boardList[status.index].TITLE != null }'>
 	                      				${boardList[status.index].TITLE}
-	                      			</c:when>
-	                      		<c:otherwise>
-	                      				삭제되었습니다.
-	                      		</c:otherwise>
-                      		</c:choose>
                       		</Button></td>
                       		<td style='text-align:center'>
                       			<c:choose>
@@ -321,8 +307,8 @@ label{
 			<table width=100%>
 				<tr>
 				<td style='text-align:center'>
-				<button class='btn btn-info'>확인</button>
-				<Button id='sanctions' class="btn btn-danger">제재</Button>
+				<button id="confirmation" class='btn btn-info'>확인</button>
+				<Button id='sanctions' class="btn btn-danger" onclick="updateTitle($('#board_num')[0].textContent)">제재</Button>
 				</td>
 				</tr>
 			</table>
@@ -377,10 +363,6 @@ label{
 				      $('#contents').html("${boardList[4].BOARD_CONTENT}");
 	 });
     
-	
-    $('#sanctions').click(function(){
-    	location.href="sanctions.do?writer="+$('#writer').html()+"&board_num="+$('#board_num').html();
-    });
     
     window.onclick = function (event){
       if(event.target == info){
@@ -564,6 +546,28 @@ label{
       });
     });
   </script>
+  <script>
+  function updateTitle(num){
+      $.ajax({
+          url:"updateTitle.do?board_num="+num,
+          type:"GET",
+          dataType:"text",
+          success : function(data) {
+             var result = data;
+             alert('게시글이 삭제되었습니다.');
+             $('#title').html(result);
+
+           }, error : function() {
+             console.log("실패");
+              }
+      });
+  }
+  
+  $("#confirmation")[0].onclick = function(){
+	  location.reload(true);
+	  info_modal.style.display = "none";
+   }
+   </script>
 </body>
 
 </html>
