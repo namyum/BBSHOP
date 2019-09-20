@@ -60,11 +60,11 @@ public class CommunityServiceImpl implements CommunityService{
 	}
 	
 	@Override
-	public long getBoardNum() {
+	public long getBoardNum(long user_key) {
 		
 		CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
 		
-		return communityMapper.getBoardNum();
+		return communityMapper.getBoardNum(user_key);
 	}
 	
 	@Override

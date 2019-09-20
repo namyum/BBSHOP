@@ -1,6 +1,7 @@
 package com.bbshop.bit.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,17 +21,17 @@ public interface MyPageMapper {
 	
 	public long getTotalCount(@Param("pagingVO") PagingVO pagingVO, @Param("table") String table, @Param("user_key") long user_key);
 
-	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);	
+	public List<SavingsVO> getSavingsList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);	
 
-	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
+	public List<OrderVO> getOrdersList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
-	public List<OrderVO> getOrdersListStss(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key, @Param("stts_list") List<String> stts_list);
+	public List<OrderVO> getOrdersListStss(Map<String, Object> map);
 	
-	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
+	public List<ReviewVO> getReviewList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 
-	public List<OnetooneVO> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
+	public List<OnetooneVO> getOnetooneList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 	
-	public List<GoodsQnaVO> getQnaList(@Param("pagingVO") PagingVO pagingVO, @Param("total") long total, @Param("key") long key);
+	public List<GoodsQnaVO> getQnaList(@Param("pagingVO") PagingVO pagingVO, @Param("key") long key);
 	
 	public void cancelOrder(long order_num);
 	
@@ -41,6 +42,8 @@ public interface MyPageMapper {
 	public void updateUserInfo(MemberVO memberVO);
 
 	public void deleteUserInfo(long key);
+	
+	public void insertWithdrawal(@Param("key") long key, @Param("reason") String reason);
 	
 	// 배송지 관련 매퍼
 	
@@ -60,10 +63,7 @@ public interface MyPageMapper {
 
 	public int nickCheck(String nickname);
 
-	public List<OrderVO> getAllOrdersList(long key);
+	public List<OrderVO> getAllOrdersList(Map<String, Object> map);
 
-	public List<Long> getAllSavings(long key);
-
-
-
+	public void insertSavings(@Param("savings") SavingsVO savings, @Param("user_key") long user_key);
 }

@@ -4,6 +4,23 @@
 <%@ include file="../include/mypage_header.jsp"%>
 
 <style>
+.genric-btn.danger:hover{
+color:#ffffff;
+background: #f44a40;
+border: 1px solid #f44a40;
+}
+.product_top_bar{
+	background: #ffffff;
+}
+.genric-btn.default{
+	background: #57c051;
+	color: #ffffff;
+}
+.genric-btn.default:hover{
+	background: #57c051;
+	color: #ffffff;
+}
+
 .sorting {
 	margin-right: 50px;
 }
@@ -19,7 +36,11 @@ h3, h4, h6 {
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
-						<h3 class="mb-30 title_color">회원 정보 수정</h3>
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px; margin-left: 20%">회원 정보 수정
+						<a id="withdraw" href="/withdraw.do" class="genric-btn default radius" style="float: right;"><span>회원 탈퇴</span></a>
+						<a href="#" class="genric-btn disable radius" onclick="modify_userInfo('modify_info')" id="modifybtn" style="float: right; margin-right: 10px;"><span>수정하기</span></a>
+						</h3>
+
 						<h5 style="margin-bottom: 30px;">* 회원 정보는 비밀번호가 일치해야 수정이 가능합니다.</h5>
 						<form class="row contact_form" action="/modify_userInfo.do"
 							method="post" novalidate="novalidate" id="modify_info">
@@ -53,7 +74,8 @@ h3, h4, h6 {
 							<div class="col-md-5 form-group p_star">
 								<label for="phone">휴대폰</label> <input type="text"
 									class="form-control" id="PHONE" name="PHONE"
-									value="<c:out value="${memberInfo.PHONE }" default="null" />">
+									value="<c:out value="${memberInfo.PHONE }" default="null" />"
+									readonly>
 							</div>
 							<div class="col-md-7 form-group p_star"></div>
 							<div class="col-md-5 form-group p_star">
@@ -63,29 +85,28 @@ h3, h4, h6 {
 							</div>
 							<div class="col-md-3 form-group p_star">
 								<a id="check" class="genric-btn default radius" 
-								style="position: absolute; left: 0px; bottom: 0px;"><span>중복 확인</span></a>
+								style="position: absolute; left: 0px; bottom: 0px; color: #ffffff;"><span>중복 확인</span></a>
 							</div>
 							<div class="col-md-4 form-group p_star"></div>
 							<div class="col-md-3 form-group p_star">
 								<span id="nickCheck"></span>
 							</div>
 						</form>
-						<a href="#" class="genric-btn disable radius"
-							onclick="modify_userInfo('modify_info')" id="modifybtn"><span>수정하기</span></a> <a
-							id="withdraw" href="/withdraw.do"
-							class="genric-btn default radius" style="float: right;"><span>회원
-								탈퇴</span> </a>
+						
 					</div>
 				</div>
 			</div>
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12" style="margin-bottom: 30px;">
-						<h3 class="mb-30 title_color">배송지 목록</h3>
-						<a href="/write_addr.do?num=${addr_list.size() }"
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px; padding-left: 150px;">배송지 목록
+							<a href="/write_addr.do?num=${addr_list.size() }"
 							class="genric-btn default radius"
 							style="float: right; margin-top: 0px;"><span>새 배송지 등록</span>
 						</a>
+						
+						</h3>
+					
 						<div class="row">
 							<c:forEach items="${addr_list }" var="AddrVO" varStatus="status">
 								<div class="col-lg-4">
@@ -110,9 +131,10 @@ h3, h4, h6 {
 										</div>
 									</div>
 									<a href="/modify_addr.do?num=${status.count }"
-										class="genric-btn default radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
-											수정</span> </a> <a href="#" onclick="deleteAddr('${AddrVO.num }');"
-										class="genric-btn danger radius" style="margin-top: 30px"><span>배송지${AddrVO.num }
+										class="genric-btn default radius" style="margin-top: 30px"><span>배송지 
+											수정</span> </a> 
+											<a href="#" onclick="deleteAddr('${AddrVO.num }');"
+										class="genric-btn danger radius" style="margin-top: 30px; font-size: 14px"><span>배송지 
 											삭제</span> </a>
 								</div>
 							</c:forEach>
@@ -123,7 +145,10 @@ h3, h4, h6 {
 			<div class="billing_details">
 				<div class="row">
 					<div class="col-lg-12">
-						<h3 class="mb-30 title_color">추가 정보 수정</h3>
+						<h3 class="mb-30 title_color" style="text-align: center; font-size: 30px; padding-bottom: 25px; padding-left: 110px;">추가 정보 수정
+						<a href="#" class="genric-btn default radius"
+								onclick="update_detail();" style="float: right;"><span>수정하기</span>
+							</a></h3>
 						<h5>* 구단과 포지션은 하나만 선택 가능합니다.</h5>
 						<h5 style="margin-bottom: 30px;">* 관심 브랜드는 최대 3개까지 선택 가능합니다.</h5>
 						<form class="row contact_form" action="#" method="post"
@@ -297,11 +322,7 @@ h3, h4, h6 {
 								</div>
 							</div>
 						</form>
-						<div>
-							<a href="#" class="genric-btn default radius"
-								onclick="update_detail();" style="float: left;"><span>수정하기</span>
-							</a>
-						</div>
+
 					</div>
 
 				</div>
@@ -344,8 +365,6 @@ h3, h4, h6 {
 	}
 	
 	function submit(team, position, brand1, brand2, brand3) {
-		
-		alert('submit 함수 진입');
 		
 		console.log(team);
 		console.log(position);

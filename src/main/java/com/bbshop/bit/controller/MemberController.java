@@ -77,7 +77,7 @@ public class MemberController {
 		if(resultUrl.equals("shopping_main.do") || resultUrl.equals("community_main.do")) {
 			
 			session.setAttribute("member", memberService.getUser_key(vo));
-			session.setAttribute("nickname", vo.getNICKNAME());
+			session.setAttribute("nickname", memberService.getMemberInfo(memberService.getUser_key(vo)).getNICKNAME());
 		}
 		
 		return "redirect:/" + resultUrl;
@@ -90,7 +90,7 @@ public class MemberController {
 		String result = "";
 		noAccountCount++;
 		if(toPage.equals("goShop")) {
-			result="redirect:/shopping_main_temp.do";
+			result="redirect:/shopping_main.do";
 		}
 		else {
 			result="redirect:/community_main.do";
@@ -104,7 +104,7 @@ public class MemberController {
 	
 	//이메일을 받아와서 먼저 아이디 체크를 해보고 없으면 아이디를 넣어준다!
 	@ResponseBody
-	@RequestMapping(value="kakaoLogin.do" , method=RequestMethod.POST)
+	@RequestMapping(value="kakaoLogin.do" , method= {RequestMethod.POST,RequestMethod.GET})
 	public String kakaoLogin(MemberVO vo , HttpServletRequest request,HttpSession session) {
 		vo.setMEMBER_ID(request.getParameter("MEMBER_ID"));
 		String toPage = request.getParameter("toPage");
@@ -122,16 +122,17 @@ public class MemberController {
 		int temp = memberService.getId(vo);
 		if(temp==1) {
 			System.out.println("아이디가 존재 합니다");
-			session.setAttribute("member",vo.getMEMBER_ID());
+			session.setAttribute("member",vo.getUSER_KEY());
 		}
 		else {
 			System.out.println("아이디가 없으니 이쪽으로 들어오니??");
 			vo.setMEMBER_PW("kakao");
-			vo.setGRADE("silver");
+			vo.setGRADE("bronze");
 			vo.setNAME(vo.getNICKNAME());
 			vo.setPHONE("kakao");
 			
 			memberService.register(vo);
+			vo.setUSER_KEY(memberService.getUser_key(vo));
 			session.setAttribute("member", vo.getUSER_KEY());
 		}
 		System.out.println(result);
@@ -140,7 +141,7 @@ public class MemberController {
 	
 	@RequestMapping(value="register.do",method=RequestMethod.POST)
 	public String register(Model model, MemberVO vo, HttpServletRequest request) {
-		vo.setGRADE("silver");
+		vo.setGRADE("bronze");
 		System.out.println(vo.toString());
 			
 		try {
@@ -166,7 +167,7 @@ public class MemberController {
 	@RequestMapping(value="moredetails.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String moredetails(MemberVO vo, MoreDetailsVO md, HttpServletRequest request) {
 				
-		vo.setGRADE("silver"); // 등급 설정
+		vo.setGRADE("bronze"); // 등급 설정
 		
 		System.out.println("moredetails 컨트롤러에서의 vo : " + vo.toString());
 		System.out.println("moredetails 컨트롤러에서의 md : " + md.toString());

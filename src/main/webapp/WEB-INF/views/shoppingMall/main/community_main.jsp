@@ -37,7 +37,7 @@
 <body>
 	<section class="section visit-section" id="next-section">
 		<div
-			style="background-color: #70e270; width: 100%; min-height: 200px;">
+			style="background-color: #57c051; width: 100%; min-height: 200px;">
 			<table align="center">
 				<!-- 전체 게시판으로 이동 -->
 				<tr>
@@ -160,9 +160,6 @@
 									src="resources/community/img/ktwiz_main.png"
 									alt="Image placeholder" class="img-fluid rounded"> </a>
 							</div>
-						</td>
-						<td>
-						<a href="/fileUploadForm.do">파일업로드</a>
 						</td>
 					</tr>
 				</table>

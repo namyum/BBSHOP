@@ -6,7 +6,7 @@ import java.util.Map;
 import com.bbshop.bit.domain.Cart_GDVO;
 import com.bbshop.bit.domain.GoodsVO;
 
-public interface CartMapper {
+public interface CartMapper{
 
 	public List<Cart_GDVO> getCartList(long user_key);
 	public GoodsVO getGoods(long goodsnum);

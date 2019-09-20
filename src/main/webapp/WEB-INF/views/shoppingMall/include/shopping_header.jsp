@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- 수정필요 icon 뭘로할지? -->
 <link rel="icon" href="img/favicon.png" type="image/png">
-<title>야매샵</title>
+<title>BBSHOP</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/shoppingMall/css/bootstrap.css">
 <link rel="stylesheet"
@@ -140,7 +140,7 @@ body {
 }
 /* 모달창 투명도 */
 #search, #searchBig {
-	opacity: 0.9;
+	opacity: 1;
 }
 
 .submenu {
@@ -288,7 +288,6 @@ body {
 	height: 10%;
 	z-index: 201;
 	background-color: white; /*#EAD6BD;*/
-	padding: 10px 24px 15px;
 }
 
 .miniCart_footer #view_cart_btn { /* view cart 버튼 */
@@ -299,7 +298,7 @@ body {
 	cursor: pointer;
 	font-size: 25px !important;
 	text-align: center;
-	padding-top: 11px !important;
+	padding-top: 35px !important;
 	display: inherit;
 	font-weight: bold;
 }
@@ -316,7 +315,6 @@ body {
 	animation: fadein .2s;
 	z-index: 100;
 	overflow: auto;
-<<<<<<< HEAD
 }
 
 /* 로그인 모달
@@ -475,6 +473,7 @@ body {
 			&emsp;&emsp;
 			<h2 style="color: black; font-weight: bold;" id="minicart_total"></h2>
 		</div>
+		
 		<!-- footer -->
 		<div class="miniCart_footer">
 			<a id="view_cart_btn" href="/cart.do"> V i e w &emsp; C a r t </a>
@@ -506,7 +505,7 @@ body {
 						</c:choose>
 						<li><a href="/community_main.do"> <!-- Community --> 커뮤니티
 						</a></li>
-						<li><a href="/onetoonelist.do"> <!-- Contact Us --> 고객센터
+						<li><a href="/faq_list.do"> <!-- Contact Us --> 고객센터
 						</a></li>
 						<li><a href="/cart.do"> 장바구니 </a></li>
 						<!-- 민구 추가 -->
@@ -526,13 +525,13 @@ body {
 		</div>
 
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container-fluid">
+			<nav class="navbar navbar-expand-lg navbar-light" style="max-height:80px;">
+				<div class="container-fluid" style="max-height:80px;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- shop_main 경로  + 로고 파일 -->
-					<a class="navbar-brand logo_h" href="/shopping_main"> <img
-						src="resources/shoppingMall/img/logo.png" alt=""
-						style="visibility: hidden"> <!-- 일단 로고 안보이게 -->
+					<a class="navbar-brand logo_h" href="/shopping_main.do"> <img
+						src="resources/shoppingMall/img/BB_SHOP.png" 
+						style="height: -webkit-fill-available;" alt=""> <!-- 일단 로고 안보이게 -->
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
@@ -555,11 +554,13 @@ body {
 										role="button" aria-haspopup="true" aria-expanded="false">글러브</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">글러브 카테1</a></li>
+												href="/goods_list.do?category=1">외야수 글러브</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">글러브 카테2</a></li>
+												href="/goods_list.do?category=1">내야수 글러브</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">글러브 카테3</a></li>
+												href="/goods_list.do?category=1">투수 글러브</a></li>
+											<li class="nav-item"><a class="nav-link"
+												href="/goods_list.do?category=1">포수 글러브</a></li>
 										</ul>
 									</li>
 
@@ -571,11 +572,11 @@ body {
 										role="button" aria-haspopup="true" aria-expanded="false">배트</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">배트 카테1</a></li>
+												href="/goods_list.do?category=2">알루미늄 배트</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">배트 카테2</a></li>
+												href="/goods_list.do?category=2">카본 배트</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">배트 카테3</a></li>
+												href="/goods_list.do?category=2">나무 배트</a></li>
 										</ul>
 									</li>
 
@@ -587,11 +588,9 @@ body {
 										role="button" aria-haspopup="true" aria-expanded="false">유니폼</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">유니폼 카테1</a></li>
+												href="/goods_list.do?category=3">SK, LG, 한화, 삼성, 키움</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">유니폼 카테2</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">유니폼 카테3</a></li>
+												href="/goods_list.do?category=3">KT, NC, 두산, 롯데, 기아</a></li>
 										</ul>
 									</li>
 
@@ -602,12 +601,6 @@ body {
 										class="nav-link dropdown-toggle" data-toggle="dropdown"
 										role="button" aria-haspopup="true" aria-expanded="false">야구화</a>
 										<ul class="dropdown-menu">
-											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구화 카테1</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구화 카테2</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구화 카테3</a></li>
 										</ul>
 									</li>
 
@@ -619,11 +612,9 @@ body {
 										role="button" aria-haspopup="true" aria-expanded="false">야구공</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구공 카테1</a></li>
+												href="/goods_list.do?category=5">시합/연습용</a></li>
 											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구공 카테2</a></li>
-											<li class="nav-item"><a class="nav-link"
-												href="/goods_list">야구공 카테3</a></li>
+												href="/goods_list.do?category=5">안전용</a></li>
 										</ul>
 									</li>
 								</ul>

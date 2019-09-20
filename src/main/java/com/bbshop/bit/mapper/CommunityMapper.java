@@ -15,7 +15,7 @@ public interface CommunityMapper {
 	public CommunityVO getPost(long board_num);
 	public List<CommunityVO> getListWithPaging(Map<String,Object> map);
 	public int deletePost(long board_num);
-	public long getBoardNum();
+	public long getBoardNum(long user_key);
 	public int updatePost(CommunityVO community);
 	public Long findNextPost(
 			@Param("TEAM_NAME") String team_name,

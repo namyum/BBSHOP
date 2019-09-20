@@ -1,5 +1,6 @@
 package com.bbshop.bit.mapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bbshop.bit.domain.GoodsQnaVO;
+import com.bbshop.bit.domain.Criteria;
+import com.bbshop.bit.domain.DormantUserVO;
 import com.bbshop.bit.domain.GoodsVO;
-import com.bbshop.bit.domain.MoreDetailsVO;
 import com.bbshop.bit.domain.PagingVO;
 
 import lombok.Setter;
@@ -23,48 +24,57 @@ import lombok.extern.log4j.Log4j;
 public class GoodsMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private GoodsMapper mapper;
+	private AdminMapper mapper;
 	
-//	@Test
+//	@Setter(onMethod_ = @Autowired)
+//	private OrderMapper ordermapper;
+	
+	@Test
 	public void testGetList() {
-//		mapper.getGoodsList_New(1).forEach(goods -> log.info(goods));
-
+		Criteria cri = new Criteria(1,5);
+		List<DormantUserVO> list = mapper.getDormantUsers(cri);
+		
+		list.forEach(a -> log.info(list));
 	}
+	
 	
 //	@Test
 	public void testPaging() {
 		
 		PagingVO pagingVO = new PagingVO();
 		
-		//8���� 2������
 		pagingVO.setPageNum(1);
-		pagingVO.setAmount(18);
+		pagingVO.setAmount(8);
 		
-		//�˻� ���� ����
-		pagingVO.setType("N");
-		pagingVO.setKeyword("��ġ��");
+		log.info(pagingVO);
+//		pagingVO.setKeyword("null");
+		
+		List<String> positions = new ArrayList<String>();
+		positions.add("외야수");
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pagingVO", pagingVO);
 		map.put("category", 1);
-		map.put("sorting", "lowPrice");
+		map.put("sorting", "new");
 		map.put("min_amount", 1000);
 		map.put("max_amount", 500000);
+		map.put("positions", positions);
+		log.info(map.toString());
 		
 		
-		List<GoodsVO> goodsList = mapper.getGoodsList(map);
+//		List<GoodsVO> goodsList = goodsMapper.getGoodsList(map);
 		
-		goodsList.forEach(goods -> log.info(goods));
+//		goodsList.forEach(goods -> log.info(goods));
 	}
 	
 //	@Test 
 	public void testGetGoodsInfo() {
 		GoodsVO g = new GoodsVO();
-		g = mapper.getGoodsInfo(8);
+//		g = goodsMapper.getGoodsInfo(8);
 		
 		log.info(g);
 	}
-	
+	/*
 //	@Test
 	public void testInsertGoodsQnaSelectKey() {
 		GoodsQnaVO qna = new GoodsQnaVO();
@@ -120,11 +130,12 @@ public class GoodsMapperTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testRecommendBest() {
 		
 		List<GoodsVO> list = mapper.recommendBestList();
 		list.forEach(goods -> log.info(goods));
 		
 	}
+	*/
 }

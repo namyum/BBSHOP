@@ -10,5 +10,4 @@ public class ReviewDTO {
 	private double avg;
 	private int total;
 	private int[] scoreCount;
-
 }

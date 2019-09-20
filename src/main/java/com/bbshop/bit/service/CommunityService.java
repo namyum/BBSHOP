@@ -12,7 +12,7 @@ public interface CommunityService {
 	public CommunityVO getPost(long board_num);
 	public List<CommunityVO> getList(Map<String,Object> map);
 	public int deletePost(long board_num);
-	public long getBoardNum();
+	public long getBoardNum(long user_key);
 	public int updatePost(CommunityVO community);
 	public Long findNextPost(String team_name, Long board_num);
 	public Long findPreviousPost(String team_name, Long board_num);

@@ -55,20 +55,16 @@ public class MyPageController {
 		long sum = 0;
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
+		int cnt = 0;
 		
-		total = myPageService.getTotal(pagingVO, "savings", user_key); // 주문 배송 테이블 데이터 개수 구하기.
+		MemberVO user = myPageService.getUserInfo(user_key); // 회원 정보 불러오기
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 적립금 테이블 데이터 개수 구하기.
 		
-		if (savings_list.size() == 0) {
-			
-			return "shoppingMall/mypage/mypage";
-		}
-		
-		List<Long> all_savings = myPageService.getAllSavings(user_key);
-		
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, user_key);		
 		List<OrderVO> orders_list = myPageService.getAllOrdersList(user_key);
 		
+		// 총 적립금 배열
 		long[] savings_total_list = new long[(int)total];
 		
 		// 내 주문 주문 상태별 묶기
@@ -77,7 +73,6 @@ public class MyPageController {
 		for (int i = 0; i < orders_list.size(); i++) {
 						
 			switch(orders_list.get(i).getStts()) {
-			
 				case 0 : 
 					stts_list[0]++;
 					break;
@@ -97,25 +92,45 @@ public class MyPageController {
 		}
 		
 		// 적립금 전체 총합
-		for (int i = 0; i < all_savings.size(); i++) {
+		for (int i = savings_list.size()-1; i >= 0; i--) {
 			
-			sum += all_savings.get(i);
-			savings_total_list[i] = sum;
+			sum += savings_list.get(i).getOr_savings();
+			savings_total_list[cnt] = sum;
+			
+			if (i != 0) cnt++;
 		}
 		
-		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
-		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
+		// 누적 금액 구하기
+		int pymnt_toNextGrade = 0;
+		switch (user.getGRADE()) {
 		
-		int cnt = (int)(pagingVO.getAmount() - 1);
-		
-		for (int i = start; i < end; i++) {
-			
-			savings_list.get(cnt--).setOr_savings_total(savings_total_list[i]);
+			case "bronze" :
+				pymnt_toNextGrade = 200000 - user.getTOTAL_BUY();
+				break;
+			case "silver" :
+				pymnt_toNextGrade = 500000 - user.getTOTAL_BUY();
+				break;
+			case "gold" :
+				pymnt_toNextGrade = 1000000 - user.getTOTAL_BUY();
+				break;
+			case "diamond" :
+				pymnt_toNextGrade = 0;
+				break;
 		}
-				
-		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
+		
+		// 적립금 총 금액 바인딩
+		if (savings_list.size() != 0) {
+			
+			for (int i = 0; i < savings_list.size(); i++) {	
+				savings_list.get(i).setOr_savings_total(savings_total_list[cnt--]);
+			}
+		}
+		
+		model.addAttribute("user", user);
 		model.addAttribute("savings_list", savings_list);
+		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("stts_list", stts_list);
+		model.addAttribute("pymnt_toNextGrade", pymnt_toNextGrade);
 		
 		return "shoppingMall/mypage/mypage";
 	}
@@ -129,9 +144,9 @@ public class MyPageController {
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
 
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 		
 		model.addAttribute("pageMaker", new PageDTO(pagingVO, total));
 		model.addAttribute("orders_list", orders_list);
@@ -156,10 +171,10 @@ public class MyPageController {
 		
 		long total = 0;
 		long sum = 0;
-		long user_key = (long)session.getAttribute("member");	
+		long user_key = (long)session.getAttribute("member");
 		
 		total = myPageService.getTotal(pagingVO, "review", user_key);
-		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+		List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, user_key);
 		
 		PageDTO pageMaker = new PageDTO(pagingVO, total);
 		
@@ -184,20 +199,17 @@ public class MyPageController {
 		MoreDetailsVO member_detail = myPageService.getDetail(user_key);
 		
 		member.setMEMBER_PW(""); // 암호화된 비밀번호가 들어있는 멤버VO의 비밀번호 필드를 초기화해준다.
-		
-		System.out.println("modify_info 컨트롤러의 회원 정보 : " + member.toString());
-				
+						
 		model.addAttribute("memberInfo", member);
 		
 		if (addr_list != null) {
 			
 			model.addAttribute("addr_list", addr_list);
-			System.out.println("modify_info 컨트롤러의 배송지 정보 : " + addr_list.toString());
 		}
+		
 		if (member_detail != null) {
 			
 			model.addAttribute("member_detail", member_detail);
-			System.out.println("modify_info 컨트롤러의 추가 사항 : " + member_detail.toString());
 		}
 		
 		return "shoppingMall/mypage/modify_info";
@@ -240,9 +252,7 @@ public class MyPageController {
 
 		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
-		
-		System.out.println("modify_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
-		
+				
 		myPageService.updateAddrInfo(addrVO);
 		
 		return "forward:/modify_info.do";
@@ -265,9 +275,7 @@ public class MyPageController {
 
 		addrVO.setUser_key(user_key);
 		addrVO.setZc_key(zipcode);
-		
-		System.out.println("write_userAddr 컨트롤러의 addrVO : " + addrVO.toString());
-		
+				
 		myPageService.insertAddrInfo(addrVO);
 		
 		return "forward:/modify_info.do";
@@ -293,27 +301,23 @@ public class MyPageController {
 	
 	// 회원 탈퇴
 	@RequestMapping("/secede.do")
-	public String secede() {
+	public String secede(@RequestParam String reason) {
 		
 		long user_key = (long)session.getAttribute("member");
-
-		myPageService.deleteUserInfo(user_key);
 		
-		return "shoppingMall/main/shopping_main";
+		myPageService.deleteUserInfo(user_key, reason);
+		
+		return "shoppingMall/main/index";
 	}
 	
 	// 추가 사항 수정하기
 	@RequestMapping("modify_detail.do")
 	public String modify_detail(MoreDetailsVO moreDetailsVO) {
-		
-		System.out.println("modify_detail 컨트롤러 진입");
-		
+				
 		long user_key = (long)session.getAttribute("member");
 
 		moreDetailsVO.setUSER_KEY(user_key);
-		
-		System.out.println("modify_detail 컨트롤러에서의 VO : " + moreDetailsVO.toString());
-		
+				
 		myPageService.updateDetailInfo(moreDetailsVO, user_key);
 		
 		return "redirect:/modify_info.do";
@@ -341,30 +345,29 @@ public class MyPageController {
 		long sum = 0;
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
+		int cnt = 0;
 
-		total = myPageService.getTotal(pagingVO, "savings", user_key); // 二쇰Ц 諛곗넚 �뀒�씠釉� �뜲�씠�꽣 媛쒖닔 援ы븯湲�.
+		total = myPageService.getTotal(pagingVO, "savings", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, total, user_key);
-		
-		List<Long> all_savings = myPageService.getAllSavings(user_key);
+		List<SavingsVO> savings_list = myPageService.getSavingsList(pagingVO, user_key);
 		
 		long[] savings_total_list = new long[(int)total];
 		
 		// 적립금 전체 총합
-		for (int i = 0; i < all_savings.size(); i++) {
+		for (int i = savings_list.size()-1; i >= 0; i--) {
 			
-			sum += all_savings.get(i);
-			savings_total_list[i] = sum;
+			sum += savings_list.get(i).getOr_savings();
+			savings_total_list[cnt] = sum;
+			
+			if (i != 0) cnt++;
 		}
-		
-		int start = (int)(total - (pagingVO.getPageNum() * pagingVO.getAmount()));
-		int end = (int)(total - ((pagingVO.getPageNum()-1) * pagingVO.getAmount()));
-		
-		int cnt = (int)(pagingVO.getAmount()-1);
-		
-		for (int i = start; i < end; i++) {
+				
+		// 적립금 총 금액 바인딩
+		if (savings_list.size() != 0) {
 			
-			savings_list.get(cnt--).setOr_savings_total(savings_total_list[i]);
+			for (int i = 0; i < savings_list.size(); i++) {	
+				savings_list.get(i).setOr_savings_total(savings_total_list[cnt--]);
+			}
 		}
 		
 		return savings_list;
@@ -375,12 +378,9 @@ public class MyPageController {
 	@ResponseBody
 	public List<OrderVO> getOrderListPaging(@RequestBody PagingVO pagingVO) {
 		
-		long total = 0;
 		long user_key = (long)session.getAttribute("member");
-
-		total = myPageService.getTotal(pagingVO, "shop_order", user_key); // 주문 배송 테이블 데이터 개수 구하기.
 		
-		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+		List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
 		
 		return orders_list;
 	}
@@ -392,20 +392,12 @@ public class MyPageController {
 		
 		long total = 0;
 		long user_key = (long)session.getAttribute("member");
-
 		long pageNum = (long)Integer.parseInt((String)map.get("pageNum"));
 		long amount = (long)Integer.parseInt((String)map.get("amount"));
 		
 		List<String> stts_list = new ArrayList<String>();
 		
-		System.out.println("map.get(\"stts\") : " + map.get("stts"));
-		
-		stts_list = (List<String>) map.get("stts");
-		
-		for (String item : stts_list) {
-			
-			System.out.println("item : " + item);
-		}
+		stts_list = (List<String>)map.get("stts");
 		
 		Map<String, Object> listMap = new HashMap<>();
 		
@@ -416,7 +408,9 @@ public class MyPageController {
 		
 			total = myPageService.getTotal(pagingVO, "shop_order", user_key);  // 주문 배송 테이블 데이터 개수 구하기.
 			
-			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, total, user_key);
+			List<OrderVO> orders_list = myPageService.getOrdersList(pagingVO, user_key);
+			
+			System.out.println(orders_list.toString());
 			
 			listMap.put("orders_list", orders_list);
 			listMap.put("total", total);
@@ -425,24 +419,20 @@ public class MyPageController {
 		}
 
 		// 특정 주문 체크박스에 체크가 되어 있는 경우
-		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, total, user_key, stts_list);
-		
+		List<OrderVO> orders_list = myPageService.getOrdersListStss(pagingVO, user_key, stts_list);
 		List<OrderVO> all_list = new ArrayList<OrderVO>();
 				
 		all_list = myPageService.getAllOrdersList(user_key);
 		
 		// 주문배송 상태와 숫자가 같으면 total 값을 1씩 증가시킨다.
 		for (OrderVO item : all_list) {
-			
 			for (int i = 0; i < stts_list.size(); i++) {
-				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) ) {
+				if ( item.getStts() == Integer.parseInt(stts_list.get(i)) )
 					total++;
-				}
 			}
 		}
 		
-		System.out.println("orders_list : " + orders_list);
-		System.out.println("total : " + total);
+		System.out.println(orders_list.toString());
 		
 		listMap.put("orders_list", orders_list);
 		listMap.put("total", total);
@@ -473,21 +463,21 @@ public class MyPageController {
 				
 		if (category.equals("review")) {
 			
-			listMap.put("review", myPageService.getReviewList(pagingVO, total, user_key));
+			listMap.put("review", myPageService.getReviewList(pagingVO, user_key));
 			listMap.put("total", total);
 			
 			return listMap;
 			
 		} else if (category.equals("qna")) {
 			
-			listMap.put("qna", myPageService.getQnaList(pagingVO, total, user_key));
+			listMap.put("qna", myPageService.getQnaList(pagingVO, user_key));
 			listMap.put("total", total);
 
 			return listMap;
 			
 		} else if (category.equals("onetoone")) {
 			
-			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, total, user_key));
+			listMap.put("onetoone", myPageService.getOnetooneList(pagingVO, user_key));
 			listMap.put("total", total);
 
 			return listMap;
@@ -499,15 +489,15 @@ public class MyPageController {
 			pagingVO.setPageNum(0); // 전체 게시글을 출력하기 위해 pageNum을 0으로 설정한다.
 			
 			total = myPageService.getTotal(pagingVO, "review", user_key);
-			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, total, user_key);
+			List<ReviewVO> review_list = myPageService.getReviewList(pagingVO, user_key);
 			sum += total;
 
 			total = myPageService.getTotal(pagingVO, "qna", user_key);
-			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, total, user_key);
+			List<GoodsQnaVO> qna_list = myPageService.getQnaList(pagingVO, user_key);
 			sum += total;
 			
 			total = myPageService.getTotal(pagingVO, "onetoone", user_key);
-			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, total, user_key);			
+			List<OnetooneVO> onetoone_list = myPageService.getOnetooneList(pagingVO, user_key);			
 			sum += total;
 			
 			List<Object> total_list = new ArrayList<Object>();
@@ -528,22 +518,6 @@ public class MyPageController {
 				total_list.add(review_list.get(i));				
 			}
 			
-//			listMap.put("qna", qna_list);		
-//			listMap.put("onetoone", onetoone_list);
-//			listMap.put("review", review_list);
-			
-//			pagingVO.setPageNum(pageNum); // pagingVO의 pageNum을 다시 원래대로 맞춘다.
-//			
-//			// startPage와 endPage를 구하는 로직
-//			int endPage = (int)(Math.ceil(pagingVO.getPageNum() / 10.0)) * 10;
-//			int startPage = endPage - 9;
-//			
-//			int realEnd = (int)(Math.ceil((total_list.size() * 1.0) / pagingVO.getAmount()));
-//			
-//			if (realEnd < endPage) {
-//				endPage = realEnd;
-//			}
-			
 			int start = (int)((pageNum - 1) * amount);
 			int end = (int)(amount * pageNum - 1);
 			
@@ -553,14 +527,6 @@ public class MyPageController {
 				
 				output_list.add(total_list.get(i));
 			}
-			
-			// pageNum : 1, amount : 5 -> 0 ~ 4
-			// pageNum : 2, amount : 5 -> 5 ~ 9
-			// pageNum : 3, amount : 5 -> 10 ~ 14
-			// pageNum : x, amount : y -> amount * (pageNum - 1) ~ amount * pageNum - 1
-			
-			System.out.println("output_list : " + output_list);
-			System.out.println("total_list.size() : " + total_list.size());
 			
 			listMap.put("output_list", output_list);
 			listMap.put("total", total_list.size());

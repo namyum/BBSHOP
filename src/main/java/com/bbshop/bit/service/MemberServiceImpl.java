@@ -52,7 +52,6 @@ public class MemberServiceImpl implements MemberService {
 	
 	public void moreDetailsRegister(MoreDetailsVO md) {
 		MemberMapper mapper= sqlSession.getMapper(MemberMapper.class);
-		System.out.println("占쌩곤옙占쏙옙占쏙옙 회占쏙옙占쏙옙占쏙옙");
 		System.out.println(md.toString());
 		sqlSession.getMapper(MemberMapper.class);
 		mapper.moreDetailsRegister(md);
@@ -134,6 +133,23 @@ public class MemberServiceImpl implements MemberService {
 	public void modify(MemberVO member) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public MemberVO getMemberInfo(long user_key) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		sqlSession.getMapper(MemberMapper.class);
+		System.out.println("serviceImpl....user_key : "+ user_key);
+		
+		return mapper.getMemberInfo(user_key);
+	}
+
+	@Override
+	public void updateMemberInfoAfterOrder(MemberVO user) {
+
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		
+		mapper.updateMemberInfoAfterOrder(user);
 	}
 
 }

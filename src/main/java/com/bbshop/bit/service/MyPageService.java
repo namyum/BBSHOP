@@ -19,19 +19,22 @@ public interface MyPageService {
 	
 
 	// 적립금 내역 가지고 오기
-	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long total, long key);
+	public List<SavingsVO> getSavingsList(PagingVO pagingVO, long key);
 
 	// 주문 내역 가지고 오기
-	public List<OrderVO> getOrdersList(PagingVO pagingVO, long total, long key);
+	public List<OrderVO> getOrdersList(PagingVO pagingVO, long key);
 	
 	// 주문 내역 주문 상태에 따라 가지고 오기
-	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, long key, List<String> stts_list);
+	public List<OrderVO> getOrdersListStss(PagingVO pagingVO, long total, List<String> stts_list);
 	
 	// 리뷰 내역 가지고 오기
-	public List<ReviewVO> getReviewList(PagingVO pagingVO, long total, long key);
+	public List<ReviewVO> getReviewList(PagingVO pagingVO, long key);
+	
+	// Qna 내역 가져 오기
+	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long key);
 	
 	// 1:1 문의 내역 가지고 오기
-	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long total, long key);
+	public List<OnetooneVO> getOnetooneList(PagingVO pagingVO, long key);
 
 	
 	// 주문 전체 불러 오기
@@ -48,7 +51,7 @@ public interface MyPageService {
 	public void updateUserInfo(MemberVO memberVO);
 	
 	// 회원 정보 삭제
-	public void deleteUserInfo(long key);
+	public void deleteUserInfo(long key, String reason);
 	
 
 	// 배송지 조회
@@ -74,11 +77,8 @@ public interface MyPageService {
 	public int nickCheck(String nickname);
 	
 
-	// 전체 적립금 내역 가져 오기
-	public List<Long> getAllSavings(long key);
-
-	// Qna 내역 가져 오기
-	public List<GoodsQnaVO> getQnaList(PagingVO pagingVO, long total, long key);
+	// 적립금 인서트
+	public void insertSavings(SavingsVO savings, long user_key);
 
 
 }

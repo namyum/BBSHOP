@@ -19,4 +19,9 @@ public interface MemberService {
 	public boolean deleteMemberInfo(String id, String pw);
 	public void modify(MemberVO member);
 	public String memberPw(MemberVO member);
+	
+	public MemberVO getMemberInfo(long user_key);
+	
+	// 주문 후에 회원 정보 업데이트
+	public void updateMemberInfoAfterOrder(MemberVO user);
 }

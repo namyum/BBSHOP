@@ -101,21 +101,21 @@ body {
 	<!--================Header Menu Area =================-->
 	<header class="header_area">
 		<div class="top_menu row m0">
-			<div class="container-fluid" style="max-width:1900px;">
+			<div class="container-fluid">
 				<div class="float-left">
 				</div>
 				<div class="float-right">
 					<ul class="right_side">
-						<li><a href="/mypage.do"> 마이페이지 </a></li>
+						<li><a href="/savings.do"> 마이페이지 </a></li>
 						<li><a href="/shopping_main.do"> 쇼핑몰 </a></li>
-						<li><a href="/faq.do"> 고객센터 </a></li>
+						<li><a href="/faq_list.do"> 고객센터 </a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container-fluid" style="max-width:1900px;">
+				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- 로고 주석 처리
 					<a class="navbar-brand logo_h" href="/community_main">

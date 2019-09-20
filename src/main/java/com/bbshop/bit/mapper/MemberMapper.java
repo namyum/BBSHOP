@@ -7,7 +7,6 @@ import com.bbshop.bit.domain.MoreDetailsVO;
 
 public interface MemberMapper {
 	
-	//1.ȸ������
 	public void insertMember(MemberVO member);
 	public int memberLogin(HashMap<String, String> map);
 	public String memberPw(MemberVO member);
@@ -16,4 +15,7 @@ public interface MemberMapper {
 	public long getUser_key(MemberVO vo);	
 	public int getId(MemberVO vo);
 	public int getNickname(MemberVO vo);
+	public MemberVO getMemberInfo(long user_key);
+	
+	public void updateMemberInfoAfterOrder(MemberVO member);
 }

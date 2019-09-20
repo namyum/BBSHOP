@@ -10,15 +10,15 @@ public class HomeController {
 	@RequestMapping("/")
 	public String index() {
 
-		return "/savings.mp";
+		return "index.do";
 	}
 
 	/* 쇼핑몰 */
 	// 쇼핑몰 - 메인
-//	@RequestMapping("/shopping_main")
-//	public String shopping_main() {
-//		return "shoppingMall/main/shopping_main";
-//	}
+	@RequestMapping("/shopping_main.do")
+	public String shopping_main() {
+		return "shoppingMall/main/shopping_main";
+	}
 
 	// 쇼핑몰 - 상품 리스트
 	@RequestMapping("/goods_list.do")

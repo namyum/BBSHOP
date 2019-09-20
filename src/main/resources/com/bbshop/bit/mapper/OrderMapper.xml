@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bbshop.bit.mapper.OrderMapper">
+
+<!-- 지수 카트 -->
+
+	<resultMap type="com.bbshop.bit.domain.Cart_GDVO"
+		id="CartResultMap">
+		<result property="GOODS_NUM" column="GOODS_NUM" />
+		<result property="PRICE" column="PRICE" />
+		<result property="QNTTY" column="QNTTY" />
+		<result property="GD_CT_KEY" column="GD_CT_KEY" />
+		<result property="SAVINGS" column="SAVINGS" />
+		<result property="STOCK" column="STOCK" />
+		<result property="GD_DETAILS" column="GD_DETAILS" />
+		<result property="USER_KEY" column="USER_KEY" />
+	</resultMap>
+
+	<select id="getCheckedCartList" resultMap="CartResultMap">
+		SELECT *
+		FROM cart_gd
+		WHERE
+		goods_num IN
+		<foreach collection="goods_num_list" item="goods_num" open="(" close=")" separator=",">
+		#{goods_num}
+		</foreach> 
+		and user_key = #{user_key}
+	</select>
+	
+	<select id="getOptionListGlove" resultType = "com.bbshop.bit.domain.Gd_GloveVO">
+		SELECT *
+		FROM gd_glove
+		WHERE glove_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListBat" resultType = "com.bbshop.bit.domain.Gd_BatVO">
+		SELECT *
+		FROM gd_bat
+		WHERE bat_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListUniform" resultType = "com.bbshop.bit.domain.Gd_UniformVO">
+		SELECT *
+		FROM gd_uniform
+		WHERE uniform_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListShoes" resultType = "com.bbshop.bit.domain.Gd_ShoesVO">
+		SELECT *
+		FROM gd_shoes
+		WHERE shoes_num = #{GD_DETAILS}
+	</select>
+	
+	<select id="getOptionListBall" resultType = "com.bbshop.bit.domain.Gd_BallVO">
+		SELECT *
+		FROM gd_ball
+		WHERE ball_num = #{GD_DETAILS}
+	</select>
+	
+	<insert id="insertOrder" parameterType="com.bbshop.bit.domain.OrderVO">
+		<selectKey keyProperty="order_num" resultType="int"
+			order="BEFORE">
+			select seq_order.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO shop_order(order_num, user_key, pymntamnt, savings, or_addr, receiver, phone1, phone2, or_msg, name, or_date, stts, pymntmthd, cancel, items)
+		VALUES(#{order_num}, #{user_key}, #{pymntamnt}, #{savings}, #{or_addr}, #{receiver}, #{phone1}, #{phone2}, #{or_msg}, #{name}, sysdate, 0, 'kakaoPay', 0, #{items})
+	</insert>	
+	
+	
+	<select id="getLastOrderNum" resultType="long" parameterType="long">
+	SELECT order_num 
+	FROM
+    	(SELECT * 
+    	FROM shop_order 
+    	ORDER BY or_date DESC)
+    WHERE user_key = #{user_key} and rownum = 1
+	</select>
+	
+	<select id="getOrderList" resultType="com.bbshop.bit.domain.OrderVO">
+		SELECT *
+		FROM shop_order
+		WHERE order_num = #{order_num}
+	</select>
+	
+	<update id="updateCancelStts">
+		UPDATE shop_order 
+		SET stts = 4, cancel = 1 
+		WHERE order_num = #{order_num}
+	</update>
+	
+	<update id="updateGloveStock">
+		UPDATE gd_glove
+		SET stock = stock - #{QNTTY}
+		WHERE glove_num = #{GLOVE_NUM}
+	</update>
+	
+	<update id="updateBatStock">
+		UPDATE gd_bat
+		SET stock = stock - #{QNTTY}
+		WHERE bat_num = #{BAT_NUM}
+	</update>
+	
+	<update id="updateUniformStock">
+		UPDATE gd_uniform
+		SET stock = stock - #{QNTTY}
+		WHERE uniform_num = #{UNIFORM_NUM}
+	</update>
+	
+	<update id="updateShoesStock">
+		UPDATE gd_shoes
+		SET stock = stock - #{QNTTY}
+		WHERE shoes_num = #{SHOES_NUM}
+	</update>
+	
+	<update id="updateBallStock">
+		UPDATE gd_ball
+		SET stock = stock - #{QNTTY}
+		WHERE ball_num = #{BALL_NUM}
+	</update>
+	
+	<delete id="deleteOrder">
+		DELETE
+		FROM shop_order
+		WHERE order_num = #{order_num}
+	</delete>
+	
+	<update id="updateTid">
+		UPDATE shop_order
+		SET tid = #{tid}
+		WHERE order_num = #{order_num}
+	</update>
+	
+	<insert id="insertOrderGD" parameterType="com.bbshop.bit.domain.Order_GDVO">
+		<selectKey keyProperty="or_gd_key" resultType="int" order="BEFORE">
+			SELECT seq_or_gd.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO order_gd(or_gd_key, price, qntty, savings, rtrn_exchn, order_num, goods_num, gd_details)
+		VALUES(#{or_gd_key}, #{price}, #{qntty}, #{savings}, 0, #{order_num}, #{goods_num}, #{gd_details})
+	</insert>	
+	
+	<update id="updateGoodsSales">
+		UPDATE goods 
+		SET sales = sales + #{qntty}
+		WHERE goods_num = #{goods_num}
+	</update>
+	
+	<update id="updateCancledGloveStock">
+		UPDATE gd_glove
+		SET stock = stock + #{QNTTY}
+		WHERE glove_num = #{GLOVE_NUM}
+	</update>
+	
+	<update id="updateCancledBatStock">
+		UPDATE gd_bat
+		SET stock = stock + #{QNTTY}
+		WHERE bat_num = #{BAT_NUM}
+	</update>
+	
+	<update id="updateCancledUniformStock">
+		UPDATE gd_uniform
+		SET stock = stock + #{QNTTY}
+		WHERE uniform_num = #{UNIFORM_NUM}
+	</update>
+	
+	<update id="updateCancledShoesStock">
+		UPDATE gd_shoes
+		SET stock = stock + #{QNTTY}
+		WHERE shoes_num = #{SHOES_NUM}
+	</update>
+	
+	<update id="updateCancledBallStock">
+		UPDATE gd_ball
+		SET stock = stock + #{QNTTY}
+		WHERE ball_num = #{BALL_NUM}
+	</update>
+	
+<!-- 의정 단일상품 -->
+
+<select id="getGloveOption" resultType="com.bbshop.bit.domain.Gd_GloveVO">
+	SELECT *
+	FROM GD_GLOVE
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		HAND = #{hand} AND
+		TAMING = #{taming}
+</select>
+
+<select id="getBatOption" resultType="com.bbshop.bit.domain.Gd_BatVO">
+	SELECT *
+	FROM GD_BAT
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getUniformOption" resultType="com.bbshop.bit.domain.Gd_UniformVO">
+	SELECT *
+	FROM GD_UNIFORM
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getShoesOption" resultType="com.bbshop.bit.domain.Gd_ShoesVO">
+	SELECT *
+	FROM GD_SHOES
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SPIKE = #{spike} AND
+		GD_SIZE = #{gd_size}
+</select>
+
+<select id="getBallOption" resultType="com.bbshop.bit.domain.Gd_BallVO">
+	SELECT *
+	FROM GD_BALL
+	WHERE
+		GOODS_NUM = #{goods_num} AND
+		SALES_UNIT = #{sales_unit}
+</select>
+
+<update id="updateSavings_used">
+	UPDATE savings
+	SET savings_used = savings_used + #{useSavings}
+	WHERE order_num = #{order_num}
+</update>
+
+<update id="update_usedUser_savings">
+	UPDATE sh_user
+	SET savings = savings - #{useSavings}
+	WHERE user_key = #{user_key}
+</update>
+
+</mapper>
